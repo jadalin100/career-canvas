@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Career &amp; College Compass — Find your path</title>
+<meta name="description" content="Four quizzes to help you discover your major, college vibe, career, and DECA event.">
+<!-- bump ?v= after editing style.css or app.js so browsers don't serve a stale copy -->
+<link rel="stylesheet" href="style.css?v=12">
+</head>
+<body data-page="hub">
+
+<div class="wrap" id="hub">
+
+  <header class="brand">
+    <span data-compass></span>
+    <span>
+      <span class="brand-name">Career &amp; College Compass</span><br>
+      <span class="brand-sub">Jada Lin &amp; Olivia Zheng · Great Neck South</span>
+    </span>
+  </header>
+
+  <section class="hero">
+    <div class="mark" data-compass></div>
+    <h1>Find out where<br><span class="grad">you're headed.</span></h1>
+    <p>Four quick quizzes to help you explore your <span class="chip">major</span>,
+       your <span class="chip">college vibe</span>, your <span class="chip">career</span>,
+       and the <span class="chip">DECA event</span> that fits you best.</p>
+  </section>
+
+  <div class="meta-row">
+    <div><div class="meta-n">4</div><div class="meta-l">Quizzes</div></div>
+    <div><div class="meta-n">30</div><div class="meta-l">Questions each</div></div>
+    <div><div class="meta-n">61</div><div class="meta-l">Possible results</div></div>
+  </div>
+
+  <main id="cards" class="cards"></main>
+
+  <section id="dashboard" class="dash" hidden>
+    <div class="dash-head">
+      <h2>Your dashboard</h2>
+      <p id="dash-count"></p>
+    </div>
+
+    <div id="dash-body" class="dash-body"></div>
+
+    <div class="dash-code-box">
+      <p class="dash-label">Your restore code</p>
+      <p class="dash-hint">Write this down. Typing it on another phone or laptop brings your
+         results with you — no account needed.</p>
+      <div class="dash-code-row">
+        <code id="dash-code"></code>
+        <button class="linkbtn" id="dash-copy" type="button">Copy code</button>
+      </div>
+
+      <form id="dash-restore" class="dash-restore">
+        <label for="dash-input">Have a code from another device?</label>
+        <div class="dash-code-row">
+          <input id="dash-input" type="text" inputmode="latin" autocomplete="off"
+                 spellcheck="false" placeholder="e.g. 7K2Q-M39X-B4RT">
+          <button class="btn" type="submit">Restore</button>
+        </div>
+        <p id="dash-msg" class="dash-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <p class="foot">
+    Your results are saved only on this device — never sent anywhere, and no account required.
+  </p>
+
+</div>
+
+<script src="app.js?v=12"></script>
+</body>
+</html>
