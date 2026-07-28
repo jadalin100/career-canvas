@@ -1,5 +1,7 @@
 # Career Development Project (DECA)
 
+**Live site:** https://jadalin100.github.io/career-college-compass/
+
 **Partner:** Olivia · **School:** Great Neck South · **Event:** DECA Career
 Development Project (project-management written entry + 15-minute presentation).
 
