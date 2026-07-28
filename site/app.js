@@ -11,7 +11,7 @@
 --------------------------------------------------------------------------- */
 const TALLY_ENDPOINT = "";
 
-const ORDER = ["major", "college", "career", "deca"];
+const ORDER = ["college", "career", "deca"];
 /* Each copy needs its OWN gradient id. With a shared id the first definition
    wins, and if that one sits inside a display:none element the gradient never
    paints -- the ring silently vanishes on every other compass. */
@@ -113,9 +113,8 @@ function rank(quiz, totals) {
     .sort((a, b) => b.score - a.score || a.i - b.i);
 }
 
-/* expose for the parity check and the image-render check */
-window.CCC = { loadData, getQuiz, score, rank, scoreEvents, scoreSimple,
-               renderCard: (quiz, top) => drawCard(quiz, top).toDataURL("image/png") };
+/* expose for the parity check */
+window.CCC = { loadData, getQuiz, score, rank, scoreEvents, scoreSimple };
 
 /* ------------------------------ runner ------------------------------ */
 
@@ -132,7 +131,7 @@ function startRunner(key) {
   // Only the DECA quiz has real parts. The other three are one long section, so
   // their rail tracks thirds of the way through instead of sitting on stage 1.
   const RAIL_LABELS = quiz.key === "deca"
-    ? ["Your interests", "What you'd geek out over", "How you like to work", "Your top matches"]
+    ? ["Your interests", "What you'd want to specialize in", "How you like to work", "Your top matches"]
     : ["Getting started", "Digging deeper", "Almost there", "Your top matches"];
 
   function stageFor(i) {
@@ -167,19 +166,33 @@ function startRunner(key) {
           </button>`).join("")}
       </div>
       <div class="below">
-        <button class="linkbtn" id="back" ${idx === 0 ? "disabled" : ""}>&larr; Back</button>
-        <button class="linkbtn" id="skip">Skip question</button>
+        <div class="below-left">
+          <button class="linkbtn" id="back" ${idx === 0 ? "disabled" : ""}>&larr; Back</button>
+          <button class="linkbtn" id="skip">Skip question</button>
+        </div>
+        <button class="btn primary" id="next" ${answers[idx] == null ? "disabled" : ""}>Next question &rarr;</button>
       </div>`;
 
     main.querySelectorAll(".opt").forEach((b) =>
-      b.addEventListener("click", () => choose(b.dataset.tag)));
-    $("#skip").addEventListener("click", () => choose(null));
+      b.addEventListener("click", () => select(b.dataset.tag)));
+    $("#skip").addEventListener("click", () => advance(null));
+    $("#next").addEventListener("click", () => advance(answers[idx]));
     $("#back").addEventListener("click", () => { if (idx > 0) { idx--; renderQuestion(); } });
     paintRail();
     main.focus();
   }
 
-  function choose(tag) {
+  /** Picking an option only marks it -- it doesn't move on, so a student who
+   *  taps the wrong option first can see and fix their choice before advancing. */
+  function select(tag) {
+    answers[idx] = tag;
+    main.querySelectorAll(".opt").forEach((b) =>
+      b.setAttribute("aria-pressed", String(b.dataset.tag === tag)));
+    const next = $("#next");
+    if (next) next.disabled = false;
+  }
+
+  function advance(tag) {
     answers[idx] = tag;
     idx++;
     if (idx >= quiz.questions.length) renderResults(quiz, answers, main, bar, count);
@@ -203,6 +216,10 @@ function startRunner(key) {
 
 /* ------------------------------ results ------------------------------ */
 
+const DECA_GUIDE_URL = "https://www.deca.org/guide";
+const eventSlug = (code) => DATA.events?.[code]?.slug;
+const eventUrl = (code) => `https://www.deca.org/compete/${eventSlug(code)}`;
+
 function renderResults(quiz, answers, main, bar, count) {
   const ranked = rank(quiz, score(quiz, answers));
   const top = ranked.slice(0, 3);
@@ -211,6 +228,7 @@ function renderResults(quiz, answers, main, bar, count) {
 
   const nextKey = ORDER[(ORDER.indexOf(quiz.key) + 1) % ORDER.length];
   const nextQuiz = getQuiz(nextKey);
+  const isDeca = quiz.key === "deca";
 
   main.innerHTML = `
     <div class="res-head">
@@ -224,11 +242,15 @@ function renderResults(quiz, answers, main, bar, count) {
           <div class="rank">${i + 1}</div>
           <h3>${esc(r.name)}</h3>
           <p>${esc(r.blurb)}</p>
+          ${r.schools ? `<p class="schools">${esc(r.schools)}</p>` : ""}
           <div class="score">Match score ${r.score}</div>
+          ${isDeca && eventSlug(r.code)
+            ? `<a class="event-link" href="${eventUrl(r.code)}" target="_blank" rel="noopener">Official event guidelines &rarr;</a>`
+            : ""}
         </div>`).join("")}
     </div>
     <div class="actions">
-      <button class="btn primary" id="save">Save as image</button>
+      <button class="btn primary" id="save">Save as PDF</button>
       <a class="btn" href="${quizHref(nextKey)}">Next: ${esc(nextQuiz.title)} quiz &rarr;</a>
       <a class="btn" id="retake" href="${quizHref(quiz.key)}">Retake this quiz</a>
       <a class="btn" href="${homeHref()}">All quizzes</a>
@@ -238,15 +260,17 @@ function renderResults(quiz, answers, main, bar, count) {
       ${ranked.map((r, i) => `
         <div class="rank-row"><span>${i + 1}. ${esc(r.name)}</span><span>${r.score}</span></div>`).join("")}
     </details>
+    ${isDeca ? `<p class="foot"><a href="${DECA_GUIDE_URL}" target="_blank" rel="noopener">Full DECA Guide (all events, current year) &rarr;</a></p>` : ""}
     <p class="foot">Career &amp; College Compass — Jada Lin &amp; Olivia Zheng</p>`;
 
   saveResult(quiz.key, top.map((r) => r.code));
-  $("#save").addEventListener("click", () => saveImage(quiz, top));
+  $("#save").addEventListener("click", () => window.print());
   // the retake link points at the hash we're already on, so no hashchange fires
   if (single()) $("#retake").addEventListener("click", (e) => {
     e.preventDefault();
     startRunner(quiz.key);
   });
+  postGroupResult(quiz.key, top.map((r) => r.code));
   sendTally(quiz.key, top.map((r) => r.code));
   paintRailDone();
 }
@@ -254,85 +278,6 @@ function renderResults(quiz, answers, main, bar, count) {
 function paintRailDone() {
   const rail = $("#rail");
   if (rail) [...rail.querySelectorAll("li")].forEach((li) => (li.className = "done"));
-}
-
-/* ------------------------------ save as image ------------------------------ */
-
-function wrap(ctx, text, x, y, maxW, lh) {
-  let line = "";
-  for (const word of text.split(" ")) {
-    const test = line ? `${line} ${word}` : word;
-    if (ctx.measureText(test).width > maxW && line) {
-      ctx.fillText(line, x, y);
-      y += lh;
-      line = word;
-    } else line = test;
-  }
-  if (line) { ctx.fillText(line, x, y); y += lh; }
-  return y;
-}
-
-/** Hand-rolled canvas render — no library, keeps the site dependency-free. */
-function drawCard(quiz, top) {
-  const W = 1080, H = 1350, P = 80;
-  const c = document.createElement("canvas");
-  c.width = W; c.height = H;
-  const x = c.getContext("2d");
-  const F = 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
-
-  x.fillStyle = "#171B4D";
-  x.fillRect(0, 0, W, H);
-  const g = x.createLinearGradient(0, 0, W, 260);
-  g.addColorStop(0, "#7C5CD6"); g.addColorStop(1, "#F0764B");
-  x.fillStyle = g;
-  x.fillRect(0, 0, W, 14);
-
-  x.fillStyle = "#A6ADD6";
-  x.font = `600 26px ${F}`;
-  x.fillText("CAREER & COLLEGE COMPASS", P, 120);
-
-  x.fillStyle = "#fff";
-  x.font = `800 66px ${F}`;
-  x.fillText("Your top matches", P, 210);
-  x.fillStyle = "#A6ADD6";
-  x.font = `400 30px ${F}`;
-  let y = wrap(x, quiz.subtitle, P, 265, W - P * 2, 40) + 40;
-
-  top.forEach((r, i) => {
-    const h = 250;
-    x.fillStyle = i === 0 ? "#2f2a6e" : "#232a63";
-    x.beginPath();
-    x.roundRect(P, y, W - P * 2, h, 20);
-    x.fill();
-
-    x.fillStyle = g;
-    x.beginPath();
-    x.roundRect(P + 30, y + 30, 54, 54, 14);
-    x.fill();
-    x.fillStyle = "#fff";
-    x.font = `800 30px ${F}`;
-    x.fillText(String(i + 1), P + 49, y + 68);
-
-    x.font = `800 36px ${F}`;
-    let ty = wrap(x, r.name, P + 106, y + 68, W - P * 2 - 140, 44);
-    x.fillStyle = "#A6ADD6";
-    x.font = `400 26px ${F}`;
-    wrap(x, r.blurb, P + 106, ty + 16, W - P * 2 - 140, 34);
-    y += h + 22;
-  });
-
-  x.fillStyle = "#A6ADD6";
-  x.font = `400 24px ${F}`;
-  x.fillText("Jada Lin & Olivia Zheng — Great Neck South High School", P, H - 70);
-
-  return c;
-}
-
-function saveImage(quiz, top) {
-  const a = document.createElement("a");
-  a.download = `compass-${quiz.key}-results.png`;
-  a.href = drawCard(quiz, top).toDataURL("image/png");
-  a.click();
 }
 
 /* ------------------------------ tally ------------------------------ */
@@ -358,19 +303,76 @@ function sendTally(quizKey, topCodes) {
    student anywhere. Nothing to leak, nothing to secure.
 --------------------------------------------------------------------------- */
 
-const STORE_KEY = "ccc.results.v1";
+const STORE_KEY = "ccc.results.v2";
+const STORE_KEY_V1 = "ccc.results.v1"; // legacy: {key: [code,code,code]}, one attempt only
 const CODE_ALPHABET = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"; // Crockford: no I L O U
 
-const loadSaved = () => {
-  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }
-  catch (_) { return {}; }
-};
-const saveResult = (key, codes) => {
+/** Reads a JSON object from storage. `null` means "unreadable" (corrupt JSON,
+ *  or valid JSON that isn't a plain object) -- distinct from {} ("empty but
+ *  fine"), so a write never mistakes a broken read for an empty store and
+ *  clobbers whatever was actually there. This was the bug behind "only my
+ *  most recent quiz shows up": a single bad read used to wipe the other three. */
+function readStore(key) {
   try {
-    const all = loadSaved();
-    all[key] = codes;
-    localStorage.setItem(STORE_KEY, JSON.stringify(all));
+    const v = localStorage.getItem(key);
+    if (v == null) return {};
+    const parsed = JSON.parse(v);
+    return (parsed && typeof parsed === "object" && !Array.isArray(parsed)) ? parsed : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+/** One-time upgrade from v1 (one attempt per quiz) to v2 (a history per quiz).
+ *  Never overwrites a quiz v2 already has data for. */
+function migrateV1(history) {
+  const v1 = readStore(STORE_KEY_V1);
+  if (!v1) return history;
+  let changed = false;
+  for (const key of Object.keys(v1)) {
+    if (history[key]) continue;
+    const codes = v1[key];
+    if (Array.isArray(codes) && codes.length) {
+      history[key] = [{ codes, ts: Date.now() }];
+      changed = true;
+    }
+  }
+  if (changed) {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(history)); } catch (_) {}
+  }
+  return history;
+}
+
+/** {quizKey: [{codes, ts}, ...]}, newest attempt first. `null` only when
+ *  storage is corrupt -- callers must treat that as "don't touch it", not
+ *  as "empty". */
+function loadHistory() {
+  const history = readStore(STORE_KEY);
+  return history === null ? null : migrateV1(history);
+}
+
+/** Every attempt is kept -- retaking a quiz adds to the history instead of
+ *  replacing it, and a corrupt read aborts the write instead of overwriting. */
+function saveResult(key, codes) {
+  const history = loadHistory();
+  if (history === null) return; // corrupt storage -- results still show on screen, just don't persist
+  try {
+    const attempts = history[key] || [];
+    attempts.unshift({ codes, ts: Date.now() });
+    history[key] = attempts;
+    localStorage.setItem(STORE_KEY, JSON.stringify(history));
   } catch (_) { /* private browsing -- the results still show, just don't persist */ }
+}
+
+/** {quizKey: [code,code,code]} from just the latest attempt of each quiz --
+ *  the shape packCode/fingerprint/etc were already written against. */
+const latestOf = (history) => {
+  const out = {};
+  for (const key of ORDER) {
+    const attempts = history[key];
+    if (attempts && attempts.length) out[key] = attempts[0].codes;
+  }
+  return out;
 };
 
 /* Sorted result codes give a stable index even if the markdown reorders
@@ -462,37 +464,50 @@ function unpackCode(text) {
   return out;
 }
 
+const dateOf = (ts) => new Date(ts).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+
 function renderDashboard() {
   const host = $("#dashboard");
   if (!host) return;
-  const saved = loadSaved();
-  const taken = ORDER.filter((k) => saved[k] && saved[k].length);
+  const history = loadHistory();
+  const body = $("#dash-body");
 
-  if (!taken.length) { host.hidden = true; return; }
-  host.hidden = false;
+  if (history === null) {
+    body.innerHTML = `<p>Your saved results couldn't be read on this device -- taking a
+      quiz will start fresh.</p>`;
+    $("#dash-count").textContent = "";
+    $("#dash-code").textContent = "----";
+    return;
+  }
 
+  const taken = ORDER.filter((k) => history[k] && history[k].length);
   const nameOf = (key, code) => {
     const r = getQuiz(key).results.find((x) => x.code === code);
     return r ? r.name : code;
   };
 
-  $("#dash-body").innerHTML = ORDER.map((key) => {
+  body.innerHTML = ORDER.map((key) => {
     const quiz = getQuiz(key);
-    const picks = saved[key];
-    if (!picks || !picks.length) {
+    const attempts = history[key];
+    if (!attempts || !attempts.length) {
       return `<div class="dash-row empty">
         <h3>${esc(quiz.title)}</h3>
         <p>Not taken yet</p>
         <a class="dash-go" href="${quizHref(key)}">Take it &rarr;</a></div>`;
     }
+    const [latest, ...older] = attempts;
     return `<div class="dash-row">
       <h3>${esc(quiz.title)}</h3>
-      <ol class="dash-picks">${picks.map((c) => `<li>${esc(nameOf(key, c))}</li>`).join("")}</ol>
+      <ol class="dash-picks">${latest.codes.map((c) => `<li>${esc(nameOf(key, c))}</li>`).join("")}</ol>
+      ${older.length ? `<details class="dash-history">
+        <summary>${attempts.length} attempts &middot; see all</summary>
+        ${older.map((a) => `<div class="dash-old"><span>${dateOf(a.ts)}</span> ${a.codes.map((c) => esc(nameOf(key, c))).join(", ")}</div>`).join("")}
+      </details>` : ""}
       <a class="dash-go" href="${quizHref(key)}">Retake &rarr;</a></div>`;
   }).join("");
 
-  $("#dash-code").textContent = packCode(saved);
-  $("#dash-count").textContent = `${taken.length} of 4 quizzes done`;
+  $("#dash-code").textContent = packCode(latestOf(history));
+  $("#dash-count").textContent = `${taken.length} of ${ORDER.length} quizzes done`;
 }
 
 function initDashboard() {
@@ -523,21 +538,147 @@ function initDashboard() {
       msg.textContent = "That code isn't quite right - check for a typo and try again.";
       return;
     }
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(parsed)); } catch (_) {}
+    const history = loadHistory();
+    if (history === null) {
+      msg.textContent = "Your saved results are unreadable right now, so restoring isn't safe. Try reloading the page.";
+      return;
+    }
+    // add the restored picks as a new attempt per quiz -- never wipes history
+    for (const key of Object.keys(parsed)) {
+      const attempts = history[key] || [];
+      attempts.unshift({ codes: parsed[key], ts: Date.now() });
+      history[key] = attempts;
+    }
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(history)); } catch (_) {}
     msg.textContent = "Restored.";
     $("#dash-input").value = "";
     renderDashboard();
   });
 }
 
+/* ------------------------------ group compare ------------------------------
+
+   Paste a deployed Google Apps Script web-app URL here to turn this on (see
+   group/Code.gs + the README for setup). Empty = the Group tab just says so
+   and nothing is ever sent anywhere.
+
+   Posting uses no-cors, same as sendTally -- fire-and-forget, no response to
+   read. Reading uses JSONP (a <script> tag, not fetch) because a GET+CORS
+   round trip to an Apps Script web app is unreliable; Code.gs answers a
+   `callback=` param with `callback({...})`, the classic JSONP shape.
+--------------------------------------------------------------------------- */
+const GROUP_ENDPOINT = "";
+const GROUP_KEY = "ccc.group";
+
+const getGroupCode = () => { try { return localStorage.getItem(GROUP_KEY) || ""; } catch (_) { return ""; } };
+const setGroupCode = (code) => { try { localStorage.setItem(GROUP_KEY, code); } catch (_) {} };
+
+/** Fire-and-forget. No name, no answers, no device identifier -- just the
+ *  group code the student typed in, which quiz, and the top-3 codes. */
+function postGroupResult(quizKey, topCodes) {
+  const group = getGroupCode();
+  if (!GROUP_ENDPOINT || !group) return;
+  try {
+    fetch(GROUP_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ group, quiz: quizKey, top3: topCodes, ts: new Date().toISOString() }),
+    }).catch(() => {});
+  } catch (_) { /* a failed post must never break a student's results */ }
+}
+
+let jsonpSeq = 0;
+function jsonp(url, timeoutMs = 8000) {
+  return new Promise((resolve, reject) => {
+    const cb = `CCCGroupCB${jsonpSeq++}`;
+    const script = document.createElement("script");
+    const timer = setTimeout(() => { cleanup(); reject(new Error("timeout")); }, timeoutMs);
+    function cleanup() { clearTimeout(timer); delete window[cb]; script.remove(); }
+    window[cb] = (data) => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error("network")); };
+    script.src = `${url}${url.includes("?") ? "&" : "?"}callback=${cb}`;
+    document.body.appendChild(script);
+  });
+}
+
+function renderGroupBars(host, title, counts, nameOf, myCode) {
+  const total = Object.values(counts).reduce((a, b) => a + b, 0) || 1;
+  const rows = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  const block = document.createElement("div");
+  block.className = "group-block";
+  block.innerHTML = `<h3>${esc(title)}</h3>
+    ${rows.map(([code, n]) => `
+      <div class="group-row${code === myCode ? " mine" : ""}">
+        <span class="group-label">${esc(nameOf(code))}${code === myCode ? " (you)" : ""}</span>
+        <span class="group-bar"><i style="width:${Math.round((n / total) * 100)}%"></i></span>
+        <span class="group-n">${n}</span>
+      </div>`).join("") || "<p>No results yet.</p>"}`;
+  host.appendChild(block);
+}
+
+async function loadGroupStats(code) {
+  const box = $("#group-body");
+  box.innerHTML = "<p>Loading your group's results&hellip;</p>";
+  const mine = latestOf(loadHistory() || {});
+  try {
+    const stats = await jsonp(`${GROUP_ENDPOINT}?group=${encodeURIComponent(code)}`);
+    box.innerHTML = "";
+    $("#group-count").textContent = `${stats.students || 0} students in "${code}"`;
+    for (const key of ORDER) {
+      const quiz = getQuiz(key);
+      const nameOf = (c) => { const r = quiz.results.find((x) => x.code === c); return r ? r.name : c; };
+      renderGroupBars(box, `${quiz.title} — top picks`, (stats.counts && stats.counts[key]) || {}, nameOf, (mine[key] || [])[0]);
+    }
+  } catch (_) {
+    box.innerHTML = "<p>Couldn't load the group's results. Check the group code and try again.</p>";
+  }
+}
+
+function initGroup() {
+  const host = $("#group");
+  if (!host) return;
+
+  if (!GROUP_ENDPOINT) {
+    host.innerHTML = `<div class="dash-head"><h2>Group compare</h2>
+      <p>Not set up yet — ask your workshop leader.</p></div>`;
+    return;
+  }
+
+  const saved = getGroupCode();
+  host.innerHTML = `
+    <div class="dash-head"><h2>Group compare</h2><p id="group-count"></p></div>
+    <form id="group-join" class="dash-restore">
+      <label for="group-input">Your group code</label>
+      <div class="dash-code-row">
+        <input id="group-input" type="text" autocomplete="off" spellcheck="false"
+               placeholder="e.g. period3" value="${esc(saved)}">
+        <button class="btn" type="submit">${saved ? "Switch group" : "Join group"}</button>
+      </div>
+    </form>
+    <div id="group-body" class="dash-body"></div>`;
+
+  $("#group-join").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const code = $("#group-input").value.trim();
+    if (!code) return;
+    setGroupCode(code);
+    loadGroupStats(code);
+  });
+
+  if (saved) loadGroupStats(saved);
+}
+
 /* ------------------------------ cursor ------------------------------ */
 
-/** A dot at the pointer plus a ring that lags behind it. Desktop only -- a
- *  trailing cursor is meaningless on a phone and just burns battery. */
+/** A dot at the pointer plus a ring that lags behind it, replacing the native
+ *  arrow. Desktop only -- a trailing cursor is meaningless on a phone (and
+ *  there's no arrow to hide there) and just burns battery. */
 function initCursor() {
   const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!fine || still) return;
+  document.body.classList.add("custom-cursor");
 
   const ring = document.createElement("div");
   const dot = document.createElement("div");
@@ -578,6 +719,24 @@ function initCursor() {
   });
 }
 
+/* ------------------------------ hub tabs ------------------------------ */
+
+const HUB_TABS = ["quizzes", "dashboard", "group"];
+
+/** Quizzes / Dashboard / Group live on one page, switched by plain #hash
+ *  anchors -- no click handlers needed, the browser's own hashchange does it. */
+function showHubTab(tab) {
+  if (!HUB_TABS.includes(tab)) tab = "quizzes";
+  document.querySelectorAll(".tabbar [data-tab]").forEach((a) =>
+    a.classList.toggle("active", a.dataset.tab === tab));
+  const quizzes = $("#tab-quizzes");
+  if (quizzes) quizzes.hidden = tab !== "quizzes";
+  const dash = $("#dashboard");
+  if (dash) dash.hidden = tab !== "dashboard";
+  const group = $("#group");
+  if (group) group.hidden = tab !== "group";
+}
+
 /* ------------------------------ boot ------------------------------ */
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -601,7 +760,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   if (page === "hub" || page === "single") {
-    const times = { major: "~7 min", college: "~7 min", career: "~7 min", deca: "~8 min" };
+    const times = { college: "~5 min", career: "~6 min", deca: "~8 min" };
     $("#cards").innerHTML = ORDER.map((k) => {
       const q = getQuiz(k);
       return `<a class="card" href="${quizHref(k)}">
@@ -612,6 +771,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       </a>`;
     }).join("");
     initDashboard();
+    initGroup();
+  }
+
+  // Plain hosted hub: Quizzes/Dashboard/Group tabs switched by #hash, same
+  // anchors as the single-file build below just without the quiz runner.
+  if (page === "hub") {
+    const routeHub = () => showHubTab(location.hash.replace("#", ""));
+    addEventListener("hashchange", routeHub);
+    routeHub();
   }
 
   if (page === "quiz") {
@@ -632,6 +800,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (isQuiz) {
         startRunner(key);
       } else {
+        showHubTab(key);
         // re-render every time we land on the hub, or a quiz finished a moment
         // ago won't show up in the dashboard
         renderDashboard();

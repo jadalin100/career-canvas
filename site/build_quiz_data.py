@@ -19,29 +19,32 @@ SITE = Path(__file__).parent
 QUIZZES = SITE.parent / "quizzes"
 sys.path.insert(0, str(QUIZZES))
 
-from verify_deca_quiz import EVENTS, FLAVOR_CLUSTER  # noqa: E402
+from verify_deca_quiz import EVENTS, FLAVOR_CLUSTER, EVENT_SLUG  # noqa: E402
 
 OUT = SITE / "quizzes.json"
 
 QUIZ_FILES = {
-    "major":   ("1-major-quiz.md",      "Major",      "What business major fits you?"),
     "college": ("2-college-quiz.md",    "College",    "What kind of college is your vibe?"),
     "career":  ("3-career-quiz.md",     "Career",     "What business career suits you?"),
     "deca":    ("4-deca-event-quiz.md", "DECA Event", "Which DECA event should you compete in?"),
 }
-ORDER = ["major", "college", "career", "deca"]
+ORDER = ["college", "career", "deca"]
+
+# expected question count per quiz -- catches an edit that silently drops or
+# duplicates a question
+EXPECTED_QUESTIONS = {"college": 20, "career": 24, "deca": 30}
 
 # expected per-tag counts from scoring-key.md -- drift here means a quiz got
 # unbalanced, which is exactly the bug we spent the session fixing
 EXPECTED = {
-    "major":   {9, 8},
-    "college": {15},
-    "career":  {12},
+    "college": {10},
+    "career":  {6},
 }
 
 QUESTION_RE = re.compile(r"^\*\*(Q\d+)\.\s*(.+?)\*\*\s*$")
 OPTION_RE = re.compile(r"^-\s+([A-E])\)\s+(.*?)\s*`\[([A-Z_+]+)\]`\s*$")
 RESULT_RE = re.compile(r"^-\s+\*\*(.+?)\*\*\s+`\[([A-Z_]+)\]`\s+[—-]\s+(.*)$")
+SCHOOLS_RE = re.compile(r"^\s+Schools:\s*(.*)$")
 
 
 def strip_md(text):
@@ -78,6 +81,10 @@ def parse_quiz(path):
                     "name": strip_md(name),
                     "blurb": strip_md(blurb),
                 })
+                continue
+            m = SCHOOLS_RE.match(line)
+            if m and results:
+                results[-1]["schools"] = strip_md(m.group(1))
             continue
 
         m = QUESTION_RE.match(line)
@@ -118,8 +125,9 @@ def main():
         fname, title, subtitle = QUIZ_FILES[key]
         questions, results = parse_quiz(QUIZZES / fname)
 
-        if len(questions) != 30:
-            problems.append(f"{key}: expected 30 questions, parsed {len(questions)}")
+        expected_n = EXPECTED_QUESTIONS[key]
+        if len(questions) != expected_n:
+            problems.append(f"{key}: expected {expected_n} questions, parsed {len(questions)}")
         for q in questions:
             if not (2 <= len(q["options"]) <= 5):
                 problems.append(f"{key} {q['id']}: {len(q['options'])} options (want 2-5)")
@@ -163,8 +171,12 @@ def main():
         print(f"{key:8s} {len(questions)} questions, {len(results)} results, "
               f"{len(counts)} tags")
 
+    for code in EVENTS:
+        if code not in EVENT_SLUG:
+            problems.append(f"deca: event {code} has no EVENT_SLUG entry")
+
     data["events"] = {
-        code: {"cluster": c, "flavor": f, "tier": t}
+        code: {"cluster": c, "flavor": f, "tier": t, "slug": EVENT_SLUG.get(code)}
         for code, (c, f, t) in EVENTS.items()
     }
     data["flavorCluster"] = FLAVOR_CLUSTER

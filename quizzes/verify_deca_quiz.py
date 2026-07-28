@@ -60,6 +60,42 @@ CLUSTERS = {"MKT", "FIN", "HOS", "MGT", "ENT", "PFL"}
 # which cluster each geek-out tag belongs to
 FLAVOR_CLUSTER = {f: c for c, f, _ in EVENTS.values() if f}
 
+# event -> deca.org/compete/<slug> -- every one of the 29 checked by hand
+# (curl, HTTP 200) against the live site. Re-run that check each competition
+# year; DECA occasionally renames or retires an event.
+EVENT_SLUG = {
+    "PMK":   "principles-of-marketing",
+    "AAM":   "apparel-and-accessories-marketing-series",
+    "ASM":   "automotive-services-marketing-series",
+    "BSM":   "business-services-marketing-series",
+    "FMS":   "food-marketing-series",
+    "MCS":   "marketing-communications-series",
+    "RMS":   "retail-merchandising-series",
+    "SEM":   "sports-and-entertainment-marketing-series",
+    "PSE":   "professional-selling",
+    "MTDM":  "marketing-management-team-decision-making",
+    "BTDM":  "buying-and-merchandising-team-decision-making",
+    "STDM":  "sports-and-entertainment-marketing-team-decision-making",
+    "PFN":   "principles-of-finance",
+    "ACT":   "accounting-applications-series",
+    "BFS":   "business-finance-series",
+    "FTDM":  "financial-services-team-decision-making",
+    "PHT":   "principles-of-hospitality",
+    "HLM":   "hotel-and-lodging-management-series",
+    "QSRM":  "quick-serve-restaurant-management-series",
+    "RFSM":  "restaurant-and-food-service-management-series",
+    "HTDM":  "hospitality-services-team-decision-making",
+    "TTDM":  "travel-and-tourism-team-decision-making",
+    "PBM":   "principles-of-business-management-and-administration",
+    "HRM":   "human-resources-management-series",
+    "BLTDM": "business-law-and-ethics-team-decision-making",
+    "PEN":   "principles-of-entrepreneurship",
+    "ENT":   "entrepreneurship-series",
+    "ETDM":  "entrepreneurship-team-decision-making",
+    "PFL":   "personal-financial-literacy",
+}
+assert set(EVENT_SLUG) == set(EVENTS), "EVENT_SLUG and EVENTS drifted apart"
+
 
 def parse_questions(text):
     """-> list of (part_number, [tag, ...]) in question order."""

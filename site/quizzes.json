@@ -1,895 +1,6 @@
 {
  "quizzes": [
   {
-   "key": "major",
-   "title": "Major",
-   "subtitle": "What business major fits you?",
-   "questions": [
-    {
-     "id": "Q1",
-     "part": 1,
-     "text": "Pick the job you'd want for one day:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "run a brand's social media",
-       "tag": "MKT"
-      },
-      {
-       "letter": "B",
-       "text": "decide which companies to invest in",
-       "tag": "FIN"
-      },
-      {
-       "letter": "C",
-       "text": "balance the books to the exact penny",
-       "tag": "ACC"
-      },
-      {
-       "letter": "D",
-       "text": "be the boss and run the team",
-       "tag": "MGT"
-      }
-     ]
-    },
-    {
-     "id": "Q2",
-     "part": 1,
-     "text": "Which would you actually enjoy?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "planning a huge event",
-       "tag": "HOS"
-      },
-      {
-       "letter": "B",
-       "text": "figuring out why prices went up this year",
-       "tag": "ECON"
-      },
-      {
-       "letter": "C",
-       "text": "finding a hidden pattern in a big pile of data",
-       "tag": "ANLY"
-      },
-      {
-       "letter": "D",
-       "text": "starting a business from nothing",
-       "tag": "ENT"
-      }
-     ]
-    },
-    {
-     "id": "Q3",
-     "part": 1,
-     "text": "Which problem would you want to solve?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "getting a shipment across the country on time",
-       "tag": "SCM"
-      },
-      {
-       "letter": "B",
-       "text": "building an app that fixes a company's mess",
-       "tag": "MIS"
-      },
-      {
-       "letter": "C",
-       "text": "helping two coworkers who can't get along",
-       "tag": "HR"
-      },
-      {
-       "letter": "D",
-       "text": "launching a product in another country",
-       "tag": "INTL"
-      }
-     ]
-    },
-    {
-     "id": "Q4",
-     "part": 1,
-     "text": "You get to shadow someone for a week. Pick:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "an investor",
-       "tag": "FIN"
-      },
-      {
-       "letter": "B",
-       "text": "someone flipping a house",
-       "tag": "RE"
-      },
-      {
-       "letter": "C",
-       "text": "a sports team's front office",
-       "tag": "SEM"
-      },
-      {
-       "letter": "D",
-       "text": "an ad agency creative",
-       "tag": "MKT"
-      }
-     ]
-    },
-    {
-     "id": "Q5",
-     "part": 1,
-     "text": "Your school club needs you to…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "track every dollar exactly",
-       "tag": "ACC"
-      },
-      {
-       "letter": "B",
-       "text": "lead the whole team",
-       "tag": "MGT"
-      },
-      {
-       "letter": "C",
-       "text": "invent a brand-new fundraiser",
-       "tag": "ENT"
-      },
-      {
-       "letter": "D",
-       "text": "run the big night-of event",
-       "tag": "HOS"
-      }
-     ]
-    },
-    {
-     "id": "Q6",
-     "part": 1,
-     "text": "The class you'd secretly love:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "Statistics & Data",
-       "tag": "ANLY"
-      },
-      {
-       "letter": "B",
-       "text": "Psychology of People at Work",
-       "tag": "HR"
-      },
-      {
-       "letter": "C",
-       "text": "World Cultures & Global Trade",
-       "tag": "INTL"
-      },
-      {
-       "letter": "D",
-       "text": "How the Economy Works",
-       "tag": "ECON"
-      }
-     ]
-    },
-    {
-     "id": "Q7",
-     "part": 1,
-     "text": "Which headline hooks you?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "\"This neighborhood doubled in value\"",
-       "tag": "RE"
-      },
-      {
-       "letter": "B",
-       "text": "\"Inside a stadium's business\"",
-       "tag": "SEM"
-      },
-      {
-       "letter": "C",
-       "text": "\"How your package arrives in one day\"",
-       "tag": "SCM"
-      },
-      {
-       "letter": "D",
-       "text": "\"The software running every store\"",
-       "tag": "MIS"
-      }
-     ]
-    },
-    {
-     "id": "Q8",
-     "part": 1,
-     "text": "A company is struggling. You'd…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "reorganize the team",
-       "tag": "MGT"
-      },
-      {
-       "letter": "B",
-       "text": "fix how they talk to customers",
-       "tag": "MKT"
-      },
-      {
-       "letter": "C",
-       "text": "find them better funding",
-       "tag": "FIN"
-      },
-      {
-       "letter": "D",
-       "text": "audit where the money's actually going",
-       "tag": "ACC"
-      }
-     ]
-    },
-    {
-     "id": "Q9",
-     "part": 1,
-     "text": "Your dream side project:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "launch your own product",
-       "tag": "ENT"
-      },
-      {
-       "letter": "B",
-       "text": "throw a pop-up event",
-       "tag": "HOS"
-      },
-      {
-       "letter": "C",
-       "text": "write about why sneaker prices spike",
-       "tag": "ECON"
-      },
-      {
-       "letter": "D",
-       "text": "build a dashboard tracking something you love",
-       "tag": "ANLY"
-      }
-     ]
-    },
-    {
-     "id": "Q10",
-     "part": 1,
-     "text": "Pick a superpower:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "speak every language",
-       "tag": "INTL"
-      },
-      {
-       "letter": "B",
-       "text": "instantly see the fastest route for anything",
-       "tag": "SCM"
-      },
-      {
-       "letter": "C",
-       "text": "understand any technology immediately",
-       "tag": "MIS"
-      },
-      {
-       "letter": "D",
-       "text": "know what everyone's really feeling",
-       "tag": "HR"
-      }
-     ]
-    },
-    {
-     "id": "Q11",
-     "part": 1,
-     "text": "Which win feels best?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "your campaign goes viral",
-       "tag": "MKT"
-      },
-      {
-       "letter": "B",
-       "text": "your investment pays off big",
-       "tag": "FIN"
-      },
-      {
-       "letter": "C",
-       "text": "you close on a great property",
-       "tag": "RE"
-      },
-      {
-       "letter": "D",
-       "text": "your team sells out the arena",
-       "tag": "SEM"
-      }
-     ]
-    },
-    {
-     "id": "Q12",
-     "part": 1,
-     "text": "You'd be great at…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "making guests feel amazing",
-       "tag": "HOS"
-      },
-      {
-       "letter": "B",
-       "text": "catching the one number that's wrong",
-       "tag": "ACC"
-      },
-      {
-       "letter": "C",
-       "text": "keeping a big group organized",
-       "tag": "MGT"
-      },
-      {
-       "letter": "D",
-       "text": "talking someone into your idea",
-       "tag": "ENT"
-      }
-     ]
-    },
-    {
-     "id": "Q13",
-     "part": 1,
-     "text": "Which question is most interesting?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "why does college cost so much?",
-       "tag": "ECON"
-      },
-      {
-       "letter": "B",
-       "text": "what does the data say will happen next?",
-       "tag": "ANLY"
-      },
-      {
-       "letter": "C",
-       "text": "what makes people actually love their job?",
-       "tag": "HR"
-      },
-      {
-       "letter": "D",
-       "text": "how do businesses work across borders?",
-       "tag": "INTL"
-      }
-     ]
-    },
-    {
-     "id": "Q14",
-     "part": 1,
-     "text": "Pick your workspace:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "a screen full of systems and code",
-       "tag": "MIS"
-      },
-      {
-       "letter": "B",
-       "text": "touring buildings all day",
-       "tag": "RE"
-      },
-      {
-       "letter": "C",
-       "text": "courtside or backstage",
-       "tag": "SEM"
-      },
-      {
-       "letter": "D",
-       "text": "a warehouse floor that runs like clockwork",
-       "tag": "SCM"
-      }
-     ]
-    },
-    {
-     "id": "Q15",
-     "part": 1,
-     "text": "Your friends would say you're…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "the most detail-obsessed",
-       "tag": "ACC"
-      },
-      {
-       "letter": "B",
-       "text": "the natural leader",
-       "tag": "MGT"
-      },
-      {
-       "letter": "C",
-       "text": "the most creative",
-       "tag": "MKT"
-      },
-      {
-       "letter": "D",
-       "text": "the one who's smart with money",
-       "tag": "FIN"
-      }
-     ]
-    },
-    {
-     "id": "Q16",
-     "part": 1,
-     "text": "Give you a free weekend and you'd…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "dig through data for fun",
-       "tag": "ANLY"
-      },
-      {
-       "letter": "B",
-       "text": "build and launch something",
-       "tag": "ENT"
-      },
-      {
-       "letter": "C",
-       "text": "plan the perfect trip for everyone",
-       "tag": "HOS"
-      },
-      {
-       "letter": "D",
-       "text": "read about how money moves the world",
-       "tag": "ECON"
-      }
-     ]
-    },
-    {
-     "id": "Q17",
-     "part": 1,
-     "text": "You'd want to be known as the person who…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "builds great teams",
-       "tag": "HR"
-      },
-      {
-       "letter": "B",
-       "text": "works all over the world",
-       "tag": "INTL"
-      },
-      {
-       "letter": "C",
-       "text": "makes everything run on time",
-       "tag": "SCM"
-      },
-      {
-       "letter": "D",
-       "text": "fixes it with technology",
-       "tag": "MIS"
-      }
-     ]
-    },
-    {
-     "id": "Q18",
-     "part": 1,
-     "text": "Which business would you start?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "an agency for athletes and creators",
-       "tag": "SEM"
-      },
-      {
-       "letter": "B",
-       "text": "a brand people obsess over",
-       "tag": "MKT"
-      },
-      {
-       "letter": "C",
-       "text": "a fund that invests in cool companies",
-       "tag": "FIN"
-      },
-      {
-       "letter": "D",
-       "text": "buying and renting out property",
-       "tag": "RE"
-      }
-     ]
-    },
-    {
-     "id": "Q19",
-     "part": 1,
-     "text": "In a group project you're the one who…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "pitches the wild idea",
-       "tag": "ENT"
-      },
-      {
-       "letter": "B",
-       "text": "makes the whole experience feel good",
-       "tag": "HOS"
-      },
-      {
-       "letter": "C",
-       "text": "checks every fact and number",
-       "tag": "ACC"
-      },
-      {
-       "letter": "D",
-       "text": "assigns the roles",
-       "tag": "MGT"
-      }
-     ]
-    },
-    {
-     "id": "Q20",
-     "part": 1,
-     "text": "Pick an internship:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "a global brand's overseas office",
-       "tag": "INTL"
-      },
-      {
-       "letter": "B",
-       "text": "a government economics office",
-       "tag": "ECON"
-      },
-      {
-       "letter": "C",
-       "text": "a company's data team",
-       "tag": "ANLY"
-      },
-      {
-       "letter": "D",
-       "text": "a company's people & culture team",
-       "tag": "HR"
-      }
-     ]
-    },
-    {
-     "id": "Q21",
-     "part": 1,
-     "text": "You'd geek out over…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "how a factory schedules everything",
-       "tag": "SCM"
-      },
-      {
-       "letter": "B",
-       "text": "how an app handles a million users at once",
-       "tag": "MIS"
-      },
-      {
-       "letter": "C",
-       "text": "how a city decides what gets built",
-       "tag": "RE"
-      },
-      {
-       "letter": "D",
-       "text": "how a concert tour actually makes money",
-       "tag": "SEM"
-      }
-     ]
-    },
-    {
-     "id": "Q22",
-     "part": 1,
-     "text": "A title you'd want someday:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "Chief Investment Officer",
-       "tag": "FIN"
-      },
-      {
-       "letter": "B",
-       "text": "Chief Financial Officer",
-       "tag": "ACC"
-      },
-      {
-       "letter": "C",
-       "text": "Chief Executive Officer",
-       "tag": "MGT"
-      },
-      {
-       "letter": "D",
-       "text": "Chief Marketing Officer",
-       "tag": "MKT"
-      }
-     ]
-    },
-    {
-     "id": "Q23",
-     "part": 1,
-     "text": "Which puzzle?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "predicting what a price will do next",
-       "tag": "ECON"
-      },
-      {
-       "letter": "B",
-       "text": "proving a hunch with real numbers",
-       "tag": "ANLY"
-      },
-      {
-       "letter": "C",
-       "text": "finding a gap nobody's filled yet",
-       "tag": "ENT"
-      },
-      {
-       "letter": "D",
-       "text": "making 300 guests happy at once",
-       "tag": "HOS"
-      }
-     ]
-    },
-    {
-     "id": "Q24",
-     "part": 1,
-     "text": "The thing you'd fix at a company:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "their terrible software",
-       "tag": "MIS"
-      },
-      {
-       "letter": "B",
-       "text": "their unhappy employees",
-       "tag": "HR"
-      },
-      {
-       "letter": "C",
-       "text": "their failure to reach new countries",
-       "tag": "INTL"
-      },
-      {
-       "letter": "D",
-       "text": "their always-late deliveries",
-       "tag": "SCM"
-      }
-     ]
-    },
-    {
-     "id": "Q25",
-     "part": 1,
-     "text": "Where does your money instinct go?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "property and land",
-       "tag": "RE"
-      },
-      {
-       "letter": "B",
-       "text": "the sports and music business",
-       "tag": "SEM"
-      },
-      {
-       "letter": "C",
-       "text": "the brand that's about to blow up",
-       "tag": "MKT"
-      },
-      {
-       "letter": "D",
-       "text": "the stock market",
-       "tag": "FIN"
-      }
-     ]
-    },
-    {
-     "id": "Q26",
-     "part": 1,
-     "text": "You'd rather run…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "a big team at a big company",
-       "tag": "MGT"
-      },
-      {
-       "letter": "B",
-       "text": "your own small company",
-       "tag": "ENT"
-      },
-      {
-       "letter": "C",
-       "text": "a hotel or a venue",
-       "tag": "HOS"
-      },
-      {
-       "letter": "D",
-       "text": "the numbers behind it all",
-       "tag": "ACC"
-      }
-     ]
-    },
-    {
-     "id": "Q27",
-     "part": 1,
-     "text": "Most satisfying:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "hiring someone who turns out amazing",
-       "tag": "HR"
-      },
-      {
-       "letter": "B",
-       "text": "closing a deal in another country",
-       "tag": "INTL"
-      },
-      {
-       "letter": "C",
-       "text": "explaining why something costs what it costs",
-       "tag": "ECON"
-      },
-      {
-       "letter": "D",
-       "text": "your forecast turning out right",
-       "tag": "ANLY"
-      }
-     ]
-    },
-    {
-     "id": "Q28",
-     "part": 1,
-     "text": "You'd love to work behind the scenes at…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "a stadium or a music festival",
-       "tag": "SEM"
-      },
-      {
-       "letter": "B",
-       "text": "a global shipping company",
-       "tag": "SCM"
-      },
-      {
-       "letter": "C",
-       "text": "a tech company",
-       "tag": "MIS"
-      },
-      {
-       "letter": "D",
-       "text": "a real-estate developer",
-       "tag": "RE"
-      }
-     ]
-    },
-    {
-     "id": "Q29",
-     "part": 1,
-     "text": "Gut check — you want to…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "make people want things",
-       "tag": "MKT"
-      },
-      {
-       "letter": "B",
-       "text": "grow money",
-       "tag": "FIN"
-      },
-      {
-       "letter": "C",
-       "text": "make everything add up",
-       "tag": "ACC"
-      },
-      {
-       "letter": "D",
-       "text": "be in charge",
-       "tag": "MGT"
-      }
-     ]
-    },
-    {
-     "id": "Q30",
-     "part": 1,
-     "text": "And finally — you want to…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "create experiences",
-       "tag": "HOS"
-      },
-      {
-       "letter": "B",
-       "text": "understand the big picture",
-       "tag": "ECON"
-      },
-      {
-       "letter": "C",
-       "text": "find the answer in the numbers",
-       "tag": "ANLY"
-      },
-      {
-       "letter": "D",
-       "text": "build your own thing",
-       "tag": "ENT"
-      }
-     ]
-    }
-   ],
-   "results": [
-    {
-     "code": "MKT",
-     "name": "Marketing",
-     "blurb": "You sell the why-you'll-love-it. Ads, branding, social, and getting people to care. → Try DECA's marketing role-plays."
-    },
-    {
-     "code": "FIN",
-     "name": "Finance",
-     "blurb": "You make money grow and spot smart risks. Investing, markets, planning. → Business Finance; Stock Market Game."
-    },
-    {
-     "code": "ACC",
-     "name": "Accounting",
-     "blurb": "The truth-teller of business. Precise, trusted, detail-loving. → Accounting Applications."
-    },
-    {
-     "code": "MGT",
-     "name": "Management / Business Administration",
-     "blurb": "The one who runs the whole thing and keeps a team moving. → Principles of Business Management."
-    },
-    {
-     "code": "ENT",
-     "name": "Entrepreneurship & Innovation",
-     "blurb": "You build things that didn't exist yet and bet on your ideas. → Entrepreneurship events."
-    },
-    {
-     "code": "HOS",
-     "name": "Hospitality & Tourism Management",
-     "blurb": "You create experiences people remember — hotels, events, travel. → Hospitality role-plays."
-    },
-    {
-     "code": "ECON",
-     "name": "Economics",
-     "blurb": "You see the big invisible forces behind prices, choices, and markets. → Great base for finance + policy."
-    },
-    {
-     "code": "ANLY",
-     "name": "Business Analytics / Data",
-     "blurb": "You find the story hidden in the numbers and predict what's next. → The future of every business."
-    },
-    {
-     "code": "HR",
-     "name": "Human Resources Management",
-     "blurb": "You build great teams and keep workplaces fair and happy. → Human Resources Management event."
-    },
-    {
-     "code": "INTL",
-     "name": "International Business",
-     "blurb": "You do business across borders, languages, and cultures. → Perfect for global brands."
-    },
-    {
-     "code": "SCM",
-     "name": "Supply Chain & Operations Management",
-     "blurb": "You make the whole machine run — right thing, right place, fast and cheap. → The behind-the-scenes hero."
-    },
-    {
-     "code": "MIS",
-     "name": "Management Information Systems (MIS)",
-     "blurb": "You're the bridge between tech and business, solving problems with systems. → Business + coding."
-    },
-    {
-     "code": "RE",
-     "name": "Real Estate",
-     "blurb": "You see value in property, location, and the deal. → Buying, selling, and building."
-    },
-    {
-     "code": "SEM",
-     "name": "Sports & Entertainment Management",
-     "blurb": "You love the game and the business behind it — teams, athletes, shows. → Sports & Entertainment Marketing."
-    }
-   ]
-  },
-  {
    "key": "college",
    "title": "College",
    "subtitle": "What kind of college is your vibe?",
@@ -897,27 +8,27 @@
     {
      "id": "Q1",
      "part": 1,
-     "text": "Your dream campus feels most like…",
+     "text": "Your dream campus feels most like...",
      "options": [
       {
        "letter": "A",
+       "text": "a lab full of robots and half-finished prototypes",
+       "tag": "TECH"
+      },
+      {
+       "letter": "B",
        "text": "a packed stadium on game day",
        "tag": "BIG"
       },
       {
-       "letter": "B",
-       "text": "a famous business school with a trading room",
+       "letter": "C",
+       "text": "a famous business school with a trading floor",
        "tag": "POWER"
       },
       {
-       "letter": "C",
-       "text": "a startup garage buzzing at midnight",
-       "tag": "STARTUP"
-      },
-      {
        "letter": "D",
-       "text": "a city block where class ends and your internship begins",
-       "tag": "CITY"
+       "text": "a garage where three people are building a company at midnight",
+       "tag": "STARTUP"
       }
      ]
     },
@@ -928,76 +39,76 @@
      "options": [
       {
        "letter": "A",
-       "text": "somewhere with a huge campus and everything on it",
-       "tag": "CITY"
+       "text": "an entire semester in another country",
+       "tag": "GLOBAL"
       },
       {
        "letter": "B",
-       "text": "a lab full of 3D printers and robots",
-       "tag": "TECH"
+       "text": "a studio surrounded by other people's art",
+       "tag": "CREATIVE"
       },
       {
        "letter": "C",
-       "text": "a small dorm where everyone knows everyone",
+       "text": "a small dorm where everyone already knows your name",
        "tag": "KNIT"
       },
       {
        "letter": "D",
-       "text": "an entire semester in another country",
-       "tag": "GLOBAL"
+       "text": "a program built to get you into a top firm",
+       "tag": "POWER"
       }
      ]
     },
     {
      "id": "Q3",
      "part": 1,
-     "text": "Pick the building you'd hang out in most:",
+     "text": "Pick the building you'd hang out in most.",
      "options": [
       {
        "letter": "A",
-       "text": "the international center",
-       "tag": "GLOBAL"
+       "text": "a skyline view from a classroom downtown",
+       "tag": "CITY"
       },
       {
        "letter": "B",
-       "text": "the design studio",
-       "tag": "CREATIVE"
+       "text": "a professor's office you can just walk into",
+       "tag": "KNIT"
       },
       {
        "letter": "C",
-       "text": "the stadium",
-       "tag": "BIG"
+       "text": "the international students' center",
+       "tag": "GLOBAL"
       },
       {
        "letter": "D",
-       "text": "the business school",
-       "tag": "POWER"
+       "text": "a lab you can badge into at 2am",
+       "tag": "TECH"
       }
      ]
     },
     {
      "id": "Q4",
      "part": 1,
-     "text": "Your ideal class is…",
+     "text": "Your ideal class is...",
      "options": [
       {
        "letter": "A",
-       "text": "taught by a famous professor in your field",
-       "tag": "POWER"
-      },
-      {
-       "letter": "B",
-       "text": "a late-night workshop building your idea",
+       "text": "a workshop where you're building your own idea",
        "tag": "STARTUP"
       },
       {
-       "letter": "C",
-       "text": "half lecture, half internship",
+       "letter": "B",
+       "text": "half lecture, half internship downtown",
        "tag": "CITY"
       },
       {
+       "letter": "C",
+       "text": "taught by a professor who's worked on four continents",
+       "tag": "GLOBAL"
+      },
+      {
        "letter": "D",
-       "text": "hands-on in a lab",
+       "text": "hands-on, in a lab, every single week",
        "tag": "TECH"
       }
      ]
@@ -1005,120 +116,93 @@
     {
      "id": "Q5",
      "part": 1,
-     "text": "On a Saturday you'd rather…",
+     "text": "The most exciting part of college, for you, is...",
      "options": [
       {
        "letter": "A",
-       "text": "go to a hackathon",
-       "tag": "TECH"
+       "text": "a program with a name that opens doors",
+       "tag": "POWER"
       },
       {
        "letter": "B",
-       "text": "hang with your close crew",
+       "text": "professors who actually remember your name",
        "tag": "KNIT"
       },
       {
        "letter": "C",
-       "text": "go to a language exchange or culture night",
-       "tag": "GLOBAL"
+       "text": "building your own company before you graduate",
+       "tag": "STARTUP"
       },
       {
        "letter": "D",
-       "text": "go to a student film screening or gallery show",
-       "tag": "CREATIVE"
+       "text": "a campus that blurs into the city around it",
+       "tag": "CITY"
       }
      ]
     },
     {
      "id": "Q6",
      "part": 1,
-     "text": "The most exciting thing about college:",
+     "text": "Which club would you join first?",
      "options": [
       {
        "letter": "A",
-       "text": "making something people will see",
+       "text": "the film or design collective",
        "tag": "CREATIVE"
       },
       {
        "letter": "B",
-       "text": "legendary spirit and traditions",
-       "tag": "BIG"
+       "text": "the robotics or engineering team",
+       "tag": "TECH"
       },
       {
        "letter": "C",
-       "text": "a program that opens serious doors",
-       "tag": "POWER"
+       "text": "the startup incubator",
+       "tag": "STARTUP"
       },
       {
        "letter": "D",
-       "text": "building your own company before graduation",
-       "tag": "STARTUP"
+       "text": "a volunteer network based downtown",
+       "tag": "CITY"
       }
      ]
     },
     {
      "id": "Q7",
      "part": 1,
-     "text": "Which club first?",
+     "text": "You'd want your school known for...",
      "options": [
       {
        "letter": "A",
-       "text": "the entrepreneurship incubator",
-       "tag": "STARTUP"
+       "text": "its spirit and its traditions",
+       "tag": "BIG"
       },
       {
        "letter": "B",
-       "text": "the city volunteer network",
-       "tag": "CITY"
+       "text": "its name and the doors it opens",
+       "tag": "POWER"
       },
       {
        "letter": "C",
-       "text": "the robotics team",
-       "tag": "TECH"
+       "text": "its reach across the world",
+       "tag": "GLOBAL"
       },
       {
        "letter": "D",
-       "text": "a small tight-knit service club",
-       "tag": "KNIT"
+       "text": "its labs and its engineers",
+       "tag": "TECH"
       }
      ]
     },
     {
      "id": "Q8",
      "part": 1,
-     "text": "You'd want your school known for…",
+     "text": "Freshman-year brag you'd actually want to make:",
      "options": [
       {
        "letter": "A",
-       "text": "how close everyone is",
+       "text": "\"My professor knows me outside of class.\"",
        "tag": "KNIT"
-      },
-      {
-       "letter": "B",
-       "text": "its global reach",
-       "tag": "GLOBAL"
-      },
-      {
-       "letter": "C",
-       "text": "its artists and creators",
-       "tag": "CREATIVE"
-      },
-      {
-       "letter": "D",
-       "text": "sports and traditions",
-       "tag": "BIG"
-      }
-     ]
-    },
-    {
-     "id": "Q9",
-     "part": 1,
-     "text": "Freshman-year brag:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "\"Our team went to the championship.\"",
-       "tag": "BIG"
       },
       {
        "letter": "B",
@@ -1127,105 +211,105 @@
       },
       {
        "letter": "C",
-       "text": "\"I launched an app.\"",
-       "tag": "STARTUP"
+       "text": "\"I made something people actually noticed.\"",
+       "tag": "CREATIVE"
       },
       {
        "letter": "D",
-       "text": "\"I landed an internship downtown.\"",
+       "text": "\"I already have a trip abroad booked.\"",
+       "tag": "GLOBAL"
+      }
+     ]
+    },
+    {
+     "id": "Q9",
+     "part": 1,
+     "text": "For an internship, you'd rather have...",
+     "options": [
+      {
+       "letter": "A",
+       "text": "a professor who connects you personally",
+       "tag": "KNIT"
+      },
+      {
+       "letter": "B",
+       "text": "the freedom to intern at your own startup",
+       "tag": "STARTUP"
+      },
+      {
+       "letter": "C",
+       "text": "a whole city of companies to walk into",
        "tag": "CITY"
+      },
+      {
+       "letter": "D",
+       "text": "an office on another continent",
+       "tag": "GLOBAL"
       }
      ]
     },
     {
      "id": "Q10",
      "part": 1,
-     "text": "How big do you want your school?",
+     "text": "You thrive when...",
      "options": [
       {
        "letter": "A",
-       "text": "medium, right in a real city",
-       "tag": "CITY"
+       "text": "you're making something people react to",
+       "tag": "CREATIVE"
       },
       {
        "letter": "B",
-       "text": "whatever's strongest for tech",
-       "tag": "TECH"
+       "text": "you can find your people in a huge crowd",
+       "tag": "BIG"
       },
       {
        "letter": "C",
-       "text": "small enough that you're never a number",
-       "tag": "KNIT"
+       "text": "you're surrounded by driven, competitive classmates",
+       "tag": "POWER"
       },
       {
        "letter": "D",
-       "text": "doesn't matter if I can travel from it",
-       "tag": "GLOBAL"
+       "text": "everyone actually knows your name",
+       "tag": "KNIT"
       }
      ]
     },
     {
      "id": "Q11",
      "part": 1,
-     "text": "Pick a word:",
+     "text": "Which campus tour moment would sell you?",
      "options": [
       {
        "letter": "A",
-       "text": "WORLDLY",
-       "tag": "GLOBAL"
-      },
-      {
-       "letter": "B",
-       "text": "ORIGINAL",
-       "tag": "CREATIVE"
-      },
-      {
-       "letter": "C",
-       "text": "SPIRITED",
+       "text": "the 100,000-seat stadium",
        "tag": "BIG"
       },
       {
+       "letter": "B",
+       "text": "the student-run lab full of half-built projects",
+       "tag": "TECH"
+      },
+      {
+       "letter": "C",
+       "text": "the skyline view from the library",
+       "tag": "CITY"
+      },
+      {
        "letter": "D",
-       "text": "PRESTIGIOUS",
-       "tag": "POWER"
+       "text": "a wall covered in student films and art",
+       "tag": "CREATIVE"
       }
      ]
     },
     {
      "id": "Q12",
      "part": 1,
-     "text": "Distance from home?",
+     "text": "Pick your ideal roommate.",
      "options": [
       {
        "letter": "A",
-       "text": "wherever the best program is",
-       "tag": "POWER"
-      },
-      {
-       "letter": "B",
-       "text": "wherever I can build things",
-       "tag": "STARTUP"
-      },
-      {
-       "letter": "C",
-       "text": "in or near a big city",
-       "tag": "CITY"
-      },
-      {
-       "letter": "D",
-       "text": "wherever the best labs are",
-       "tag": "TECH"
-      }
-     ]
-    },
-    {
-     "id": "Q13",
-     "part": 1,
-     "text": "Your ideal roommate is…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "always tinkering with a project",
+       "text": "always tinkering with some kind of project",
        "tag": "TECH"
       },
       {
@@ -1235,126 +319,45 @@
       },
       {
        "letter": "C",
-       "text": "from a totally different country",
-       "tag": "GLOBAL"
+       "text": "someone who never misses a game",
+       "tag": "BIG"
       },
       {
        "letter": "D",
-       "text": "in a band or making a short film",
+       "text": "in a band, or shooting a short film",
+       "tag": "CREATIVE"
+      }
+     ]
+    },
+    {
+     "id": "Q13",
+     "part": 1,
+     "text": "You'd be proudest making...",
+     "options": [
+      {
+       "letter": "A",
+       "text": "a résumé that opens any door",
+       "tag": "POWER"
+      },
+      {
+       "letter": "B",
+       "text": "a documentary people actually share",
+       "tag": "GLOBAL"
+      },
+      {
+       "letter": "C",
+       "text": "a memory with forty thousand other fans",
+       "tag": "BIG"
+      },
+      {
+       "letter": "D",
+       "text": "something beautiful that people use",
        "tag": "CREATIVE"
       }
      ]
     },
     {
      "id": "Q14",
-     "part": 1,
-     "text": "You thrive when…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "you're making something people react to",
-       "tag": "CREATIVE"
-      },
-      {
-       "letter": "B",
-       "text": "you can find your people in a big crowd",
-       "tag": "BIG"
-      },
-      {
-       "letter": "C",
-       "text": "you're surrounded by super-driven students",
-       "tag": "POWER"
-      },
-      {
-       "letter": "D",
-       "text": "you have freedom to experiment",
-       "tag": "STARTUP"
-      }
-     ]
-    },
-    {
-     "id": "Q15",
-     "part": 1,
-     "text": "For internships you want…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "to intern at your own startup",
-       "tag": "STARTUP"
-      },
-      {
-       "letter": "B",
-       "text": "a whole city of companies to walk into",
-       "tag": "CITY"
-      },
-      {
-       "letter": "C",
-       "text": "a research lab or tech company",
-       "tag": "TECH"
-      },
-      {
-       "letter": "D",
-       "text": "a professor who connects you personally",
-       "tag": "KNIT"
-      }
-     ]
-    },
-    {
-     "id": "Q16",
-     "part": 1,
-     "text": "Which sounds best?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "a campus that feels like a family",
-       "tag": "KNIT"
-      },
-      {
-       "letter": "B",
-       "text": "a campus that feels like a passport",
-       "tag": "GLOBAL"
-      },
-      {
-       "letter": "C",
-       "text": "a campus that feels like a studio",
-       "tag": "CREATIVE"
-      },
-      {
-       "letter": "D",
-       "text": "a campus that feels like a festival",
-       "tag": "BIG"
-      }
-     ]
-    },
-    {
-     "id": "Q17",
-     "part": 1,
-     "text": "Which campus tour moment sells you?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "the 100,000-seat stadium",
-       "tag": "BIG"
-      },
-      {
-       "letter": "B",
-       "text": "the alumni wall of famous CEOs",
-       "tag": "POWER"
-      },
-      {
-       "letter": "C",
-       "text": "the student startup lab",
-       "tag": "STARTUP"
-      },
-      {
-       "letter": "D",
-       "text": "the skyline from the library window",
-       "tag": "CITY"
-      }
-     ]
-    },
-    {
-     "id": "Q18",
      "part": 1,
      "text": "Weekend plans:",
      "options": [
@@ -1365,116 +368,35 @@
       },
       {
        "letter": "B",
-       "text": "tinkering on a project",
+       "text": "tinkering on a project that isn't due yet",
        "tag": "TECH"
       },
       {
        "letter": "C",
-       "text": "a small dinner with close friends",
+       "text": "a small dinner with your closest friends",
        "tag": "KNIT"
       },
       {
        "letter": "D",
-       "text": "planning your next trip abroad",
-       "tag": "GLOBAL"
-      }
-     ]
-    },
-    {
-     "id": "Q19",
-     "part": 1,
-     "text": "You'd be proudest making…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "a documentary people share",
-       "tag": "GLOBAL"
-      },
-      {
-       "letter": "B",
-       "text": "something beautiful people use",
-       "tag": "CREATIVE"
-      },
-      {
-       "letter": "C",
-       "text": "a memory with 40,000 other fans",
+       "text": "a road trip to the game",
        "tag": "BIG"
-      },
-      {
-       "letter": "D",
-       "text": "a résumé that opens any door",
-       "tag": "POWER"
       }
      ]
     },
     {
-     "id": "Q20",
+     "id": "Q15",
      "part": 1,
-     "text": "Your deciding factor:",
+     "text": "Which challenge would you take on?",
      "options": [
       {
        "letter": "A",
-       "text": "the name and the doors it opens",
-       "tag": "POWER"
-      },
-      {
-       "letter": "B",
-       "text": "the freedom to build",
+       "text": "a startup weekend with strangers",
        "tag": "STARTUP"
       },
       {
-       "letter": "C",
-       "text": "the location and the hustle",
-       "tag": "CITY"
-      },
-      {
-       "letter": "D",
-       "text": "the labs and the tools",
-       "tag": "TECH"
-      }
-     ]
-    },
-    {
-     "id": "Q21",
-     "part": 1,
-     "text": "You want classmates who are…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "makers and problem-solvers",
-       "tag": "TECH"
-      },
-      {
        "letter": "B",
-       "text": "warm and loyal",
-       "tag": "KNIT"
-      },
-      {
-       "letter": "C",
-       "text": "curious about the whole world",
-       "tag": "GLOBAL"
-      },
-      {
-       "letter": "D",
-       "text": "artists, writers, and performers",
-       "tag": "CREATIVE"
-      }
-     ]
-    },
-    {
-     "id": "Q22",
-     "part": 1,
-     "text": "Which would you sign up for instantly?",
-     "options": [
-      {
-       "letter": "A",
        "text": "a semester-long creative project",
        "tag": "CREATIVE"
-      },
-      {
-       "letter": "B",
-       "text": "a game-day road trip",
-       "tag": "BIG"
       },
       {
        "letter": "C",
@@ -1483,224 +405,143 @@
       },
       {
        "letter": "D",
-       "text": "a startup weekend",
-       "tag": "STARTUP"
-      }
-     ]
-    },
-    {
-     "id": "Q23",
-     "part": 1,
-     "text": "The class size that fits you:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "a big lecture where I pick my people",
-       "tag": "BIG"
-      },
-      {
-       "letter": "B",
-       "text": "a small class where I actually talk every day",
-       "tag": "KNIT"
-      },
-      {
-       "letter": "C",
-       "text": "a scrappy team building something",
-       "tag": "STARTUP"
-      },
-      {
-       "letter": "D",
-       "text": "a class that meets out in the city",
+       "text": "a class that meets out in the city instead of a room",
        "tag": "CITY"
       }
      ]
     },
     {
-     "id": "Q24",
+     "id": "Q16",
      "part": 1,
-     "text": "Your dream summer:",
+     "text": "Your deciding factor, if you're honest:",
      "options": [
       {
        "letter": "A",
-       "text": "an internship in a skyscraper",
-       "tag": "CITY"
-      },
-      {
-       "letter": "B",
-       "text": "a research project",
-       "tag": "TECH"
-      },
-      {
-       "letter": "C",
-       "text": "at home with your close friends",
-       "tag": "KNIT"
-      },
-      {
-       "letter": "D",
-       "text": "backpacking and working abroad",
+       "text": "how much of the world you can see from here",
        "tag": "GLOBAL"
+      },
+      {
+       "letter": "B",
+       "text": "how much school spirit is actually on campus",
+       "tag": "BIG"
+      },
+      {
+       "letter": "C",
+       "text": "how close you are to a real city",
+       "tag": "CITY"
+      },
+      {
+       "letter": "D",
+       "text": "how good the labs and the tools are",
+       "tag": "TECH"
       }
      ]
     },
     {
-     "id": "Q25",
+     "id": "Q17",
      "part": 1,
-     "text": "After college you picture yourself…",
+     "text": "After college, you picture yourself...",
      "options": [
       {
        "letter": "A",
-       "text": "with a huge alumni network everywhere",
-       "tag": "BIG"
-      },
-      {
-       "letter": "B",
-       "text": "recruited into a top firm",
-       "tag": "POWER"
-      },
-      {
-       "letter": "C",
        "text": "running your own thing",
        "tag": "STARTUP"
       },
       {
-       "letter": "D",
-       "text": "at a big company in a major city",
-       "tag": "CITY"
-      }
-     ]
-    },
-    {
-     "id": "Q26",
-     "part": 1,
-     "text": "You'd love a campus that's…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "full of murals, music, and student art",
-       "tag": "CREATIVE"
-      },
-      {
        "letter": "B",
-       "text": "full of workshops and equipment",
-       "tag": "TECH"
+       "text": "working across four different countries",
+       "tag": "GLOBAL"
       },
       {
        "letter": "C",
-       "text": "small and green and calm",
+       "text": "making work people have actually seen",
+       "tag": "CREATIVE"
+      },
+      {
+       "letter": "D",
+       "text": "still calling your college professors for advice",
        "tag": "KNIT"
-      },
-      {
-       "letter": "D",
-       "text": "full of students from everywhere",
-       "tag": "GLOBAL"
       }
      ]
     },
     {
-     "id": "Q27",
+     "id": "Q18",
      "part": 1,
-     "text": "Which would you brag about at 30?",
+     "text": "Which sounds like the best possible Saturday?",
      "options": [
       {
        "letter": "A",
-       "text": "\"I've worked on four continents.\"",
-       "tag": "GLOBAL"
-      },
-      {
-       "letter": "B",
-       "text": "\"You've seen my work.\"",
-       "tag": "CREATIVE"
-      },
-      {
-       "letter": "C",
-       "text": "\"I still go back for homecoming.\"",
+       "text": "a stadium full of people who all showed up for the same thing",
        "tag": "BIG"
       },
       {
-       "letter": "D",
-       "text": "\"My school's name still opens doors.\"",
+       "letter": "B",
+       "text": "a guest speaker who runs a company you actually admire",
        "tag": "POWER"
+      },
+      {
+       "letter": "C",
+       "text": "a hackathon that runs past midnight",
+       "tag": "TECH"
+      },
+      {
+       "letter": "D",
+       "text": "pitching an idea to people who might actually fund it",
+       "tag": "STARTUP"
       }
      ]
     },
     {
-     "id": "Q28",
+     "id": "Q19",
      "part": 1,
-     "text": "Be honest — you want…",
+     "text": "Pick the size and shape of the place you want.",
      "options": [
       {
        "letter": "A",
-       "text": "to actually know my professors",
-       "tag": "KNIT"
-      },
-      {
-       "letter": "B",
-       "text": "to build something of your own",
-       "tag": "STARTUP"
-      },
-      {
-       "letter": "C",
-       "text": "to be in the middle of everything",
+       "text": "medium, right in the middle of a real city",
        "tag": "CITY"
       },
       {
-       "letter": "D",
-       "text": "to work with the newest technology",
-       "tag": "TECH"
-      }
-     ]
-    },
-    {
-     "id": "Q29",
-     "part": 1,
-     "text": "Your gut says:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "I want to be where tech meets business",
-       "tag": "TECH"
-      },
-      {
        "letter": "B",
-       "text": "I want to be known, not counted",
+       "text": "small enough that you're never just a number",
        "tag": "KNIT"
       },
       {
        "letter": "C",
-       "text": "I want the world to feel small",
+       "text": "wherever lets you study abroad the most",
        "tag": "GLOBAL"
       },
       {
        "letter": "D",
-       "text": "I want to make things people feel",
-       "tag": "CREATIVE"
+       "text": "wherever gives you the most room to build",
+       "tag": "STARTUP"
       }
      ]
     },
     {
-     "id": "Q30",
+     "id": "Q20",
      "part": 1,
-     "text": "Final call:",
+     "text": "Last one — what do you actually want?",
      "options": [
       {
        "letter": "A",
-       "text": "I want to create",
-       "tag": "CREATIVE"
-      },
-      {
-       "letter": "B",
-       "text": "I want the biggest experience possible",
-       "tag": "BIG"
-      },
-      {
-       "letter": "C",
-       "text": "I want the strongest business name",
+       "text": "the strongest name on your diploma",
        "tag": "POWER"
       },
       {
-       "letter": "D",
-       "text": "I want the freedom to invent",
+       "letter": "B",
+       "text": "the freedom to make what you want to make",
+       "tag": "CREATIVE"
+      },
+      {
+       "letter": "C",
+       "text": "the freedom to build your own thing from day one",
        "tag": "STARTUP"
+      },
+      {
+       "letter": "D",
+       "text": "the biggest, loudest college experience there is",
+       "tag": "BIG"
       }
      ]
     }
@@ -1709,42 +550,50 @@
     {
      "code": "BIG",
      "name": "🏟️ Big Spirited State School",
-     "blurb": "Huge, proud, buzzing with traditions. Vibe examples: Penn State, Indiana (Kelley), Michigan, Ohio State, UT–Austin."
+     "blurb": "Huge, proud, buzzing with traditions.",
+     "schools": "1. Michigan — the strongest academics of this group · 2. UT–Austin — huge school, huge city to match · 3. Penn State — legendary traditions, massive alumni reach · 4. Ohio State — the loudest gameday of them all"
     },
     {
      "code": "POWER",
      "name": "💼 Business Powerhouse",
-     "blurb": "A famous, competitive program that opens serious doors. Vibe examples: UPenn (Wharton), NYU (Stern), Michigan (Ross), UVA (McIntire), UNC (Kenan-Flagler)."
+     "blurb": "A famous, competitive program that opens serious doors.",
+     "schools": "1. UPenn (Wharton) — most selective, deepest finance recruiting · 2. NYU (Stern) — same doors, Manhattan on top · 3. Michigan (Ross) — best public option in this group · 4. UVA (McIntire) — smaller and just as respected · 5. UNC (Kenan-Flagler) — most affordable in-state option"
     },
     {
      "code": "STARTUP",
      "name": "🚀 Entrepreneurial / Startup Campus",
-     "blurb": "Built for founders and makers. Vibe examples: Babson, MIT, Stanford, USC (Marshall)."
+     "blurb": "Built for founders and makers.",
+     "schools": "1. Stanford — closest thing to the center of startup culture · 2. MIT — the most technical founders come out of here · 3. Babson — built entirely around entrepreneurship · 4. USC (Marshall) — strong founder culture with an LA network"
     },
     {
      "code": "CITY",
      "name": "🌆 City Hustle School",
-     "blurb": "In the middle of a real city, where class and career blur. Vibe examples: NYU, Fordham, Northeastern, Boston University."
+     "blurb": "In the middle of a real city, where class and career blur.",
+     "schools": "1. NYU — the biggest city, the biggest name · 2. Boston University — a real city at a smaller scale · 3. Northeastern — built around co-ops in the middle of Boston · 4. Fordham — same city as NYU, easier admissions bar"
     },
     {
      "code": "TECH",
      "name": "🤖 Tech-Meets-Business",
-     "blurb": "Where business brains and builders collide. Vibe examples: Carnegie Mellon, Georgia Tech, Cornell, UC Berkeley (Haas)."
+     "blurb": "Where business brains and builders collide.",
+     "schools": "1. Carnegie Mellon — the strongest tech-meets-business reputation · 2. UC Berkeley (Haas) — Silicon Valley on your doorstep · 3. Georgia Tech — best value for the tech strength · 4. Cornell — an Ivy with real engineering chops"
     },
     {
      "code": "KNIT",
      "name": "🌳 Close-Knit Community",
-     "blurb": "Smaller, warmer, personal — professors know your name. Vibe examples: Bentley, Bryant, Villanova, Wake Forest."
+     "blurb": "Smaller, warmer, personal — professors know your name.",
+     "schools": "1. Villanova — small, respected, personal · 2. Wake Forest — same closeness, stronger national name · 3. Bentley — business-only, everyone knows everyone · 4. Bryant — smallest of the group, most personal attention"
     },
     {
      "code": "GLOBAL",
      "name": "🌍 Global / Study-Abroad Campus",
-     "blurb": "Languages, cultures, and a semester (or four) abroad. Vibe examples: Georgetown, American University, Middlebury, Boston University."
+     "blurb": "Languages, cultures, and a semester (or four) abroad.",
+     "schools": "1. Georgetown — the strongest international-affairs name · 2. Middlebury — famous for languages and study abroad · 3. American University — DC access plus a global focus · 4. Boston University — study abroad at a bigger scale"
     },
     {
      "code": "CREATIVE",
      "name": "🎭 Creative / Arts-Meets-Business",
-     "blurb": "Where design, media, and entertainment meet the business side. Vibe examples: USC, NYU (Tisch + Stern), Emerson, The New School (Parsons)."
+     "blurb": "Where design, media, and entertainment meet the business side.",
+     "schools": "1. USC — film, media, and business all in one place · 2. NYU (Tisch + Stern) — same idea, in the middle of NYC · 3. The New School (Parsons) — design-first, business-adjacent · 4. Emerson — smaller, media-focused, tight-knit"
     }
    ]
   },
@@ -1756,296 +605,296 @@
     {
      "id": "Q1",
      "part": 1,
-     "text": "Pick the job you'd want for a day:",
+     "text": "You get to shadow someone for a week. Who do you pick?",
      "options": [
       {
        "letter": "A",
-       "text": "run a brand's big campaign",
-       "tag": "MKT"
+       "text": "A founder building their own company from scratch.",
+       "tag": "ENT"
       },
       {
        "letter": "B",
-       "text": "analyze whether a company's a good investment",
-       "tag": "FIN"
+       "text": "A consultant called in to fix a company's biggest problem.",
+       "tag": "CONSULT"
       },
       {
        "letter": "C",
-       "text": "close out the books at month-end",
-       "tag": "ACC"
+       "text": "An executive negotiating a deal with an overseas partner.",
+       "tag": "INTL"
       },
       {
        "letter": "D",
-       "text": "run your own startup",
-       "tag": "ENT"
+       "text": "A developer deciding what to build on an empty lot.",
+       "tag": "RE"
       }
      ]
     },
     {
      "id": "Q2",
      "part": 1,
-     "text": "Which task sounds genuinely fun?",
+     "text": "Which task would you actually enjoy?",
      "options": [
       {
        "letter": "A",
-       "text": "pitch your own business idea",
-       "tag": "ENT"
+       "text": "Closing out the books so every number matches exactly.",
+       "tag": "ACC"
       },
       {
        "letter": "B",
-       "text": "plan a 500-person event",
-       "tag": "HOS"
+       "text": "Writing the campaign that gets a brand noticed.",
+       "tag": "MKT"
       },
       {
        "letter": "C",
-       "text": "convince a big client to sign",
-       "tag": "SALES"
+       "text": "Running the team meeting and keeping everyone on track.",
+       "tag": "MGT"
       },
       {
        "letter": "D",
-       "text": "interview people for a job",
-       "tag": "HR"
+       "text": "Digging through data until you find the pattern nobody else saw.",
+       "tag": "ANLY"
       }
      ]
     },
     {
      "id": "Q3",
      "part": 1,
-     "text": "You'd love to be the person who…",
+     "text": "Pick the challenge you'd want to take on.",
      "options": [
       {
        "letter": "A",
-       "text": "fixes a company's culture",
-       "tag": "HR"
+       "text": "Convincing a skeptical client to say yes.",
+       "tag": "SALES"
       },
       {
        "letter": "B",
-       "text": "tells a company exactly what's broken",
-       "tag": "CONSULT"
+       "text": "Getting a shipment across the country on time, every time.",
+       "tag": "SCM"
       },
       {
        "letter": "C",
-       "text": "runs a team's business side",
-       "tag": "SEM"
+       "text": "Building the system that keeps a whole company running.",
+       "tag": "MIS"
       },
       {
        "letter": "D",
-       "text": "finds the story hidden in the data",
-       "tag": "ANLY"
+       "text": "Deciding which company is worth investing in.",
+       "tag": "FIN"
       }
      ]
     },
     {
      "id": "Q4",
      "part": 1,
-     "text": "Which would you rather pull off?",
+     "text": "Which behind-the-scenes job sounds like you?",
      "options": [
       {
        "letter": "A",
-       "text": "build a dashboard everyone relies on",
-       "tag": "ANLY"
+       "text": "Running the business side of a sports team or a tour.",
+       "tag": "SEM"
       },
       {
        "letter": "B",
-       "text": "make a brand famous",
-       "tag": "MKT"
+       "text": "Walking into a struggling company and telling them the truth.",
+       "tag": "CONSULT"
       },
       {
        "letter": "C",
-       "text": "spot the next big investment",
-       "tag": "FIN"
+       "text": "Explaining why prices went up this year.",
+       "tag": "ECON"
       },
       {
        "letter": "D",
-       "text": "keep every number exact",
-       "tag": "ACC"
+       "text": "Making sure every guest at an event has the best night of their life.",
+       "tag": "HOS"
       }
      ]
     },
     {
      "id": "Q5",
      "part": 1,
-     "text": "Your best skill:",
+     "text": "Which headline would you click first?",
      "options": [
       {
        "letter": "A",
-       "text": "catching the one number that's wrong",
-       "tag": "ACC"
+       "text": "\"The data that predicted it before anyone else.\"",
+       "tag": "ANLY"
       },
       {
        "letter": "B",
-       "text": "building something from nothing",
-       "tag": "ENT"
+       "text": "\"How your package gets to your door in one day.\"",
+       "tag": "SCM"
       },
       {
        "letter": "C",
-       "text": "making an experience perfect",
-       "tag": "HOS"
+       "text": "\"The fund that bet big and won.\"",
+       "tag": "FIN"
       },
       {
        "letter": "D",
-       "text": "getting someone to say yes",
-       "tag": "SALES"
+       "text": "\"Inside the business of a sold-out stadium.\"",
+       "tag": "SEM"
       }
      ]
     },
     {
      "id": "Q6",
      "part": 1,
-     "text": "You'd be great at…",
+     "text": "You'd want to be known as the person who...",
      "options": [
       {
        "letter": "A",
-       "text": "closing a huge deal",
-       "tag": "SALES"
+       "text": "does business across borders and languages.",
+       "tag": "INTL"
       },
       {
        "letter": "B",
-       "text": "settling a workplace conflict",
+       "text": "builds a team people actually want to work on.",
        "tag": "HR"
       },
       {
        "letter": "C",
-       "text": "finding the real problem underneath",
-       "tag": "CONSULT"
+       "text": "can sell almost anything to almost anyone.",
+       "tag": "SALES"
       },
       {
        "letter": "D",
-       "text": "negotiating an athlete's contract",
-       "tag": "SEM"
+       "text": "turns an idea nobody believed in into a real company.",
+       "tag": "ENT"
       }
      ]
     },
     {
      "id": "Q7",
      "part": 1,
-     "text": "Which puzzle would you take?",
+     "text": "Pick the tour you'd want to go on.",
      "options": [
       {
        "letter": "A",
-       "text": "how do we fill every seat in the stadium?",
-       "tag": "SEM"
+       "text": "A walk-through of a building before it's even built.",
+       "tag": "RE"
       },
       {
        "letter": "B",
-       "text": "can I prove this hunch with numbers?",
-       "tag": "ANLY"
+       "text": "A backstage look at how a hotel actually runs.",
+       "tag": "HOS"
       },
       {
        "letter": "C",
-       "text": "why has nobody heard of this brand?",
-       "tag": "MKT"
+       "text": "A look at the software holding a whole company together.",
+       "tag": "MIS"
       },
       {
        "letter": "D",
-       "text": "is this actually a good investment?",
-       "tag": "FIN"
+       "text": "A visit to the office deciding interest rates.",
+       "tag": "ECON"
       }
      ]
     },
     {
      "id": "Q8",
      "part": 1,
-     "text": "Honestly, you love…",
+     "text": "Which win would feel best?",
      "options": [
       {
        "letter": "A",
-       "text": "markets and risk",
+       "text": "An investment you picked actually pays off.",
        "tag": "FIN"
       },
       {
        "letter": "B",
-       "text": "order and precision",
-       "tag": "ACC"
+       "text": "A team you're leading hits a goal everyone thought was out of reach.",
+       "tag": "MGT"
       },
       {
        "letter": "C",
-       "text": "risk and building",
-       "tag": "ENT"
+       "text": "Someone you hired turns out to be the best on the team.",
+       "tag": "HR"
       },
       {
        "letter": "D",
-       "text": "people and moments",
-       "tag": "HOS"
+       "text": "You catch the one number in the report that was wrong.",
+       "tag": "ACC"
       }
      ]
     },
     {
      "id": "Q9",
      "part": 1,
-     "text": "Weekend project:",
+     "text": "Which class would you secretly love?",
      "options": [
       {
        "letter": "A",
-       "text": "throw a pop-up party",
-       "tag": "HOS"
+       "text": "Advertising and Brand Strategy.",
+       "tag": "MKT"
       },
       {
        "letter": "B",
-       "text": "sell out your merch drop",
-       "tag": "SALES"
+       "text": "Intro to Coding for Business.",
+       "tag": "MIS"
       },
       {
        "letter": "C",
-       "text": "get a group that's fighting to work together",
-       "tag": "HR"
+       "text": "Real Estate and Urban Development.",
+       "tag": "RE"
       },
       {
        "letter": "D",
-       "text": "figure out why a local shop is failing",
-       "tag": "CONSULT"
+       "text": "The Business of Sports and Entertainment.",
+       "tag": "SEM"
       }
      ]
     },
     {
      "id": "Q10",
      "part": 1,
-     "text": "You'd want to work at…",
+     "text": "Your school club needs a leader. Which job do you want?",
      "options": [
       {
        "letter": "A",
-       "text": "a consulting firm",
-       "tag": "CONSULT"
+       "text": "Run the whole thing and keep everyone organized.",
+       "tag": "MGT"
       },
       {
        "letter": "B",
-       "text": "a sports team or record label",
-       "tag": "SEM"
+       "text": "Plan the big event people will actually remember.",
+       "tag": "HOS"
       },
       {
        "letter": "C",
-       "text": "a company's data team",
-       "tag": "ANLY"
+       "text": "Figure out the real cost of every idea before anyone spends a dollar.",
+       "tag": "ECON"
       },
       {
        "letter": "D",
-       "text": "an ad agency",
-       "tag": "MKT"
+       "text": "Track every dollar so nothing goes missing.",
+       "tag": "ACC"
       }
      ]
     },
     {
      "id": "Q11",
      "part": 1,
-     "text": "Which class?",
+     "text": "A local shop is struggling. What's your move?",
      "options": [
       {
        "letter": "A",
-       "text": "Building a Brand",
-       "tag": "MKT"
+       "text": "Sit down with the owner and figure out exactly what's broken.",
+       "tag": "CONSULT"
       },
       {
        "letter": "B",
-       "text": "Investing & Markets",
-       "tag": "FIN"
+       "text": "Redo how they talk about themselves online.",
+       "tag": "MKT"
       },
       {
        "letter": "C",
-       "text": "Accounting",
-       "tag": "ACC"
+       "text": "Get out there and bring in new customers yourself.",
+       "tag": "SALES"
       },
       {
        "letter": "D",
-       "text": "How to Start a Company",
+       "text": "Pitch them on a completely different idea for the business.",
        "tag": "ENT"
       }
      ]
@@ -2053,513 +902,351 @@
     {
      "id": "Q12",
      "part": 1,
-     "text": "Your dream title:",
+     "text": "Which project would you want on your resume?",
      "options": [
       {
        "letter": "A",
-       "text": "Founder",
-       "tag": "ENT"
+       "text": "Launched a product in another country.",
+       "tag": "INTL"
       },
       {
        "letter": "B",
-       "text": "Director of Events",
-       "tag": "HOS"
+       "text": "Built a campaign that actually went viral.",
+       "tag": "MKT"
       },
       {
        "letter": "C",
-       "text": "Head of Sales",
-       "tag": "SALES"
+       "text": "Found the pattern in the data that changed a company's plan.",
+       "tag": "ANLY"
       },
       {
        "letter": "D",
-       "text": "Head of People",
-       "tag": "HR"
+       "text": "Solved a problem three other people couldn't.",
+       "tag": "CONSULT"
       }
      ]
     },
     {
      "id": "Q13",
      "part": 1,
-     "text": "Most satisfying:",
+     "text": "Which puzzle sounds interesting to solve?",
      "options": [
       {
        "letter": "A",
-       "text": "hiring someone who turns out amazing",
-       "tag": "HR"
+       "text": "How does a warehouse get every order out on time?",
+       "tag": "SCM"
       },
       {
        "letter": "B",
-       "text": "fixing a process that never worked",
-       "tag": "CONSULT"
+       "text": "Why did the price of something you buy every week suddenly jump?",
+       "tag": "ECON"
       },
       {
        "letter": "C",
-       "text": "a sold-out show",
+       "text": "How does a concert tour actually turn a profit?",
        "tag": "SEM"
       },
       {
        "letter": "D",
-       "text": "a forecast that comes true",
-       "tag": "ANLY"
+       "text": "What's the one sentence that gets someone to finally say yes?",
+       "tag": "SALES"
       }
      ]
     },
     {
      "id": "Q14",
      "part": 1,
-     "text": "You'd geek out over…",
+     "text": "Pick the workspace you'd want.",
      "options": [
       {
        "letter": "A",
-       "text": "a statistics class that finally clicks",
-       "tag": "ANLY"
+       "text": "A hotel lobby, coordinating a hundred moving pieces at once.",
+       "tag": "HOS"
       },
       {
        "letter": "B",
-       "text": "advertising and media",
-       "tag": "MKT"
+       "text": "An office solving conflicts between coworkers.",
+       "tag": "HR"
       },
       {
        "letter": "C",
-       "text": "banking and investing",
-       "tag": "FIN"
+       "text": "A desk covered in spreadsheets you actually enjoy reading.",
+       "tag": "ANLY"
       },
       {
        "letter": "D",
-       "text": "a perfectly organized financial report",
-       "tag": "ACC"
+       "text": "A property you're deciding whether to buy.",
+       "tag": "RE"
       }
      ]
     },
     {
      "id": "Q15",
      "part": 1,
-     "text": "Which win feels best?",
+     "text": "In a group project, which role do you take without being asked?",
      "options": [
       {
        "letter": "A",
-       "text": "the books balancing perfectly",
-       "tag": "ACC"
+       "text": "The one who makes sure everyone feels heard.",
+       "tag": "HR"
       },
       {
        "letter": "B",
-       "text": "your idea becoming a real thing",
-       "tag": "ENT"
+       "text": "The one tracking whether the plan is actually affordable.",
+       "tag": "FIN"
       },
       {
        "letter": "C",
-       "text": "a guest saying \"best night ever\"",
-       "tag": "HOS"
+       "text": "The one assigning who does what.",
+       "tag": "MGT"
       },
       {
        "letter": "D",
-       "text": "hearing \"yes, we'll sign\"",
-       "tag": "SALES"
+       "text": "The one checking every number twice.",
+       "tag": "ACC"
       }
      ]
     },
     {
      "id": "Q16",
      "part": 1,
-     "text": "Pick a superpower:",
+     "text": "Which title sounds like your future?",
      "options": [
       {
        "letter": "A",
-       "text": "sell anything to anyone",
-       "tag": "SALES"
+       "text": "Chief Economist.",
+       "tag": "ECON"
       },
       {
        "letter": "B",
-       "text": "know what everyone needs before they say it",
-       "tag": "HR"
+       "text": "Chief Technology Officer.",
+       "tag": "MIS"
       },
       {
        "letter": "C",
-       "text": "instantly see what's broken",
-       "tag": "CONSULT"
+       "text": "Head of Global Logistics.",
+       "tag": "SCM"
       },
       {
        "letter": "D",
-       "text": "predict the next big star",
-       "tag": "SEM"
+       "text": "VP of International Markets.",
+       "tag": "INTL"
       }
      ]
     },
     {
      "id": "Q17",
      "part": 1,
-     "text": "Which would you read about?",
+     "text": "Which internship would you pick?",
      "options": [
       {
        "letter": "A",
-       "text": "how a concert tour actually makes money",
-       "tag": "SEM"
+       "text": "A company's people and culture team.",
+       "tag": "HR"
       },
       {
        "letter": "B",
-       "text": "what the numbers say will happen next",
-       "tag": "ANLY"
+       "text": "A firm hired to fix other companies' problems.",
+       "tag": "CONSULT"
       },
       {
        "letter": "C",
-       "text": "a campaign everyone quotes",
-       "tag": "MKT"
+       "text": "A team that turns raw numbers into decisions.",
+       "tag": "ANLY"
       },
       {
        "letter": "D",
-       "text": "a chart of a stock's history",
-       "tag": "FIN"
+       "text": "A company's overseas office.",
+       "tag": "INTL"
       }
      ]
     },
     {
      "id": "Q18",
      "part": 1,
-     "text": "In a group you're the one who…",
+     "text": "Which problem would you actually want to fix?",
      "options": [
       {
        "letter": "A",
-       "text": "reads the financials",
-       "tag": "FIN"
+       "text": "A delivery that's always late.",
+       "tag": "SCM"
       },
       {
        "letter": "B",
-       "text": "checks all the numbers",
-       "tag": "ACC"
-      },
-      {
-       "letter": "C",
-       "text": "has the big idea",
+       "text": "A great idea that never got off the ground.",
        "tag": "ENT"
       },
       {
+       "letter": "C",
+       "text": "A budget that doesn't add up.",
+       "tag": "ACC"
+      },
+      {
        "letter": "D",
-       "text": "makes it feel special",
-       "tag": "HOS"
+       "text": "A portfolio that's losing money.",
+       "tag": "FIN"
       }
      ]
     },
     {
      "id": "Q19",
      "part": 1,
-     "text": "A company hires you to…",
+     "text": "Which weekend project sounds fun?",
      "options": [
       {
        "letter": "A",
-       "text": "run their huge launch event",
-       "tag": "HOS"
-      },
-      {
-       "letter": "B",
-       "text": "grow their sales",
+       "text": "Selling out a product you made yourself.",
        "tag": "SALES"
       },
       {
+       "letter": "B",
+       "text": "Building the first version of your own business idea.",
+       "tag": "ENT"
+      },
+      {
        "letter": "C",
-       "text": "fix their culture",
-       "tag": "HR"
+       "text": "Throwing an event your friends still talk about.",
+       "tag": "HOS"
       },
       {
        "letter": "D",
-       "text": "fix their strategy",
-       "tag": "CONSULT"
+       "text": "Designing the ad campaign for something you love.",
+       "tag": "MKT"
       }
      ]
     },
     {
      "id": "Q20",
      "part": 1,
-     "text": "The industry you'd pick:",
+     "text": "You'd rather be the person who...",
      "options": [
       {
        "letter": "A",
-       "text": "consulting & strategy",
-       "tag": "CONSULT"
+       "text": "builds the system everyone else depends on.",
+       "tag": "MIS"
       },
       {
        "letter": "B",
-       "text": "sports & entertainment",
-       "tag": "SEM"
+       "text": "runs the whole operation.",
+       "tag": "MGT"
       },
       {
        "letter": "C",
-       "text": "analytics & data",
-       "tag": "ANLY"
+       "text": "manages the business side of a team or a tour.",
+       "tag": "SEM"
       },
       {
        "letter": "D",
-       "text": "brands & marketing",
-       "tag": "MKT"
+       "text": "finds the answer hiding in the numbers.",
+       "tag": "ANLY"
       }
      ]
     },
     {
      "id": "Q21",
      "part": 1,
-     "text": "Final stretch — pick:",
+     "text": "Which feeling would you chase?",
      "options": [
       {
        "letter": "A",
-       "text": "I want to make people want things",
-       "tag": "MKT"
+       "text": "Every number lining up perfectly.",
+       "tag": "ACC"
       },
       {
        "letter": "B",
-       "text": "I want to grow money",
+       "text": "A stock you picked going up.",
        "tag": "FIN"
       },
       {
        "letter": "C",
-       "text": "I want everything to add up",
-       "tag": "ACC"
+       "text": "Turning your own idea into something real.",
+       "tag": "ENT"
       },
       {
        "letter": "D",
-       "text": "I want to build my own thing",
-       "tag": "ENT"
+       "text": "Closing a deal you worked hard for.",
+       "tag": "SALES"
       }
      ]
     },
     {
      "id": "Q22",
      "part": 1,
-     "text": "…and:",
+     "text": "Where does your instinct for money go?",
      "options": [
       {
        "letter": "A",
-       "text": "I want to be my own boss",
-       "tag": "ENT"
+       "text": "Property and land.",
+       "tag": "RE"
       },
       {
        "letter": "B",
-       "text": "I want to create experiences",
-       "tag": "HOS"
+       "text": "Markets and interest rates.",
+       "tag": "ECON"
       },
       {
        "letter": "C",
-       "text": "I want to be the best closer in the room",
-       "tag": "SALES"
+       "text": "Getting goods from one place to another, cheaply and fast.",
+       "tag": "SCM"
       },
       {
        "letter": "D",
-       "text": "I want people to love where they work",
-       "tag": "HR"
+       "text": "Business that crosses borders.",
+       "tag": "INTL"
       }
      ]
     },
     {
      "id": "Q23",
      "part": 1,
-     "text": "…and:",
+     "text": "Which career would you brag about at 30?",
      "options": [
       {
        "letter": "A",
-       "text": "building great teams",
-       "tag": "HR"
+       "text": "\"I run one of the best hotels in the city.\"",
+       "tag": "HOS"
       },
       {
        "letter": "B",
-       "text": "making companies smarter",
-       "tag": "CONSULT"
+       "text": "\"I run the whole division.\"",
+       "tag": "MGT"
       },
       {
        "letter": "C",
-       "text": "running the business of sports and music",
-       "tag": "SEM"
+       "text": "\"Companies fly me in to fix what's broken.\"",
+       "tag": "CONSULT"
       },
       {
        "letter": "D",
-       "text": "finding the pattern nobody saw",
-       "tag": "ANLY"
+       "text": "\"I built half this neighborhood.\"",
+       "tag": "RE"
       }
      ]
     },
     {
      "id": "Q24",
      "part": 1,
-     "text": "Which would you frame on your wall?",
+     "text": "Last one — which future sounds like you?",
      "options": [
       {
        "letter": "A",
-       "text": "a spreadsheet that answered a big question",
-       "tag": "ANLY"
-      },
-      {
-       "letter": "B",
-       "text": "an ad that went viral",
+       "text": "Building brands people actually love.",
        "tag": "MKT"
       },
       {
-       "letter": "C",
-       "text": "an investment that paid off",
-       "tag": "FIN"
-      },
-      {
-       "letter": "D",
-       "text": "a report with zero errors",
-       "tag": "ACC"
-      }
-     ]
-    },
-    {
-     "id": "Q25",
-     "part": 1,
-     "text": "Your friends would call you…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "the most detail-obsessed person they know",
-       "tag": "ACC"
-      },
-      {
        "letter": "B",
-       "text": "the one always starting something",
-       "tag": "ENT"
+       "text": "Building the technology behind a growing company.",
+       "tag": "MIS"
       },
       {
        "letter": "C",
-       "text": "the one who makes everyone comfortable",
-       "tag": "HOS"
+       "text": "Running the business behind games, concerts, and stars.",
+       "tag": "SEM"
       },
       {
        "letter": "D",
-       "text": "the one who can talk anyone into anything",
-       "tag": "SALES"
-      }
-     ]
-    },
-    {
-     "id": "Q26",
-     "part": 1,
-     "text": "You'd be happiest in…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "a room full of clients",
-       "tag": "SALES"
-      },
-      {
-       "letter": "B",
-       "text": "a room full of your team",
+       "text": "Building a workplace people are proud to be part of.",
        "tag": "HR"
-      },
-      {
-       "letter": "C",
-       "text": "a room full of problems to solve",
-       "tag": "CONSULT"
-      },
-      {
-       "letter": "D",
-       "text": "a room full of fans",
-       "tag": "SEM"
-      }
-     ]
-    },
-    {
-     "id": "Q27",
-     "part": 1,
-     "text": "Where would we find you?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "backstage at a huge event",
-       "tag": "SEM"
-      },
-      {
-       "letter": "B",
-       "text": "deep in a dataset",
-       "tag": "ANLY"
-      },
-      {
-       "letter": "C",
-       "text": "in a creative brainstorm",
-       "tag": "MKT"
-      },
-      {
-       "letter": "D",
-       "text": "watching the markets open",
-       "tag": "FIN"
-      }
-     ]
-    },
-    {
-     "id": "Q28",
-     "part": 1,
-     "text": "Pick the challenge:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "predicting what a stock will do",
-       "tag": "FIN"
-      },
-      {
-       "letter": "B",
-       "text": "making sure every dollar is accounted for",
-       "tag": "ACC"
-      },
-      {
-       "letter": "C",
-       "text": "pitching investors on your idea",
-       "tag": "ENT"
-      },
-      {
-       "letter": "D",
-       "text": "making 300 guests happy at once",
-       "tag": "HOS"
-      }
-     ]
-    },
-    {
-     "id": "Q29",
-     "part": 1,
-     "text": "You want…",
-     "options": [
-      {
-       "letter": "A",
-       "text": "every event unforgettable",
-       "tag": "HOS"
-      },
-      {
-       "letter": "B",
-       "text": "every deal closed",
-       "tag": "SALES"
-      },
-      {
-       "letter": "C",
-       "text": "every employee happy",
-       "tag": "HR"
-      },
-      {
-       "letter": "D",
-       "text": "every company smarter",
-       "tag": "CONSULT"
-      }
-     ]
-    },
-    {
-     "id": "Q30",
-     "part": 1,
-     "text": "Last one:",
-     "options": [
-      {
-       "letter": "A",
-       "text": "I want to fix what's broken",
-       "tag": "CONSULT"
-      },
-      {
-       "letter": "B",
-       "text": "I want to run the game-day business",
-       "tag": "SEM"
-      },
-      {
-       "letter": "C",
-       "text": "I want to find the answer in the numbers",
-       "tag": "ANLY"
-      },
-      {
-       "letter": "D",
-       "text": "I want to build brands people love",
-       "tag": "MKT"
       }
      ]
     }
@@ -2567,53 +1254,83 @@
    "results": [
     {
      "code": "MKT",
-     "name": "🎨 Marketing / Brand Strategist",
+     "name": "Marketing / Brand Strategist",
      "blurb": "You make people feel something about a product. → DECA: marketing role-plays."
     },
     {
      "code": "FIN",
-     "name": "📈 Financial Analyst",
+     "name": "Financial Analyst",
      "blurb": "You read markets and numbers to guide big money decisions. → DECA: Business Finance; Stock Market Game."
     },
     {
      "code": "ACC",
-     "name": "🧾 Accountant",
+     "name": "Accountant",
      "blurb": "The trusted scorekeeper of every business. → DECA: Accounting Applications."
     },
     {
      "code": "ENT",
-     "name": "🚀 Entrepreneur / Founder",
+     "name": "Entrepreneur / Founder",
      "blurb": "You build something from nothing and run the whole show. → DECA: Entrepreneurship events."
     },
     {
      "code": "HOS",
-     "name": "🎉 Event & Hospitality Manager",
+     "name": "Event & Hospitality Manager",
      "blurb": "You create experiences people never forget. → DECA: Hospitality role-plays."
     },
     {
      "code": "SALES",
-     "name": "🤝 Sales & Business Development",
+     "name": "Sales & Business Development",
      "blurb": "You build relationships and close the deals that grow a company. → DECA: Professional Selling."
     },
     {
      "code": "HR",
-     "name": "👥 HR / People Manager",
+     "name": "HR / People Manager",
      "blurb": "You build great teams and keep workplaces fair and strong. → DECA: Human Resources Management."
     },
     {
      "code": "CONSULT",
-     "name": "🧠 Management Consultant",
+     "name": "Management Consultant",
      "blurb": "Companies hire you to find problems and fix them. → DECA: Team Decision Making events."
     },
     {
      "code": "SEM",
-     "name": "🏟️ Sports & Entertainment Marketer",
+     "name": "Sports & Entertainment Marketer",
      "blurb": "You run the business behind the games, concerts, and stars. → DECA: Sports & Entertainment Marketing."
     },
     {
      "code": "ANLY",
-     "name": "📊 Business / Data Analyst",
+     "name": "Business / Data Analyst",
      "blurb": "You turn messy numbers into the answer everyone needed. → DECA: any event with a data-heavy case."
+    },
+    {
+     "code": "MGT",
+     "name": "General Manager",
+     "blurb": "You run the whole operation and keep a team moving toward the same goal. → DECA: Principles of Business Management."
+    },
+    {
+     "code": "ECON",
+     "name": "Economist / Policy Analyst",
+     "blurb": "You see the forces behind prices, choices, and markets before anyone else does. → DECA: a strong base for finance and policy."
+    },
+    {
+     "code": "INTL",
+     "name": "International Business Manager",
+     "blurb": "You do business across borders, languages, and cultures. → DECA: a natural fit for global brands."
+    },
+    {
+     "code": "SCM",
+     "name": "Supply Chain & Operations Manager",
+     "blurb": "You make the whole machine run — right thing, right place, on time. → DECA: the behind-the-scenes hero role."
+    },
+    {
+     "code": "MIS",
+     "name": "Business Systems / IT Analyst",
+     "blurb": "You're the bridge between technology and business, solving problems with systems. → DECA: business plus coding."
+    },
+    {
+     "code": "RE",
+     "name": "Real Estate Developer",
+     "blurb": "You see value in property, location, and the deal. → DECA: buying, selling, and building."
     }
    ]
   },
@@ -3333,12 +2050,12 @@
      "options": [
       {
        "letter": "A",
-       "text": "\"She founded it at 17.\"",
+       "text": "\"They founded it at 17.\"",
        "tag": "F_STARTUP"
       },
       {
        "letter": "B",
-       "text": "\"How she paid for college herself.\"",
+       "text": "\"How they paid for college themselves.\"",
        "tag": "F_MONEY"
       },
       {
@@ -3348,7 +2065,7 @@
       },
       {
        "letter": "D",
-       "text": "\"He rebuilt the dealership.\"",
+       "text": "\"They rebuilt the dealership.\"",
        "tag": "F_AUTO"
       },
       {
@@ -3676,147 +2393,176 @@
   "PMK": {
    "cluster": "MKT",
    "flavor": null,
-   "tier": "PRIN"
+   "tier": "PRIN",
+   "slug": "principles-of-marketing"
   },
   "AAM": {
    "cluster": "MKT",
    "flavor": "F_FASHION",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "apparel-and-accessories-marketing-series"
   },
   "ASM": {
    "cluster": "MKT",
    "flavor": "F_AUTO",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "automotive-services-marketing-series"
   },
   "BSM": {
    "cluster": "MKT",
    "flavor": "F_SERVICE",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "business-services-marketing-series"
   },
   "FMS": {
    "cluster": "MKT",
    "flavor": "F_FOODPROD",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "food-marketing-series"
   },
   "MCS": {
    "cluster": "MKT",
    "flavor": "F_ADS",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "marketing-communications-series"
   },
   "RMS": {
    "cluster": "MKT",
    "flavor": "F_RETAIL",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "retail-merchandising-series"
   },
   "SEM": {
    "cluster": "MKT",
    "flavor": "F_SPORTS",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "sports-and-entertainment-marketing-series"
   },
   "PSE": {
    "cluster": "MKT",
    "flavor": "F_SELL",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "professional-selling"
   },
   "MTDM": {
    "cluster": "MKT",
    "flavor": "F_ADS",
-   "tier": "TDM"
+   "tier": "TDM",
+   "slug": "marketing-management-team-decision-making"
   },
   "BTDM": {
    "cluster": "MKT",
    "flavor": "F_RETAIL",
-   "tier": "TDM"
+   "tier": "TDM",
+   "slug": "buying-and-merchandising-team-decision-making"
   },
   "STDM": {
    "cluster": "MKT",
    "flavor": "F_SPORTS",
-   "tier": "TDM"
+   "tier": "TDM",
+   "slug": "sports-and-entertainment-marketing-team-decision-making"
   },
   "PFN": {
    "cluster": "FIN",
    "flavor": null,
-   "tier": "PRIN"
+   "tier": "PRIN",
+   "slug": "principles-of-finance"
   },
   "ACT": {
    "cluster": "FIN",
    "flavor": "F_ACCT",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "accounting-applications-series"
   },
   "BFS": {
    "cluster": "FIN",
    "flavor": "F_INVEST",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "business-finance-series"
   },
   "FTDM": {
    "cluster": "FIN",
    "flavor": "F_INVEST",
-   "tier": "TDM"
+   "tier": "TDM",
+   "slug": "financial-services-team-decision-making"
   },
   "PHT": {
    "cluster": "HOS",
    "flavor": null,
-   "tier": "PRIN"
+   "tier": "PRIN",
+   "slug": "principles-of-hospitality"
   },
   "HLM": {
    "cluster": "HOS",
    "flavor": "F_HOTEL",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "hotel-and-lodging-management-series"
   },
   "QSRM": {
    "cluster": "HOS",
    "flavor": "F_FASTFOOD",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "quick-serve-restaurant-management-series"
   },
   "RFSM": {
    "cluster": "HOS",
    "flavor": "F_RESTAURANT",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "restaurant-and-food-service-management-series"
   },
   "HTDM": {
    "cluster": "HOS",
    "flavor": "F_HOTEL",
-   "tier": "TDM"
+   "tier": "TDM",
+   "slug": "hospitality-services-team-decision-making"
   },
   "TTDM": {
    "cluster": "HOS",
    "flavor": "F_TRAVEL",
-   "tier": "TDM"
+   "tier": "TDM",
+   "slug": "travel-and-tourism-team-decision-making"
   },
   "PBM": {
    "cluster": "MGT",
    "flavor": null,
-   "tier": "PRIN"
+   "tier": "PRIN",
+   "slug": "principles-of-business-management-and-administration"
   },
   "HRM": {
    "cluster": "MGT",
    "flavor": "F_PEOPLE",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "human-resources-management-series"
   },
   "BLTDM": {
    "cluster": "MGT",
    "flavor": "F_LAW",
-   "tier": "TDM"
+   "tier": "TDM",
+   "slug": "business-law-and-ethics-team-decision-making"
   },
   "PEN": {
    "cluster": "ENT",
    "flavor": null,
-   "tier": "PRIN"
+   "tier": "PRIN",
+   "slug": "principles-of-entrepreneurship"
   },
   "ENT": {
    "cluster": "ENT",
    "flavor": "F_STARTUP",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "entrepreneurship-series"
   },
   "ETDM": {
    "cluster": "ENT",
    "flavor": "F_STARTUP",
-   "tier": "TDM"
+   "tier": "TDM",
+   "slug": "entrepreneurship-team-decision-making"
   },
   "PFL": {
    "cluster": "PFL",
    "flavor": "F_MONEY",
-   "tier": "SERIES"
+   "tier": "SERIES",
+   "slug": "personal-financial-literacy"
   }
  },
  "flavorCluster": {

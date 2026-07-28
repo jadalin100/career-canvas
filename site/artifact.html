@@ -89,12 +89,18 @@ button { font: inherit; color: inherit; }
 }
 .meta-l { color: var(--muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; }
 
-/* chips woven into running text -- the four things this site actually answers */
-.chip {
-  display: inline-block; padding: 4px 16px; border-radius: 999px;
-  background: rgba(255,255,255,.06); border: 1px solid var(--line);
-  color: var(--white); font-size: 0.94em; white-space: nowrap;
+/* the three things this site actually answers -- italicized, not pill buttons */
+.hero p em { font-style: italic; color: var(--white); }
+
+/* ---------- tabs ---------- */
+.tabbar { display: flex; gap: 6px; margin: 28px 0 0; border-bottom: 1px solid var(--line); }
+.tabbar a {
+  display: inline-block; padding: 12px 18px; text-decoration: none;
+  color: var(--muted); font-size: 14px; font-weight: 700;
+  letter-spacing: .04em; border-bottom: 2px solid transparent; margin-bottom: -1px;
 }
+.tabbar a:hover { color: var(--white); }
+.tabbar a.active { color: var(--white); border-bottom-color: var(--coral); }
 
 .cards { display: grid; gap: 18px; }
 .card {
@@ -157,7 +163,13 @@ button { font: inherit; color: inherit; }
 }
 .opt-text { font-size: 16px; }
 
-.below { display: flex; align-items: center; justify-content: space-between; margin-top: 22px; }
+.below {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 14px; margin-top: 22px;
+}
+.below-left { display: flex; align-items: center; gap: 4px; }
+.below .btn.primary { width: auto; padding-inline: 26px; }
+.below .btn.primary[disabled] { opacity: .4; pointer-events: none; box-shadow: none; }
 .linkbtn {
   background: none; border: 0; color: var(--muted); cursor: pointer;
   text-decoration: underline; text-underline-offset: 4px; padding: 10px 4px; font-size: 15px;
@@ -186,7 +198,13 @@ button { font: inherit; color: inherit; }
 }
 .res-card h3 { font-size: 22px; margin-bottom: 8px; }
 .res-card p { color: var(--muted); font-size: 15px; margin: 0; }
+.res-card .schools { font-size: 13.5px; margin-top: 10px; line-height: 1.7; }
 .res-card .score { color: var(--muted); font-size: 12.5px; margin-top: 10px; letter-spacing: .04em; }
+.event-link {
+  display: inline-block; margin-top: 12px; color: var(--white); font-size: 13.5px;
+  font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.4);
+}
+.event-link:hover { border-color: var(--white); }
 
 .actions { display: grid; gap: 10px; margin-top: 26px; }
 .btn {
@@ -210,14 +228,20 @@ button { font: inherit; color: inherit; }
 }
 .rank-row span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
 
-/* ---------- dashboard ---------- */
-.dash { margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); }
+/* ---------- dashboard (and the Group tab, which reuses .dash) ---------- */
+.dash { margin-top: 32px; }
 .dash-head { text-align: center; margin-bottom: 28px; }
 .dash-head h2 { font-size: clamp(28px, 5.4vw, 38px); }
 .dash-head p { color: var(--muted); margin: 8px 0 0; font-size: 14px;
                letter-spacing: .08em; text-transform: uppercase; }
 
 .dash-body { display: grid; gap: 14px; }
+.dash-code-box + .dash-body { margin-top: 22px; }
+.dash-history { margin-top: 10px; }
+.dash-history summary { color: var(--muted); font-size: 13.5px; cursor: pointer; }
+.dash-history summary:hover { color: var(--white); }
+.dash-old { color: var(--muted); font-size: 13.5px; padding: 6px 0; }
+.dash-old span { font-variant-numeric: tabular-nums; margin-right: 10px; }
 .dash-row {
   position: relative; background: var(--navy-card); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 22px 26px;
@@ -249,15 +273,25 @@ button { font: inherit; color: inherit; }
 }
 .dash-restore { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
 .dash-restore label { display: block; color: var(--muted); font-size: 14.5px; margin-bottom: 10px; }
-#dash-input {
+#dash-input, #group-input {
   flex: 1; min-width: 190px; padding: 14px 20px; border-radius: 999px;
   background: var(--navy); border: 1px solid var(--line); color: var(--white);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 16px; letter-spacing: .08em;
 }
-#dash-input:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
+#dash-input:focus-visible, #group-input:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
 .dash-restore .btn { width: auto; padding-inline: 30px; }
 .dash-msg { color: var(--muted); font-size: 14px; margin: 12px 0 0; min-height: 1.2em; }
+
+/* ---------- group compare ---------- */
+.group-block { margin-bottom: 30px; }
+.group-block h3 { font-size: 17px; margin-bottom: 14px; }
+.group-row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 12px; align-items: center; padding: 6px 0; }
+.group-label { font-size: 14px; color: var(--muted); }
+.group-row.mine .group-label { color: var(--white); font-weight: 700; }
+.group-bar { display: block; height: 10px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
+.group-bar i { display: block; height: 100%; background: var(--grad); }
+.group-n { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; text-align: right; }
 
 .foot { color: var(--muted); font-size: 13px; text-align: center; margin-top: 34px; }
 .foot a { color: var(--muted); }
@@ -283,11 +317,27 @@ button { font: inherit; color: inherit; }
 }
 @media (max-width: 899px) { .rail { display: none; } }
 
+/* ---------- print (Save as PDF) ---------- */
+@media print {
+  .topbar, .rail, .tabbar, .actions, .below, .cursor-ring, .cursor-dot,
+  .foot, #dashboard, #group { display: none !important; }
+  body { background: #fff !important; color: #111 !important; }
+  .res-head, .res-head p, .full summary { color: #111 !important; }
+  .res-card { background: #fff !important; border: 1px solid #ccc !important;
+              box-shadow: none !important; break-inside: avoid; }
+  .res-card.top { background: #f6f4ff !important; }
+  .res-card p, .res-card .score, .schools { color: #444 !important; }
+  .event-link { color: #111 !important; }
+}
+
 /* ---------- motion ---------- */
 
-/* A trailing glow that chases the pointer. The native cursor stays visible on
-   purpose -- hiding it on a quiz middle schoolers have to click through trades
-   real usability for decoration. */
+/* The native arrow stays visible until initCursor() turns it off (desktop,
+   motion allowed) and swaps in the trailing ring -- see .custom-cursor below.
+   A typing cursor stays on text inputs either way. */
+.custom-cursor, .custom-cursor * { cursor: none !important; }
+.custom-cursor input, .custom-cursor textarea { cursor: text !important; }
+
 .cursor-ring {
   position: fixed; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%;
   border: 2px solid transparent;
@@ -372,9 +422,9 @@ button { font: inherit; color: inherit; }
 
   <aside class="rail" aria-label="Your progress">
     <ol id="rail">
-      <li class="now">Your interests</li>
-      <li>What you'd geek out over</li>
-      <li>How you like to work</li>
+      <li class="now">Getting started</li>
+      <li>Digging deeper</li>
+      <li>Almost there</li>
       <li>Your top matches</li>
     </ol>
   </aside>
@@ -390,29 +440,34 @@ button { font: inherit; color: inherit; }
     </span>
   </header>
 
-  <section class="hero">
-    <div class="mark" data-compass></div>
-    <h1>Find out where<br><span class="grad">you're headed.</span></h1>
-    <p>Four quick quizzes to help you explore your <span class="chip">major</span>,
-       your <span class="chip">college vibe</span>, your <span class="chip">career</span>,
-       and the <span class="chip">DECA event</span> that fits you best.</p>
+  <nav class="tabbar" aria-label="Sections">
+    <a href="#quizzes" data-tab="quizzes">Quizzes</a>
+    <a href="#dashboard" data-tab="dashboard">Dashboard</a>
+    <a href="#group" data-tab="group">Group</a>
+  </nav>
+
+  <section id="tab-quizzes">
+    <section class="hero">
+      <div class="mark" data-compass></div>
+      <h1>Find out where<br><span class="grad">you're headed.</span></h1>
+      <p>Three quick quizzes to help you explore your <em>college vibe</em>,
+         your <em>career</em>, and the <em>DECA event</em> that fits you best.</p>
+    </section>
+
+    <div class="meta-row">
+      <div><div class="meta-n">3</div><div class="meta-l">Quizzes</div></div>
+      <div><div class="meta-n">20&ndash;30</div><div class="meta-l">Questions each</div></div>
+      <div><div class="meta-n">53</div><div class="meta-l">Possible results</div></div>
+    </div>
+
+    <main id="cards" class="cards"></main>
   </section>
-
-  <div class="meta-row">
-    <div><div class="meta-n">4</div><div class="meta-l">Quizzes</div></div>
-    <div><div class="meta-n">30</div><div class="meta-l">Questions each</div></div>
-    <div><div class="meta-n">61</div><div class="meta-l">Possible results</div></div>
-  </div>
-
-  <main id="cards" class="cards"></main>
 
   <section id="dashboard" class="dash" hidden>
     <div class="dash-head">
       <h2>Your dashboard</h2>
       <p id="dash-count"></p>
     </div>
-
-    <div id="dash-body" class="dash-body"></div>
 
     <div class="dash-code-box">
       <p class="dash-label">Your restore code</p>
@@ -433,7 +488,11 @@ button { font: inherit; color: inherit; }
         <p id="dash-msg" class="dash-msg" role="status" aria-live="polite"></p>
       </form>
     </div>
+
+    <div id="dash-body" class="dash-body"></div>
   </section>
+
+  <section id="group" class="dash" hidden></section>
 
   <p class="foot">
     Your results are saved only on this device &mdash; never sent anywhere, and no account required.
@@ -441,7 +500,7 @@ button { font: inherit; color: inherit; }
 
 </div>
 
-<script>window.__QUIZ_DATA__ = {"quizzes": [{"key": "major", "title": "Major", "subtitle": "What business major fits you?", "questions": [{"id": "Q1", "part": 1, "text": "Pick the job you'd want for one day:", "options": [{"letter": "A", "text": "run a brand's social media", "tag": "MKT"}, {"letter": "B", "text": "decide which companies to invest in", "tag": "FIN"}, {"letter": "C", "text": "balance the books to the exact penny", "tag": "ACC"}, {"letter": "D", "text": "be the boss and run the team", "tag": "MGT"}]}, {"id": "Q2", "part": 1, "text": "Which would you actually enjoy?", "options": [{"letter": "A", "text": "planning a huge event", "tag": "HOS"}, {"letter": "B", "text": "figuring out why prices went up this year", "tag": "ECON"}, {"letter": "C", "text": "finding a hidden pattern in a big pile of data", "tag": "ANLY"}, {"letter": "D", "text": "starting a business from nothing", "tag": "ENT"}]}, {"id": "Q3", "part": 1, "text": "Which problem would you want to solve?", "options": [{"letter": "A", "text": "getting a shipment across the country on time", "tag": "SCM"}, {"letter": "B", "text": "building an app that fixes a company's mess", "tag": "MIS"}, {"letter": "C", "text": "helping two coworkers who can't get along", "tag": "HR"}, {"letter": "D", "text": "launching a product in another country", "tag": "INTL"}]}, {"id": "Q4", "part": 1, "text": "You get to shadow someone for a week. Pick:", "options": [{"letter": "A", "text": "an investor", "tag": "FIN"}, {"letter": "B", "text": "someone flipping a house", "tag": "RE"}, {"letter": "C", "text": "a sports team's front office", "tag": "SEM"}, {"letter": "D", "text": "an ad agency creative", "tag": "MKT"}]}, {"id": "Q5", "part": 1, "text": "Your school club needs you to\u2026", "options": [{"letter": "A", "text": "track every dollar exactly", "tag": "ACC"}, {"letter": "B", "text": "lead the whole team", "tag": "MGT"}, {"letter": "C", "text": "invent a brand-new fundraiser", "tag": "ENT"}, {"letter": "D", "text": "run the big night-of event", "tag": "HOS"}]}, {"id": "Q6", "part": 1, "text": "The class you'd secretly love:", "options": [{"letter": "A", "text": "Statistics & Data", "tag": "ANLY"}, {"letter": "B", "text": "Psychology of People at Work", "tag": "HR"}, {"letter": "C", "text": "World Cultures & Global Trade", "tag": "INTL"}, {"letter": "D", "text": "How the Economy Works", "tag": "ECON"}]}, {"id": "Q7", "part": 1, "text": "Which headline hooks you?", "options": [{"letter": "A", "text": "\"This neighborhood doubled in value\"", "tag": "RE"}, {"letter": "B", "text": "\"Inside a stadium's business\"", "tag": "SEM"}, {"letter": "C", "text": "\"How your package arrives in one day\"", "tag": "SCM"}, {"letter": "D", "text": "\"The software running every store\"", "tag": "MIS"}]}, {"id": "Q8", "part": 1, "text": "A company is struggling. You'd\u2026", "options": [{"letter": "A", "text": "reorganize the team", "tag": "MGT"}, {"letter": "B", "text": "fix how they talk to customers", "tag": "MKT"}, {"letter": "C", "text": "find them better funding", "tag": "FIN"}, {"letter": "D", "text": "audit where the money's actually going", "tag": "ACC"}]}, {"id": "Q9", "part": 1, "text": "Your dream side project:", "options": [{"letter": "A", "text": "launch your own product", "tag": "ENT"}, {"letter": "B", "text": "throw a pop-up event", "tag": "HOS"}, {"letter": "C", "text": "write about why sneaker prices spike", "tag": "ECON"}, {"letter": "D", "text": "build a dashboard tracking something you love", "tag": "ANLY"}]}, {"id": "Q10", "part": 1, "text": "Pick a superpower:", "options": [{"letter": "A", "text": "speak every language", "tag": "INTL"}, {"letter": "B", "text": "instantly see the fastest route for anything", "tag": "SCM"}, {"letter": "C", "text": "understand any technology immediately", "tag": "MIS"}, {"letter": "D", "text": "know what everyone's really feeling", "tag": "HR"}]}, {"id": "Q11", "part": 1, "text": "Which win feels best?", "options": [{"letter": "A", "text": "your campaign goes viral", "tag": "MKT"}, {"letter": "B", "text": "your investment pays off big", "tag": "FIN"}, {"letter": "C", "text": "you close on a great property", "tag": "RE"}, {"letter": "D", "text": "your team sells out the arena", "tag": "SEM"}]}, {"id": "Q12", "part": 1, "text": "You'd be great at\u2026", "options": [{"letter": "A", "text": "making guests feel amazing", "tag": "HOS"}, {"letter": "B", "text": "catching the one number that's wrong", "tag": "ACC"}, {"letter": "C", "text": "keeping a big group organized", "tag": "MGT"}, {"letter": "D", "text": "talking someone into your idea", "tag": "ENT"}]}, {"id": "Q13", "part": 1, "text": "Which question is most interesting?", "options": [{"letter": "A", "text": "why does college cost so much?", "tag": "ECON"}, {"letter": "B", "text": "what does the data say will happen next?", "tag": "ANLY"}, {"letter": "C", "text": "what makes people actually love their job?", "tag": "HR"}, {"letter": "D", "text": "how do businesses work across borders?", "tag": "INTL"}]}, {"id": "Q14", "part": 1, "text": "Pick your workspace:", "options": [{"letter": "A", "text": "a screen full of systems and code", "tag": "MIS"}, {"letter": "B", "text": "touring buildings all day", "tag": "RE"}, {"letter": "C", "text": "courtside or backstage", "tag": "SEM"}, {"letter": "D", "text": "a warehouse floor that runs like clockwork", "tag": "SCM"}]}, {"id": "Q15", "part": 1, "text": "Your friends would say you're\u2026", "options": [{"letter": "A", "text": "the most detail-obsessed", "tag": "ACC"}, {"letter": "B", "text": "the natural leader", "tag": "MGT"}, {"letter": "C", "text": "the most creative", "tag": "MKT"}, {"letter": "D", "text": "the one who's smart with money", "tag": "FIN"}]}, {"id": "Q16", "part": 1, "text": "Give you a free weekend and you'd\u2026", "options": [{"letter": "A", "text": "dig through data for fun", "tag": "ANLY"}, {"letter": "B", "text": "build and launch something", "tag": "ENT"}, {"letter": "C", "text": "plan the perfect trip for everyone", "tag": "HOS"}, {"letter": "D", "text": "read about how money moves the world", "tag": "ECON"}]}, {"id": "Q17", "part": 1, "text": "You'd want to be known as the person who\u2026", "options": [{"letter": "A", "text": "builds great teams", "tag": "HR"}, {"letter": "B", "text": "works all over the world", "tag": "INTL"}, {"letter": "C", "text": "makes everything run on time", "tag": "SCM"}, {"letter": "D", "text": "fixes it with technology", "tag": "MIS"}]}, {"id": "Q18", "part": 1, "text": "Which business would you start?", "options": [{"letter": "A", "text": "an agency for athletes and creators", "tag": "SEM"}, {"letter": "B", "text": "a brand people obsess over", "tag": "MKT"}, {"letter": "C", "text": "a fund that invests in cool companies", "tag": "FIN"}, {"letter": "D", "text": "buying and renting out property", "tag": "RE"}]}, {"id": "Q19", "part": 1, "text": "In a group project you're the one who\u2026", "options": [{"letter": "A", "text": "pitches the wild idea", "tag": "ENT"}, {"letter": "B", "text": "makes the whole experience feel good", "tag": "HOS"}, {"letter": "C", "text": "checks every fact and number", "tag": "ACC"}, {"letter": "D", "text": "assigns the roles", "tag": "MGT"}]}, {"id": "Q20", "part": 1, "text": "Pick an internship:", "options": [{"letter": "A", "text": "a global brand's overseas office", "tag": "INTL"}, {"letter": "B", "text": "a government economics office", "tag": "ECON"}, {"letter": "C", "text": "a company's data team", "tag": "ANLY"}, {"letter": "D", "text": "a company's people & culture team", "tag": "HR"}]}, {"id": "Q21", "part": 1, "text": "You'd geek out over\u2026", "options": [{"letter": "A", "text": "how a factory schedules everything", "tag": "SCM"}, {"letter": "B", "text": "how an app handles a million users at once", "tag": "MIS"}, {"letter": "C", "text": "how a city decides what gets built", "tag": "RE"}, {"letter": "D", "text": "how a concert tour actually makes money", "tag": "SEM"}]}, {"id": "Q22", "part": 1, "text": "A title you'd want someday:", "options": [{"letter": "A", "text": "Chief Investment Officer", "tag": "FIN"}, {"letter": "B", "text": "Chief Financial Officer", "tag": "ACC"}, {"letter": "C", "text": "Chief Executive Officer", "tag": "MGT"}, {"letter": "D", "text": "Chief Marketing Officer", "tag": "MKT"}]}, {"id": "Q23", "part": 1, "text": "Which puzzle?", "options": [{"letter": "A", "text": "predicting what a price will do next", "tag": "ECON"}, {"letter": "B", "text": "proving a hunch with real numbers", "tag": "ANLY"}, {"letter": "C", "text": "finding a gap nobody's filled yet", "tag": "ENT"}, {"letter": "D", "text": "making 300 guests happy at once", "tag": "HOS"}]}, {"id": "Q24", "part": 1, "text": "The thing you'd fix at a company:", "options": [{"letter": "A", "text": "their terrible software", "tag": "MIS"}, {"letter": "B", "text": "their unhappy employees", "tag": "HR"}, {"letter": "C", "text": "their failure to reach new countries", "tag": "INTL"}, {"letter": "D", "text": "their always-late deliveries", "tag": "SCM"}]}, {"id": "Q25", "part": 1, "text": "Where does your money instinct go?", "options": [{"letter": "A", "text": "property and land", "tag": "RE"}, {"letter": "B", "text": "the sports and music business", "tag": "SEM"}, {"letter": "C", "text": "the brand that's about to blow up", "tag": "MKT"}, {"letter": "D", "text": "the stock market", "tag": "FIN"}]}, {"id": "Q26", "part": 1, "text": "You'd rather run\u2026", "options": [{"letter": "A", "text": "a big team at a big company", "tag": "MGT"}, {"letter": "B", "text": "your own small company", "tag": "ENT"}, {"letter": "C", "text": "a hotel or a venue", "tag": "HOS"}, {"letter": "D", "text": "the numbers behind it all", "tag": "ACC"}]}, {"id": "Q27", "part": 1, "text": "Most satisfying:", "options": [{"letter": "A", "text": "hiring someone who turns out amazing", "tag": "HR"}, {"letter": "B", "text": "closing a deal in another country", "tag": "INTL"}, {"letter": "C", "text": "explaining why something costs what it costs", "tag": "ECON"}, {"letter": "D", "text": "your forecast turning out right", "tag": "ANLY"}]}, {"id": "Q28", "part": 1, "text": "You'd love to work behind the scenes at\u2026", "options": [{"letter": "A", "text": "a stadium or a music festival", "tag": "SEM"}, {"letter": "B", "text": "a global shipping company", "tag": "SCM"}, {"letter": "C", "text": "a tech company", "tag": "MIS"}, {"letter": "D", "text": "a real-estate developer", "tag": "RE"}]}, {"id": "Q29", "part": 1, "text": "Gut check \u2014 you want to\u2026", "options": [{"letter": "A", "text": "make people want things", "tag": "MKT"}, {"letter": "B", "text": "grow money", "tag": "FIN"}, {"letter": "C", "text": "make everything add up", "tag": "ACC"}, {"letter": "D", "text": "be in charge", "tag": "MGT"}]}, {"id": "Q30", "part": 1, "text": "And finally \u2014 you want to\u2026", "options": [{"letter": "A", "text": "create experiences", "tag": "HOS"}, {"letter": "B", "text": "understand the big picture", "tag": "ECON"}, {"letter": "C", "text": "find the answer in the numbers", "tag": "ANLY"}, {"letter": "D", "text": "build your own thing", "tag": "ENT"}]}], "results": [{"code": "MKT", "name": "Marketing", "blurb": "You sell the why-you'll-love-it. Ads, branding, social, and getting people to care. \u2192 Try DECA's marketing role-plays."}, {"code": "FIN", "name": "Finance", "blurb": "You make money grow and spot smart risks. Investing, markets, planning. \u2192 Business Finance; Stock Market Game."}, {"code": "ACC", "name": "Accounting", "blurb": "The truth-teller of business. Precise, trusted, detail-loving. \u2192 Accounting Applications."}, {"code": "MGT", "name": "Management / Business Administration", "blurb": "The one who runs the whole thing and keeps a team moving. \u2192 Principles of Business Management."}, {"code": "ENT", "name": "Entrepreneurship & Innovation", "blurb": "You build things that didn't exist yet and bet on your ideas. \u2192 Entrepreneurship events."}, {"code": "HOS", "name": "Hospitality & Tourism Management", "blurb": "You create experiences people remember \u2014 hotels, events, travel. \u2192 Hospitality role-plays."}, {"code": "ECON", "name": "Economics", "blurb": "You see the big invisible forces behind prices, choices, and markets. \u2192 Great base for finance + policy."}, {"code": "ANLY", "name": "Business Analytics / Data", "blurb": "You find the story hidden in the numbers and predict what's next. \u2192 The future of every business."}, {"code": "HR", "name": "Human Resources Management", "blurb": "You build great teams and keep workplaces fair and happy. \u2192 Human Resources Management event."}, {"code": "INTL", "name": "International Business", "blurb": "You do business across borders, languages, and cultures. \u2192 Perfect for global brands."}, {"code": "SCM", "name": "Supply Chain & Operations Management", "blurb": "You make the whole machine run \u2014 right thing, right place, fast and cheap. \u2192 The behind-the-scenes hero."}, {"code": "MIS", "name": "Management Information Systems (MIS)", "blurb": "You're the bridge between tech and business, solving problems with systems. \u2192 Business + coding."}, {"code": "RE", "name": "Real Estate", "blurb": "You see value in property, location, and the deal. \u2192 Buying, selling, and building."}, {"code": "SEM", "name": "Sports & Entertainment Management", "blurb": "You love the game and the business behind it \u2014 teams, athletes, shows. \u2192 Sports & Entertainment Marketing."}]}, {"key": "college", "title": "College", "subtitle": "What kind of college is your vibe?", "questions": [{"id": "Q1", "part": 1, "text": "Your dream campus feels most like\u2026", "options": [{"letter": "A", "text": "a packed stadium on game day", "tag": "BIG"}, {"letter": "B", "text": "a famous business school with a trading room", "tag": "POWER"}, {"letter": "C", "text": "a startup garage buzzing at midnight", "tag": "STARTUP"}, {"letter": "D", "text": "a city block where class ends and your internship begins", "tag": "CITY"}]}, {"id": "Q2", "part": 1, "text": "Where would you want to spend a semester?", "options": [{"letter": "A", "text": "somewhere with a huge campus and everything on it", "tag": "CITY"}, {"letter": "B", "text": "a lab full of 3D printers and robots", "tag": "TECH"}, {"letter": "C", "text": "a small dorm where everyone knows everyone", "tag": "KNIT"}, {"letter": "D", "text": "an entire semester in another country", "tag": "GLOBAL"}]}, {"id": "Q3", "part": 1, "text": "Pick the building you'd hang out in most:", "options": [{"letter": "A", "text": "the international center", "tag": "GLOBAL"}, {"letter": "B", "text": "the design studio", "tag": "CREATIVE"}, {"letter": "C", "text": "the stadium", "tag": "BIG"}, {"letter": "D", "text": "the business school", "tag": "POWER"}]}, {"id": "Q4", "part": 1, "text": "Your ideal class is\u2026", "options": [{"letter": "A", "text": "taught by a famous professor in your field", "tag": "POWER"}, {"letter": "B", "text": "a late-night workshop building your idea", "tag": "STARTUP"}, {"letter": "C", "text": "half lecture, half internship", "tag": "CITY"}, {"letter": "D", "text": "hands-on in a lab", "tag": "TECH"}]}, {"id": "Q5", "part": 1, "text": "On a Saturday you'd rather\u2026", "options": [{"letter": "A", "text": "go to a hackathon", "tag": "TECH"}, {"letter": "B", "text": "hang with your close crew", "tag": "KNIT"}, {"letter": "C", "text": "go to a language exchange or culture night", "tag": "GLOBAL"}, {"letter": "D", "text": "go to a student film screening or gallery show", "tag": "CREATIVE"}]}, {"id": "Q6", "part": 1, "text": "The most exciting thing about college:", "options": [{"letter": "A", "text": "making something people will see", "tag": "CREATIVE"}, {"letter": "B", "text": "legendary spirit and traditions", "tag": "BIG"}, {"letter": "C", "text": "a program that opens serious doors", "tag": "POWER"}, {"letter": "D", "text": "building your own company before graduation", "tag": "STARTUP"}]}, {"id": "Q7", "part": 1, "text": "Which club first?", "options": [{"letter": "A", "text": "the entrepreneurship incubator", "tag": "STARTUP"}, {"letter": "B", "text": "the city volunteer network", "tag": "CITY"}, {"letter": "C", "text": "the robotics team", "tag": "TECH"}, {"letter": "D", "text": "a small tight-knit service club", "tag": "KNIT"}]}, {"id": "Q8", "part": 1, "text": "You'd want your school known for\u2026", "options": [{"letter": "A", "text": "how close everyone is", "tag": "KNIT"}, {"letter": "B", "text": "its global reach", "tag": "GLOBAL"}, {"letter": "C", "text": "its artists and creators", "tag": "CREATIVE"}, {"letter": "D", "text": "sports and traditions", "tag": "BIG"}]}, {"id": "Q9", "part": 1, "text": "Freshman-year brag:", "options": [{"letter": "A", "text": "\"Our team went to the championship.\"", "tag": "BIG"}, {"letter": "B", "text": "\"I got into the business program.\"", "tag": "POWER"}, {"letter": "C", "text": "\"I launched an app.\"", "tag": "STARTUP"}, {"letter": "D", "text": "\"I landed an internship downtown.\"", "tag": "CITY"}]}, {"id": "Q10", "part": 1, "text": "How big do you want your school?", "options": [{"letter": "A", "text": "medium, right in a real city", "tag": "CITY"}, {"letter": "B", "text": "whatever's strongest for tech", "tag": "TECH"}, {"letter": "C", "text": "small enough that you're never a number", "tag": "KNIT"}, {"letter": "D", "text": "doesn't matter if I can travel from it", "tag": "GLOBAL"}]}, {"id": "Q11", "part": 1, "text": "Pick a word:", "options": [{"letter": "A", "text": "WORLDLY", "tag": "GLOBAL"}, {"letter": "B", "text": "ORIGINAL", "tag": "CREATIVE"}, {"letter": "C", "text": "SPIRITED", "tag": "BIG"}, {"letter": "D", "text": "PRESTIGIOUS", "tag": "POWER"}]}, {"id": "Q12", "part": 1, "text": "Distance from home?", "options": [{"letter": "A", "text": "wherever the best program is", "tag": "POWER"}, {"letter": "B", "text": "wherever I can build things", "tag": "STARTUP"}, {"letter": "C", "text": "in or near a big city", "tag": "CITY"}, {"letter": "D", "text": "wherever the best labs are", "tag": "TECH"}]}, {"id": "Q13", "part": 1, "text": "Your ideal roommate is\u2026", "options": [{"letter": "A", "text": "always tinkering with a project", "tag": "TECH"}, {"letter": "B", "text": "someone who becomes lifelong family", "tag": "KNIT"}, {"letter": "C", "text": "from a totally different country", "tag": "GLOBAL"}, {"letter": "D", "text": "in a band or making a short film", "tag": "CREATIVE"}]}, {"id": "Q14", "part": 1, "text": "You thrive when\u2026", "options": [{"letter": "A", "text": "you're making something people react to", "tag": "CREATIVE"}, {"letter": "B", "text": "you can find your people in a big crowd", "tag": "BIG"}, {"letter": "C", "text": "you're surrounded by super-driven students", "tag": "POWER"}, {"letter": "D", "text": "you have freedom to experiment", "tag": "STARTUP"}]}, {"id": "Q15", "part": 1, "text": "For internships you want\u2026", "options": [{"letter": "A", "text": "to intern at your own startup", "tag": "STARTUP"}, {"letter": "B", "text": "a whole city of companies to walk into", "tag": "CITY"}, {"letter": "C", "text": "a research lab or tech company", "tag": "TECH"}, {"letter": "D", "text": "a professor who connects you personally", "tag": "KNIT"}]}, {"id": "Q16", "part": 1, "text": "Which sounds best?", "options": [{"letter": "A", "text": "a campus that feels like a family", "tag": "KNIT"}, {"letter": "B", "text": "a campus that feels like a passport", "tag": "GLOBAL"}, {"letter": "C", "text": "a campus that feels like a studio", "tag": "CREATIVE"}, {"letter": "D", "text": "a campus that feels like a festival", "tag": "BIG"}]}, {"id": "Q17", "part": 1, "text": "Which campus tour moment sells you?", "options": [{"letter": "A", "text": "the 100,000-seat stadium", "tag": "BIG"}, {"letter": "B", "text": "the alumni wall of famous CEOs", "tag": "POWER"}, {"letter": "C", "text": "the student startup lab", "tag": "STARTUP"}, {"letter": "D", "text": "the skyline from the library window", "tag": "CITY"}]}, {"id": "Q18", "part": 1, "text": "Weekend plans:", "options": [{"letter": "A", "text": "exploring a new neighborhood", "tag": "CITY"}, {"letter": "B", "text": "tinkering on a project", "tag": "TECH"}, {"letter": "C", "text": "a small dinner with close friends", "tag": "KNIT"}, {"letter": "D", "text": "planning your next trip abroad", "tag": "GLOBAL"}]}, {"id": "Q19", "part": 1, "text": "You'd be proudest making\u2026", "options": [{"letter": "A", "text": "a documentary people share", "tag": "GLOBAL"}, {"letter": "B", "text": "something beautiful people use", "tag": "CREATIVE"}, {"letter": "C", "text": "a memory with 40,000 other fans", "tag": "BIG"}, {"letter": "D", "text": "a r\u00e9sum\u00e9 that opens any door", "tag": "POWER"}]}, {"id": "Q20", "part": 1, "text": "Your deciding factor:", "options": [{"letter": "A", "text": "the name and the doors it opens", "tag": "POWER"}, {"letter": "B", "text": "the freedom to build", "tag": "STARTUP"}, {"letter": "C", "text": "the location and the hustle", "tag": "CITY"}, {"letter": "D", "text": "the labs and the tools", "tag": "TECH"}]}, {"id": "Q21", "part": 1, "text": "You want classmates who are\u2026", "options": [{"letter": "A", "text": "makers and problem-solvers", "tag": "TECH"}, {"letter": "B", "text": "warm and loyal", "tag": "KNIT"}, {"letter": "C", "text": "curious about the whole world", "tag": "GLOBAL"}, {"letter": "D", "text": "artists, writers, and performers", "tag": "CREATIVE"}]}, {"id": "Q22", "part": 1, "text": "Which would you sign up for instantly?", "options": [{"letter": "A", "text": "a semester-long creative project", "tag": "CREATIVE"}, {"letter": "B", "text": "a game-day road trip", "tag": "BIG"}, {"letter": "C", "text": "a case competition against other business schools", "tag": "POWER"}, {"letter": "D", "text": "a startup weekend", "tag": "STARTUP"}]}, {"id": "Q23", "part": 1, "text": "The class size that fits you:", "options": [{"letter": "A", "text": "a big lecture where I pick my people", "tag": "BIG"}, {"letter": "B", "text": "a small class where I actually talk every day", "tag": "KNIT"}, {"letter": "C", "text": "a scrappy team building something", "tag": "STARTUP"}, {"letter": "D", "text": "a class that meets out in the city", "tag": "CITY"}]}, {"id": "Q24", "part": 1, "text": "Your dream summer:", "options": [{"letter": "A", "text": "an internship in a skyscraper", "tag": "CITY"}, {"letter": "B", "text": "a research project", "tag": "TECH"}, {"letter": "C", "text": "at home with your close friends", "tag": "KNIT"}, {"letter": "D", "text": "backpacking and working abroad", "tag": "GLOBAL"}]}, {"id": "Q25", "part": 1, "text": "After college you picture yourself\u2026", "options": [{"letter": "A", "text": "with a huge alumni network everywhere", "tag": "BIG"}, {"letter": "B", "text": "recruited into a top firm", "tag": "POWER"}, {"letter": "C", "text": "running your own thing", "tag": "STARTUP"}, {"letter": "D", "text": "at a big company in a major city", "tag": "CITY"}]}, {"id": "Q26", "part": 1, "text": "You'd love a campus that's\u2026", "options": [{"letter": "A", "text": "full of murals, music, and student art", "tag": "CREATIVE"}, {"letter": "B", "text": "full of workshops and equipment", "tag": "TECH"}, {"letter": "C", "text": "small and green and calm", "tag": "KNIT"}, {"letter": "D", "text": "full of students from everywhere", "tag": "GLOBAL"}]}, {"id": "Q27", "part": 1, "text": "Which would you brag about at 30?", "options": [{"letter": "A", "text": "\"I've worked on four continents.\"", "tag": "GLOBAL"}, {"letter": "B", "text": "\"You've seen my work.\"", "tag": "CREATIVE"}, {"letter": "C", "text": "\"I still go back for homecoming.\"", "tag": "BIG"}, {"letter": "D", "text": "\"My school's name still opens doors.\"", "tag": "POWER"}]}, {"id": "Q28", "part": 1, "text": "Be honest \u2014 you want\u2026", "options": [{"letter": "A", "text": "to actually know my professors", "tag": "KNIT"}, {"letter": "B", "text": "to build something of your own", "tag": "STARTUP"}, {"letter": "C", "text": "to be in the middle of everything", "tag": "CITY"}, {"letter": "D", "text": "to work with the newest technology", "tag": "TECH"}]}, {"id": "Q29", "part": 1, "text": "Your gut says:", "options": [{"letter": "A", "text": "I want to be where tech meets business", "tag": "TECH"}, {"letter": "B", "text": "I want to be known, not counted", "tag": "KNIT"}, {"letter": "C", "text": "I want the world to feel small", "tag": "GLOBAL"}, {"letter": "D", "text": "I want to make things people feel", "tag": "CREATIVE"}]}, {"id": "Q30", "part": 1, "text": "Final call:", "options": [{"letter": "A", "text": "I want to create", "tag": "CREATIVE"}, {"letter": "B", "text": "I want the biggest experience possible", "tag": "BIG"}, {"letter": "C", "text": "I want the strongest business name", "tag": "POWER"}, {"letter": "D", "text": "I want the freedom to invent", "tag": "STARTUP"}]}], "results": [{"code": "BIG", "name": "\ud83c\udfdf\ufe0f Big Spirited State School", "blurb": "Huge, proud, buzzing with traditions. Vibe examples: Penn State, Indiana (Kelley), Michigan, Ohio State, UT\u2013Austin."}, {"code": "POWER", "name": "\ud83d\udcbc Business Powerhouse", "blurb": "A famous, competitive program that opens serious doors. Vibe examples: UPenn (Wharton), NYU (Stern), Michigan (Ross), UVA (McIntire), UNC (Kenan-Flagler)."}, {"code": "STARTUP", "name": "\ud83d\ude80 Entrepreneurial / Startup Campus", "blurb": "Built for founders and makers. Vibe examples: Babson, MIT, Stanford, USC (Marshall)."}, {"code": "CITY", "name": "\ud83c\udf06 City Hustle School", "blurb": "In the middle of a real city, where class and career blur. Vibe examples: NYU, Fordham, Northeastern, Boston University."}, {"code": "TECH", "name": "\ud83e\udd16 Tech-Meets-Business", "blurb": "Where business brains and builders collide. Vibe examples: Carnegie Mellon, Georgia Tech, Cornell, UC Berkeley (Haas)."}, {"code": "KNIT", "name": "\ud83c\udf33 Close-Knit Community", "blurb": "Smaller, warmer, personal \u2014 professors know your name. Vibe examples: Bentley, Bryant, Villanova, Wake Forest."}, {"code": "GLOBAL", "name": "\ud83c\udf0d Global / Study-Abroad Campus", "blurb": "Languages, cultures, and a semester (or four) abroad. Vibe examples: Georgetown, American University, Middlebury, Boston University."}, {"code": "CREATIVE", "name": "\ud83c\udfad Creative / Arts-Meets-Business", "blurb": "Where design, media, and entertainment meet the business side. Vibe examples: USC, NYU (Tisch + Stern), Emerson, The New School (Parsons)."}]}, {"key": "career", "title": "Career", "subtitle": "What business career suits you?", "questions": [{"id": "Q1", "part": 1, "text": "Pick the job you'd want for a day:", "options": [{"letter": "A", "text": "run a brand's big campaign", "tag": "MKT"}, {"letter": "B", "text": "analyze whether a company's a good investment", "tag": "FIN"}, {"letter": "C", "text": "close out the books at month-end", "tag": "ACC"}, {"letter": "D", "text": "run your own startup", "tag": "ENT"}]}, {"id": "Q2", "part": 1, "text": "Which task sounds genuinely fun?", "options": [{"letter": "A", "text": "pitch your own business idea", "tag": "ENT"}, {"letter": "B", "text": "plan a 500-person event", "tag": "HOS"}, {"letter": "C", "text": "convince a big client to sign", "tag": "SALES"}, {"letter": "D", "text": "interview people for a job", "tag": "HR"}]}, {"id": "Q3", "part": 1, "text": "You'd love to be the person who\u2026", "options": [{"letter": "A", "text": "fixes a company's culture", "tag": "HR"}, {"letter": "B", "text": "tells a company exactly what's broken", "tag": "CONSULT"}, {"letter": "C", "text": "runs a team's business side", "tag": "SEM"}, {"letter": "D", "text": "finds the story hidden in the data", "tag": "ANLY"}]}, {"id": "Q4", "part": 1, "text": "Which would you rather pull off?", "options": [{"letter": "A", "text": "build a dashboard everyone relies on", "tag": "ANLY"}, {"letter": "B", "text": "make a brand famous", "tag": "MKT"}, {"letter": "C", "text": "spot the next big investment", "tag": "FIN"}, {"letter": "D", "text": "keep every number exact", "tag": "ACC"}]}, {"id": "Q5", "part": 1, "text": "Your best skill:", "options": [{"letter": "A", "text": "catching the one number that's wrong", "tag": "ACC"}, {"letter": "B", "text": "building something from nothing", "tag": "ENT"}, {"letter": "C", "text": "making an experience perfect", "tag": "HOS"}, {"letter": "D", "text": "getting someone to say yes", "tag": "SALES"}]}, {"id": "Q6", "part": 1, "text": "You'd be great at\u2026", "options": [{"letter": "A", "text": "closing a huge deal", "tag": "SALES"}, {"letter": "B", "text": "settling a workplace conflict", "tag": "HR"}, {"letter": "C", "text": "finding the real problem underneath", "tag": "CONSULT"}, {"letter": "D", "text": "negotiating an athlete's contract", "tag": "SEM"}]}, {"id": "Q7", "part": 1, "text": "Which puzzle would you take?", "options": [{"letter": "A", "text": "how do we fill every seat in the stadium?", "tag": "SEM"}, {"letter": "B", "text": "can I prove this hunch with numbers?", "tag": "ANLY"}, {"letter": "C", "text": "why has nobody heard of this brand?", "tag": "MKT"}, {"letter": "D", "text": "is this actually a good investment?", "tag": "FIN"}]}, {"id": "Q8", "part": 1, "text": "Honestly, you love\u2026", "options": [{"letter": "A", "text": "markets and risk", "tag": "FIN"}, {"letter": "B", "text": "order and precision", "tag": "ACC"}, {"letter": "C", "text": "risk and building", "tag": "ENT"}, {"letter": "D", "text": "people and moments", "tag": "HOS"}]}, {"id": "Q9", "part": 1, "text": "Weekend project:", "options": [{"letter": "A", "text": "throw a pop-up party", "tag": "HOS"}, {"letter": "B", "text": "sell out your merch drop", "tag": "SALES"}, {"letter": "C", "text": "get a group that's fighting to work together", "tag": "HR"}, {"letter": "D", "text": "figure out why a local shop is failing", "tag": "CONSULT"}]}, {"id": "Q10", "part": 1, "text": "You'd want to work at\u2026", "options": [{"letter": "A", "text": "a consulting firm", "tag": "CONSULT"}, {"letter": "B", "text": "a sports team or record label", "tag": "SEM"}, {"letter": "C", "text": "a company's data team", "tag": "ANLY"}, {"letter": "D", "text": "an ad agency", "tag": "MKT"}]}, {"id": "Q11", "part": 1, "text": "Which class?", "options": [{"letter": "A", "text": "Building a Brand", "tag": "MKT"}, {"letter": "B", "text": "Investing & Markets", "tag": "FIN"}, {"letter": "C", "text": "Accounting", "tag": "ACC"}, {"letter": "D", "text": "How to Start a Company", "tag": "ENT"}]}, {"id": "Q12", "part": 1, "text": "Your dream title:", "options": [{"letter": "A", "text": "Founder", "tag": "ENT"}, {"letter": "B", "text": "Director of Events", "tag": "HOS"}, {"letter": "C", "text": "Head of Sales", "tag": "SALES"}, {"letter": "D", "text": "Head of People", "tag": "HR"}]}, {"id": "Q13", "part": 1, "text": "Most satisfying:", "options": [{"letter": "A", "text": "hiring someone who turns out amazing", "tag": "HR"}, {"letter": "B", "text": "fixing a process that never worked", "tag": "CONSULT"}, {"letter": "C", "text": "a sold-out show", "tag": "SEM"}, {"letter": "D", "text": "a forecast that comes true", "tag": "ANLY"}]}, {"id": "Q14", "part": 1, "text": "You'd geek out over\u2026", "options": [{"letter": "A", "text": "a statistics class that finally clicks", "tag": "ANLY"}, {"letter": "B", "text": "advertising and media", "tag": "MKT"}, {"letter": "C", "text": "banking and investing", "tag": "FIN"}, {"letter": "D", "text": "a perfectly organized financial report", "tag": "ACC"}]}, {"id": "Q15", "part": 1, "text": "Which win feels best?", "options": [{"letter": "A", "text": "the books balancing perfectly", "tag": "ACC"}, {"letter": "B", "text": "your idea becoming a real thing", "tag": "ENT"}, {"letter": "C", "text": "a guest saying \"best night ever\"", "tag": "HOS"}, {"letter": "D", "text": "hearing \"yes, we'll sign\"", "tag": "SALES"}]}, {"id": "Q16", "part": 1, "text": "Pick a superpower:", "options": [{"letter": "A", "text": "sell anything to anyone", "tag": "SALES"}, {"letter": "B", "text": "know what everyone needs before they say it", "tag": "HR"}, {"letter": "C", "text": "instantly see what's broken", "tag": "CONSULT"}, {"letter": "D", "text": "predict the next big star", "tag": "SEM"}]}, {"id": "Q17", "part": 1, "text": "Which would you read about?", "options": [{"letter": "A", "text": "how a concert tour actually makes money", "tag": "SEM"}, {"letter": "B", "text": "what the numbers say will happen next", "tag": "ANLY"}, {"letter": "C", "text": "a campaign everyone quotes", "tag": "MKT"}, {"letter": "D", "text": "a chart of a stock's history", "tag": "FIN"}]}, {"id": "Q18", "part": 1, "text": "In a group you're the one who\u2026", "options": [{"letter": "A", "text": "reads the financials", "tag": "FIN"}, {"letter": "B", "text": "checks all the numbers", "tag": "ACC"}, {"letter": "C", "text": "has the big idea", "tag": "ENT"}, {"letter": "D", "text": "makes it feel special", "tag": "HOS"}]}, {"id": "Q19", "part": 1, "text": "A company hires you to\u2026", "options": [{"letter": "A", "text": "run their huge launch event", "tag": "HOS"}, {"letter": "B", "text": "grow their sales", "tag": "SALES"}, {"letter": "C", "text": "fix their culture", "tag": "HR"}, {"letter": "D", "text": "fix their strategy", "tag": "CONSULT"}]}, {"id": "Q20", "part": 1, "text": "The industry you'd pick:", "options": [{"letter": "A", "text": "consulting & strategy", "tag": "CONSULT"}, {"letter": "B", "text": "sports & entertainment", "tag": "SEM"}, {"letter": "C", "text": "analytics & data", "tag": "ANLY"}, {"letter": "D", "text": "brands & marketing", "tag": "MKT"}]}, {"id": "Q21", "part": 1, "text": "Final stretch \u2014 pick:", "options": [{"letter": "A", "text": "I want to make people want things", "tag": "MKT"}, {"letter": "B", "text": "I want to grow money", "tag": "FIN"}, {"letter": "C", "text": "I want everything to add up", "tag": "ACC"}, {"letter": "D", "text": "I want to build my own thing", "tag": "ENT"}]}, {"id": "Q22", "part": 1, "text": "\u2026and:", "options": [{"letter": "A", "text": "I want to be my own boss", "tag": "ENT"}, {"letter": "B", "text": "I want to create experiences", "tag": "HOS"}, {"letter": "C", "text": "I want to be the best closer in the room", "tag": "SALES"}, {"letter": "D", "text": "I want people to love where they work", "tag": "HR"}]}, {"id": "Q23", "part": 1, "text": "\u2026and:", "options": [{"letter": "A", "text": "building great teams", "tag": "HR"}, {"letter": "B", "text": "making companies smarter", "tag": "CONSULT"}, {"letter": "C", "text": "running the business of sports and music", "tag": "SEM"}, {"letter": "D", "text": "finding the pattern nobody saw", "tag": "ANLY"}]}, {"id": "Q24", "part": 1, "text": "Which would you frame on your wall?", "options": [{"letter": "A", "text": "a spreadsheet that answered a big question", "tag": "ANLY"}, {"letter": "B", "text": "an ad that went viral", "tag": "MKT"}, {"letter": "C", "text": "an investment that paid off", "tag": "FIN"}, {"letter": "D", "text": "a report with zero errors", "tag": "ACC"}]}, {"id": "Q25", "part": 1, "text": "Your friends would call you\u2026", "options": [{"letter": "A", "text": "the most detail-obsessed person they know", "tag": "ACC"}, {"letter": "B", "text": "the one always starting something", "tag": "ENT"}, {"letter": "C", "text": "the one who makes everyone comfortable", "tag": "HOS"}, {"letter": "D", "text": "the one who can talk anyone into anything", "tag": "SALES"}]}, {"id": "Q26", "part": 1, "text": "You'd be happiest in\u2026", "options": [{"letter": "A", "text": "a room full of clients", "tag": "SALES"}, {"letter": "B", "text": "a room full of your team", "tag": "HR"}, {"letter": "C", "text": "a room full of problems to solve", "tag": "CONSULT"}, {"letter": "D", "text": "a room full of fans", "tag": "SEM"}]}, {"id": "Q27", "part": 1, "text": "Where would we find you?", "options": [{"letter": "A", "text": "backstage at a huge event", "tag": "SEM"}, {"letter": "B", "text": "deep in a dataset", "tag": "ANLY"}, {"letter": "C", "text": "in a creative brainstorm", "tag": "MKT"}, {"letter": "D", "text": "watching the markets open", "tag": "FIN"}]}, {"id": "Q28", "part": 1, "text": "Pick the challenge:", "options": [{"letter": "A", "text": "predicting what a stock will do", "tag": "FIN"}, {"letter": "B", "text": "making sure every dollar is accounted for", "tag": "ACC"}, {"letter": "C", "text": "pitching investors on your idea", "tag": "ENT"}, {"letter": "D", "text": "making 300 guests happy at once", "tag": "HOS"}]}, {"id": "Q29", "part": 1, "text": "You want\u2026", "options": [{"letter": "A", "text": "every event unforgettable", "tag": "HOS"}, {"letter": "B", "text": "every deal closed", "tag": "SALES"}, {"letter": "C", "text": "every employee happy", "tag": "HR"}, {"letter": "D", "text": "every company smarter", "tag": "CONSULT"}]}, {"id": "Q30", "part": 1, "text": "Last one:", "options": [{"letter": "A", "text": "I want to fix what's broken", "tag": "CONSULT"}, {"letter": "B", "text": "I want to run the game-day business", "tag": "SEM"}, {"letter": "C", "text": "I want to find the answer in the numbers", "tag": "ANLY"}, {"letter": "D", "text": "I want to build brands people love", "tag": "MKT"}]}], "results": [{"code": "MKT", "name": "\ud83c\udfa8 Marketing / Brand Strategist", "blurb": "You make people feel something about a product. \u2192 DECA: marketing role-plays."}, {"code": "FIN", "name": "\ud83d\udcc8 Financial Analyst", "blurb": "You read markets and numbers to guide big money decisions. \u2192 DECA: Business Finance; Stock Market Game."}, {"code": "ACC", "name": "\ud83e\uddfe Accountant", "blurb": "The trusted scorekeeper of every business. \u2192 DECA: Accounting Applications."}, {"code": "ENT", "name": "\ud83d\ude80 Entrepreneur / Founder", "blurb": "You build something from nothing and run the whole show. \u2192 DECA: Entrepreneurship events."}, {"code": "HOS", "name": "\ud83c\udf89 Event & Hospitality Manager", "blurb": "You create experiences people never forget. \u2192 DECA: Hospitality role-plays."}, {"code": "SALES", "name": "\ud83e\udd1d Sales & Business Development", "blurb": "You build relationships and close the deals that grow a company. \u2192 DECA: Professional Selling."}, {"code": "HR", "name": "\ud83d\udc65 HR / People Manager", "blurb": "You build great teams and keep workplaces fair and strong. \u2192 DECA: Human Resources Management."}, {"code": "CONSULT", "name": "\ud83e\udde0 Management Consultant", "blurb": "Companies hire you to find problems and fix them. \u2192 DECA: Team Decision Making events."}, {"code": "SEM", "name": "\ud83c\udfdf\ufe0f Sports & Entertainment Marketer", "blurb": "You run the business behind the games, concerts, and stars. \u2192 DECA: Sports & Entertainment Marketing."}, {"code": "ANLY", "name": "\ud83d\udcca Business / Data Analyst", "blurb": "You turn messy numbers into the answer everyone needed. \u2192 DECA: any event with a data-heavy case."}]}, {"key": "deca", "title": "DECA Event", "subtitle": "Which DECA event should you compete in?", "questions": [{"id": "Q1", "part": 1, "text": "You're given a group project with no stated roles. Which task would you prioritize?", "options": [{"letter": "A", "text": "Think about how to make the project stand out and get people interested.", "tag": "MKT"}, {"letter": "B", "text": "Figure out what resources you have and whether the plan is realistic.", "tag": "FIN"}, {"letter": "C", "text": "Create a schedule and divide responsibilities.", "tag": "MGT"}, {"letter": "D", "text": "Look for an opportunity to create something of your own and lead the group in a new direction.", "tag": "ENT"}, {"letter": "E", "text": "Consider how to turn a basic project into something people will remember.", "tag": "HOS"}]}, {"id": "Q2", "part": 1, "text": "Which challenge would you most likely be interested in taking on?", "options": [{"letter": "A", "text": "Convincing people to support an idea.", "tag": "MKT"}, {"letter": "B", "text": "Finding ways to improve efficiency and organization.", "tag": "MGT"}, {"letter": "C", "text": "Making important decisions with limited resources.", "tag": "FIN"}, {"letter": "D", "text": "Turning a creative idea into something real.", "tag": "ENT"}, {"letter": "E", "text": "Creating a memorable and welcoming experience for others.", "tag": "HOS"}]}, {"id": "Q3", "part": 1, "text": "Which compliment would you be happiest to hear?", "options": [{"letter": "A", "text": "\"You always have creative ideas.\"", "tag": "ENT"}, {"letter": "B", "text": "\"You know how to make people feel included.\"", "tag": "HOS"}, {"letter": "C", "text": "\"You are great at explaining and persuading people.\"", "tag": "MKT"}, {"letter": "D", "text": "\"You are really organized and reliable.\"", "tag": "MGT"}, {"letter": "E", "text": "\"You notice details other people miss.\"", "tag": "FIN"}]}, {"id": "Q4", "part": 1, "text": "Which role would you naturally take in a group?", "options": [{"letter": "A", "text": "The person who gets everyone excited about the idea.", "tag": "MKT"}, {"letter": "B", "text": "The person who asks \"does this actually make sense?\"", "tag": "FIN"}, {"letter": "C", "text": "The person who keeps everyone organized.", "tag": "MGT"}, {"letter": "D", "text": "The person who says \"what if we tried something completely different?\"", "tag": "ENT"}, {"letter": "E", "text": "The person who makes sure everyone feels included and enjoys the process.", "tag": "HOS"}]}, {"id": "Q5", "part": 1, "text": "What project do you see yourself accomplishing in the future?", "options": [{"letter": "A", "text": "Designing a launch plan for a new product.", "tag": "MKT"}, {"letter": "B", "text": "Building a budget that keeps a company out of trouble.", "tag": "FIN"}, {"letter": "C", "text": "Reorganizing a team so it finally runs smoothly.", "tag": "MGT"}, {"letter": "D", "text": "Starting something of your own from scratch.", "tag": "ENT"}, {"letter": "E", "text": "Running an event people talk about for years.", "tag": "HOS"}]}, {"id": "Q6", "part": 1, "text": "A money topic you'd teach a 5th grader:", "options": [{"letter": "A", "text": "how saving and interest works", "tag": "PFL"}, {"letter": "B", "text": "how ads make you want things", "tag": "MKT"}, {"letter": "C", "text": "how companies make a profit", "tag": "FIN"}, {"letter": "D", "text": "how a restaurant actually runs", "tag": "HOS"}, {"letter": "E", "text": "how a manager keeps a team on track", "tag": "MGT"}]}, {"id": "Q7", "part": 1, "text": "Your favorite kind of win:", "options": [{"letter": "A", "text": "saved up and bought it in cash", "tag": "PFL"}, {"letter": "B", "text": "built something from scratch", "tag": "ENT"}, {"letter": "C", "text": "a campaign everyone's talking about", "tag": "MKT"}, {"letter": "D", "text": "the smartest money move", "tag": "FIN"}, {"letter": "E", "text": "a guest saying \"best night ever\"", "tag": "HOS"}]}, {"id": "Q8", "part": 1, "text": "Which thought is most you?", "options": [{"letter": "A", "text": "\"They're wasting money every month.\"", "tag": "PFL"}, {"letter": "B", "text": "\"This team needs a leader.\"", "tag": "MGT"}, {"letter": "C", "text": "\"Somebody should invent this.\"", "tag": "ENT"}, {"letter": "D", "text": "\"This needs way better marketing.\"", "tag": "MKT"}, {"letter": "E", "text": "\"Is this actually a good investment?\"", "tag": "FIN"}]}, {"id": "Q9", "part": 2, "text": "Which world would you want to work in?", "options": [{"letter": "A", "text": "sneakers and streetwear", "tag": "F_FASHION"}, {"letter": "B", "text": "cars and auto shops", "tag": "F_AUTO"}, {"letter": "C", "text": "helping other businesses run better", "tag": "F_SERVICE"}, {"letter": "D", "text": "snacks and drinks on grocery shelves", "tag": "F_FOODPROD"}, {"letter": "E", "text": "commercials and ad campaigns", "tag": "F_ADS"}]}, {"id": "Q10", "part": 2, "text": "\u2026or one of these?", "options": [{"letter": "A", "text": "store displays and what goes on the shelf", "tag": "F_RETAIL"}, {"letter": "B", "text": "stadiums and concerts", "tag": "F_SPORTS"}, {"letter": "C", "text": "convincing a customer face-to-face", "tag": "F_SELL"}, {"letter": "D", "text": "keeping financial records perfect", "tag": "F_ACCT"}, {"letter": "E", "text": "investing and growing money", "tag": "F_INVEST"}]}, {"id": "Q11", "part": 2, "text": "\u2026or these?", "options": [{"letter": "A", "text": "hotels and front desks", "tag": "F_HOTEL"}, {"letter": "B", "text": "drive-thrus and fast food", "tag": "F_FASTFOOD"}, {"letter": "C", "text": "restaurants and dining rooms", "tag": "F_RESTAURANT"}, {"letter": "D", "text": "vacations and destinations", "tag": "F_TRAVEL"}, {"letter": "E", "text": "hiring and training people", "tag": "F_PEOPLE"}]}, {"id": "Q12", "part": 2, "text": "\u2026or these?", "options": [{"letter": "A", "text": "rules, contracts, and fairness", "tag": "F_LAW"}, {"letter": "B", "text": "starting your own company", "tag": "F_STARTUP"}, {"letter": "C", "text": "your own budget and savings goals", "tag": "F_MONEY"}, {"letter": "D", "text": "a clothing brand's new line", "tag": "F_FASHION"}, {"letter": "E", "text": "a car dealership", "tag": "F_AUTO"}]}, {"id": "Q13", "part": 2, "text": "Which job shadow would you pick?", "options": [{"letter": "A", "text": "someone who consults for small businesses", "tag": "F_SERVICE"}, {"letter": "B", "text": "a food brand's marketing team", "tag": "F_FOODPROD"}, {"letter": "C", "text": "an ad agency creative", "tag": "F_ADS"}, {"letter": "D", "text": "a store's buyer choosing next season's stock", "tag": "F_RETAIL"}, {"letter": "E", "text": "a team's game-day operations crew", "tag": "F_SPORTS"}]}, {"id": "Q14", "part": 2, "text": "Which task sounds most fun?", "options": [{"letter": "A", "text": "close a sale in person", "tag": "F_SELL"}, {"letter": "B", "text": "reconcile the books until they're perfect", "tag": "F_ACCT"}, {"letter": "C", "text": "build an investment portfolio", "tag": "F_INVEST"}, {"letter": "D", "text": "run a hotel lobby during a rush", "tag": "F_HOTEL"}, {"letter": "E", "text": "speed up a drive-thru line", "tag": "F_FASTFOOD"}]}, {"id": "Q15", "part": 2, "text": "You'd be proudest of\u2026", "options": [{"letter": "A", "text": "a restaurant everyone reviews well", "tag": "F_RESTAURANT"}, {"letter": "B", "text": "a trip you planned perfectly", "tag": "F_TRAVEL"}, {"letter": "C", "text": "a team that loves working together", "tag": "F_PEOPLE"}, {"letter": "D", "text": "a contract that's fair to both sides", "tag": "F_LAW"}, {"letter": "E", "text": "a business you started yourself", "tag": "F_STARTUP"}]}, {"id": "Q16", "part": 2, "text": "Which would you read about?", "options": [{"letter": "A", "text": "how teens build savings", "tag": "F_MONEY"}, {"letter": "B", "text": "how a sneaker drop sells out", "tag": "F_FASHION"}, {"letter": "C", "text": "how car brands win customers", "tag": "F_AUTO"}, {"letter": "D", "text": "how companies outsource their work", "tag": "F_SERVICE"}, {"letter": "E", "text": "how a cereal gets its packaging", "tag": "F_FOODPROD"}]}, {"id": "Q17", "part": 2, "text": "Pick the pop-up you'd run:", "options": [{"letter": "A", "text": "a viral video ad booth", "tag": "F_ADS"}, {"letter": "B", "text": "a curated little shop", "tag": "F_RETAIL"}, {"letter": "C", "text": "a merch stand at a concert", "tag": "F_SPORTS"}, {"letter": "D", "text": "a demo table where you pitch shoppers", "tag": "F_SELL"}, {"letter": "E", "text": "a free tax-help desk", "tag": "F_ACCT"}]}, {"id": "Q18", "part": 2, "text": "Which detail would you obsess over?", "options": [{"letter": "A", "text": "whether the investment beats the market", "tag": "F_INVEST"}, {"letter": "B", "text": "how a hotel room feels when you walk in", "tag": "F_HOTEL"}, {"letter": "C", "text": "how fast an order gets out the window", "tag": "F_FASTFOOD"}, {"letter": "D", "text": "how a menu is designed", "tag": "F_RESTAURANT"}, {"letter": "E", "text": "how smooth a trip's itinerary is", "tag": "F_TRAVEL"}]}, {"id": "Q19", "part": 2, "text": "You'd want to be the expert on\u2026", "options": [{"letter": "A", "text": "what makes employees stay", "tag": "F_PEOPLE"}, {"letter": "B", "text": "business ethics and rules", "tag": "F_LAW"}, {"letter": "C", "text": "turning an idea into a company", "tag": "F_STARTUP"}, {"letter": "D", "text": "getting out of debt", "tag": "F_MONEY"}, {"letter": "E", "text": "what makes a brand cool", "tag": "F_FASHION"}]}, {"id": "Q20", "part": 2, "text": "Which class would you take?", "options": [{"letter": "A", "text": "The Business of Cars", "tag": "F_AUTO"}, {"letter": "B", "text": "Business-to-Business Services", "tag": "F_SERVICE"}, {"letter": "C", "text": "Food & Beverage Marketing", "tag": "F_FOODPROD"}, {"letter": "D", "text": "Advertising & Media", "tag": "F_ADS"}, {"letter": "E", "text": "Retail & Merchandising", "tag": "F_RETAIL"}]}, {"id": "Q21", "part": 2, "text": "Which would you brag about?", "options": [{"letter": "A", "text": "selling out the arena", "tag": "F_SPORTS"}, {"letter": "B", "text": "the biggest sale of the month", "tag": "F_SELL"}, {"letter": "C", "text": "an audit with zero errors", "tag": "F_ACCT"}, {"letter": "D", "text": "a stock pick that doubled", "tag": "F_INVEST"}, {"letter": "E", "text": "a hotel with perfect reviews", "tag": "F_HOTEL"}]}, {"id": "Q22", "part": 2, "text": "Where would you rather work a summer?", "options": [{"letter": "A", "text": "a busy fast-food chain", "tag": "F_FASTFOOD"}, {"letter": "B", "text": "a sit-down restaurant", "tag": "F_RESTAURANT"}, {"letter": "C", "text": "a travel agency", "tag": "F_TRAVEL"}, {"letter": "D", "text": "a company's HR office", "tag": "F_PEOPLE"}, {"letter": "E", "text": "a law or ethics office", "tag": "F_LAW"}]}, {"id": "Q23", "part": 2, "text": "Your dream headline about you:", "options": [{"letter": "A", "text": "\"She founded it at 17.\"", "tag": "F_STARTUP"}, {"letter": "B", "text": "\"How she paid for college herself.\"", "tag": "F_MONEY"}, {"letter": "C", "text": "\"The stylist behind the collection.\"", "tag": "F_FASHION"}, {"letter": "D", "text": "\"He rebuilt the dealership.\"", "tag": "F_AUTO"}, {"letter": "E", "text": "\"The firm small businesses trust.\"", "tag": "F_SERVICE"}]}, {"id": "Q24", "part": 2, "text": "Which problem would you solve?", "options": [{"letter": "A", "text": "a snack nobody's buying", "tag": "F_FOODPROD"}, {"letter": "B", "text": "an ad nobody remembers", "tag": "F_ADS"}, {"letter": "C", "text": "a store with messy shelves", "tag": "F_RETAIL"}, {"letter": "D", "text": "empty seats at the game", "tag": "F_SPORTS"}, {"letter": "E", "text": "a customer who won't say yes", "tag": "F_SELL"}]}, {"id": "Q25", "part": 2, "text": "Pick the tool you'd master:", "options": [{"letter": "A", "text": "a spreadsheet of financial records", "tag": "F_ACCT"}, {"letter": "B", "text": "a stock-trading app", "tag": "F_INVEST"}, {"letter": "C", "text": "a hotel booking system", "tag": "F_HOTEL"}, {"letter": "D", "text": "a kitchen order screen", "tag": "F_FASTFOOD"}, {"letter": "E", "text": "a reservation book", "tag": "F_RESTAURANT"}]}, {"id": "Q26", "part": 2, "text": "What would you plan for fun?", "options": [{"letter": "A", "text": "a two-week trip abroad", "tag": "F_TRAVEL"}, {"letter": "B", "text": "a team retreat everyone loves", "tag": "F_PEOPLE"}, {"letter": "C", "text": "a fair debate on a tough rule", "tag": "F_LAW"}, {"letter": "D", "text": "a pitch to investors", "tag": "F_STARTUP"}, {"letter": "E", "text": "a savings plan that actually works", "tag": "F_MONEY"}]}, {"id": "Q27", "part": 3, "text": "Alone or with a partner?", "options": [{"letter": "A", "text": "Alone \u2014 I want the whole thing to be mine", "tag": "SOLO"}, {"letter": "B", "text": "With a partner \u2014 I'm sharper bouncing ideas", "tag": "TEAM"}]}, {"id": "Q28", "part": 3, "text": "In a role-play you'd rather\u2026", "options": [{"letter": "A", "text": "own the entire answer yourself", "tag": "SOLO"}, {"letter": "B", "text": "split the thinking with a teammate", "tag": "TEAM"}]}, {"id": "Q29", "part": 3, "text": "Which appeals more?", "options": [{"letter": "A", "text": "Learn the fundamentals across all of business first", "tag": "FOUND"}, {"letter": "B", "text": "Go deep on the one industry I already love", "tag": "SPEC"}]}, {"id": "Q30", "part": 3, "text": "Your competition style:", "options": [{"letter": "A", "text": "\"Give me a broad case I can reason through.\"", "tag": "FOUND"}, {"letter": "B", "text": "\"Give me the industry I know best.\"", "tag": "SPEC"}]}], "results": [{"code": "PMK", "name": "Principles of Marketing (PMK)", "blurb": "A beginner-friendly intro to how businesses find customers and sell to them. Great first event."}, {"code": "AAM", "name": "Apparel & Accessories Marketing (AAM)", "blurb": "The business of clothing, shoes, and style \u2014 how fashion actually sells."}, {"code": "ASM", "name": "Automotive Services Marketing (ASM)", "blurb": "Cars, dealerships, and service centers: how they win and keep customers."}, {"code": "BSM", "name": "Business Services Marketing (BSM)", "blurb": "Marketing services that companies sell to other companies."}, {"code": "FMS", "name": "Food Marketing (FMS)", "blurb": "How food and drink products get onto shelves and into carts."}, {"code": "MCS", "name": "Marketing Communications (MCS)", "blurb": "Ads, campaigns, and media: getting the message right."}, {"code": "RMS", "name": "Retail Merchandising (RMS)", "blurb": "Stores, displays, and deciding what goes on the shelf."}, {"code": "SEM", "name": "Sports & Entertainment Marketing (SEM)", "blurb": "The business behind games, concerts, teams, and stars."}, {"code": "PSE", "name": "Professional Selling (PSE)", "blurb": "You sell a real product to a judge, face to face. Pure persuasion."}, {"code": "MTDM", "name": "Marketing Management Team (MTDM)", "blurb": "A full marketing problem, solved with a partner."}, {"code": "BTDM", "name": "Buying & Merchandising Team (BTDM)", "blurb": "Retail buying and merchandising, with a partner."}, {"code": "STDM", "name": "Sports & Entertainment Marketing Team (STDM)", "blurb": "Sports and entertainment business, with a partner."}, {"code": "PFN", "name": "Principles of Finance (PFN)", "blurb": "A beginner-friendly intro to how money moves through a business."}, {"code": "ACT", "name": "Accounting Applications (ACT)", "blurb": "Keeping the financial record exact \u2014 the job every business depends on."}, {"code": "BFS", "name": "Business Finance (BFS)", "blurb": "Company money: budgets, funding, and investment decisions."}, {"code": "FTDM", "name": "Financial Services Team (FTDM)", "blurb": "Banking and financial services, solved with a partner."}, {"code": "PHT", "name": "Principles of Hospitality & Tourism (PHT)", "blurb": "A beginner-friendly intro to hotels, travel, and guest experience."}, {"code": "HLM", "name": "Hotel & Lodging Management (HLM)", "blurb": "Running a hotel: guests, rooms, staff, and problems at the front desk."}, {"code": "QSRM", "name": "Quick Serve Restaurant Management (QSRM)", "blurb": "Fast food and drive-thrus, where speed is everything."}, {"code": "RFSM", "name": "Restaurant & Food Service Management (RFSM)", "blurb": "Full-service restaurants: menus, service, and the dining room."}, {"code": "HTDM", "name": "Hospitality Services Team (HTDM)", "blurb": "A hospitality challenge, solved with a partner."}, {"code": "TTDM", "name": "Travel & Tourism Team (TTDM)", "blurb": "Destinations, trips, and tourism, with a partner."}, {"code": "PBM", "name": "Principles of Business Management & Administration (PBM)", "blurb": "A beginner-friendly intro to running and organizing a company."}, {"code": "HRM", "name": "Human Resources Management (HRM)", "blurb": "Hiring, training, and keeping a workplace fair and strong."}, {"code": "BLTDM", "name": "Business Law & Ethics Team (BLTDM)", "blurb": "Rules, contracts, and doing the right thing \u2014 argued with a partner."}, {"code": "PEN", "name": "Principles of Entrepreneurship (PEN)", "blurb": "A beginner-friendly intro to starting something of your own."}, {"code": "ENT", "name": "Entrepreneurship Series (ENT)", "blurb": "Pitch your own business idea and defend it, solo."}, {"code": "ETDM", "name": "Entrepreneurship Team (ETDM)", "blurb": "Build and pitch a business concept with a partner."}, {"code": "PFL", "name": "Personal Financial Literacy (PFL)", "blurb": "Budgeting, saving, credit, and smart money for real life."}]}], "events": {"PMK": {"cluster": "MKT", "flavor": null, "tier": "PRIN"}, "AAM": {"cluster": "MKT", "flavor": "F_FASHION", "tier": "SERIES"}, "ASM": {"cluster": "MKT", "flavor": "F_AUTO", "tier": "SERIES"}, "BSM": {"cluster": "MKT", "flavor": "F_SERVICE", "tier": "SERIES"}, "FMS": {"cluster": "MKT", "flavor": "F_FOODPROD", "tier": "SERIES"}, "MCS": {"cluster": "MKT", "flavor": "F_ADS", "tier": "SERIES"}, "RMS": {"cluster": "MKT", "flavor": "F_RETAIL", "tier": "SERIES"}, "SEM": {"cluster": "MKT", "flavor": "F_SPORTS", "tier": "SERIES"}, "PSE": {"cluster": "MKT", "flavor": "F_SELL", "tier": "SERIES"}, "MTDM": {"cluster": "MKT", "flavor": "F_ADS", "tier": "TDM"}, "BTDM": {"cluster": "MKT", "flavor": "F_RETAIL", "tier": "TDM"}, "STDM": {"cluster": "MKT", "flavor": "F_SPORTS", "tier": "TDM"}, "PFN": {"cluster": "FIN", "flavor": null, "tier": "PRIN"}, "ACT": {"cluster": "FIN", "flavor": "F_ACCT", "tier": "SERIES"}, "BFS": {"cluster": "FIN", "flavor": "F_INVEST", "tier": "SERIES"}, "FTDM": {"cluster": "FIN", "flavor": "F_INVEST", "tier": "TDM"}, "PHT": {"cluster": "HOS", "flavor": null, "tier": "PRIN"}, "HLM": {"cluster": "HOS", "flavor": "F_HOTEL", "tier": "SERIES"}, "QSRM": {"cluster": "HOS", "flavor": "F_FASTFOOD", "tier": "SERIES"}, "RFSM": {"cluster": "HOS", "flavor": "F_RESTAURANT", "tier": "SERIES"}, "HTDM": {"cluster": "HOS", "flavor": "F_HOTEL", "tier": "TDM"}, "TTDM": {"cluster": "HOS", "flavor": "F_TRAVEL", "tier": "TDM"}, "PBM": {"cluster": "MGT", "flavor": null, "tier": "PRIN"}, "HRM": {"cluster": "MGT", "flavor": "F_PEOPLE", "tier": "SERIES"}, "BLTDM": {"cluster": "MGT", "flavor": "F_LAW", "tier": "TDM"}, "PEN": {"cluster": "ENT", "flavor": null, "tier": "PRIN"}, "ENT": {"cluster": "ENT", "flavor": "F_STARTUP", "tier": "SERIES"}, "ETDM": {"cluster": "ENT", "flavor": "F_STARTUP", "tier": "TDM"}, "PFL": {"cluster": "PFL", "flavor": "F_MONEY", "tier": "SERIES"}}, "flavorCluster": {"F_FASHION": "MKT", "F_AUTO": "MKT", "F_SERVICE": "MKT", "F_FOODPROD": "MKT", "F_ADS": "MKT", "F_RETAIL": "MKT", "F_SPORTS": "MKT", "F_SELL": "MKT", "F_ACCT": "FIN", "F_INVEST": "FIN", "F_HOTEL": "HOS", "F_FASTFOOD": "HOS", "F_RESTAURANT": "HOS", "F_TRAVEL": "HOS", "F_PEOPLE": "MGT", "F_LAW": "MGT", "F_STARTUP": "ENT", "F_MONEY": "PFL"}};</script>
+<script>window.__QUIZ_DATA__ = {"quizzes": [{"key": "college", "title": "College", "subtitle": "What kind of college is your vibe?", "questions": [{"id": "Q1", "part": 1, "text": "Your dream campus feels most like...", "options": [{"letter": "A", "text": "a lab full of robots and half-finished prototypes", "tag": "TECH"}, {"letter": "B", "text": "a packed stadium on game day", "tag": "BIG"}, {"letter": "C", "text": "a famous business school with a trading floor", "tag": "POWER"}, {"letter": "D", "text": "a garage where three people are building a company at midnight", "tag": "STARTUP"}]}, {"id": "Q2", "part": 1, "text": "Where would you want to spend a semester?", "options": [{"letter": "A", "text": "an entire semester in another country", "tag": "GLOBAL"}, {"letter": "B", "text": "a studio surrounded by other people's art", "tag": "CREATIVE"}, {"letter": "C", "text": "a small dorm where everyone already knows your name", "tag": "KNIT"}, {"letter": "D", "text": "a program built to get you into a top firm", "tag": "POWER"}]}, {"id": "Q3", "part": 1, "text": "Pick the building you'd hang out in most.", "options": [{"letter": "A", "text": "a skyline view from a classroom downtown", "tag": "CITY"}, {"letter": "B", "text": "a professor's office you can just walk into", "tag": "KNIT"}, {"letter": "C", "text": "the international students' center", "tag": "GLOBAL"}, {"letter": "D", "text": "a lab you can badge into at 2am", "tag": "TECH"}]}, {"id": "Q4", "part": 1, "text": "Your ideal class is...", "options": [{"letter": "A", "text": "a workshop where you're building your own idea", "tag": "STARTUP"}, {"letter": "B", "text": "half lecture, half internship downtown", "tag": "CITY"}, {"letter": "C", "text": "taught by a professor who's worked on four continents", "tag": "GLOBAL"}, {"letter": "D", "text": "hands-on, in a lab, every single week", "tag": "TECH"}]}, {"id": "Q5", "part": 1, "text": "The most exciting part of college, for you, is...", "options": [{"letter": "A", "text": "a program with a name that opens doors", "tag": "POWER"}, {"letter": "B", "text": "professors who actually remember your name", "tag": "KNIT"}, {"letter": "C", "text": "building your own company before you graduate", "tag": "STARTUP"}, {"letter": "D", "text": "a campus that blurs into the city around it", "tag": "CITY"}]}, {"id": "Q6", "part": 1, "text": "Which club would you join first?", "options": [{"letter": "A", "text": "the film or design collective", "tag": "CREATIVE"}, {"letter": "B", "text": "the robotics or engineering team", "tag": "TECH"}, {"letter": "C", "text": "the startup incubator", "tag": "STARTUP"}, {"letter": "D", "text": "a volunteer network based downtown", "tag": "CITY"}]}, {"id": "Q7", "part": 1, "text": "You'd want your school known for...", "options": [{"letter": "A", "text": "its spirit and its traditions", "tag": "BIG"}, {"letter": "B", "text": "its name and the doors it opens", "tag": "POWER"}, {"letter": "C", "text": "its reach across the world", "tag": "GLOBAL"}, {"letter": "D", "text": "its labs and its engineers", "tag": "TECH"}]}, {"id": "Q8", "part": 1, "text": "Freshman-year brag you'd actually want to make:", "options": [{"letter": "A", "text": "\"My professor knows me outside of class.\"", "tag": "KNIT"}, {"letter": "B", "text": "\"I got into the business program.\"", "tag": "POWER"}, {"letter": "C", "text": "\"I made something people actually noticed.\"", "tag": "CREATIVE"}, {"letter": "D", "text": "\"I already have a trip abroad booked.\"", "tag": "GLOBAL"}]}, {"id": "Q9", "part": 1, "text": "For an internship, you'd rather have...", "options": [{"letter": "A", "text": "a professor who connects you personally", "tag": "KNIT"}, {"letter": "B", "text": "the freedom to intern at your own startup", "tag": "STARTUP"}, {"letter": "C", "text": "a whole city of companies to walk into", "tag": "CITY"}, {"letter": "D", "text": "an office on another continent", "tag": "GLOBAL"}]}, {"id": "Q10", "part": 1, "text": "You thrive when...", "options": [{"letter": "A", "text": "you're making something people react to", "tag": "CREATIVE"}, {"letter": "B", "text": "you can find your people in a huge crowd", "tag": "BIG"}, {"letter": "C", "text": "you're surrounded by driven, competitive classmates", "tag": "POWER"}, {"letter": "D", "text": "everyone actually knows your name", "tag": "KNIT"}]}, {"id": "Q11", "part": 1, "text": "Which campus tour moment would sell you?", "options": [{"letter": "A", "text": "the 100,000-seat stadium", "tag": "BIG"}, {"letter": "B", "text": "the student-run lab full of half-built projects", "tag": "TECH"}, {"letter": "C", "text": "the skyline view from the library", "tag": "CITY"}, {"letter": "D", "text": "a wall covered in student films and art", "tag": "CREATIVE"}]}, {"id": "Q12", "part": 1, "text": "Pick your ideal roommate.", "options": [{"letter": "A", "text": "always tinkering with some kind of project", "tag": "TECH"}, {"letter": "B", "text": "someone who becomes lifelong family", "tag": "KNIT"}, {"letter": "C", "text": "someone who never misses a game", "tag": "BIG"}, {"letter": "D", "text": "in a band, or shooting a short film", "tag": "CREATIVE"}]}, {"id": "Q13", "part": 1, "text": "You'd be proudest making...", "options": [{"letter": "A", "text": "a r\u00e9sum\u00e9 that opens any door", "tag": "POWER"}, {"letter": "B", "text": "a documentary people actually share", "tag": "GLOBAL"}, {"letter": "C", "text": "a memory with forty thousand other fans", "tag": "BIG"}, {"letter": "D", "text": "something beautiful that people use", "tag": "CREATIVE"}]}, {"id": "Q14", "part": 1, "text": "Weekend plans:", "options": [{"letter": "A", "text": "exploring a new neighborhood", "tag": "CITY"}, {"letter": "B", "text": "tinkering on a project that isn't due yet", "tag": "TECH"}, {"letter": "C", "text": "a small dinner with your closest friends", "tag": "KNIT"}, {"letter": "D", "text": "a road trip to the game", "tag": "BIG"}]}, {"id": "Q15", "part": 1, "text": "Which challenge would you take on?", "options": [{"letter": "A", "text": "a startup weekend with strangers", "tag": "STARTUP"}, {"letter": "B", "text": "a semester-long creative project", "tag": "CREATIVE"}, {"letter": "C", "text": "a case competition against other business schools", "tag": "POWER"}, {"letter": "D", "text": "a class that meets out in the city instead of a room", "tag": "CITY"}]}, {"id": "Q16", "part": 1, "text": "Your deciding factor, if you're honest:", "options": [{"letter": "A", "text": "how much of the world you can see from here", "tag": "GLOBAL"}, {"letter": "B", "text": "how much school spirit is actually on campus", "tag": "BIG"}, {"letter": "C", "text": "how close you are to a real city", "tag": "CITY"}, {"letter": "D", "text": "how good the labs and the tools are", "tag": "TECH"}]}, {"id": "Q17", "part": 1, "text": "After college, you picture yourself...", "options": [{"letter": "A", "text": "running your own thing", "tag": "STARTUP"}, {"letter": "B", "text": "working across four different countries", "tag": "GLOBAL"}, {"letter": "C", "text": "making work people have actually seen", "tag": "CREATIVE"}, {"letter": "D", "text": "still calling your college professors for advice", "tag": "KNIT"}]}, {"id": "Q18", "part": 1, "text": "Which sounds like the best possible Saturday?", "options": [{"letter": "A", "text": "a stadium full of people who all showed up for the same thing", "tag": "BIG"}, {"letter": "B", "text": "a guest speaker who runs a company you actually admire", "tag": "POWER"}, {"letter": "C", "text": "a hackathon that runs past midnight", "tag": "TECH"}, {"letter": "D", "text": "pitching an idea to people who might actually fund it", "tag": "STARTUP"}]}, {"id": "Q19", "part": 1, "text": "Pick the size and shape of the place you want.", "options": [{"letter": "A", "text": "medium, right in the middle of a real city", "tag": "CITY"}, {"letter": "B", "text": "small enough that you're never just a number", "tag": "KNIT"}, {"letter": "C", "text": "wherever lets you study abroad the most", "tag": "GLOBAL"}, {"letter": "D", "text": "wherever gives you the most room to build", "tag": "STARTUP"}]}, {"id": "Q20", "part": 1, "text": "Last one \u2014 what do you actually want?", "options": [{"letter": "A", "text": "the strongest name on your diploma", "tag": "POWER"}, {"letter": "B", "text": "the freedom to make what you want to make", "tag": "CREATIVE"}, {"letter": "C", "text": "the freedom to build your own thing from day one", "tag": "STARTUP"}, {"letter": "D", "text": "the biggest, loudest college experience there is", "tag": "BIG"}]}], "results": [{"code": "BIG", "name": "\ud83c\udfdf\ufe0f Big Spirited State School", "blurb": "Huge, proud, buzzing with traditions.", "schools": "1. Michigan \u2014 the strongest academics of this group \u00b7 2. UT\u2013Austin \u2014 huge school, huge city to match \u00b7 3. Penn State \u2014 legendary traditions, massive alumni reach \u00b7 4. Ohio State \u2014 the loudest gameday of them all"}, {"code": "POWER", "name": "\ud83d\udcbc Business Powerhouse", "blurb": "A famous, competitive program that opens serious doors.", "schools": "1. UPenn (Wharton) \u2014 most selective, deepest finance recruiting \u00b7 2. NYU (Stern) \u2014 same doors, Manhattan on top \u00b7 3. Michigan (Ross) \u2014 best public option in this group \u00b7 4. UVA (McIntire) \u2014 smaller and just as respected \u00b7 5. UNC (Kenan-Flagler) \u2014 most affordable in-state option"}, {"code": "STARTUP", "name": "\ud83d\ude80 Entrepreneurial / Startup Campus", "blurb": "Built for founders and makers.", "schools": "1. Stanford \u2014 closest thing to the center of startup culture \u00b7 2. MIT \u2014 the most technical founders come out of here \u00b7 3. Babson \u2014 built entirely around entrepreneurship \u00b7 4. USC (Marshall) \u2014 strong founder culture with an LA network"}, {"code": "CITY", "name": "\ud83c\udf06 City Hustle School", "blurb": "In the middle of a real city, where class and career blur.", "schools": "1. NYU \u2014 the biggest city, the biggest name \u00b7 2. Boston University \u2014 a real city at a smaller scale \u00b7 3. Northeastern \u2014 built around co-ops in the middle of Boston \u00b7 4. Fordham \u2014 same city as NYU, easier admissions bar"}, {"code": "TECH", "name": "\ud83e\udd16 Tech-Meets-Business", "blurb": "Where business brains and builders collide.", "schools": "1. Carnegie Mellon \u2014 the strongest tech-meets-business reputation \u00b7 2. UC Berkeley (Haas) \u2014 Silicon Valley on your doorstep \u00b7 3. Georgia Tech \u2014 best value for the tech strength \u00b7 4. Cornell \u2014 an Ivy with real engineering chops"}, {"code": "KNIT", "name": "\ud83c\udf33 Close-Knit Community", "blurb": "Smaller, warmer, personal \u2014 professors know your name.", "schools": "1. Villanova \u2014 small, respected, personal \u00b7 2. Wake Forest \u2014 same closeness, stronger national name \u00b7 3. Bentley \u2014 business-only, everyone knows everyone \u00b7 4. Bryant \u2014 smallest of the group, most personal attention"}, {"code": "GLOBAL", "name": "\ud83c\udf0d Global / Study-Abroad Campus", "blurb": "Languages, cultures, and a semester (or four) abroad.", "schools": "1. Georgetown \u2014 the strongest international-affairs name \u00b7 2. Middlebury \u2014 famous for languages and study abroad \u00b7 3. American University \u2014 DC access plus a global focus \u00b7 4. Boston University \u2014 study abroad at a bigger scale"}, {"code": "CREATIVE", "name": "\ud83c\udfad Creative / Arts-Meets-Business", "blurb": "Where design, media, and entertainment meet the business side.", "schools": "1. USC \u2014 film, media, and business all in one place \u00b7 2. NYU (Tisch + Stern) \u2014 same idea, in the middle of NYC \u00b7 3. The New School (Parsons) \u2014 design-first, business-adjacent \u00b7 4. Emerson \u2014 smaller, media-focused, tight-knit"}]}, {"key": "career", "title": "Career", "subtitle": "What business career suits you?", "questions": [{"id": "Q1", "part": 1, "text": "You get to shadow someone for a week. Who do you pick?", "options": [{"letter": "A", "text": "A founder building their own company from scratch.", "tag": "ENT"}, {"letter": "B", "text": "A consultant called in to fix a company's biggest problem.", "tag": "CONSULT"}, {"letter": "C", "text": "An executive negotiating a deal with an overseas partner.", "tag": "INTL"}, {"letter": "D", "text": "A developer deciding what to build on an empty lot.", "tag": "RE"}]}, {"id": "Q2", "part": 1, "text": "Which task would you actually enjoy?", "options": [{"letter": "A", "text": "Closing out the books so every number matches exactly.", "tag": "ACC"}, {"letter": "B", "text": "Writing the campaign that gets a brand noticed.", "tag": "MKT"}, {"letter": "C", "text": "Running the team meeting and keeping everyone on track.", "tag": "MGT"}, {"letter": "D", "text": "Digging through data until you find the pattern nobody else saw.", "tag": "ANLY"}]}, {"id": "Q3", "part": 1, "text": "Pick the challenge you'd want to take on.", "options": [{"letter": "A", "text": "Convincing a skeptical client to say yes.", "tag": "SALES"}, {"letter": "B", "text": "Getting a shipment across the country on time, every time.", "tag": "SCM"}, {"letter": "C", "text": "Building the system that keeps a whole company running.", "tag": "MIS"}, {"letter": "D", "text": "Deciding which company is worth investing in.", "tag": "FIN"}]}, {"id": "Q4", "part": 1, "text": "Which behind-the-scenes job sounds like you?", "options": [{"letter": "A", "text": "Running the business side of a sports team or a tour.", "tag": "SEM"}, {"letter": "B", "text": "Walking into a struggling company and telling them the truth.", "tag": "CONSULT"}, {"letter": "C", "text": "Explaining why prices went up this year.", "tag": "ECON"}, {"letter": "D", "text": "Making sure every guest at an event has the best night of their life.", "tag": "HOS"}]}, {"id": "Q5", "part": 1, "text": "Which headline would you click first?", "options": [{"letter": "A", "text": "\"The data that predicted it before anyone else.\"", "tag": "ANLY"}, {"letter": "B", "text": "\"How your package gets to your door in one day.\"", "tag": "SCM"}, {"letter": "C", "text": "\"The fund that bet big and won.\"", "tag": "FIN"}, {"letter": "D", "text": "\"Inside the business of a sold-out stadium.\"", "tag": "SEM"}]}, {"id": "Q6", "part": 1, "text": "You'd want to be known as the person who...", "options": [{"letter": "A", "text": "does business across borders and languages.", "tag": "INTL"}, {"letter": "B", "text": "builds a team people actually want to work on.", "tag": "HR"}, {"letter": "C", "text": "can sell almost anything to almost anyone.", "tag": "SALES"}, {"letter": "D", "text": "turns an idea nobody believed in into a real company.", "tag": "ENT"}]}, {"id": "Q7", "part": 1, "text": "Pick the tour you'd want to go on.", "options": [{"letter": "A", "text": "A walk-through of a building before it's even built.", "tag": "RE"}, {"letter": "B", "text": "A backstage look at how a hotel actually runs.", "tag": "HOS"}, {"letter": "C", "text": "A look at the software holding a whole company together.", "tag": "MIS"}, {"letter": "D", "text": "A visit to the office deciding interest rates.", "tag": "ECON"}]}, {"id": "Q8", "part": 1, "text": "Which win would feel best?", "options": [{"letter": "A", "text": "An investment you picked actually pays off.", "tag": "FIN"}, {"letter": "B", "text": "A team you're leading hits a goal everyone thought was out of reach.", "tag": "MGT"}, {"letter": "C", "text": "Someone you hired turns out to be the best on the team.", "tag": "HR"}, {"letter": "D", "text": "You catch the one number in the report that was wrong.", "tag": "ACC"}]}, {"id": "Q9", "part": 1, "text": "Which class would you secretly love?", "options": [{"letter": "A", "text": "Advertising and Brand Strategy.", "tag": "MKT"}, {"letter": "B", "text": "Intro to Coding for Business.", "tag": "MIS"}, {"letter": "C", "text": "Real Estate and Urban Development.", "tag": "RE"}, {"letter": "D", "text": "The Business of Sports and Entertainment.", "tag": "SEM"}]}, {"id": "Q10", "part": 1, "text": "Your school club needs a leader. Which job do you want?", "options": [{"letter": "A", "text": "Run the whole thing and keep everyone organized.", "tag": "MGT"}, {"letter": "B", "text": "Plan the big event people will actually remember.", "tag": "HOS"}, {"letter": "C", "text": "Figure out the real cost of every idea before anyone spends a dollar.", "tag": "ECON"}, {"letter": "D", "text": "Track every dollar so nothing goes missing.", "tag": "ACC"}]}, {"id": "Q11", "part": 1, "text": "A local shop is struggling. What's your move?", "options": [{"letter": "A", "text": "Sit down with the owner and figure out exactly what's broken.", "tag": "CONSULT"}, {"letter": "B", "text": "Redo how they talk about themselves online.", "tag": "MKT"}, {"letter": "C", "text": "Get out there and bring in new customers yourself.", "tag": "SALES"}, {"letter": "D", "text": "Pitch them on a completely different idea for the business.", "tag": "ENT"}]}, {"id": "Q12", "part": 1, "text": "Which project would you want on your resume?", "options": [{"letter": "A", "text": "Launched a product in another country.", "tag": "INTL"}, {"letter": "B", "text": "Built a campaign that actually went viral.", "tag": "MKT"}, {"letter": "C", "text": "Found the pattern in the data that changed a company's plan.", "tag": "ANLY"}, {"letter": "D", "text": "Solved a problem three other people couldn't.", "tag": "CONSULT"}]}, {"id": "Q13", "part": 1, "text": "Which puzzle sounds interesting to solve?", "options": [{"letter": "A", "text": "How does a warehouse get every order out on time?", "tag": "SCM"}, {"letter": "B", "text": "Why did the price of something you buy every week suddenly jump?", "tag": "ECON"}, {"letter": "C", "text": "How does a concert tour actually turn a profit?", "tag": "SEM"}, {"letter": "D", "text": "What's the one sentence that gets someone to finally say yes?", "tag": "SALES"}]}, {"id": "Q14", "part": 1, "text": "Pick the workspace you'd want.", "options": [{"letter": "A", "text": "A hotel lobby, coordinating a hundred moving pieces at once.", "tag": "HOS"}, {"letter": "B", "text": "An office solving conflicts between coworkers.", "tag": "HR"}, {"letter": "C", "text": "A desk covered in spreadsheets you actually enjoy reading.", "tag": "ANLY"}, {"letter": "D", "text": "A property you're deciding whether to buy.", "tag": "RE"}]}, {"id": "Q15", "part": 1, "text": "In a group project, which role do you take without being asked?", "options": [{"letter": "A", "text": "The one who makes sure everyone feels heard.", "tag": "HR"}, {"letter": "B", "text": "The one tracking whether the plan is actually affordable.", "tag": "FIN"}, {"letter": "C", "text": "The one assigning who does what.", "tag": "MGT"}, {"letter": "D", "text": "The one checking every number twice.", "tag": "ACC"}]}, {"id": "Q16", "part": 1, "text": "Which title sounds like your future?", "options": [{"letter": "A", "text": "Chief Economist.", "tag": "ECON"}, {"letter": "B", "text": "Chief Technology Officer.", "tag": "MIS"}, {"letter": "C", "text": "Head of Global Logistics.", "tag": "SCM"}, {"letter": "D", "text": "VP of International Markets.", "tag": "INTL"}]}, {"id": "Q17", "part": 1, "text": "Which internship would you pick?", "options": [{"letter": "A", "text": "A company's people and culture team.", "tag": "HR"}, {"letter": "B", "text": "A firm hired to fix other companies' problems.", "tag": "CONSULT"}, {"letter": "C", "text": "A team that turns raw numbers into decisions.", "tag": "ANLY"}, {"letter": "D", "text": "A company's overseas office.", "tag": "INTL"}]}, {"id": "Q18", "part": 1, "text": "Which problem would you actually want to fix?", "options": [{"letter": "A", "text": "A delivery that's always late.", "tag": "SCM"}, {"letter": "B", "text": "A great idea that never got off the ground.", "tag": "ENT"}, {"letter": "C", "text": "A budget that doesn't add up.", "tag": "ACC"}, {"letter": "D", "text": "A portfolio that's losing money.", "tag": "FIN"}]}, {"id": "Q19", "part": 1, "text": "Which weekend project sounds fun?", "options": [{"letter": "A", "text": "Selling out a product you made yourself.", "tag": "SALES"}, {"letter": "B", "text": "Building the first version of your own business idea.", "tag": "ENT"}, {"letter": "C", "text": "Throwing an event your friends still talk about.", "tag": "HOS"}, {"letter": "D", "text": "Designing the ad campaign for something you love.", "tag": "MKT"}]}, {"id": "Q20", "part": 1, "text": "You'd rather be the person who...", "options": [{"letter": "A", "text": "builds the system everyone else depends on.", "tag": "MIS"}, {"letter": "B", "text": "runs the whole operation.", "tag": "MGT"}, {"letter": "C", "text": "manages the business side of a team or a tour.", "tag": "SEM"}, {"letter": "D", "text": "finds the answer hiding in the numbers.", "tag": "ANLY"}]}, {"id": "Q21", "part": 1, "text": "Which feeling would you chase?", "options": [{"letter": "A", "text": "Every number lining up perfectly.", "tag": "ACC"}, {"letter": "B", "text": "A stock you picked going up.", "tag": "FIN"}, {"letter": "C", "text": "Turning your own idea into something real.", "tag": "ENT"}, {"letter": "D", "text": "Closing a deal you worked hard for.", "tag": "SALES"}]}, {"id": "Q22", "part": 1, "text": "Where does your instinct for money go?", "options": [{"letter": "A", "text": "Property and land.", "tag": "RE"}, {"letter": "B", "text": "Markets and interest rates.", "tag": "ECON"}, {"letter": "C", "text": "Getting goods from one place to another, cheaply and fast.", "tag": "SCM"}, {"letter": "D", "text": "Business that crosses borders.", "tag": "INTL"}]}, {"id": "Q23", "part": 1, "text": "Which career would you brag about at 30?", "options": [{"letter": "A", "text": "\"I run one of the best hotels in the city.\"", "tag": "HOS"}, {"letter": "B", "text": "\"I run the whole division.\"", "tag": "MGT"}, {"letter": "C", "text": "\"Companies fly me in to fix what's broken.\"", "tag": "CONSULT"}, {"letter": "D", "text": "\"I built half this neighborhood.\"", "tag": "RE"}]}, {"id": "Q24", "part": 1, "text": "Last one \u2014 which future sounds like you?", "options": [{"letter": "A", "text": "Building brands people actually love.", "tag": "MKT"}, {"letter": "B", "text": "Building the technology behind a growing company.", "tag": "MIS"}, {"letter": "C", "text": "Running the business behind games, concerts, and stars.", "tag": "SEM"}, {"letter": "D", "text": "Building a workplace people are proud to be part of.", "tag": "HR"}]}], "results": [{"code": "MKT", "name": "Marketing / Brand Strategist", "blurb": "You make people feel something about a product. \u2192 DECA: marketing role-plays."}, {"code": "FIN", "name": "Financial Analyst", "blurb": "You read markets and numbers to guide big money decisions. \u2192 DECA: Business Finance; Stock Market Game."}, {"code": "ACC", "name": "Accountant", "blurb": "The trusted scorekeeper of every business. \u2192 DECA: Accounting Applications."}, {"code": "ENT", "name": "Entrepreneur / Founder", "blurb": "You build something from nothing and run the whole show. \u2192 DECA: Entrepreneurship events."}, {"code": "HOS", "name": "Event & Hospitality Manager", "blurb": "You create experiences people never forget. \u2192 DECA: Hospitality role-plays."}, {"code": "SALES", "name": "Sales & Business Development", "blurb": "You build relationships and close the deals that grow a company. \u2192 DECA: Professional Selling."}, {"code": "HR", "name": "HR / People Manager", "blurb": "You build great teams and keep workplaces fair and strong. \u2192 DECA: Human Resources Management."}, {"code": "CONSULT", "name": "Management Consultant", "blurb": "Companies hire you to find problems and fix them. \u2192 DECA: Team Decision Making events."}, {"code": "SEM", "name": "Sports & Entertainment Marketer", "blurb": "You run the business behind the games, concerts, and stars. \u2192 DECA: Sports & Entertainment Marketing."}, {"code": "ANLY", "name": "Business / Data Analyst", "blurb": "You turn messy numbers into the answer everyone needed. \u2192 DECA: any event with a data-heavy case."}, {"code": "MGT", "name": "General Manager", "blurb": "You run the whole operation and keep a team moving toward the same goal. \u2192 DECA: Principles of Business Management."}, {"code": "ECON", "name": "Economist / Policy Analyst", "blurb": "You see the forces behind prices, choices, and markets before anyone else does. \u2192 DECA: a strong base for finance and policy."}, {"code": "INTL", "name": "International Business Manager", "blurb": "You do business across borders, languages, and cultures. \u2192 DECA: a natural fit for global brands."}, {"code": "SCM", "name": "Supply Chain & Operations Manager", "blurb": "You make the whole machine run \u2014 right thing, right place, on time. \u2192 DECA: the behind-the-scenes hero role."}, {"code": "MIS", "name": "Business Systems / IT Analyst", "blurb": "You're the bridge between technology and business, solving problems with systems. \u2192 DECA: business plus coding."}, {"code": "RE", "name": "Real Estate Developer", "blurb": "You see value in property, location, and the deal. \u2192 DECA: buying, selling, and building."}]}, {"key": "deca", "title": "DECA Event", "subtitle": "Which DECA event should you compete in?", "questions": [{"id": "Q1", "part": 1, "text": "You're given a group project with no stated roles. Which task would you prioritize?", "options": [{"letter": "A", "text": "Think about how to make the project stand out and get people interested.", "tag": "MKT"}, {"letter": "B", "text": "Figure out what resources you have and whether the plan is realistic.", "tag": "FIN"}, {"letter": "C", "text": "Create a schedule and divide responsibilities.", "tag": "MGT"}, {"letter": "D", "text": "Look for an opportunity to create something of your own and lead the group in a new direction.", "tag": "ENT"}, {"letter": "E", "text": "Consider how to turn a basic project into something people will remember.", "tag": "HOS"}]}, {"id": "Q2", "part": 1, "text": "Which challenge would you most likely be interested in taking on?", "options": [{"letter": "A", "text": "Convincing people to support an idea.", "tag": "MKT"}, {"letter": "B", "text": "Finding ways to improve efficiency and organization.", "tag": "MGT"}, {"letter": "C", "text": "Making important decisions with limited resources.", "tag": "FIN"}, {"letter": "D", "text": "Turning a creative idea into something real.", "tag": "ENT"}, {"letter": "E", "text": "Creating a memorable and welcoming experience for others.", "tag": "HOS"}]}, {"id": "Q3", "part": 1, "text": "Which compliment would you be happiest to hear?", "options": [{"letter": "A", "text": "\"You always have creative ideas.\"", "tag": "ENT"}, {"letter": "B", "text": "\"You know how to make people feel included.\"", "tag": "HOS"}, {"letter": "C", "text": "\"You are great at explaining and persuading people.\"", "tag": "MKT"}, {"letter": "D", "text": "\"You are really organized and reliable.\"", "tag": "MGT"}, {"letter": "E", "text": "\"You notice details other people miss.\"", "tag": "FIN"}]}, {"id": "Q4", "part": 1, "text": "Which role would you naturally take in a group?", "options": [{"letter": "A", "text": "The person who gets everyone excited about the idea.", "tag": "MKT"}, {"letter": "B", "text": "The person who asks \"does this actually make sense?\"", "tag": "FIN"}, {"letter": "C", "text": "The person who keeps everyone organized.", "tag": "MGT"}, {"letter": "D", "text": "The person who says \"what if we tried something completely different?\"", "tag": "ENT"}, {"letter": "E", "text": "The person who makes sure everyone feels included and enjoys the process.", "tag": "HOS"}]}, {"id": "Q5", "part": 1, "text": "What project do you see yourself accomplishing in the future?", "options": [{"letter": "A", "text": "Designing a launch plan for a new product.", "tag": "MKT"}, {"letter": "B", "text": "Building a budget that keeps a company out of trouble.", "tag": "FIN"}, {"letter": "C", "text": "Reorganizing a team so it finally runs smoothly.", "tag": "MGT"}, {"letter": "D", "text": "Starting something of your own from scratch.", "tag": "ENT"}, {"letter": "E", "text": "Running an event people talk about for years.", "tag": "HOS"}]}, {"id": "Q6", "part": 1, "text": "A money topic you'd teach a 5th grader:", "options": [{"letter": "A", "text": "how saving and interest works", "tag": "PFL"}, {"letter": "B", "text": "how ads make you want things", "tag": "MKT"}, {"letter": "C", "text": "how companies make a profit", "tag": "FIN"}, {"letter": "D", "text": "how a restaurant actually runs", "tag": "HOS"}, {"letter": "E", "text": "how a manager keeps a team on track", "tag": "MGT"}]}, {"id": "Q7", "part": 1, "text": "Your favorite kind of win:", "options": [{"letter": "A", "text": "saved up and bought it in cash", "tag": "PFL"}, {"letter": "B", "text": "built something from scratch", "tag": "ENT"}, {"letter": "C", "text": "a campaign everyone's talking about", "tag": "MKT"}, {"letter": "D", "text": "the smartest money move", "tag": "FIN"}, {"letter": "E", "text": "a guest saying \"best night ever\"", "tag": "HOS"}]}, {"id": "Q8", "part": 1, "text": "Which thought is most you?", "options": [{"letter": "A", "text": "\"They're wasting money every month.\"", "tag": "PFL"}, {"letter": "B", "text": "\"This team needs a leader.\"", "tag": "MGT"}, {"letter": "C", "text": "\"Somebody should invent this.\"", "tag": "ENT"}, {"letter": "D", "text": "\"This needs way better marketing.\"", "tag": "MKT"}, {"letter": "E", "text": "\"Is this actually a good investment?\"", "tag": "FIN"}]}, {"id": "Q9", "part": 2, "text": "Which world would you want to work in?", "options": [{"letter": "A", "text": "sneakers and streetwear", "tag": "F_FASHION"}, {"letter": "B", "text": "cars and auto shops", "tag": "F_AUTO"}, {"letter": "C", "text": "helping other businesses run better", "tag": "F_SERVICE"}, {"letter": "D", "text": "snacks and drinks on grocery shelves", "tag": "F_FOODPROD"}, {"letter": "E", "text": "commercials and ad campaigns", "tag": "F_ADS"}]}, {"id": "Q10", "part": 2, "text": "\u2026or one of these?", "options": [{"letter": "A", "text": "store displays and what goes on the shelf", "tag": "F_RETAIL"}, {"letter": "B", "text": "stadiums and concerts", "tag": "F_SPORTS"}, {"letter": "C", "text": "convincing a customer face-to-face", "tag": "F_SELL"}, {"letter": "D", "text": "keeping financial records perfect", "tag": "F_ACCT"}, {"letter": "E", "text": "investing and growing money", "tag": "F_INVEST"}]}, {"id": "Q11", "part": 2, "text": "\u2026or these?", "options": [{"letter": "A", "text": "hotels and front desks", "tag": "F_HOTEL"}, {"letter": "B", "text": "drive-thrus and fast food", "tag": "F_FASTFOOD"}, {"letter": "C", "text": "restaurants and dining rooms", "tag": "F_RESTAURANT"}, {"letter": "D", "text": "vacations and destinations", "tag": "F_TRAVEL"}, {"letter": "E", "text": "hiring and training people", "tag": "F_PEOPLE"}]}, {"id": "Q12", "part": 2, "text": "\u2026or these?", "options": [{"letter": "A", "text": "rules, contracts, and fairness", "tag": "F_LAW"}, {"letter": "B", "text": "starting your own company", "tag": "F_STARTUP"}, {"letter": "C", "text": "your own budget and savings goals", "tag": "F_MONEY"}, {"letter": "D", "text": "a clothing brand's new line", "tag": "F_FASHION"}, {"letter": "E", "text": "a car dealership", "tag": "F_AUTO"}]}, {"id": "Q13", "part": 2, "text": "Which job shadow would you pick?", "options": [{"letter": "A", "text": "someone who consults for small businesses", "tag": "F_SERVICE"}, {"letter": "B", "text": "a food brand's marketing team", "tag": "F_FOODPROD"}, {"letter": "C", "text": "an ad agency creative", "tag": "F_ADS"}, {"letter": "D", "text": "a store's buyer choosing next season's stock", "tag": "F_RETAIL"}, {"letter": "E", "text": "a team's game-day operations crew", "tag": "F_SPORTS"}]}, {"id": "Q14", "part": 2, "text": "Which task sounds most fun?", "options": [{"letter": "A", "text": "close a sale in person", "tag": "F_SELL"}, {"letter": "B", "text": "reconcile the books until they're perfect", "tag": "F_ACCT"}, {"letter": "C", "text": "build an investment portfolio", "tag": "F_INVEST"}, {"letter": "D", "text": "run a hotel lobby during a rush", "tag": "F_HOTEL"}, {"letter": "E", "text": "speed up a drive-thru line", "tag": "F_FASTFOOD"}]}, {"id": "Q15", "part": 2, "text": "You'd be proudest of\u2026", "options": [{"letter": "A", "text": "a restaurant everyone reviews well", "tag": "F_RESTAURANT"}, {"letter": "B", "text": "a trip you planned perfectly", "tag": "F_TRAVEL"}, {"letter": "C", "text": "a team that loves working together", "tag": "F_PEOPLE"}, {"letter": "D", "text": "a contract that's fair to both sides", "tag": "F_LAW"}, {"letter": "E", "text": "a business you started yourself", "tag": "F_STARTUP"}]}, {"id": "Q16", "part": 2, "text": "Which would you read about?", "options": [{"letter": "A", "text": "how teens build savings", "tag": "F_MONEY"}, {"letter": "B", "text": "how a sneaker drop sells out", "tag": "F_FASHION"}, {"letter": "C", "text": "how car brands win customers", "tag": "F_AUTO"}, {"letter": "D", "text": "how companies outsource their work", "tag": "F_SERVICE"}, {"letter": "E", "text": "how a cereal gets its packaging", "tag": "F_FOODPROD"}]}, {"id": "Q17", "part": 2, "text": "Pick the pop-up you'd run:", "options": [{"letter": "A", "text": "a viral video ad booth", "tag": "F_ADS"}, {"letter": "B", "text": "a curated little shop", "tag": "F_RETAIL"}, {"letter": "C", "text": "a merch stand at a concert", "tag": "F_SPORTS"}, {"letter": "D", "text": "a demo table where you pitch shoppers", "tag": "F_SELL"}, {"letter": "E", "text": "a free tax-help desk", "tag": "F_ACCT"}]}, {"id": "Q18", "part": 2, "text": "Which detail would you obsess over?", "options": [{"letter": "A", "text": "whether the investment beats the market", "tag": "F_INVEST"}, {"letter": "B", "text": "how a hotel room feels when you walk in", "tag": "F_HOTEL"}, {"letter": "C", "text": "how fast an order gets out the window", "tag": "F_FASTFOOD"}, {"letter": "D", "text": "how a menu is designed", "tag": "F_RESTAURANT"}, {"letter": "E", "text": "how smooth a trip's itinerary is", "tag": "F_TRAVEL"}]}, {"id": "Q19", "part": 2, "text": "You'd want to be the expert on\u2026", "options": [{"letter": "A", "text": "what makes employees stay", "tag": "F_PEOPLE"}, {"letter": "B", "text": "business ethics and rules", "tag": "F_LAW"}, {"letter": "C", "text": "turning an idea into a company", "tag": "F_STARTUP"}, {"letter": "D", "text": "getting out of debt", "tag": "F_MONEY"}, {"letter": "E", "text": "what makes a brand cool", "tag": "F_FASHION"}]}, {"id": "Q20", "part": 2, "text": "Which class would you take?", "options": [{"letter": "A", "text": "The Business of Cars", "tag": "F_AUTO"}, {"letter": "B", "text": "Business-to-Business Services", "tag": "F_SERVICE"}, {"letter": "C", "text": "Food & Beverage Marketing", "tag": "F_FOODPROD"}, {"letter": "D", "text": "Advertising & Media", "tag": "F_ADS"}, {"letter": "E", "text": "Retail & Merchandising", "tag": "F_RETAIL"}]}, {"id": "Q21", "part": 2, "text": "Which would you brag about?", "options": [{"letter": "A", "text": "selling out the arena", "tag": "F_SPORTS"}, {"letter": "B", "text": "the biggest sale of the month", "tag": "F_SELL"}, {"letter": "C", "text": "an audit with zero errors", "tag": "F_ACCT"}, {"letter": "D", "text": "a stock pick that doubled", "tag": "F_INVEST"}, {"letter": "E", "text": "a hotel with perfect reviews", "tag": "F_HOTEL"}]}, {"id": "Q22", "part": 2, "text": "Where would you rather work a summer?", "options": [{"letter": "A", "text": "a busy fast-food chain", "tag": "F_FASTFOOD"}, {"letter": "B", "text": "a sit-down restaurant", "tag": "F_RESTAURANT"}, {"letter": "C", "text": "a travel agency", "tag": "F_TRAVEL"}, {"letter": "D", "text": "a company's HR office", "tag": "F_PEOPLE"}, {"letter": "E", "text": "a law or ethics office", "tag": "F_LAW"}]}, {"id": "Q23", "part": 2, "text": "Your dream headline about you:", "options": [{"letter": "A", "text": "\"They founded it at 17.\"", "tag": "F_STARTUP"}, {"letter": "B", "text": "\"How they paid for college themselves.\"", "tag": "F_MONEY"}, {"letter": "C", "text": "\"The stylist behind the collection.\"", "tag": "F_FASHION"}, {"letter": "D", "text": "\"They rebuilt the dealership.\"", "tag": "F_AUTO"}, {"letter": "E", "text": "\"The firm small businesses trust.\"", "tag": "F_SERVICE"}]}, {"id": "Q24", "part": 2, "text": "Which problem would you solve?", "options": [{"letter": "A", "text": "a snack nobody's buying", "tag": "F_FOODPROD"}, {"letter": "B", "text": "an ad nobody remembers", "tag": "F_ADS"}, {"letter": "C", "text": "a store with messy shelves", "tag": "F_RETAIL"}, {"letter": "D", "text": "empty seats at the game", "tag": "F_SPORTS"}, {"letter": "E", "text": "a customer who won't say yes", "tag": "F_SELL"}]}, {"id": "Q25", "part": 2, "text": "Pick the tool you'd master:", "options": [{"letter": "A", "text": "a spreadsheet of financial records", "tag": "F_ACCT"}, {"letter": "B", "text": "a stock-trading app", "tag": "F_INVEST"}, {"letter": "C", "text": "a hotel booking system", "tag": "F_HOTEL"}, {"letter": "D", "text": "a kitchen order screen", "tag": "F_FASTFOOD"}, {"letter": "E", "text": "a reservation book", "tag": "F_RESTAURANT"}]}, {"id": "Q26", "part": 2, "text": "What would you plan for fun?", "options": [{"letter": "A", "text": "a two-week trip abroad", "tag": "F_TRAVEL"}, {"letter": "B", "text": "a team retreat everyone loves", "tag": "F_PEOPLE"}, {"letter": "C", "text": "a fair debate on a tough rule", "tag": "F_LAW"}, {"letter": "D", "text": "a pitch to investors", "tag": "F_STARTUP"}, {"letter": "E", "text": "a savings plan that actually works", "tag": "F_MONEY"}]}, {"id": "Q27", "part": 3, "text": "Alone or with a partner?", "options": [{"letter": "A", "text": "Alone \u2014 I want the whole thing to be mine", "tag": "SOLO"}, {"letter": "B", "text": "With a partner \u2014 I'm sharper bouncing ideas", "tag": "TEAM"}]}, {"id": "Q28", "part": 3, "text": "In a role-play you'd rather\u2026", "options": [{"letter": "A", "text": "own the entire answer yourself", "tag": "SOLO"}, {"letter": "B", "text": "split the thinking with a teammate", "tag": "TEAM"}]}, {"id": "Q29", "part": 3, "text": "Which appeals more?", "options": [{"letter": "A", "text": "Learn the fundamentals across all of business first", "tag": "FOUND"}, {"letter": "B", "text": "Go deep on the one industry I already love", "tag": "SPEC"}]}, {"id": "Q30", "part": 3, "text": "Your competition style:", "options": [{"letter": "A", "text": "\"Give me a broad case I can reason through.\"", "tag": "FOUND"}, {"letter": "B", "text": "\"Give me the industry I know best.\"", "tag": "SPEC"}]}], "results": [{"code": "PMK", "name": "Principles of Marketing (PMK)", "blurb": "A beginner-friendly intro to how businesses find customers and sell to them. Great first event."}, {"code": "AAM", "name": "Apparel & Accessories Marketing (AAM)", "blurb": "The business of clothing, shoes, and style \u2014 how fashion actually sells."}, {"code": "ASM", "name": "Automotive Services Marketing (ASM)", "blurb": "Cars, dealerships, and service centers: how they win and keep customers."}, {"code": "BSM", "name": "Business Services Marketing (BSM)", "blurb": "Marketing services that companies sell to other companies."}, {"code": "FMS", "name": "Food Marketing (FMS)", "blurb": "How food and drink products get onto shelves and into carts."}, {"code": "MCS", "name": "Marketing Communications (MCS)", "blurb": "Ads, campaigns, and media: getting the message right."}, {"code": "RMS", "name": "Retail Merchandising (RMS)", "blurb": "Stores, displays, and deciding what goes on the shelf."}, {"code": "SEM", "name": "Sports & Entertainment Marketing (SEM)", "blurb": "The business behind games, concerts, teams, and stars."}, {"code": "PSE", "name": "Professional Selling (PSE)", "blurb": "You sell a real product to a judge, face to face. Pure persuasion."}, {"code": "MTDM", "name": "Marketing Management Team (MTDM)", "blurb": "A full marketing problem, solved with a partner."}, {"code": "BTDM", "name": "Buying & Merchandising Team (BTDM)", "blurb": "Retail buying and merchandising, with a partner."}, {"code": "STDM", "name": "Sports & Entertainment Marketing Team (STDM)", "blurb": "Sports and entertainment business, with a partner."}, {"code": "PFN", "name": "Principles of Finance (PFN)", "blurb": "A beginner-friendly intro to how money moves through a business."}, {"code": "ACT", "name": "Accounting Applications (ACT)", "blurb": "Keeping the financial record exact \u2014 the job every business depends on."}, {"code": "BFS", "name": "Business Finance (BFS)", "blurb": "Company money: budgets, funding, and investment decisions."}, {"code": "FTDM", "name": "Financial Services Team (FTDM)", "blurb": "Banking and financial services, solved with a partner."}, {"code": "PHT", "name": "Principles of Hospitality & Tourism (PHT)", "blurb": "A beginner-friendly intro to hotels, travel, and guest experience."}, {"code": "HLM", "name": "Hotel & Lodging Management (HLM)", "blurb": "Running a hotel: guests, rooms, staff, and problems at the front desk."}, {"code": "QSRM", "name": "Quick Serve Restaurant Management (QSRM)", "blurb": "Fast food and drive-thrus, where speed is everything."}, {"code": "RFSM", "name": "Restaurant & Food Service Management (RFSM)", "blurb": "Full-service restaurants: menus, service, and the dining room."}, {"code": "HTDM", "name": "Hospitality Services Team (HTDM)", "blurb": "A hospitality challenge, solved with a partner."}, {"code": "TTDM", "name": "Travel & Tourism Team (TTDM)", "blurb": "Destinations, trips, and tourism, with a partner."}, {"code": "PBM", "name": "Principles of Business Management & Administration (PBM)", "blurb": "A beginner-friendly intro to running and organizing a company."}, {"code": "HRM", "name": "Human Resources Management (HRM)", "blurb": "Hiring, training, and keeping a workplace fair and strong."}, {"code": "BLTDM", "name": "Business Law & Ethics Team (BLTDM)", "blurb": "Rules, contracts, and doing the right thing \u2014 argued with a partner."}, {"code": "PEN", "name": "Principles of Entrepreneurship (PEN)", "blurb": "A beginner-friendly intro to starting something of your own."}, {"code": "ENT", "name": "Entrepreneurship Series (ENT)", "blurb": "Pitch your own business idea and defend it, solo."}, {"code": "ETDM", "name": "Entrepreneurship Team (ETDM)", "blurb": "Build and pitch a business concept with a partner."}, {"code": "PFL", "name": "Personal Financial Literacy (PFL)", "blurb": "Budgeting, saving, credit, and smart money for real life."}]}], "events": {"PMK": {"cluster": "MKT", "flavor": null, "tier": "PRIN", "slug": "principles-of-marketing"}, "AAM": {"cluster": "MKT", "flavor": "F_FASHION", "tier": "SERIES", "slug": "apparel-and-accessories-marketing-series"}, "ASM": {"cluster": "MKT", "flavor": "F_AUTO", "tier": "SERIES", "slug": "automotive-services-marketing-series"}, "BSM": {"cluster": "MKT", "flavor": "F_SERVICE", "tier": "SERIES", "slug": "business-services-marketing-series"}, "FMS": {"cluster": "MKT", "flavor": "F_FOODPROD", "tier": "SERIES", "slug": "food-marketing-series"}, "MCS": {"cluster": "MKT", "flavor": "F_ADS", "tier": "SERIES", "slug": "marketing-communications-series"}, "RMS": {"cluster": "MKT", "flavor": "F_RETAIL", "tier": "SERIES", "slug": "retail-merchandising-series"}, "SEM": {"cluster": "MKT", "flavor": "F_SPORTS", "tier": "SERIES", "slug": "sports-and-entertainment-marketing-series"}, "PSE": {"cluster": "MKT", "flavor": "F_SELL", "tier": "SERIES", "slug": "professional-selling"}, "MTDM": {"cluster": "MKT", "flavor": "F_ADS", "tier": "TDM", "slug": "marketing-management-team-decision-making"}, "BTDM": {"cluster": "MKT", "flavor": "F_RETAIL", "tier": "TDM", "slug": "buying-and-merchandising-team-decision-making"}, "STDM": {"cluster": "MKT", "flavor": "F_SPORTS", "tier": "TDM", "slug": "sports-and-entertainment-marketing-team-decision-making"}, "PFN": {"cluster": "FIN", "flavor": null, "tier": "PRIN", "slug": "principles-of-finance"}, "ACT": {"cluster": "FIN", "flavor": "F_ACCT", "tier": "SERIES", "slug": "accounting-applications-series"}, "BFS": {"cluster": "FIN", "flavor": "F_INVEST", "tier": "SERIES", "slug": "business-finance-series"}, "FTDM": {"cluster": "FIN", "flavor": "F_INVEST", "tier": "TDM", "slug": "financial-services-team-decision-making"}, "PHT": {"cluster": "HOS", "flavor": null, "tier": "PRIN", "slug": "principles-of-hospitality"}, "HLM": {"cluster": "HOS", "flavor": "F_HOTEL", "tier": "SERIES", "slug": "hotel-and-lodging-management-series"}, "QSRM": {"cluster": "HOS", "flavor": "F_FASTFOOD", "tier": "SERIES", "slug": "quick-serve-restaurant-management-series"}, "RFSM": {"cluster": "HOS", "flavor": "F_RESTAURANT", "tier": "SERIES", "slug": "restaurant-and-food-service-management-series"}, "HTDM": {"cluster": "HOS", "flavor": "F_HOTEL", "tier": "TDM", "slug": "hospitality-services-team-decision-making"}, "TTDM": {"cluster": "HOS", "flavor": "F_TRAVEL", "tier": "TDM", "slug": "travel-and-tourism-team-decision-making"}, "PBM": {"cluster": "MGT", "flavor": null, "tier": "PRIN", "slug": "principles-of-business-management-and-administration"}, "HRM": {"cluster": "MGT", "flavor": "F_PEOPLE", "tier": "SERIES", "slug": "human-resources-management-series"}, "BLTDM": {"cluster": "MGT", "flavor": "F_LAW", "tier": "TDM", "slug": "business-law-and-ethics-team-decision-making"}, "PEN": {"cluster": "ENT", "flavor": null, "tier": "PRIN", "slug": "principles-of-entrepreneurship"}, "ENT": {"cluster": "ENT", "flavor": "F_STARTUP", "tier": "SERIES", "slug": "entrepreneurship-series"}, "ETDM": {"cluster": "ENT", "flavor": "F_STARTUP", "tier": "TDM", "slug": "entrepreneurship-team-decision-making"}, "PFL": {"cluster": "PFL", "flavor": "F_MONEY", "tier": "SERIES", "slug": "personal-financial-literacy"}}, "flavorCluster": {"F_FASHION": "MKT", "F_AUTO": "MKT", "F_SERVICE": "MKT", "F_FOODPROD": "MKT", "F_ADS": "MKT", "F_RETAIL": "MKT", "F_SPORTS": "MKT", "F_SELL": "MKT", "F_ACCT": "FIN", "F_INVEST": "FIN", "F_HOTEL": "HOS", "F_FASTFOOD": "HOS", "F_RESTAURANT": "HOS", "F_TRAVEL": "HOS", "F_PEOPLE": "MGT", "F_LAW": "MGT", "F_STARTUP": "ENT", "F_MONEY": "PFL"}};</script>
 <script>
 document.body.dataset.page = "single";
 /* hide the quiz shell until the router decides, so it doesn't flash */
@@ -460,7 +519,7 @@ document.getElementById("runner").hidden = true;
 --------------------------------------------------------------------------- */
 const TALLY_ENDPOINT = "";
 
-const ORDER = ["major", "college", "career", "deca"];
+const ORDER = ["college", "career", "deca"];
 /* Each copy needs its OWN gradient id. With a shared id the first definition
    wins, and if that one sits inside a display:none element the gradient never
    paints -- the ring silently vanishes on every other compass. */
@@ -562,9 +621,8 @@ function rank(quiz, totals) {
     .sort((a, b) => b.score - a.score || a.i - b.i);
 }
 
-/* expose for the parity check and the image-render check */
-window.CCC = { loadData, getQuiz, score, rank, scoreEvents, scoreSimple,
-               renderCard: (quiz, top) => drawCard(quiz, top).toDataURL("image/png") };
+/* expose for the parity check */
+window.CCC = { loadData, getQuiz, score, rank, scoreEvents, scoreSimple };
 
 /* ------------------------------ runner ------------------------------ */
 
@@ -581,7 +639,7 @@ function startRunner(key) {
   // Only the DECA quiz has real parts. The other three are one long section, so
   // their rail tracks thirds of the way through instead of sitting on stage 1.
   const RAIL_LABELS = quiz.key === "deca"
-    ? ["Your interests", "What you'd geek out over", "How you like to work", "Your top matches"]
+    ? ["Your interests", "What you'd want to specialize in", "How you like to work", "Your top matches"]
     : ["Getting started", "Digging deeper", "Almost there", "Your top matches"];
 
   function stageFor(i) {
@@ -616,19 +674,33 @@ function startRunner(key) {
           </button>`).join("")}
       </div>
       <div class="below">
-        <button class="linkbtn" id="back" ${idx === 0 ? "disabled" : ""}>&larr; Back</button>
-        <button class="linkbtn" id="skip">Skip question</button>
+        <div class="below-left">
+          <button class="linkbtn" id="back" ${idx === 0 ? "disabled" : ""}>&larr; Back</button>
+          <button class="linkbtn" id="skip">Skip question</button>
+        </div>
+        <button class="btn primary" id="next" ${answers[idx] == null ? "disabled" : ""}>Next question &rarr;</button>
       </div>`;
 
     main.querySelectorAll(".opt").forEach((b) =>
-      b.addEventListener("click", () => choose(b.dataset.tag)));
-    $("#skip").addEventListener("click", () => choose(null));
+      b.addEventListener("click", () => select(b.dataset.tag)));
+    $("#skip").addEventListener("click", () => advance(null));
+    $("#next").addEventListener("click", () => advance(answers[idx]));
     $("#back").addEventListener("click", () => { if (idx > 0) { idx--; renderQuestion(); } });
     paintRail();
     main.focus();
   }
 
-  function choose(tag) {
+  /** Picking an option only marks it -- it doesn't move on, so a student who
+   *  taps the wrong option first can see and fix their choice before advancing. */
+  function select(tag) {
+    answers[idx] = tag;
+    main.querySelectorAll(".opt").forEach((b) =>
+      b.setAttribute("aria-pressed", String(b.dataset.tag === tag)));
+    const next = $("#next");
+    if (next) next.disabled = false;
+  }
+
+  function advance(tag) {
     answers[idx] = tag;
     idx++;
     if (idx >= quiz.questions.length) renderResults(quiz, answers, main, bar, count);
@@ -652,6 +724,10 @@ function startRunner(key) {
 
 /* ------------------------------ results ------------------------------ */
 
+const DECA_GUIDE_URL = "https://www.deca.org/guide";
+const eventSlug = (code) => DATA.events?.[code]?.slug;
+const eventUrl = (code) => `https://www.deca.org/compete/${eventSlug(code)}`;
+
 function renderResults(quiz, answers, main, bar, count) {
   const ranked = rank(quiz, score(quiz, answers));
   const top = ranked.slice(0, 3);
@@ -660,6 +736,7 @@ function renderResults(quiz, answers, main, bar, count) {
 
   const nextKey = ORDER[(ORDER.indexOf(quiz.key) + 1) % ORDER.length];
   const nextQuiz = getQuiz(nextKey);
+  const isDeca = quiz.key === "deca";
 
   main.innerHTML = `
     <div class="res-head">
@@ -673,11 +750,15 @@ function renderResults(quiz, answers, main, bar, count) {
           <div class="rank">${i + 1}</div>
           <h3>${esc(r.name)}</h3>
           <p>${esc(r.blurb)}</p>
+          ${r.schools ? `<p class="schools">${esc(r.schools)}</p>` : ""}
           <div class="score">Match score ${r.score}</div>
+          ${isDeca && eventSlug(r.code)
+            ? `<a class="event-link" href="${eventUrl(r.code)}" target="_blank" rel="noopener">Official event guidelines &rarr;</a>`
+            : ""}
         </div>`).join("")}
     </div>
     <div class="actions">
-      <button class="btn primary" id="save">Save as image</button>
+      <button class="btn primary" id="save">Save as PDF</button>
       <a class="btn" href="${quizHref(nextKey)}">Next: ${esc(nextQuiz.title)} quiz &rarr;</a>
       <a class="btn" id="retake" href="${quizHref(quiz.key)}">Retake this quiz</a>
       <a class="btn" href="${homeHref()}">All quizzes</a>
@@ -687,15 +768,17 @@ function renderResults(quiz, answers, main, bar, count) {
       ${ranked.map((r, i) => `
         <div class="rank-row"><span>${i + 1}. ${esc(r.name)}</span><span>${r.score}</span></div>`).join("")}
     </details>
+    ${isDeca ? `<p class="foot"><a href="${DECA_GUIDE_URL}" target="_blank" rel="noopener">Full DECA Guide (all events, current year) &rarr;</a></p>` : ""}
     <p class="foot">Career &amp; College Compass \u2014 Jada Lin &amp; Olivia Zheng</p>`;
 
   saveResult(quiz.key, top.map((r) => r.code));
-  $("#save").addEventListener("click", () => saveImage(quiz, top));
+  $("#save").addEventListener("click", () => window.print());
   // the retake link points at the hash we're already on, so no hashchange fires
   if (single()) $("#retake").addEventListener("click", (e) => {
     e.preventDefault();
     startRunner(quiz.key);
   });
+  postGroupResult(quiz.key, top.map((r) => r.code));
   sendTally(quiz.key, top.map((r) => r.code));
   paintRailDone();
 }
@@ -703,85 +786,6 @@ function renderResults(quiz, answers, main, bar, count) {
 function paintRailDone() {
   const rail = $("#rail");
   if (rail) [...rail.querySelectorAll("li")].forEach((li) => (li.className = "done"));
-}
-
-/* ------------------------------ save as image ------------------------------ */
-
-function wrap(ctx, text, x, y, maxW, lh) {
-  let line = "";
-  for (const word of text.split(" ")) {
-    const test = line ? `${line} ${word}` : word;
-    if (ctx.measureText(test).width > maxW && line) {
-      ctx.fillText(line, x, y);
-      y += lh;
-      line = word;
-    } else line = test;
-  }
-  if (line) { ctx.fillText(line, x, y); y += lh; }
-  return y;
-}
-
-/** Hand-rolled canvas render \u2014 no library, keeps the site dependency-free. */
-function drawCard(quiz, top) {
-  const W = 1080, H = 1350, P = 80;
-  const c = document.createElement("canvas");
-  c.width = W; c.height = H;
-  const x = c.getContext("2d");
-  const F = 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
-
-  x.fillStyle = "#171B4D";
-  x.fillRect(0, 0, W, H);
-  const g = x.createLinearGradient(0, 0, W, 260);
-  g.addColorStop(0, "#7C5CD6"); g.addColorStop(1, "#F0764B");
-  x.fillStyle = g;
-  x.fillRect(0, 0, W, 14);
-
-  x.fillStyle = "#A6ADD6";
-  x.font = `600 26px ${F}`;
-  x.fillText("CAREER & COLLEGE COMPASS", P, 120);
-
-  x.fillStyle = "#fff";
-  x.font = `800 66px ${F}`;
-  x.fillText("Your top matches", P, 210);
-  x.fillStyle = "#A6ADD6";
-  x.font = `400 30px ${F}`;
-  let y = wrap(x, quiz.subtitle, P, 265, W - P * 2, 40) + 40;
-
-  top.forEach((r, i) => {
-    const h = 250;
-    x.fillStyle = i === 0 ? "#2f2a6e" : "#232a63";
-    x.beginPath();
-    x.roundRect(P, y, W - P * 2, h, 20);
-    x.fill();
-
-    x.fillStyle = g;
-    x.beginPath();
-    x.roundRect(P + 30, y + 30, 54, 54, 14);
-    x.fill();
-    x.fillStyle = "#fff";
-    x.font = `800 30px ${F}`;
-    x.fillText(String(i + 1), P + 49, y + 68);
-
-    x.font = `800 36px ${F}`;
-    let ty = wrap(x, r.name, P + 106, y + 68, W - P * 2 - 140, 44);
-    x.fillStyle = "#A6ADD6";
-    x.font = `400 26px ${F}`;
-    wrap(x, r.blurb, P + 106, ty + 16, W - P * 2 - 140, 34);
-    y += h + 22;
-  });
-
-  x.fillStyle = "#A6ADD6";
-  x.font = `400 24px ${F}`;
-  x.fillText("Jada Lin & Olivia Zheng \u2014 Great Neck South High School", P, H - 70);
-
-  return c;
-}
-
-function saveImage(quiz, top) {
-  const a = document.createElement("a");
-  a.download = `compass-${quiz.key}-results.png`;
-  a.href = drawCard(quiz, top).toDataURL("image/png");
-  a.click();
 }
 
 /* ------------------------------ tally ------------------------------ */
@@ -807,19 +811,76 @@ function sendTally(quizKey, topCodes) {
    student anywhere. Nothing to leak, nothing to secure.
 --------------------------------------------------------------------------- */
 
-const STORE_KEY = "ccc.results.v1";
+const STORE_KEY = "ccc.results.v2";
+const STORE_KEY_V1 = "ccc.results.v1"; // legacy: {key: [code,code,code]}, one attempt only
 const CODE_ALPHABET = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"; // Crockford: no I L O U
 
-const loadSaved = () => {
-  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }
-  catch (_) { return {}; }
-};
-const saveResult = (key, codes) => {
+/** Reads a JSON object from storage. `null` means "unreadable" (corrupt JSON,
+ *  or valid JSON that isn't a plain object) -- distinct from {} ("empty but
+ *  fine"), so a write never mistakes a broken read for an empty store and
+ *  clobbers whatever was actually there. This was the bug behind "only my
+ *  most recent quiz shows up": a single bad read used to wipe the other three. */
+function readStore(key) {
   try {
-    const all = loadSaved();
-    all[key] = codes;
-    localStorage.setItem(STORE_KEY, JSON.stringify(all));
+    const v = localStorage.getItem(key);
+    if (v == null) return {};
+    const parsed = JSON.parse(v);
+    return (parsed && typeof parsed === "object" && !Array.isArray(parsed)) ? parsed : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+/** One-time upgrade from v1 (one attempt per quiz) to v2 (a history per quiz).
+ *  Never overwrites a quiz v2 already has data for. */
+function migrateV1(history) {
+  const v1 = readStore(STORE_KEY_V1);
+  if (!v1) return history;
+  let changed = false;
+  for (const key of Object.keys(v1)) {
+    if (history[key]) continue;
+    const codes = v1[key];
+    if (Array.isArray(codes) && codes.length) {
+      history[key] = [{ codes, ts: Date.now() }];
+      changed = true;
+    }
+  }
+  if (changed) {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(history)); } catch (_) {}
+  }
+  return history;
+}
+
+/** {quizKey: [{codes, ts}, ...]}, newest attempt first. `null` only when
+ *  storage is corrupt -- callers must treat that as "don't touch it", not
+ *  as "empty". */
+function loadHistory() {
+  const history = readStore(STORE_KEY);
+  return history === null ? null : migrateV1(history);
+}
+
+/** Every attempt is kept -- retaking a quiz adds to the history instead of
+ *  replacing it, and a corrupt read aborts the write instead of overwriting. */
+function saveResult(key, codes) {
+  const history = loadHistory();
+  if (history === null) return; // corrupt storage -- results still show on screen, just don't persist
+  try {
+    const attempts = history[key] || [];
+    attempts.unshift({ codes, ts: Date.now() });
+    history[key] = attempts;
+    localStorage.setItem(STORE_KEY, JSON.stringify(history));
   } catch (_) { /* private browsing -- the results still show, just don't persist */ }
+}
+
+/** {quizKey: [code,code,code]} from just the latest attempt of each quiz --
+ *  the shape packCode/fingerprint/etc were already written against. */
+const latestOf = (history) => {
+  const out = {};
+  for (const key of ORDER) {
+    const attempts = history[key];
+    if (attempts && attempts.length) out[key] = attempts[0].codes;
+  }
+  return out;
 };
 
 /* Sorted result codes give a stable index even if the markdown reorders
@@ -911,37 +972,50 @@ function unpackCode(text) {
   return out;
 }
 
+const dateOf = (ts) => new Date(ts).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+
 function renderDashboard() {
   const host = $("#dashboard");
   if (!host) return;
-  const saved = loadSaved();
-  const taken = ORDER.filter((k) => saved[k] && saved[k].length);
+  const history = loadHistory();
+  const body = $("#dash-body");
 
-  if (!taken.length) { host.hidden = true; return; }
-  host.hidden = false;
+  if (history === null) {
+    body.innerHTML = `<p>Your saved results couldn't be read on this device -- taking a
+      quiz will start fresh.</p>`;
+    $("#dash-count").textContent = "";
+    $("#dash-code").textContent = "----";
+    return;
+  }
 
+  const taken = ORDER.filter((k) => history[k] && history[k].length);
   const nameOf = (key, code) => {
     const r = getQuiz(key).results.find((x) => x.code === code);
     return r ? r.name : code;
   };
 
-  $("#dash-body").innerHTML = ORDER.map((key) => {
+  body.innerHTML = ORDER.map((key) => {
     const quiz = getQuiz(key);
-    const picks = saved[key];
-    if (!picks || !picks.length) {
+    const attempts = history[key];
+    if (!attempts || !attempts.length) {
       return `<div class="dash-row empty">
         <h3>${esc(quiz.title)}</h3>
         <p>Not taken yet</p>
         <a class="dash-go" href="${quizHref(key)}">Take it &rarr;</a></div>`;
     }
+    const [latest, ...older] = attempts;
     return `<div class="dash-row">
       <h3>${esc(quiz.title)}</h3>
-      <ol class="dash-picks">${picks.map((c) => `<li>${esc(nameOf(key, c))}</li>`).join("")}</ol>
+      <ol class="dash-picks">${latest.codes.map((c) => `<li>${esc(nameOf(key, c))}</li>`).join("")}</ol>
+      ${older.length ? `<details class="dash-history">
+        <summary>${attempts.length} attempts &middot; see all</summary>
+        ${older.map((a) => `<div class="dash-old"><span>${dateOf(a.ts)}</span> ${a.codes.map((c) => esc(nameOf(key, c))).join(", ")}</div>`).join("")}
+      </details>` : ""}
       <a class="dash-go" href="${quizHref(key)}">Retake &rarr;</a></div>`;
   }).join("");
 
-  $("#dash-code").textContent = packCode(saved);
-  $("#dash-count").textContent = `${taken.length} of 4 quizzes done`;
+  $("#dash-code").textContent = packCode(latestOf(history));
+  $("#dash-count").textContent = `${taken.length} of ${ORDER.length} quizzes done`;
 }
 
 function initDashboard() {
@@ -972,21 +1046,147 @@ function initDashboard() {
       msg.textContent = "That code isn't quite right - check for a typo and try again.";
       return;
     }
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(parsed)); } catch (_) {}
+    const history = loadHistory();
+    if (history === null) {
+      msg.textContent = "Your saved results are unreadable right now, so restoring isn't safe. Try reloading the page.";
+      return;
+    }
+    // add the restored picks as a new attempt per quiz -- never wipes history
+    for (const key of Object.keys(parsed)) {
+      const attempts = history[key] || [];
+      attempts.unshift({ codes: parsed[key], ts: Date.now() });
+      history[key] = attempts;
+    }
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(history)); } catch (_) {}
     msg.textContent = "Restored.";
     $("#dash-input").value = "";
     renderDashboard();
   });
 }
 
+/* ------------------------------ group compare ------------------------------
+
+   Paste a deployed Google Apps Script web-app URL here to turn this on (see
+   group/Code.gs + the README for setup). Empty = the Group tab just says so
+   and nothing is ever sent anywhere.
+
+   Posting uses no-cors, same as sendTally -- fire-and-forget, no response to
+   read. Reading uses JSONP (a <script> tag, not fetch) because a GET+CORS
+   round trip to an Apps Script web app is unreliable; Code.gs answers a
+   `callback=` param with `callback({...})`, the classic JSONP shape.
+--------------------------------------------------------------------------- */
+const GROUP_ENDPOINT = "";
+const GROUP_KEY = "ccc.group";
+
+const getGroupCode = () => { try { return localStorage.getItem(GROUP_KEY) || ""; } catch (_) { return ""; } };
+const setGroupCode = (code) => { try { localStorage.setItem(GROUP_KEY, code); } catch (_) {} };
+
+/** Fire-and-forget. No name, no answers, no device identifier -- just the
+ *  group code the student typed in, which quiz, and the top-3 codes. */
+function postGroupResult(quizKey, topCodes) {
+  const group = getGroupCode();
+  if (!GROUP_ENDPOINT || !group) return;
+  try {
+    fetch(GROUP_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ group, quiz: quizKey, top3: topCodes, ts: new Date().toISOString() }),
+    }).catch(() => {});
+  } catch (_) { /* a failed post must never break a student's results */ }
+}
+
+let jsonpSeq = 0;
+function jsonp(url, timeoutMs = 8000) {
+  return new Promise((resolve, reject) => {
+    const cb = `CCCGroupCB${jsonpSeq++}`;
+    const script = document.createElement("script");
+    const timer = setTimeout(() => { cleanup(); reject(new Error("timeout")); }, timeoutMs);
+    function cleanup() { clearTimeout(timer); delete window[cb]; script.remove(); }
+    window[cb] = (data) => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error("network")); };
+    script.src = `${url}${url.includes("?") ? "&" : "?"}callback=${cb}`;
+    document.body.appendChild(script);
+  });
+}
+
+function renderGroupBars(host, title, counts, nameOf, myCode) {
+  const total = Object.values(counts).reduce((a, b) => a + b, 0) || 1;
+  const rows = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  const block = document.createElement("div");
+  block.className = "group-block";
+  block.innerHTML = `<h3>${esc(title)}</h3>
+    ${rows.map(([code, n]) => `
+      <div class="group-row${code === myCode ? " mine" : ""}">
+        <span class="group-label">${esc(nameOf(code))}${code === myCode ? " (you)" : ""}</span>
+        <span class="group-bar"><i style="width:${Math.round((n / total) * 100)}%"></i></span>
+        <span class="group-n">${n}</span>
+      </div>`).join("") || "<p>No results yet.</p>"}`;
+  host.appendChild(block);
+}
+
+async function loadGroupStats(code) {
+  const box = $("#group-body");
+  box.innerHTML = "<p>Loading your group's results&hellip;</p>";
+  const mine = latestOf(loadHistory() || {});
+  try {
+    const stats = await jsonp(`${GROUP_ENDPOINT}?group=${encodeURIComponent(code)}`);
+    box.innerHTML = "";
+    $("#group-count").textContent = `${stats.students || 0} students in "${code}"`;
+    for (const key of ORDER) {
+      const quiz = getQuiz(key);
+      const nameOf = (c) => { const r = quiz.results.find((x) => x.code === c); return r ? r.name : c; };
+      renderGroupBars(box, `${quiz.title} \u2014 top picks`, (stats.counts && stats.counts[key]) || {}, nameOf, (mine[key] || [])[0]);
+    }
+  } catch (_) {
+    box.innerHTML = "<p>Couldn't load the group's results. Check the group code and try again.</p>";
+  }
+}
+
+function initGroup() {
+  const host = $("#group");
+  if (!host) return;
+
+  if (!GROUP_ENDPOINT) {
+    host.innerHTML = `<div class="dash-head"><h2>Group compare</h2>
+      <p>Not set up yet \u2014 ask your workshop leader.</p></div>`;
+    return;
+  }
+
+  const saved = getGroupCode();
+  host.innerHTML = `
+    <div class="dash-head"><h2>Group compare</h2><p id="group-count"></p></div>
+    <form id="group-join" class="dash-restore">
+      <label for="group-input">Your group code</label>
+      <div class="dash-code-row">
+        <input id="group-input" type="text" autocomplete="off" spellcheck="false"
+               placeholder="e.g. period3" value="${esc(saved)}">
+        <button class="btn" type="submit">${saved ? "Switch group" : "Join group"}</button>
+      </div>
+    </form>
+    <div id="group-body" class="dash-body"></div>`;
+
+  $("#group-join").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const code = $("#group-input").value.trim();
+    if (!code) return;
+    setGroupCode(code);
+    loadGroupStats(code);
+  });
+
+  if (saved) loadGroupStats(saved);
+}
+
 /* ------------------------------ cursor ------------------------------ */
 
-/** A dot at the pointer plus a ring that lags behind it. Desktop only -- a
- *  trailing cursor is meaningless on a phone and just burns battery. */
+/** A dot at the pointer plus a ring that lags behind it, replacing the native
+ *  arrow. Desktop only -- a trailing cursor is meaningless on a phone (and
+ *  there's no arrow to hide there) and just burns battery. */
 function initCursor() {
   const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!fine || still) return;
+  document.body.classList.add("custom-cursor");
 
   const ring = document.createElement("div");
   const dot = document.createElement("div");
@@ -1027,6 +1227,24 @@ function initCursor() {
   });
 }
 
+/* ------------------------------ hub tabs ------------------------------ */
+
+const HUB_TABS = ["quizzes", "dashboard", "group"];
+
+/** Quizzes / Dashboard / Group live on one page, switched by plain #hash
+ *  anchors -- no click handlers needed, the browser's own hashchange does it. */
+function showHubTab(tab) {
+  if (!HUB_TABS.includes(tab)) tab = "quizzes";
+  document.querySelectorAll(".tabbar [data-tab]").forEach((a) =>
+    a.classList.toggle("active", a.dataset.tab === tab));
+  const quizzes = $("#tab-quizzes");
+  if (quizzes) quizzes.hidden = tab !== "quizzes";
+  const dash = $("#dashboard");
+  if (dash) dash.hidden = tab !== "dashboard";
+  const group = $("#group");
+  if (group) group.hidden = tab !== "group";
+}
+
 /* ------------------------------ boot ------------------------------ */
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -1050,7 +1268,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   if (page === "hub" || page === "single") {
-    const times = { major: "~7 min", college: "~7 min", career: "~7 min", deca: "~8 min" };
+    const times = { college: "~5 min", career: "~6 min", deca: "~8 min" };
     $("#cards").innerHTML = ORDER.map((k) => {
       const q = getQuiz(k);
       return `<a class="card" href="${quizHref(k)}">
@@ -1061,6 +1279,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       </a>`;
     }).join("");
     initDashboard();
+    initGroup();
+  }
+
+  // Plain hosted hub: Quizzes/Dashboard/Group tabs switched by #hash, same
+  // anchors as the single-file build below just without the quiz runner.
+  if (page === "hub") {
+    const routeHub = () => showHubTab(location.hash.replace("#", ""));
+    addEventListener("hashchange", routeHub);
+    routeHub();
   }
 
   if (page === "quiz") {
@@ -1081,6 +1308,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (isQuiz) {
         startRunner(key);
       } else {
+        showHubTab(key);
         // re-render every time we land on the hub, or a quiz finished a moment
         // ago won't show up in the dashboard
         renderDashboard();

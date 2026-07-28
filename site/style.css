@@ -86,12 +86,18 @@ button { font: inherit; color: inherit; }
 }
 .meta-l { color: var(--muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; }
 
-/* chips woven into running text — the four things this site actually answers */
-.chip {
-  display: inline-block; padding: 4px 16px; border-radius: 999px;
-  background: rgba(255,255,255,.06); border: 1px solid var(--line);
-  color: var(--white); font-size: 0.94em; white-space: nowrap;
+/* the three things this site actually answers — italicized, not pill buttons */
+.hero p em { font-style: italic; color: var(--white); }
+
+/* ---------- tabs ---------- */
+.tabbar { display: flex; gap: 6px; margin: 28px 0 0; border-bottom: 1px solid var(--line); }
+.tabbar a {
+  display: inline-block; padding: 12px 18px; text-decoration: none;
+  color: var(--muted); font-size: 14px; font-weight: 700;
+  letter-spacing: .04em; border-bottom: 2px solid transparent; margin-bottom: -1px;
 }
+.tabbar a:hover { color: var(--white); }
+.tabbar a.active { color: var(--white); border-bottom-color: var(--coral); }
 
 .cards { display: grid; gap: 18px; }
 .card {
@@ -154,7 +160,13 @@ button { font: inherit; color: inherit; }
 }
 .opt-text { font-size: 16px; }
 
-.below { display: flex; align-items: center; justify-content: space-between; margin-top: 22px; }
+.below {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 14px; margin-top: 22px;
+}
+.below-left { display: flex; align-items: center; gap: 4px; }
+.below .btn.primary { width: auto; padding-inline: 26px; }
+.below .btn.primary[disabled] { opacity: .4; pointer-events: none; box-shadow: none; }
 .linkbtn {
   background: none; border: 0; color: var(--muted); cursor: pointer;
   text-decoration: underline; text-underline-offset: 4px; padding: 10px 4px; font-size: 15px;
@@ -183,7 +195,13 @@ button { font: inherit; color: inherit; }
 }
 .res-card h3 { font-size: 22px; margin-bottom: 8px; }
 .res-card p { color: var(--muted); font-size: 15px; margin: 0; }
+.res-card .schools { font-size: 13.5px; margin-top: 10px; line-height: 1.7; }
 .res-card .score { color: var(--muted); font-size: 12.5px; margin-top: 10px; letter-spacing: .04em; }
+.event-link {
+  display: inline-block; margin-top: 12px; color: var(--white); font-size: 13.5px;
+  font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.4);
+}
+.event-link:hover { border-color: var(--white); }
 
 .actions { display: grid; gap: 10px; margin-top: 26px; }
 .btn {
@@ -207,14 +225,20 @@ button { font: inherit; color: inherit; }
 }
 .rank-row span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
 
-/* ---------- dashboard ---------- */
-.dash { margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); }
+/* ---------- dashboard (and the Group tab, which reuses .dash) ---------- */
+.dash { margin-top: 32px; }
 .dash-head { text-align: center; margin-bottom: 28px; }
 .dash-head h2 { font-size: clamp(28px, 5.4vw, 38px); }
 .dash-head p { color: var(--muted); margin: 8px 0 0; font-size: 14px;
                letter-spacing: .08em; text-transform: uppercase; }
 
 .dash-body { display: grid; gap: 14px; }
+.dash-code-box + .dash-body { margin-top: 22px; }
+.dash-history { margin-top: 10px; }
+.dash-history summary { color: var(--muted); font-size: 13.5px; cursor: pointer; }
+.dash-history summary:hover { color: var(--white); }
+.dash-old { color: var(--muted); font-size: 13.5px; padding: 6px 0; }
+.dash-old span { font-variant-numeric: tabular-nums; margin-right: 10px; }
 .dash-row {
   position: relative; background: var(--navy-card); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 22px 26px;
@@ -246,15 +270,25 @@ button { font: inherit; color: inherit; }
 }
 .dash-restore { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
 .dash-restore label { display: block; color: var(--muted); font-size: 14.5px; margin-bottom: 10px; }
-#dash-input {
+#dash-input, #group-input {
   flex: 1; min-width: 190px; padding: 14px 20px; border-radius: 999px;
   background: var(--navy); border: 1px solid var(--line); color: var(--white);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 16px; letter-spacing: .08em;
 }
-#dash-input:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
+#dash-input:focus-visible, #group-input:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
 .dash-restore .btn { width: auto; padding-inline: 30px; }
 .dash-msg { color: var(--muted); font-size: 14px; margin: 12px 0 0; min-height: 1.2em; }
+
+/* ---------- group compare ---------- */
+.group-block { margin-bottom: 30px; }
+.group-block h3 { font-size: 17px; margin-bottom: 14px; }
+.group-row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 12px; align-items: center; padding: 6px 0; }
+.group-label { font-size: 14px; color: var(--muted); }
+.group-row.mine .group-label { color: var(--white); font-weight: 700; }
+.group-bar { display: block; height: 10px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
+.group-bar i { display: block; height: 100%; background: var(--grad); }
+.group-n { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; text-align: right; }
 
 .foot { color: var(--muted); font-size: 13px; text-align: center; margin-top: 34px; }
 .foot a { color: var(--muted); }
@@ -280,11 +314,27 @@ button { font: inherit; color: inherit; }
 }
 @media (max-width: 899px) { .rail { display: none; } }
 
+/* ---------- print (Save as PDF) ---------- */
+@media print {
+  .topbar, .rail, .tabbar, .actions, .below, .cursor-ring, .cursor-dot,
+  .foot, #dashboard, #group { display: none !important; }
+  body { background: #fff !important; color: #111 !important; }
+  .res-head, .res-head p, .full summary { color: #111 !important; }
+  .res-card { background: #fff !important; border: 1px solid #ccc !important;
+              box-shadow: none !important; break-inside: avoid; }
+  .res-card.top { background: #f6f4ff !important; }
+  .res-card p, .res-card .score, .schools { color: #444 !important; }
+  .event-link { color: #111 !important; }
+}
+
 /* ---------- motion ---------- */
 
-/* A trailing glow that chases the pointer. The native cursor stays visible on
-   purpose -- hiding it on a quiz middle schoolers have to click through trades
-   real usability for decoration. */
+/* The native arrow stays visible until initCursor() turns it off (desktop,
+   motion allowed) and swaps in the trailing ring -- see .custom-cursor below.
+   A typing cursor stays on text inputs either way. */
+.custom-cursor, .custom-cursor * { cursor: none !important; }
+.custom-cursor input, .custom-cursor textarea { cursor: text !important; }
+
 .cursor-ring {
   position: fixed; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%;
   border: 2px solid transparent;

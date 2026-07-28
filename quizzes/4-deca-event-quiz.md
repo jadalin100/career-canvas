@@ -9,9 +9,9 @@ event you could sign up for. 30 questions.
 
 > **Builder's notes.** Points go straight to individual events, never to a
 > category: your business world (Part 1) lifts every event in it a little, and
-> what you'd geek out over (Part 2) lifts *specific* events a lot. That's what
-> makes the result specific. Max **5 options** per question; which options appear
-> **rotates**. Each of the 18 "geek-out" tags appears **exactly 5 times**.
+> what you'd want to specialize in (Part 2) lifts *specific* events a lot. That's
+> what makes the result specific. Max **5 options** per question; which options
+> appear **rotates**. Each of the 18 specialty tags appears **exactly 5 times**.
 > Codes in `[brackets]` are for adults.
 
 **Clusters:** `MKT` Marketing · `FIN` Finance · `HOS` Hospitality & Tourism ·
@@ -86,7 +86,7 @@ event you could sign up for. 30 questions.
 
 ---
 
-## Part 2 — What would you geek out over? (18 questions)
+## Part 2 — What would you want to specialize in? (18 questions)
 
 *This is the part that picks your exact event. Just pick what genuinely appeals.*
 
@@ -189,10 +189,10 @@ event you could sign up for. 30 questions.
 - E) a law or ethics office `[F_LAW]`
 
 **Q23. Your dream headline about you:**
-- A) "She founded it at 17." `[F_STARTUP]`
-- B) "How she paid for college herself." `[F_MONEY]`
+- A) "They founded it at 17." `[F_STARTUP]`
+- B) "How they paid for college themselves." `[F_MONEY]`
 - C) "The stylist behind the collection." `[F_FASHION]`
-- D) "He rebuilt the dealership." `[F_AUTO]`
+- D) "They rebuilt the dealership." `[F_AUTO]`
 - E) "The firm small businesses trust." `[F_SERVICE]`
 
 **Q24. Which problem would you solve?**

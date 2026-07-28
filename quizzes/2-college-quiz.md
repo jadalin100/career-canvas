@@ -1,216 +1,166 @@
-# Quiz 2 — "What Kind of College Is Your Vibe?"
+# Quiz — "What Kind of College Is Your Vibe?"
 
 *Career & College Compass · a Futurepreneurs quiz for middle schoolers*
 
-**How it works:** This isn't about grades or getting in — it's about the *feel* of
-a place you'd love. Pick what sounds most like you. 30 questions. At the end
-you'll get **your top 3 matches**, plus real schools with each vibe (examples to
-explore, not a ranking or a promise!).
+**How it works:** This isn't about grades or getting in — it's about the *feel*
+of a place you'd love. Pick what sounds most like you. 20 questions. At the end
+you'll get **your top 3 matches**, plus real schools with each vibe.
 
-> **Builder's notes.** 8 vibes, 4 options per question, each vibe in **14–16**
-> options. Which four vibes appear **rotates**, and each vibe sits in position A
-> 3–4 times, so answering straight down a column gives a flat, meaningless score.
-> Codes in `[brackets]` are for scoring only.
+> **Builder's notes.** 8 vibes, 4 options per question, each vibe in **exactly
+> 10** options (80 slots). Which four vibes appear **rotates**, and each vibe
+> sits in position A one to three times, so answering straight down a column
+> gives a flat, meaningless score. Codes in `[brackets]` are for scoring only.
+> Each result also lists real schools **ranked inside the vibe** — same vibe,
+> different selectivity, and this is how they stack up.
 
 ---
 
 ## The Questions
 
-**Q1. Your dream campus feels most like…**
-- A) a packed stadium on game day `[BIG]`
-- B) a famous business school with a trading room `[POWER]`
-- C) a startup garage buzzing at midnight `[STARTUP]`
-- D) a city block where class ends and your internship begins `[CITY]`
+**Q1. Your dream campus feels most like...**
+- A) a lab full of robots and half-finished prototypes `[TECH]`
+- B) a packed stadium on game day `[BIG]`
+- C) a famous business school with a trading floor `[POWER]`
+- D) a garage where three people are building a company at midnight `[STARTUP]`
 
 **Q2. Where would you want to spend a semester?**
-- A) somewhere with a huge campus and everything on it `[CITY]`
-- B) a lab full of 3D printers and robots `[TECH]`
-- C) a small dorm where everyone knows everyone `[KNIT]`
-- D) an entire semester in another country `[GLOBAL]`
+- A) an entire semester in another country `[GLOBAL]`
+- B) a studio surrounded by other people's art `[CREATIVE]`
+- C) a small dorm where everyone already knows your name `[KNIT]`
+- D) a program built to get you into a top firm `[POWER]`
 
-**Q3. Pick the building you'd hang out in most:**
-- A) the international center `[GLOBAL]`
-- B) the design studio `[CREATIVE]`
-- C) the stadium `[BIG]`
-- D) the business school `[POWER]`
+**Q3. Pick the building you'd hang out in most.**
+- A) a skyline view from a classroom downtown `[CITY]`
+- B) a professor's office you can just walk into `[KNIT]`
+- C) the international students' center `[GLOBAL]`
+- D) a lab you can badge into at 2am `[TECH]`
 
-**Q4. Your ideal class is…**
-- A) taught by a famous professor in your field `[POWER]`
-- B) a late-night workshop building your idea `[STARTUP]`
-- C) half lecture, half internship `[CITY]`
-- D) hands-on in a lab `[TECH]`
+**Q4. Your ideal class is...**
+- A) a workshop where you're building your own idea `[STARTUP]`
+- B) half lecture, half internship downtown `[CITY]`
+- C) taught by a professor who's worked on four continents `[GLOBAL]`
+- D) hands-on, in a lab, every single week `[TECH]`
 
-**Q5. On a Saturday you'd rather…**
-- A) go to a hackathon `[TECH]`
-- B) hang with your close crew `[KNIT]`
-- C) go to a language exchange or culture night `[GLOBAL]`
-- D) go to a student film screening or gallery show `[CREATIVE]`
+**Q5. The most exciting part of college, for you, is...**
+- A) a program with a name that opens doors `[POWER]`
+- B) professors who actually remember your name `[KNIT]`
+- C) building your own company before you graduate `[STARTUP]`
+- D) a campus that blurs into the city around it `[CITY]`
 
-**Q6. The most exciting thing about college:**
-- A) making something people will see `[CREATIVE]`
-- B) legendary spirit and traditions `[BIG]`
-- C) a program that opens serious doors `[POWER]`
-- D) building your own company before graduation `[STARTUP]`
+**Q6. Which club would you join first?**
+- A) the film or design collective `[CREATIVE]`
+- B) the robotics or engineering team `[TECH]`
+- C) the startup incubator `[STARTUP]`
+- D) a volunteer network based downtown `[CITY]`
 
-**Q7. Which club first?**
-- A) the entrepreneurship incubator `[STARTUP]`
-- B) the city volunteer network `[CITY]`
-- C) the robotics team `[TECH]`
-- D) a small tight-knit service club `[KNIT]`
+**Q7. You'd want your school known for...**
+- A) its spirit and its traditions `[BIG]`
+- B) its name and the doors it opens `[POWER]`
+- C) its reach across the world `[GLOBAL]`
+- D) its labs and its engineers `[TECH]`
 
-**Q8. You'd want your school known for…**
-- A) how close everyone is `[KNIT]`
-- B) its global reach `[GLOBAL]`
-- C) its artists and creators `[CREATIVE]`
-- D) sports and traditions `[BIG]`
-
-**Q9. Freshman-year brag:**
-- A) "Our team went to the championship." `[BIG]`
+**Q8. Freshman-year brag you'd actually want to make:**
+- A) "My professor knows me outside of class." `[KNIT]`
 - B) "I got into the business program." `[POWER]`
-- C) "I launched an app." `[STARTUP]`
-- D) "I landed an internship downtown." `[CITY]`
+- C) "I made something people actually noticed." `[CREATIVE]`
+- D) "I already have a trip abroad booked." `[GLOBAL]`
 
-**Q10. How big do you want your school?**
-- A) medium, right in a real city `[CITY]`
-- B) whatever's strongest for tech `[TECH]`
-- C) small enough that you're never a number `[KNIT]`
-- D) doesn't matter if I can travel from it `[GLOBAL]`
+**Q9. For an internship, you'd rather have...**
+- A) a professor who connects you personally `[KNIT]`
+- B) the freedom to intern at your own startup `[STARTUP]`
+- C) a whole city of companies to walk into `[CITY]`
+- D) an office on another continent `[GLOBAL]`
 
-**Q11. Pick a word:**
-- A) WORLDLY `[GLOBAL]`
-- B) ORIGINAL `[CREATIVE]`
-- C) SPIRITED `[BIG]`
-- D) PRESTIGIOUS `[POWER]`
-
-**Q12. Distance from home?**
-- A) wherever the best program is `[POWER]`
-- B) wherever I can build things `[STARTUP]`
-- C) in or near a big city `[CITY]`
-- D) wherever the best labs are `[TECH]`
-
-**Q13. Your ideal roommate is…**
-- A) always tinkering with a project `[TECH]`
-- B) someone who becomes lifelong family `[KNIT]`
-- C) from a totally different country `[GLOBAL]`
-- D) in a band or making a short film `[CREATIVE]`
-
-**Q14. You thrive when…**
+**Q10. You thrive when...**
 - A) you're making something people react to `[CREATIVE]`
-- B) you can find your people in a big crowd `[BIG]`
-- C) you're surrounded by super-driven students `[POWER]`
-- D) you have freedom to experiment `[STARTUP]`
+- B) you can find your people in a huge crowd `[BIG]`
+- C) you're surrounded by driven, competitive classmates `[POWER]`
+- D) everyone actually knows your name `[KNIT]`
 
-**Q15. For internships you want…**
-- A) to intern at your own startup `[STARTUP]`
-- B) a whole city of companies to walk into `[CITY]`
-- C) a research lab or tech company `[TECH]`
-- D) a professor who connects you personally `[KNIT]`
-
-**Q16. Which sounds best?**
-- A) a campus that feels like a family `[KNIT]`
-- B) a campus that feels like a passport `[GLOBAL]`
-- C) a campus that feels like a studio `[CREATIVE]`
-- D) a campus that feels like a festival `[BIG]`
-
-**Q17. Which campus tour moment sells you?**
+**Q11. Which campus tour moment would sell you?**
 - A) the 100,000-seat stadium `[BIG]`
-- B) the alumni wall of famous CEOs `[POWER]`
-- C) the student startup lab `[STARTUP]`
-- D) the skyline from the library window `[CITY]`
+- B) the student-run lab full of half-built projects `[TECH]`
+- C) the skyline view from the library `[CITY]`
+- D) a wall covered in student films and art `[CREATIVE]`
 
-**Q18. Weekend plans:**
+**Q12. Pick your ideal roommate.**
+- A) always tinkering with some kind of project `[TECH]`
+- B) someone who becomes lifelong family `[KNIT]`
+- C) someone who never misses a game `[BIG]`
+- D) in a band, or shooting a short film `[CREATIVE]`
+
+**Q13. You'd be proudest making...**
+- A) a résumé that opens any door `[POWER]`
+- B) a documentary people actually share `[GLOBAL]`
+- C) a memory with forty thousand other fans `[BIG]`
+- D) something beautiful that people use `[CREATIVE]`
+
+**Q14. Weekend plans:**
 - A) exploring a new neighborhood `[CITY]`
-- B) tinkering on a project `[TECH]`
-- C) a small dinner with close friends `[KNIT]`
-- D) planning your next trip abroad `[GLOBAL]`
+- B) tinkering on a project that isn't due yet `[TECH]`
+- C) a small dinner with your closest friends `[KNIT]`
+- D) a road trip to the game `[BIG]`
 
-**Q19. You'd be proudest making…**
-- A) a documentary people share `[GLOBAL]`
-- B) something beautiful people use `[CREATIVE]`
-- C) a memory with 40,000 other fans `[BIG]`
-- D) a résumé that opens any door `[POWER]`
-
-**Q20. Your deciding factor:**
-- A) the name and the doors it opens `[POWER]`
-- B) the freedom to build `[STARTUP]`
-- C) the location and the hustle `[CITY]`
-- D) the labs and the tools `[TECH]`
-
-**Q21. You want classmates who are…**
-- A) makers and problem-solvers `[TECH]`
-- B) warm and loyal `[KNIT]`
-- C) curious about the whole world `[GLOBAL]`
-- D) artists, writers, and performers `[CREATIVE]`
-
-**Q22. Which would you sign up for instantly?**
-- A) a semester-long creative project `[CREATIVE]`
-- B) a game-day road trip `[BIG]`
+**Q15. Which challenge would you take on?**
+- A) a startup weekend with strangers `[STARTUP]`
+- B) a semester-long creative project `[CREATIVE]`
 - C) a case competition against other business schools `[POWER]`
-- D) a startup weekend `[STARTUP]`
+- D) a class that meets out in the city instead of a room `[CITY]`
 
-**Q23. The class size that fits you:**
-- A) a big lecture where I pick my people `[BIG]`
-- B) a small class where I actually talk every day `[KNIT]`
-- C) a scrappy team building something `[STARTUP]`
-- D) a class that meets out in the city `[CITY]`
+**Q16. Your deciding factor, if you're honest:**
+- A) how much of the world you can see from here `[GLOBAL]`
+- B) how much school spirit is actually on campus `[BIG]`
+- C) how close you are to a real city `[CITY]`
+- D) how good the labs and the tools are `[TECH]`
 
-**Q24. Your dream summer:**
-- A) an internship in a skyscraper `[CITY]`
-- B) a research project `[TECH]`
-- C) at home with your close friends `[KNIT]`
-- D) backpacking and working abroad `[GLOBAL]`
+**Q17. After college, you picture yourself...**
+- A) running your own thing `[STARTUP]`
+- B) working across four different countries `[GLOBAL]`
+- C) making work people have actually seen `[CREATIVE]`
+- D) still calling your college professors for advice `[KNIT]`
 
-**Q25. After college you picture yourself…**
-- A) with a huge alumni network everywhere `[BIG]`
-- B) recruited into a top firm `[POWER]`
-- C) running your own thing `[STARTUP]`
-- D) at a big company in a major city `[CITY]`
+**Q18. Which sounds like the best possible Saturday?**
+- A) a stadium full of people who all showed up for the same thing `[BIG]`
+- B) a guest speaker who runs a company you actually admire `[POWER]`
+- C) a hackathon that runs past midnight `[TECH]`
+- D) pitching an idea to people who might actually fund it `[STARTUP]`
 
-**Q26. You'd love a campus that's…**
-- A) full of murals, music, and student art `[CREATIVE]`
-- B) full of workshops and equipment `[TECH]`
-- C) small and green and calm `[KNIT]`
-- D) full of students from everywhere `[GLOBAL]`
+**Q19. Pick the size and shape of the place you want.**
+- A) medium, right in the middle of a real city `[CITY]`
+- B) small enough that you're never just a number `[KNIT]`
+- C) wherever lets you study abroad the most `[GLOBAL]`
+- D) wherever gives you the most room to build `[STARTUP]`
 
-**Q27. Which would you brag about at 30?**
-- A) "I've worked on four continents." `[GLOBAL]`
-- B) "You've seen my work." `[CREATIVE]`
-- C) "I still go back for homecoming." `[BIG]`
-- D) "My school's name still opens doors." `[POWER]`
-
-**Q28. Be honest — you want…**
-- A) to actually know my professors `[KNIT]`
-- B) to build something of your own `[STARTUP]`
-- C) to be in the middle of everything `[CITY]`
-- D) to work with the newest technology `[TECH]`
-
-**Q29. Your gut says:**
-- A) I want to be where tech meets business `[TECH]`
-- B) I want to be known, not counted `[KNIT]`
-- C) I want the world to feel small `[GLOBAL]`
-- D) I want to make things people feel `[CREATIVE]`
-
-**Q30. Final call:**
-- A) I want to create `[CREATIVE]`
-- B) I want the biggest experience possible `[BIG]`
-- C) I want the strongest business name `[POWER]`
-- D) I want the freedom to invent `[STARTUP]`
+**Q20. Last one — what do you actually want?**
+- A) the strongest name on your diploma `[POWER]`
+- B) the freedom to make what you want to make `[CREATIVE]`
+- C) the freedom to build your own thing from day one `[STARTUP]`
+- D) the biggest, loudest college experience there is `[BIG]`
 
 ---
 
 ## Your Results (8 college vibes)
 
-> Named schools are **examples of the vibe** — real places to explore, not a
-> ranking and not where you "have to" go. Every path can lead to a great career.
+> Named schools are ranked **inside each vibe** — same feel, different
+> selectivity — not a ranking of the vibes against each other. Every path can
+> lead to a great career.
 
-- **🏟️ Big Spirited State School** `[BIG]` — Huge, proud, buzzing with traditions. *Vibe examples:* Penn State, Indiana (Kelley), Michigan, Ohio State, UT–Austin.
-- **💼 Business Powerhouse** `[POWER]` — A famous, competitive program that opens serious doors. *Vibe examples:* UPenn (Wharton), NYU (Stern), Michigan (Ross), UVA (McIntire), UNC (Kenan-Flagler).
-- **🚀 Entrepreneurial / Startup Campus** `[STARTUP]` — Built for founders and makers. *Vibe examples:* Babson, MIT, Stanford, USC (Marshall).
-- **🌆 City Hustle School** `[CITY]` — In the middle of a real city, where class and career blur. *Vibe examples:* NYU, Fordham, Northeastern, Boston University.
-- **🤖 Tech-Meets-Business** `[TECH]` — Where business brains and builders collide. *Vibe examples:* Carnegie Mellon, Georgia Tech, Cornell, UC Berkeley (Haas).
-- **🌳 Close-Knit Community** `[KNIT]` — Smaller, warmer, personal — professors know your name. *Vibe examples:* Bentley, Bryant, Villanova, Wake Forest.
-- **🌍 Global / Study-Abroad Campus** `[GLOBAL]` — Languages, cultures, and a semester (or four) abroad. *Vibe examples:* Georgetown, American University, Middlebury, Boston University.
-- **🎭 Creative / Arts-Meets-Business** `[CREATIVE]` — Where design, media, and entertainment meet the business side. *Vibe examples:* USC, NYU (Tisch + Stern), Emerson, The New School (Parsons).
+- **🏟️ Big Spirited State School** `[BIG]` — Huge, proud, buzzing with traditions.
+  Schools: 1. Michigan — the strongest academics of this group · 2. UT–Austin — huge school, huge city to match · 3. Penn State — legendary traditions, massive alumni reach · 4. Ohio State — the loudest gameday of them all
+- **💼 Business Powerhouse** `[POWER]` — A famous, competitive program that opens serious doors.
+  Schools: 1. UPenn (Wharton) — most selective, deepest finance recruiting · 2. NYU (Stern) — same doors, Manhattan on top · 3. Michigan (Ross) — best public option in this group · 4. UVA (McIntire) — smaller and just as respected · 5. UNC (Kenan-Flagler) — most affordable in-state option
+- **🚀 Entrepreneurial / Startup Campus** `[STARTUP]` — Built for founders and makers.
+  Schools: 1. Stanford — closest thing to the center of startup culture · 2. MIT — the most technical founders come out of here · 3. Babson — built entirely around entrepreneurship · 4. USC (Marshall) — strong founder culture with an LA network
+- **🌆 City Hustle School** `[CITY]` — In the middle of a real city, where class and career blur.
+  Schools: 1. NYU — the biggest city, the biggest name · 2. Boston University — a real city at a smaller scale · 3. Northeastern — built around co-ops in the middle of Boston · 4. Fordham — same city as NYU, easier admissions bar
+- **🤖 Tech-Meets-Business** `[TECH]` — Where business brains and builders collide.
+  Schools: 1. Carnegie Mellon — the strongest tech-meets-business reputation · 2. UC Berkeley (Haas) — Silicon Valley on your doorstep · 3. Georgia Tech — best value for the tech strength · 4. Cornell — an Ivy with real engineering chops
+- **🌳 Close-Knit Community** `[KNIT]` — Smaller, warmer, personal — professors know your name.
+  Schools: 1. Villanova — small, respected, personal · 2. Wake Forest — same closeness, stronger national name · 3. Bentley — business-only, everyone knows everyone · 4. Bryant — smallest of the group, most personal attention
+- **🌍 Global / Study-Abroad Campus** `[GLOBAL]` — Languages, cultures, and a semester (or four) abroad.
+  Schools: 1. Georgetown — the strongest international-affairs name · 2. Middlebury — famous for languages and study abroad · 3. American University — DC access plus a global focus · 4. Boston University — study abroad at a bigger scale
+- **🎭 Creative / Arts-Meets-Business** `[CREATIVE]` — Where design, media, and entertainment meet the business side.
+  Schools: 1. USC — film, media, and business all in one place · 2. NYU (Tisch + Stern) — same idea, in the middle of NYC · 3. The New School (Parsons) — design-first, business-adjacent · 4. Emerson — smaller, media-focused, tight-knit
 
 ---
 

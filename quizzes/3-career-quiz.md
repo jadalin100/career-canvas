@@ -1,213 +1,187 @@
-# Quiz 3 — "What Business Career Suits You?"
+# Quiz — "What Business Career Suits You?"
 
 *Career & College Compass · a Futurepreneurs quiz for middle schoolers*
 
-**How it works:** Imagine yourself at work in 15 years. Pick the answer that feels
-most like *you*. 30 questions. At the end you'll get **your top 3 matches**.
+**How it works:** Imagine yourself at work in fifteen years. Pick the answer
+that feels most like you. 24 questions. At the end you'll get **your top 3
+matches**.
 
-> **Builder's notes.** 10 careers, 4 options per question, each career in **exactly
-> 12** options. Which four careers appear **rotates**, and each career sits in
-> position A three times — answering straight down a column gives a flat score.
-> Codes in `[brackets]` are for scoring only.
+> **Builder's notes.** This quiz used to be two separate quizzes — Major and
+> Career — that scored almost the same 10–14 outcomes with mostly the same
+> questions. They're merged: **16 careers, 4 options per question, each career
+> in exactly 6 options** (96 slots). Which four careers appear **rotates**, and
+> each career sits in position A once or twice, so answering straight down a
+> column gives a flat score. Codes in `[brackets]` are for scoring only;
+> students never see them.
 
 ---
 
 ## The Questions
 
-**Q1. Pick the job you'd want for a day:**
-- A) run a brand's big campaign `[MKT]`
-- B) analyze whether a company's a good investment `[FIN]`
-- C) close out the books at month-end `[ACC]`
-- D) run your own startup `[ENT]`
+**Q1. You get to shadow someone for a week. Who do you pick?**
+- A) A founder building their own company from scratch. `[ENT]`
+- B) A consultant called in to fix a company's biggest problem. `[CONSULT]`
+- C) An executive negotiating a deal with an overseas partner. `[INTL]`
+- D) A developer deciding what to build on an empty lot. `[RE]`
 
-**Q2. Which task sounds genuinely fun?**
-- A) pitch your own business idea `[ENT]`
-- B) plan a 500-person event `[HOS]`
-- C) convince a big client to sign `[SALES]`
-- D) interview people for a job `[HR]`
+**Q2. Which task would you actually enjoy?**
+- A) Closing out the books so every number matches exactly. `[ACC]`
+- B) Writing the campaign that gets a brand noticed. `[MKT]`
+- C) Running the team meeting and keeping everyone on track. `[MGT]`
+- D) Digging through data until you find the pattern nobody else saw. `[ANLY]`
 
-**Q3. You'd love to be the person who…**
-- A) fixes a company's culture `[HR]`
-- B) tells a company exactly what's broken `[CONSULT]`
-- C) runs a team's business side `[SEM]`
-- D) finds the story hidden in the data `[ANLY]`
+**Q3. Pick the challenge you'd want to take on.**
+- A) Convincing a skeptical client to say yes. `[SALES]`
+- B) Getting a shipment across the country on time, every time. `[SCM]`
+- C) Building the system that keeps a whole company running. `[MIS]`
+- D) Deciding which company is worth investing in. `[FIN]`
 
-**Q4. Which would you rather pull off?**
-- A) build a dashboard everyone relies on `[ANLY]`
-- B) make a brand famous `[MKT]`
-- C) spot the next big investment `[FIN]`
-- D) keep every number exact `[ACC]`
+**Q4. Which behind-the-scenes job sounds like you?**
+- A) Running the business side of a sports team or a tour. `[SEM]`
+- B) Walking into a struggling company and telling them the truth. `[CONSULT]`
+- C) Explaining why prices went up this year. `[ECON]`
+- D) Making sure every guest at an event has the best night of their life. `[HOS]`
 
-**Q5. Your best skill:**
-- A) catching the one number that's wrong `[ACC]`
-- B) building something from nothing `[ENT]`
-- C) making an experience perfect `[HOS]`
-- D) getting someone to say yes `[SALES]`
+**Q5. Which headline would you click first?**
+- A) "The data that predicted it before anyone else." `[ANLY]`
+- B) "How your package gets to your door in one day." `[SCM]`
+- C) "The fund that bet big and won." `[FIN]`
+- D) "Inside the business of a sold-out stadium." `[SEM]`
 
-**Q6. You'd be great at…**
-- A) closing a huge deal `[SALES]`
-- B) settling a workplace conflict `[HR]`
-- C) finding the real problem underneath `[CONSULT]`
-- D) negotiating an athlete's contract `[SEM]`
+**Q6. You'd want to be known as the person who...**
+- A) does business across borders and languages. `[INTL]`
+- B) builds a team people actually want to work on. `[HR]`
+- C) can sell almost anything to almost anyone. `[SALES]`
+- D) turns an idea nobody believed in into a real company. `[ENT]`
 
-**Q7. Which puzzle would you take?**
-- A) how do we fill every seat in the stadium? `[SEM]`
-- B) can I prove this hunch with numbers? `[ANLY]`
-- C) why has nobody heard of this brand? `[MKT]`
-- D) is this actually a good investment? `[FIN]`
+**Q7. Pick the tour you'd want to go on.**
+- A) A walk-through of a building before it's even built. `[RE]`
+- B) A backstage look at how a hotel actually runs. `[HOS]`
+- C) A look at the software holding a whole company together. `[MIS]`
+- D) A visit to the office deciding interest rates. `[ECON]`
 
-**Q8. Honestly, you love…**
-- A) markets and risk `[FIN]`
-- B) order and precision `[ACC]`
-- C) risk and building `[ENT]`
-- D) people and moments `[HOS]`
+**Q8. Which win would feel best?**
+- A) An investment you picked actually pays off. `[FIN]`
+- B) A team you're leading hits a goal everyone thought was out of reach. `[MGT]`
+- C) Someone you hired turns out to be the best on the team. `[HR]`
+- D) You catch the one number in the report that was wrong. `[ACC]`
 
-**Q9. Weekend project:**
-- A) throw a pop-up party `[HOS]`
-- B) sell out your merch drop `[SALES]`
-- C) get a group that's fighting to work together `[HR]`
-- D) figure out why a local shop is failing `[CONSULT]`
+**Q9. Which class would you secretly love?**
+- A) Advertising and Brand Strategy. `[MKT]`
+- B) Intro to Coding for Business. `[MIS]`
+- C) Real Estate and Urban Development. `[RE]`
+- D) The Business of Sports and Entertainment. `[SEM]`
 
-**Q10. You'd want to work at…**
-- A) a consulting firm `[CONSULT]`
-- B) a sports team or record label `[SEM]`
-- C) a company's data team `[ANLY]`
-- D) an ad agency `[MKT]`
+**Q10. Your school club needs a leader. Which job do you want?**
+- A) Run the whole thing and keep everyone organized. `[MGT]`
+- B) Plan the big event people will actually remember. `[HOS]`
+- C) Figure out the real cost of every idea before anyone spends a dollar. `[ECON]`
+- D) Track every dollar so nothing goes missing. `[ACC]`
 
-**Q11. Which class?**
-- A) Building a Brand `[MKT]`
-- B) Investing & Markets `[FIN]`
-- C) Accounting `[ACC]`
-- D) How to Start a Company `[ENT]`
+**Q11. A local shop is struggling. What's your move?**
+- A) Sit down with the owner and figure out exactly what's broken. `[CONSULT]`
+- B) Redo how they talk about themselves online. `[MKT]`
+- C) Get out there and bring in new customers yourself. `[SALES]`
+- D) Pitch them on a completely different idea for the business. `[ENT]`
 
-**Q12. Your dream title:**
-- A) Founder `[ENT]`
-- B) Director of Events `[HOS]`
-- C) Head of Sales `[SALES]`
-- D) Head of People `[HR]`
+**Q12. Which project would you want on your resume?**
+- A) Launched a product in another country. `[INTL]`
+- B) Built a campaign that actually went viral. `[MKT]`
+- C) Found the pattern in the data that changed a company's plan. `[ANLY]`
+- D) Solved a problem three other people couldn't. `[CONSULT]`
 
-**Q13. Most satisfying:**
-- A) hiring someone who turns out amazing `[HR]`
-- B) fixing a process that never worked `[CONSULT]`
-- C) a sold-out show `[SEM]`
-- D) a forecast that comes true `[ANLY]`
+**Q13. Which puzzle sounds interesting to solve?**
+- A) How does a warehouse get every order out on time? `[SCM]`
+- B) Why did the price of something you buy every week suddenly jump? `[ECON]`
+- C) How does a concert tour actually turn a profit? `[SEM]`
+- D) What's the one sentence that gets someone to finally say yes? `[SALES]`
 
-**Q14. You'd geek out over…**
-- A) a statistics class that finally clicks `[ANLY]`
-- B) advertising and media `[MKT]`
-- C) banking and investing `[FIN]`
-- D) a perfectly organized financial report `[ACC]`
+**Q14. Pick the workspace you'd want.**
+- A) A hotel lobby, coordinating a hundred moving pieces at once. `[HOS]`
+- B) An office solving conflicts between coworkers. `[HR]`
+- C) A desk covered in spreadsheets you actually enjoy reading. `[ANLY]`
+- D) A property you're deciding whether to buy. `[RE]`
 
-**Q15. Which win feels best?**
-- A) the books balancing perfectly `[ACC]`
-- B) your idea becoming a real thing `[ENT]`
-- C) a guest saying "best night ever" `[HOS]`
-- D) hearing "yes, we'll sign" `[SALES]`
+**Q15. In a group project, which role do you take without being asked?**
+- A) The one who makes sure everyone feels heard. `[HR]`
+- B) The one tracking whether the plan is actually affordable. `[FIN]`
+- C) The one assigning who does what. `[MGT]`
+- D) The one checking every number twice. `[ACC]`
 
-**Q16. Pick a superpower:**
-- A) sell anything to anyone `[SALES]`
-- B) know what everyone needs before they say it `[HR]`
-- C) instantly see what's broken `[CONSULT]`
-- D) predict the next big star `[SEM]`
+**Q16. Which title sounds like your future?**
+- A) Chief Economist. `[ECON]`
+- B) Chief Technology Officer. `[MIS]`
+- C) Head of Global Logistics. `[SCM]`
+- D) VP of International Markets. `[INTL]`
 
-**Q17. Which would you read about?**
-- A) how a concert tour actually makes money `[SEM]`
-- B) what the numbers say will happen next `[ANLY]`
-- C) a campaign everyone quotes `[MKT]`
-- D) a chart of a stock's history `[FIN]`
+**Q17. Which internship would you pick?**
+- A) A company's people and culture team. `[HR]`
+- B) A firm hired to fix other companies' problems. `[CONSULT]`
+- C) A team that turns raw numbers into decisions. `[ANLY]`
+- D) A company's overseas office. `[INTL]`
 
-**Q18. In a group you're the one who…**
-- A) reads the financials `[FIN]`
-- B) checks all the numbers `[ACC]`
-- C) has the big idea `[ENT]`
-- D) makes it feel special `[HOS]`
+**Q18. Which problem would you actually want to fix?**
+- A) A delivery that's always late. `[SCM]`
+- B) A great idea that never got off the ground. `[ENT]`
+- C) A budget that doesn't add up. `[ACC]`
+- D) A portfolio that's losing money. `[FIN]`
 
-**Q19. A company hires you to…**
-- A) run their huge launch event `[HOS]`
-- B) grow their sales `[SALES]`
-- C) fix their culture `[HR]`
-- D) fix their strategy `[CONSULT]`
+**Q19. Which weekend project sounds fun?**
+- A) Selling out a product you made yourself. `[SALES]`
+- B) Building the first version of your own business idea. `[ENT]`
+- C) Throwing an event your friends still talk about. `[HOS]`
+- D) Designing the ad campaign for something you love. `[MKT]`
 
-**Q20. The industry you'd pick:**
-- A) consulting & strategy `[CONSULT]`
-- B) sports & entertainment `[SEM]`
-- C) analytics & data `[ANLY]`
-- D) brands & marketing `[MKT]`
+**Q20. You'd rather be the person who...**
+- A) builds the system everyone else depends on. `[MIS]`
+- B) runs the whole operation. `[MGT]`
+- C) manages the business side of a team or a tour. `[SEM]`
+- D) finds the answer hiding in the numbers. `[ANLY]`
 
-**Q21. Final stretch — pick:**
-- A) I want to make people want things `[MKT]`
-- B) I want to grow money `[FIN]`
-- C) I want everything to add up `[ACC]`
-- D) I want to build my own thing `[ENT]`
+**Q21. Which feeling would you chase?**
+- A) Every number lining up perfectly. `[ACC]`
+- B) A stock you picked going up. `[FIN]`
+- C) Turning your own idea into something real. `[ENT]`
+- D) Closing a deal you worked hard for. `[SALES]`
 
-**Q22. …and:**
-- A) I want to be my own boss `[ENT]`
-- B) I want to create experiences `[HOS]`
-- C) I want to be the best closer in the room `[SALES]`
-- D) I want people to love where they work `[HR]`
+**Q22. Where does your instinct for money go?**
+- A) Property and land. `[RE]`
+- B) Markets and interest rates. `[ECON]`
+- C) Getting goods from one place to another, cheaply and fast. `[SCM]`
+- D) Business that crosses borders. `[INTL]`
 
-**Q23. …and:**
-- A) building great teams `[HR]`
-- B) making companies smarter `[CONSULT]`
-- C) running the business of sports and music `[SEM]`
-- D) finding the pattern nobody saw `[ANLY]`
+**Q23. Which career would you brag about at 30?**
+- A) "I run one of the best hotels in the city." `[HOS]`
+- B) "I run the whole division." `[MGT]`
+- C) "Companies fly me in to fix what's broken." `[CONSULT]`
+- D) "I built half this neighborhood." `[RE]`
 
-**Q24. Which would you frame on your wall?**
-- A) a spreadsheet that answered a big question `[ANLY]`
-- B) an ad that went viral `[MKT]`
-- C) an investment that paid off `[FIN]`
-- D) a report with zero errors `[ACC]`
-
-**Q25. Your friends would call you…**
-- A) the most detail-obsessed person they know `[ACC]`
-- B) the one always starting something `[ENT]`
-- C) the one who makes everyone comfortable `[HOS]`
-- D) the one who can talk anyone into anything `[SALES]`
-
-**Q26. You'd be happiest in…**
-- A) a room full of clients `[SALES]`
-- B) a room full of your team `[HR]`
-- C) a room full of problems to solve `[CONSULT]`
-- D) a room full of fans `[SEM]`
-
-**Q27. Where would we find you?**
-- A) backstage at a huge event `[SEM]`
-- B) deep in a dataset `[ANLY]`
-- C) in a creative brainstorm `[MKT]`
-- D) watching the markets open `[FIN]`
-
-**Q28. Pick the challenge:**
-- A) predicting what a stock will do `[FIN]`
-- B) making sure every dollar is accounted for `[ACC]`
-- C) pitching investors on your idea `[ENT]`
-- D) making 300 guests happy at once `[HOS]`
-
-**Q29. You want…**
-- A) every event unforgettable `[HOS]`
-- B) every deal closed `[SALES]`
-- C) every employee happy `[HR]`
-- D) every company smarter `[CONSULT]`
-
-**Q30. Last one:**
-- A) I want to fix what's broken `[CONSULT]`
-- B) I want to run the game-day business `[SEM]`
-- C) I want to find the answer in the numbers `[ANLY]`
-- D) I want to build brands people love `[MKT]`
+**Q24. Last one — which future sounds like you?**
+- A) Building brands people actually love. `[MKT]`
+- B) Building the technology behind a growing company. `[MIS]`
+- C) Running the business behind games, concerts, and stars. `[SEM]`
+- D) Building a workplace people are proud to be part of. `[HR]`
 
 ---
 
-## Your Results (10 careers)
+## Your Results (16 careers)
 
-- **🎨 Marketing / Brand Strategist** `[MKT]` — You make people *feel* something about a product. → *DECA: marketing role-plays.*
-- **📈 Financial Analyst** `[FIN]` — You read markets and numbers to guide big money decisions. → *DECA: Business Finance; Stock Market Game.*
-- **🧾 Accountant** `[ACC]` — The trusted scorekeeper of every business. → *DECA: Accounting Applications.*
-- **🚀 Entrepreneur / Founder** `[ENT]` — You build something from nothing and run the whole show. → *DECA: Entrepreneurship events.*
-- **🎉 Event & Hospitality Manager** `[HOS]` — You create experiences people never forget. → *DECA: Hospitality role-plays.*
-- **🤝 Sales & Business Development** `[SALES]` — You build relationships and close the deals that grow a company. → *DECA: Professional Selling.*
-- **👥 HR / People Manager** `[HR]` — You build great teams and keep workplaces fair and strong. → *DECA: Human Resources Management.*
-- **🧠 Management Consultant** `[CONSULT]` — Companies hire you to find problems and fix them. → *DECA: Team Decision Making events.*
-- **🏟️ Sports & Entertainment Marketer** `[SEM]` — You run the business behind the games, concerts, and stars. → *DECA: Sports & Entertainment Marketing.*
-- **📊 Business / Data Analyst** `[ANLY]` — You turn messy numbers into the answer everyone needed. → *DECA: any event with a data-heavy case.*
+- **Marketing / Brand Strategist** `[MKT]` — You make people feel something about a product. → *DECA: marketing role-plays.*
+- **Financial Analyst** `[FIN]` — You read markets and numbers to guide big money decisions. → *DECA: Business Finance; Stock Market Game.*
+- **Accountant** `[ACC]` — The trusted scorekeeper of every business. → *DECA: Accounting Applications.*
+- **Entrepreneur / Founder** `[ENT]` — You build something from nothing and run the whole show. → *DECA: Entrepreneurship events.*
+- **Event & Hospitality Manager** `[HOS]` — You create experiences people never forget. → *DECA: Hospitality role-plays.*
+- **Sales & Business Development** `[SALES]` — You build relationships and close the deals that grow a company. → *DECA: Professional Selling.*
+- **HR / People Manager** `[HR]` — You build great teams and keep workplaces fair and strong. → *DECA: Human Resources Management.*
+- **Management Consultant** `[CONSULT]` — Companies hire you to find problems and fix them. → *DECA: Team Decision Making events.*
+- **Sports & Entertainment Marketer** `[SEM]` — You run the business behind the games, concerts, and stars. → *DECA: Sports & Entertainment Marketing.*
+- **Business / Data Analyst** `[ANLY]` — You turn messy numbers into the answer everyone needed. → *DECA: any event with a data-heavy case.*
+- **General Manager** `[MGT]` — You run the whole operation and keep a team moving toward the same goal. → *DECA: Principles of Business Management.*
+- **Economist / Policy Analyst** `[ECON]` — You see the forces behind prices, choices, and markets before anyone else does. → *DECA: a strong base for finance and policy.*
+- **International Business Manager** `[INTL]` — You do business across borders, languages, and cultures. → *DECA: a natural fit for global brands.*
+- **Supply Chain & Operations Manager** `[SCM]` — You make the whole machine run — right thing, right place, on time. → *DECA: the behind-the-scenes hero role.*
+- **Business Systems / IT Analyst** `[MIS]` — You're the bridge between technology and business, solving problems with systems. → *DECA: business plus coding.*
+- **Real Estate Developer** `[RE]` — You see value in property, location, and the deal. → *DECA: buying, selling, and building.*
 
 ---
 

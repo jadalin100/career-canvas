@@ -4,8 +4,11 @@ This is the **engine spec**: how each quiz turns answers into results. It's writ
 so a person can score by hand today *and* so a website can implement it later.
 Students never see any of this.
 
-**All four quizzes are 30 questions.** Every question has **at most 5 options** —
-when a quiz has more possible results than that, the options **rotate** instead of
+**Three quizzes: College (20 questions), Career (24), DECA Event (30).** There
+used to be a fourth, Major, but it scored almost the same set of outcomes as
+Career with mostly the same questions, so it was merged in -- Career now covers
+all 16 of the combined results. Every question has **at most 5 options** — when a
+quiz has more possible results than that, the options **rotate** instead of
 piling onto one question.
 
 ---
@@ -39,30 +42,34 @@ four. Don't break ties randomly.
 
 ---
 
-## Quiz 1 — Major · 30 questions, 14 results, 4 options each
-Codes: `MKT` `FIN` `ACC` `MGT` `ENT` `HOS` `ECON` `ANLY` `HR` `INTL` `SCM` `MIS`
-`RE` `SEM`.
-
-**Balance:** MKT/FIN/ACC/MGT/ENT/HOS/ECON/ANLY appear in **9** options each;
-HR/INTL/SCM/MIS/RE/SEM in **8** (120 slots). Blurbs in
-[`1-major-quiz.md`](1-major-quiz.md).
-
-## Quiz 2 — College · 30 questions, 8 results, 4 options each
+## Quiz — College · 20 questions, 8 results, 4 options each
 Codes: `BIG` `POWER` `STARTUP` `CITY` `TECH` `KNIT` `GLOBAL` `CREATIVE`.
 
-**Balance:** 14–16 options each (120 slots); each vibe is option A 3–4 times.
-Named schools are **examples of a vibe, not a ranking** — always present them that
-way. Blurbs in [`2-college-quiz.md`](2-college-quiz.md).
+**Balance:** exactly **10** options each (80 slots); each vibe is option A one to
+three times. Results also carry a `schools` field — real schools **ranked inside
+the vibe** (same feel, different selectivity), not a ranking across vibes.
+Parsed from an indented `Schools:` line under the result in
+[`2-college-quiz.md`](2-college-quiz.md) — see `SCHOOLS_RE` in
+`build_quiz_data.py`.
 
-## Quiz 3 — Career · 30 questions, 10 results, 4 options each
-Codes: `MKT` `FIN` `ACC` `ENT` `HOS` `SALES` `HR` `CONSULT` `SEM` `ANLY`.
+## Quiz — Career · 24 questions, 16 results, 4 options each
+Codes: `MKT` `FIN` `ACC` `ENT` `HOS` `SALES` `HR` `CONSULT` `SEM` `ANLY` `MGT`
+`ECON` `INTL` `SCM` `MIS` `RE`.
 
-**Balance:** exactly **12** options each (120 slots); each career is option A three
-times. Blurbs in [`3-career-quiz.md`](3-career-quiz.md).
+**Balance:** exactly **6** options each (96 slots); each career is option A once
+or twice. This quiz absorbed the old Major quiz's six unique results (General
+Manager, Economist, International Business Manager, Supply Chain & Operations
+Manager, Business Systems/IT Analyst, Real Estate Developer) — Major and Career
+used to be separate quizzes scoring almost the same outcomes with duplicate
+questions. Blurbs in [`3-career-quiz.md`](3-career-quiz.md).
+
+**Verify it stays reachable:** `python3 verify_balance.py` (in this folder)
+confirms every College and Career result wins its own extreme-student persona.
+Run it after any edit to either quiz's questions.
 
 ---
 
-## Quiz 4 — DECA Event · 30 questions, all 29 role-play events
+## Quiz — DECA Event · 30 questions, all 29 role-play events
 
 **This quiz scores the 29 events directly — there is no "pick a category, then
 look up an event" step.** Each answer adds points to specific events, and the
@@ -143,3 +150,15 @@ information.** Ask about preference, not about a fact the whole audience shares.
 > **Verify before launch:** confirm all 29 event names/abbreviations against
 > deca.org/compete for the current competition year — DECA occasionally renames or
 > retires an event. Last verified against deca.org: all 29 matched.
+
+### Official guidelines links
+
+Every one of the 29 events has its own page at `deca.org/compete/<slug>`. The
+slug for each event lives in `EVENT_SLUG` in `verify_deca_quiz.py`, right next
+to `EVENTS` — one source of truth, checked with `assert set(EVENT_SLUG) ==
+set(EVENTS)` so the two dicts can't drift apart, and `build_quiz_data.py` fails
+the build if any event is missing a slug. Each DECA result card links straight
+to its event's official guidelines; the general DECA Guide
+(`deca.org/guide`) is the fallback link in the results footer. All 29 URLs were
+checked by hand (curl, HTTP 200) — re-check them each competition year, same as
+the event names above.

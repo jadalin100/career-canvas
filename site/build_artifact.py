@@ -99,8 +99,15 @@ document.getElementById("runner").hidden = true;
         html.encode("ascii")
     except UnicodeEncodeError as e:
         problems.append(f"non-ASCII {html[e.start]!r} at {e.start} - would mojibake")
-    if re.search(r"https?://(?!www\.w3\.org)", html):
-        problems.append("external URL - the artifact CSP blocks other hosts")
+    # The artifact CSP blocks *subresource* loads to other hosts (scripts,
+    # styles, images, fetch) -- it does not block a plain <a href> navigation,
+    # so DECA event links (deca.org) are fine. GROUP_ENDPOINT/TALLY_ENDPOINT
+    # stay "" by default; if Jada ever pastes a live URL into either, that
+    # constant becomes a runtime fetch/script-src target the CSP WILL block,
+    # which is a decision for her to make deliberately, not something this
+    # build script can validate for.
+    if re.search(r'src="https?://', html) or re.search(r"url\(https?://", html):
+        problems.append("external subresource (src=/url()) - the artifact CSP blocks other hosts")
     for tag in ("<!doctype", "<html", "<head>", "<body"):
         if tag in html.lower():
             problems.append(f"contains {tag} - the artifact wrapper supplies it")
