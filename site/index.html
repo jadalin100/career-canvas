@@ -6,7 +6,7 @@
 <title>Career &amp; College Compass — Find your path</title>
 <meta name="description" content="Three quizzes to help you discover your college vibe, career, and DECA event.">
 <!-- bump ?v= after editing style.css or app.js so browsers don't serve a stale copy -->
-<link rel="stylesheet" href="style.css?v=13">
+<link rel="stylesheet" href="style.css?v=14">
 </head>
 <body data-page="hub">
 
@@ -21,12 +21,42 @@
   </header>
 
   <nav class="tabbar" aria-label="Sections">
+    <a href="#home" data-tab="home">Home</a>
     <a href="#quizzes" data-tab="quizzes">Quizzes</a>
     <a href="#dashboard" data-tab="dashboard">Dashboard</a>
     <a href="#group" data-tab="group">Group</a>
   </nav>
 
-  <section id="tab-quizzes">
+  <section id="tab-home">
+    <section class="hero">
+      <div class="mark" data-compass></div>
+      <h1>Career &amp; College<br><span class="grad">Compass.</span></h1>
+      <p>Real tools for figuring out what business path actually fits you —
+         built by two DECA students, for students.</p>
+      <a class="btn primary home-cta" href="#quizzes">Take the quizzes &rarr;</a>
+    </section>
+
+    <div class="about-grid">
+      <div class="about-block">
+        <h2>Who we are</h2>
+        <p>We're Jada Lin and Olivia Zheng, two DECA students at Great Neck
+           South. This site started as our DECA Career Development Project —
+           most "career exploration" for business students is a 20-minute
+           assembly or a worksheet nobody reads twice, so we built something
+           people would actually use.</p>
+      </div>
+      <div class="about-block">
+        <h2>What we're trying to do</h2>
+        <p>Give students a real way into business careers: what a marketing
+           job actually looks like day to day, which college environments fit
+           different personalities, and which DECA event matches how you
+           think. Right now that's three quizzes — more tools are coming as
+           we build them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-quizzes" hidden>
     <section class="hero">
       <div class="mark" data-compass></div>
       <h1>Find out where<br><span class="grad">you're headed.</span></h1>
@@ -80,6 +110,6 @@
 
 </div>
 
-<script src="app.js?v=13"></script>
+<script src="app.js?v=14"></script>
 </body>
 </html>

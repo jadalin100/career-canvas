@@ -77,6 +77,18 @@ button { font: inherit; color: inherit; }
   line-height: 2.1; /* room for the chips to sit without colliding */
 }
 
+.home-cta {
+  display: inline-block; width: auto; margin-top: 18px; padding-inline: 30px;
+}
+
+/* ---------- home: about + mission ---------- */
+.about-grid { display: grid; gap: 28px; margin: 56px 0; }
+.about-block h2 { font-size: 24px; margin-bottom: 12px; }
+.about-block p { color: var(--muted); font-size: 16px; line-height: 1.7; margin: 0; }
+@media (min-width: 700px) {
+  .about-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+
 .meta-row {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 56px;
   margin: 56px 0; padding: 30px 0;
@@ -441,12 +453,42 @@ button { font: inherit; color: inherit; }
   </header>
 
   <nav class="tabbar" aria-label="Sections">
+    <a href="#home" data-tab="home">Home</a>
     <a href="#quizzes" data-tab="quizzes">Quizzes</a>
     <a href="#dashboard" data-tab="dashboard">Dashboard</a>
     <a href="#group" data-tab="group">Group</a>
   </nav>
 
-  <section id="tab-quizzes">
+  <section id="tab-home">
+    <section class="hero">
+      <div class="mark" data-compass></div>
+      <h1>Career &amp; College<br><span class="grad">Compass.</span></h1>
+      <p>Real tools for figuring out what business path actually fits you &mdash;
+         built by two DECA students, for students.</p>
+      <a class="btn primary home-cta" href="#quizzes">Take the quizzes &rarr;</a>
+    </section>
+
+    <div class="about-grid">
+      <div class="about-block">
+        <h2>Who we are</h2>
+        <p>We're Jada Lin and Olivia Zheng, two DECA students at Great Neck
+           South. This site started as our DECA Career Development Project &mdash;
+           most "career exploration" for business students is a 20-minute
+           assembly or a worksheet nobody reads twice, so we built something
+           people would actually use.</p>
+      </div>
+      <div class="about-block">
+        <h2>What we're trying to do</h2>
+        <p>Give students a real way into business careers: what a marketing
+           job actually looks like day to day, which college environments fit
+           different personalities, and which DECA event matches how you
+           think. Right now that's three quizzes &mdash; more tools are coming as
+           we build them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-quizzes" hidden>
     <section class="hero">
       <div class="mark" data-compass></div>
       <h1>Find out where<br><span class="grad">you're headed.</span></h1>
@@ -542,6 +584,9 @@ const single = () => document.body.dataset.page === "single";
 /* one place that knows how a quiz is linked in each build */
 const quizHref = (key) => (single() ? `#${key}` : `quiz.html?quiz=${key}`);
 const homeHref = () => (single() ? "#" : "index.html");
+/** "All quizzes" after finishing one -- explicit, so it lands on the Quizzes
+ *  tab even though the Home tab is the default landing view. */
+const quizzesTabHref = () => (single() ? "#quizzes" : "index.html#quizzes");
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -761,7 +806,7 @@ function renderResults(quiz, answers, main, bar, count) {
       <button class="btn primary" id="save">Save as PDF</button>
       <a class="btn" href="${quizHref(nextKey)}">Next: ${esc(nextQuiz.title)} quiz &rarr;</a>
       <a class="btn" id="retake" href="${quizHref(quiz.key)}">Retake this quiz</a>
-      <a class="btn" href="${homeHref()}">All quizzes</a>
+      <a class="btn" href="${quizzesTabHref()}">All quizzes</a>
     </div>
     <details class="full">
       <summary>See how everything ranked</summary>
@@ -1229,14 +1274,17 @@ function initCursor() {
 
 /* ------------------------------ hub tabs ------------------------------ */
 
-const HUB_TABS = ["quizzes", "dashboard", "group"];
+const HUB_TABS = ["home", "quizzes", "dashboard", "group"];
 
-/** Quizzes / Dashboard / Group live on one page, switched by plain #hash
- *  anchors -- no click handlers needed, the browser's own hashchange does it. */
+/** Home / Quizzes / Dashboard / Group live on one page, switched by plain
+ *  #hash anchors -- no click handlers needed, the browser's own hashchange
+ *  does it. Home is the default landing tab. */
 function showHubTab(tab) {
-  if (!HUB_TABS.includes(tab)) tab = "quizzes";
+  if (!HUB_TABS.includes(tab)) tab = "home";
   document.querySelectorAll(".tabbar [data-tab]").forEach((a) =>
     a.classList.toggle("active", a.dataset.tab === tab));
+  const home = $("#tab-home");
+  if (home) home.hidden = tab !== "home";
   const quizzes = $("#tab-quizzes");
   if (quizzes) quizzes.hidden = tab !== "quizzes";
   const dash = $("#dashboard");

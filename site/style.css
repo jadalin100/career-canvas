@@ -74,6 +74,18 @@ button { font: inherit; color: inherit; }
   line-height: 2.1; /* room for the chips to sit without colliding */
 }
 
+.home-cta {
+  display: inline-block; width: auto; margin-top: 18px; padding-inline: 30px;
+}
+
+/* ---------- home: about + mission ---------- */
+.about-grid { display: grid; gap: 28px; margin: 56px 0; }
+.about-block h2 { font-size: 24px; margin-bottom: 12px; }
+.about-block p { color: var(--muted); font-size: 16px; line-height: 1.7; margin: 0; }
+@media (min-width: 700px) {
+  .about-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+
 .meta-row {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 56px;
   margin: 56px 0; padding: 30px 0;

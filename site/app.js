@@ -34,6 +34,9 @@ const single = () => document.body.dataset.page === "single";
 /* one place that knows how a quiz is linked in each build */
 const quizHref = (key) => (single() ? `#${key}` : `quiz.html?quiz=${key}`);
 const homeHref = () => (single() ? "#" : "index.html");
+/** "All quizzes" after finishing one -- explicit, so it lands on the Quizzes
+ *  tab even though the Home tab is the default landing view. */
+const quizzesTabHref = () => (single() ? "#quizzes" : "index.html#quizzes");
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -253,7 +256,7 @@ function renderResults(quiz, answers, main, bar, count) {
       <button class="btn primary" id="save">Save as PDF</button>
       <a class="btn" href="${quizHref(nextKey)}">Next: ${esc(nextQuiz.title)} quiz &rarr;</a>
       <a class="btn" id="retake" href="${quizHref(quiz.key)}">Retake this quiz</a>
-      <a class="btn" href="${homeHref()}">All quizzes</a>
+      <a class="btn" href="${quizzesTabHref()}">All quizzes</a>
     </div>
     <details class="full">
       <summary>See how everything ranked</summary>
@@ -721,14 +724,17 @@ function initCursor() {
 
 /* ------------------------------ hub tabs ------------------------------ */
 
-const HUB_TABS = ["quizzes", "dashboard", "group"];
+const HUB_TABS = ["home", "quizzes", "dashboard", "group"];
 
-/** Quizzes / Dashboard / Group live on one page, switched by plain #hash
- *  anchors -- no click handlers needed, the browser's own hashchange does it. */
+/** Home / Quizzes / Dashboard / Group live on one page, switched by plain
+ *  #hash anchors -- no click handlers needed, the browser's own hashchange
+ *  does it. Home is the default landing tab. */
 function showHubTab(tab) {
-  if (!HUB_TABS.includes(tab)) tab = "quizzes";
+  if (!HUB_TABS.includes(tab)) tab = "home";
   document.querySelectorAll(".tabbar [data-tab]").forEach((a) =>
     a.classList.toggle("active", a.dataset.tab === tab));
+  const home = $("#tab-home");
+  if (home) home.hidden = tab !== "home";
   const quizzes = $("#tab-quizzes");
   if (quizzes) quizzes.hidden = tab !== "quizzes";
   const dash = $("#dashboard");
