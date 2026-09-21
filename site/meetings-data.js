@@ -259,11 +259,15 @@ window.CAREER_CANVAS_MEETINGS = {
       "number": 6,
       "title": "Build your quiz app",
       "summary": "Write it, build it, and have someone else break it, all in one meeting",
-      "slideCount": 10,
+      "slideCount": 11,
       "activeMinutes": 57,
       "agenda": [
         {
           "label": "Being tested beats re-reading.",
+          "minutes": null
+        },
+        {
+          "label": "Testing wins, but only after a delay.",
           "minutes": null
         },
         {

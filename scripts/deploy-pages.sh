@@ -21,6 +21,7 @@ TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
 git clone --quiet --depth 1 --branch gh-pages https://github.com/jadalin100/career-canvas.git "$TMP"
+touch "$TMP/.nojekyll"
 cp site/index.html site/quizzes.html site/quiz.html site/studio.html \
    site/quiz-builder.html site/app.js site/style.css site/canvas.css \
    site/canvas.js site/canvas-quizzes.js site/canvas-app.css site/canvas-app.js \

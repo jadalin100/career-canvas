@@ -1,5 +1,6 @@
 // Builds every Career Canvas meeting deck from content.mjs through one shared
 // layout kit, so all seven stay visually identical. Run: node build_all.mjs [n]
+import { execFileSync } from "node:child_process";
 import { makeDeckBuilder, finalize } from "./deck_kit.mjs";
 import { DECKS, ACCESSED } from "./content.mjs";
 
@@ -32,3 +33,9 @@ for (const deck of DECKS) {
 }
 console.log(failures ? `\n${failures} citation failures` : "\ncitation check passed: every content slide has a source line");
 if (failures) process.exit(1);
+
+// Palette, no-images and on-canvas checks run against the built files, not the
+// content, so a layout change cannot quietly reintroduce an off-brand color.
+if (!only) {
+  console.log(execFileSync("python3", ["check_decks.py"], { cwd: import.meta.dirname }).toString().trim());
+}

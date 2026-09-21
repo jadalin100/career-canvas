@@ -19,20 +19,26 @@ const { resolvePresentationFont, finalizePresentation } = await import(
 // installed family explicitly. Matches the font in the existing Meeting 1 deck.
 export const FONT = resolvePresentationFont({ availableFonts: ["Helvetica Neue", "Helvetica", "Arial"] });
 
+// Career Canvas palette. Five brand colors, no outside hues: the decks used to
+// tell the five DECA areas apart by hue, which a mono-blue palette cannot do,
+// so identity now comes from the round numbers instead.
 export const C = {
-  navy: "#092454",
-  deep: "#061A3A",
-  blue: "#2563EB",
-  sky: "#BFE6FF",
-  pale: "#EEF7FF",
-  yellow: "#FFD43B",
-  coral: "#FF7C70",
-  teal: "#00A7A0",
-  violet: "#6C5CE7",
-  ink: "#10213D",
-  muted: "#61718A",
+  deep: "#0F1A2B",    // Deep Navy   - dark slide backgrounds
+  navy: "#1C2E4A",    // Midnight Blue - headings, accent bars, dark cards
+  blue: "#52677D",    // Dusty Blue  - kickers, secondary text, numerals
+  ivory: "#BDC4D4",   // Ivory       - rules, ghost type, dark-slide body text
+  cream: "#D1CFC9",   // Buttercream - the highlight: badges, labels, light cards
   white: "#FFFFFF",
-  line: "#D8E5F2",
+  ink: "#0F1A2B",
+  muted: "#52677D",
+  line: "#BDC4D4",
+  // Back-compat aliases so older call sites keep resolving to palette colors.
+  sky: "#BDC4D4",
+  pale: "#D1CFC9",
+  yellow: "#D1CFC9",
+  coral: "#52677D",
+  teal: "#52677D",
+  violet: "#1C2E4A",
 };
 
 export function makeDeckBuilder() {
@@ -65,7 +71,7 @@ export function makeDeckBuilder() {
   }
 
   function footer(slide, sourceLabel = "", onDark = false) {
-    shape(slide, 72, 676, 1136, 1, onDark ? "#31507E" : C.line);
+    shape(slide, 72, 676, 1136, 1, onDark ? C.blue : C.line);
     if (sourceLabel) text(slide, sourceLabel, 102, 682, 970, 22, { fontSize: 10, color: onDark ? C.sky : C.muted });
     text(slide, String(n).padStart(2, "0"), 1145, 682, 62, 20, { fontSize: 11, bold: true, color: onDark ? C.yellow : C.blue, alignment: "right" });
   }
@@ -84,25 +90,96 @@ export function makeDeckBuilder() {
 
   // ---------- layouts ----------
 
-  async function cover({ title, sub, meeting, image, byline = "Designed by Jada Lin and Olivia Zheng\nGreat Neck South", notes: teaching }) {
+  // Ranked-list figure. Bar length encodes rank only, which is why the axis is
+  // labelled Rank and no percentages are invented for the rows.
+  function rankLadder(slide, x, y, w, items, highlight) {
+    const rowH = 36;
+    items.forEach(([rank, name], i) => {
+      const top = y + i * rowH;
+      const on = rank === highlight;
+      const barW = Math.round((w - 232) * ((items.length - i) / items.length));
+      shape(slide, x, top + 4, 26, 24, on ? C.cream : "none", "roundRect");
+      text(slide, String(rank), x, top + 8, 26, 20, { fontSize: 13, bold: true, color: on ? C.navy : C.blue, alignment: "center" });
+      text(slide, name, x + 36, top + 5, 196, 26, { fontSize: on ? 13 : 12, bold: on, color: on ? C.navy : C.blue });
+      shape(slide, x + 240, top + 11, barW, 10, on ? C.navy : C.ivory, "roundRect");
+    });
+  }
+
+  // Grouped bars for a two-condition, three-interval result.
+  function groupedBars(slide, x, y, w, h, groups, series) {
+    const max = Math.max(...groups.flatMap((g) => g.values));
+    const gw = w / groups.length;
+    shape(slide, x, y + h, w, 2, C.ivory);
+    groups.forEach((g, gi) => {
+      g.values.forEach((v, si) => {
+        const bh = Math.round((v / max) * h);
+        const bw = 52;
+        const bx = x + gi * gw + gw / 2 - bw - 8 + si * (bw + 16);
+        shape(slide, bx, y + h - bh, bw, bh, si === 0 ? C.blue : C.navy, "roundRect");
+        text(slide, `${v}%`, bx - 8, y + h - bh - 32, bw + 16, 26, { fontSize: 17, bold: true, color: C.navy, alignment: "center" });
+      });
+      text(slide, g.label, x + gi * gw, y + h + 14, gw, 26, { fontSize: 15, bold: true, color: C.navy, alignment: "center" });
+    });
+    series.forEach((name, i) => {
+      shape(slide, x + i * 250, y + h + 56, 16, 16, i === 0 ? C.blue : C.navy, "roundRect");
+      text(slide, name, x + i * 250 + 26, y + h + 54, 226, 24, { fontSize: 15, color: C.ink });
+    });
+  }
+
+  const FIGURES = {
+    // WEF Future of Jobs Report 2025, Figure 3.3, core skills in 2025, ranked.
+    wefSkills(slide) {
+      shape(slide, 700, 0, 580, 720, C.deep);
+      text(slide, "CORE SKILLS EMPLOYERS NEED IN 2025", 748, 74, 470, 24, { fontSize: 13, bold: true, color: C.cream });
+      text(slide, "Ranked by share of employers calling the skill essential", 748, 102, 470, 24, { fontSize: 12, color: C.ivory });
+      shape(slide, 748, 138, 484, 400, C.white, "roundRect");
+      rankLadder(slide, 772, 156, 440, [
+        [1, "Analytical thinking"],
+        [2, "Resilience, flexibility, agility"],
+        [3, "Leadership and social influence"],
+        [4, "Creative thinking"],
+        [5, "Motivation and self-awareness"],
+        [6, "Technological literacy"],
+        [7, "Empathy and active listening"],
+        [8, "Curiosity and lifelong learning"],
+        [9, "Talent management"],
+        [10, "Service orientation"],
+      ], 4);
+      text(slide, "Seven in 10 companies call analytical thinking essential.\nCreative thinking ranks fourth.", 748, 556, 470, 60, { fontSize: 14, color: C.ivory });
+      text(slide, "World Economic Forum, Future of Jobs Report 2025.\nSurvey of over 1,000 employers across 55 economies.", 748, 626, 470, 50, { fontSize: 11, color: C.blue });
+    },
+  };
+
+  function cover({ title, sub, meeting, figure, byline = "Designed by Jada Lin and Olivia Zheng\nGreat Neck South", notes: teaching, sources }) {
     const slide = newSlide(C.white);
-    if (image) {
-      const bytes = await fs.readFile(image);
-      slide.images.add({ blob: bytes, contentType: "image/png", alt: "Career Canvas workshop", fit: "cover", position: { left: 0, top: 0, width: 1280, height: 720 } });
-      shape(slide, 0, 0, 580, 720, "#FFFFFFE8");
+    if (figure && FIGURES[figure]) {
+      FIGURES[figure](slide);
     } else {
-      shape(slide, 700, 0, 580, 720, C.pale);
-      shape(slide, 760, 120, 460, 480, C.navy, "roundRect");
-      text(slide, meeting.toUpperCase(), 800, 168, 380, 28, { fontSize: 15, bold: true, color: C.yellow });
-      text(slide, title, 800, 222, 384, 300, { fontSize: 40, bold: true, color: C.white });
+      shape(slide, 700, 0, 580, 720, C.deep);
+      shape(slide, 760, 140, 460, 440, C.navy, "roundRect");
+      text(slide, meeting.toUpperCase(), 800, 186, 380, 28, { fontSize: 14, bold: true, color: C.cream });
+      shape(slide, 800, 226, 60, 6, C.cream, "roundRect");
+      text(slide, title, 800, 262, 384, 280, { fontSize: 38, bold: true, color: C.white });
     }
-    text(slide, "CAREER CANVAS", 72, 58, 300, 26, { fontSize: 16, bold: true, color: C.blue });
-    shape(slide, 72, 96, 72, 8, C.yellow, "roundRect");
-    text(slide, title, 72, 152, 500, 186, { fontSize: title.length > 26 ? 44 : 54, bold: true, color: C.navy });
-    text(slide, sub, 72, 360, 470, 110, { fontSize: 22, color: C.muted });
-    text(slide, meeting, 72, 570, 220, 30, { fontSize: 18, bold: true, color: C.navy });
-    text(slide, byline, 72, 610, 350, 50, { fontSize: 14, color: C.muted });
-    notes(slide, teaching);
+    text(slide, "CAREER CANVAS", 72, 58, 300, 26, { fontSize: 15, bold: true, color: C.blue });
+    shape(slide, 72, 96, 72, 8, C.navy, "roundRect");
+    text(slide, title, 72, 152, 520, 190, { fontSize: title.length > 26 ? 44 : 52, bold: true, color: C.navy });
+    text(slide, sub, 72, 364, 500, 120, { fontSize: 21, color: C.muted });
+    text(slide, meeting, 72, 566, 220, 30, { fontSize: 17, bold: true, color: C.navy });
+    text(slide, byline, 72, 606, 380, 50, { fontSize: 13, color: C.muted });
+    notes(slide, teaching, sources);
+  }
+
+  // A real figure on its own slide, with the result stated above it.
+  function barFigure({ kicker, title, sub, groups, series, takeaway, source, notes: teaching, sources }) {
+    const slide = newSlide(C.white);
+    header(slide, kicker, title, sub);
+    groupedBars(slide, 110, 240, 700, 250, groups, series);
+    shape(slide, 880, 230, 300, 330, C.cream, "roundRect");
+    text(slide, "WHAT IT MEANS", 910, 262, 250, 24, { fontSize: 13, bold: true, color: C.navy });
+    text(slide, takeaway, 910, 300, 244, 230, { fontSize: 19, bold: true, color: C.navy });
+    footer(slide, source);
+    notes(slide, teaching, sources);
   }
 
   // Dark slide built around one number or one short claim.
@@ -112,7 +189,7 @@ export function makeDeckBuilder() {
     text(slide, title, 72, 100, 820, 112, { fontSize: title.length > 40 ? 40 : 46, bold: true, color: C.white });
     text(slide, stat, 78, 248, 300, 180, { fontSize: stat.length > 4 ? 78 : 116, bold: true, color: C.yellow });
     text(slide, statText, 400, 268, 700, 150, { fontSize: 27, bold: true, color: C.white });
-    shape(slide, 72, 488, 1035, 2, "#31507E");
+    shape(slide, 72, 488, 1035, 2, C.blue);
     text(slide, footline, 72, 522, 1040, 78, { fontSize: 24, color: C.sky });
     footer(slide, source, true);
     notes(slide, teaching, sources);
@@ -136,9 +213,9 @@ export function makeDeckBuilder() {
   }
 
   // Teaching slide: definition, three moves, and a boxed activity.
-  function feature({ label, title, bigWord, intro, items, activity, activityNote = "Constraint first. Then ideas.", source, notes: teaching, sources, accent }) {
+  function feature({ label, title, bigWord, intro, items, activity, activityNote = "Constraint first. Then ideas.", source, notes: teaching, sources }) {
     const slide = newSlide(C.white);
-    shape(slide, 0, 0, 34, 720, accent);
+    shape(slide, 0, 0, 34, 720, C.navy);
     text(slide, label.toUpperCase(), 72, 44, 560, 28, { fontSize: 15, bold: true, color: C.blue });
     const size = title.length > 55 ? 29 : title.length > 43 ? 33 : 38;
     text(slide, title, 72, 78, 1120, 74, { fontSize: size, bold: true, color: C.navy });
@@ -158,9 +235,9 @@ export function makeDeckBuilder() {
 
   // A timed round. The task is the slide; the grounding is one line. The card on
   // the right names the piece of a real deliverable the student walks out with.
-  function round({ label, minutes, task, steps, grounding, produces, producesNote, source, notes: teaching, sources, accent }) {
+  function round({ label, minutes, task, steps, grounding, produces, producesNote, source, notes: teaching, sources }) {
     const slide = newSlide(C.white);
-    shape(slide, 0, 0, 34, 720, accent);
+    shape(slide, 0, 0, 34, 720, C.navy);
     text(slide, label.toUpperCase(), 72, 44, 470, 28, { fontSize: 15, bold: true, color: C.blue });
     // Timer badge, top right of the working column.
     shape(slide, 560, 38, 146, 44, C.yellow, "roundRect");
@@ -309,7 +386,7 @@ export function makeDeckBuilder() {
 
   return {
     pres,
-    layouts: { cover, statement, nodeMap, feature, round, rows, pipeline, compare, challenge, checklist, closer, sourceLibrary },
+    layouts: { cover, barFigure, statement, nodeMap, feature, round, rows, pipeline, compare, challenge, checklist, closer, sourceLibrary },
     get count() { return n; },
   };
 }

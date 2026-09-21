@@ -1,8 +1,7 @@
 // Content for all seven Career Canvas meeting decks.
 // Every content slide carries a `source` footer line and the full URLs in
 // speaker notes. Each source below was opened and read on 2026-09-21.
-import { C, WORKSPACE_DIR } from "./deck_kit.mjs";
-import path from "node:path";
+import { C } from "./deck_kit.mjs";
 
 export const ACCESSED = "September 21, 2026";
 
@@ -72,8 +71,9 @@ export const DECKS = [
       title: "Creativity across\nbusiness",
       sub: "Five timed rounds, five DECA career areas, one idea you build and defend",
       meeting: "Meeting 1",
-      image: path.join(WORKSPACE_DIR, "assets/creativity-workshop-cover.png"),
-      notes: "Do not open with a lecture. Ask where they used creativity today without making art, take two answers, and go straight to the anchor slide.",
+      figure: "wefSkills",
+      sources: [S.wef],
+      notes: "The chart is the Future of Jobs 2025 core-skills ranking; creative thinking is fourth. Do not open with a lecture. Ask where they used creativity today without making art, take two answers, and go straight to the anchor slide.",
     }],
     ["statement", {
       kicker: "The only thing we teach today",
@@ -109,7 +109,7 @@ export const DECKS = [
       grounding: "Finance is the study and management of money and financial resources. (Investopedia)",
       produces: "A five-line budget with one protected item",
       producesNote: "Keep this. It is the first evidence you can make a trade-off on purpose.",
-      source: "Source: Investopedia, Finance", sources: [S.finance], accent: C.blue,
+      source: "Source: Investopedia, Finance", sources: [S.finance],
       notes: "Facilitation: 2 minutes to draft, 1 to circle, 3 to rewrite. Walk the room and ask what got cut, not what got kept. The creative act is the trade-off, not the list.",
     }],
     ["round", {
@@ -123,7 +123,7 @@ export const DECKS = [
       grounding: "Marketing is everything a company does to promote and sell what it offers. (Investopedia)",
       produces: "Three one-line messages for three audiences",
       producesNote: "This is the exact move you will make for a real business in Meeting 5.",
-      source: "Source: Investopedia, Marketing", sources: [S.marketing, S.fourPs], accent: C.coral,
+      source: "Source: Investopedia, Marketing", sources: [S.marketing, S.fourPs],
       notes: "Facilitation: 3 minutes to write all three, 3 to read in pairs. If a pair finds a sentence that stretched the truth, read it aloud to the room. That is the lesson.",
     }],
     ["round", {
@@ -137,7 +137,7 @@ export const DECKS = [
       grounding: "An entrepreneur spots an opportunity and takes on the risk of building something to meet it. (Investopedia)",
       produces: "One need statement and one offer",
       producesNote: "Most concept sketches at the end of today come out of this round.",
-      source: "Source: Investopedia, Entrepreneur", sources: [S.entrepreneur], accent: C.navy,
+      source: "Source: Investopedia, Entrepreneur", sources: [S.entrepreneur],
       notes: "Facilitation: 1 minute to complain, 2 to reframe, 3 to write the offer. The unforced test is what kills the assembly-mandate ideas.",
     }],
     ["round", {
@@ -151,7 +151,7 @@ export const DECKS = [
       grounding: "Hospitality and tourism is one of DECA's four career clusters: service, operations, and the guest experience.",
       produces: "A four-step service recovery script",
       producesNote: "Notice how much of it was free. That is usually where the creativity was.",
-      source: "Source: DECA, Competitive Events Program career clusters", sources: [S.decaCompete], accent: C.teal,
+      source: "Source: DECA, Competitive Events Program career clusters", sources: [S.decaCompete],
       notes: "Facilitation: 4 minutes to write, 2 to share one script aloud. Ask the room which step they would actually remember a week later.",
     }],
     ["round", {
@@ -165,7 +165,7 @@ export const DECKS = [
       grounding: "Business management and administration coordinates people, information, and operations to meet goals.",
       produces: "A before-and-after process sketch",
       producesNote: "A process change can beat a marketing campaign. This round proves it fastest.",
-      source: "Source: DECA, Competitive Events Program career clusters", sources: [S.decaCompete], accent: C.violet,
+      source: "Source: DECA, Competitive Events Program career clusters", sources: [S.decaCompete],
       notes: "Facilitation: 2 minutes to draw, 1 to cross out, 3 to redraw. The constraint line is the whole exercise; do not let anyone add staff.",
     }],
     ["checklist", {
@@ -250,7 +250,7 @@ export const DECKS = [
       grounding: "Those four boxes are what a business model is: products, target customers, revenue, cost structure. (Investopedia)",
       produces: "Four filled boxes and a list of your own guesses",
       producesNote: "The guesses matter more than the answers. Those are research questions.",
-      source: "Source: Investopedia, Business Model", sources: [S.businessModel], accent: C.blue,
+      source: "Source: Investopedia, Business Model", sources: [S.businessModel],
       notes: "Facilitation: 4 minutes to fill, 4 to trade and mark. Most students discover they cannot answer the cost box. Say out loud that this is normal and it is exactly what research is for.",
     }],
     ["round", {
@@ -264,7 +264,7 @@ export const DECKS = [
       grounding: "A value proposition states the unique value a product delivers to a specific customer. (Investopedia)",
       produces: "One value proposition in your own words",
       producesNote: "You will write one of these about your chosen business in Meeting 4.",
-      source: "Source: Investopedia, Value Proposition", sources: [S.valueProp], accent: C.teal,
+      source: "Source: Investopedia, Value Proposition", sources: [S.valueProp],
       notes: "Investopedia's bar: clear, concise, understandable at a glance, and it shows what a brand offers that competitors do not. The banned-words rule is what forces specificity.",
     }],
     ["round", {
@@ -278,7 +278,7 @@ export const DECKS = [
       grounding: "A target market is the specific slice of consumers a company aims to serve, not the general public. (Investopedia)",
       produces: "A customer description you could act on",
       producesNote: "This becomes the target-customer section of your paper and the audience for your ad.",
-      source: "Source: Investopedia, Target Market", sources: [S.targetMarket], accent: C.coral,
+      source: "Source: Investopedia, Target Market", sources: [S.targetMarket],
       notes: "Investopedia lists four segments: demographic, geographic, psychographic, and behavioral. The narrowing test is the activity; two rounds of it is usually enough.",
     }],
     ["round", {
@@ -292,7 +292,7 @@ export const DECKS = [
       grounding: "An answer from the owner is primary data. An article about them is secondary. You need both. (Investopedia)",
       produces: "Two answers, in the owner's own words",
       producesNote: "Quote these in your paper. Nobody else in the room will have them.",
-      source: "Source: Investopedia, Market Research", sources: [S.marketResearch], accent: C.navy,
+      source: "Source: Investopedia, Market Research", sources: [S.marketResearch],
       notes: "Send the four bullets in step 2 to the representative in advance so they do not improvise. If they send a recording instead, run the questions as a written list you forward afterwards.",
     }],
     ["round", {
@@ -306,7 +306,7 @@ export const DECKS = [
       grounding: "If you cannot find three independent sources this week, study the industry instead of the single business.",
       produces: "One business, chosen on evidence",
       producesNote: "Changing later costs you a meeting, so choose on what you can research, not what you like.",
-      source: "Source: Investopedia, Market Research", sources: [S.marketResearch], accent: C.violet,
+      source: "Source: Investopedia, Market Research", sources: [S.marketResearch],
       notes: "The 60-second limit is deliberate. A business nobody can source in a minute will not get easier in Meeting 3.",
     }],
     ["challenge", {
@@ -392,7 +392,7 @@ export const DECKS = [
       grounding: "Cross-referencing is the fastest check: does the claim appear anywhere else? (Purdue OWL)",
       produces: "Three verdicts with reasons attached",
       producesNote: "The cut one is the most useful thing here. You now know what bad looks like.",
-      source: "Source: Purdue OWL, Evaluating Sources: General Guidelines", sources: [S.owl], accent: C.blue,
+      source: "Source: Purdue OWL, Evaluating Sources: General Guidelines", sources: [S.owl],
       notes: "Facilitation: 5 minutes working, 2 minutes of cut sources read aloud. Students who brought nothing pair with someone who did.",
     }],
     ["round", {
@@ -406,7 +406,7 @@ export const DECKS = [
       grounding: "An answer with no link and no date does not survive to the paper. Log it now or lose it.",
       produces: "Three sourced findings, logged",
       producesNote: "These are the first real sentences of your business paper.",
-      source: "Source: Investopedia, Market Research", sources: [S.marketResearch, S.owl], accent: C.coral,
+      source: "Source: Investopedia, Market Research", sources: [S.marketResearch, S.owl],
       notes: "Facilitation: circulate and ask students to read you the source, not the finding. If they cannot say where it came from, the round is not done for them.",
     }],
     ["round", {
@@ -420,7 +420,7 @@ export const DECKS = [
       grounding: "A competitive advantage is the edge that lets a company outperform rivals: cost, brand, quality, distribution, or service. (Investopedia)",
       produces: "Two competitors and three positioning sentences",
       producesNote: "This is the competitors section of your paper, already drafted.",
-      source: "Source: Investopedia, Competitive Advantage", sources: [S.advantage], accent: C.teal,
+      source: "Source: Investopedia, Competitive Advantage", sources: [S.advantage],
       notes: "Investopedia names two types: comparative advantage, producing the same thing more cheaply, and differential advantage, offering something hard to copy. Push students to say which one their business has.",
     }],
     ["round", {
@@ -434,7 +434,7 @@ export const DECKS = [
       grounding: "Strengths and weaknesses are internal to the business. Opportunities and threats are external. (Investopedia)",
       produces: "A filled SWOT with one named gap",
       producesNote: "The gap is worth more than the full boxes. It tells you where to look next.",
-      source: "Source: Investopedia, SWOT Analysis", sources: [S.swot], accent: C.violet,
+      source: "Source: Investopedia, SWOT Analysis", sources: [S.swot],
       notes: "Investopedia stresses SWOT works when people supply realistic data points rather than prescribed messaging. An empty threats box usually means the student is being polite, not thorough.",
     }],
     ["round", {
@@ -448,7 +448,7 @@ export const DECKS = [
       grounding: "Primary data is what you gather directly. It is the part of your paper nobody else can copy. (Investopedia)",
       produces: "Three questions and a plan to ask them",
       producesNote: "Send them before Meeting 4. An owner's sentence outranks any article.",
-      source: "Source: Investopedia, Market Research", sources: [S.marketResearch], accent: C.navy,
+      source: "Source: Investopedia, Market Research", sources: [S.marketResearch],
       notes: "Make the when concrete. A question with no date attached does not get asked.",
     }],
     ["challenge", {
@@ -506,7 +506,7 @@ export const DECKS = [
       grounding: "If nobody could disagree with your sentence, it is a fact, not a claim.",
       produces: "One claim your paper will defend",
       producesNote: "Everything you write for the rest of the meeting hangs off this sentence.",
-      source: "Source: Investopedia, Business Plan", sources: [S.businessPlan], accent: C.blue,
+      source: "Source: Investopedia, Business Plan", sources: [S.businessPlan],
       notes: "Facilitation: 3 minutes to write, 3 to cut. Read two or three claims aloud and ask the room to argue with them. A claim nobody can argue with goes back for a rewrite.",
     }],
     ["round", {
@@ -520,7 +520,7 @@ export const DECKS = [
       grounding: "Evidence that does not support the claim it sits under is still the wrong evidence. (Purdue OWL)",
       produces: "A claim with its evidence stacked under it",
       producesNote: "The unused pile is not wasted. Most of it belongs in another section.",
-      source: "Source: Purdue OWL, Evaluating Sources: General Guidelines", sources: [S.owl], accent: C.coral,
+      source: "Source: Purdue OWL, Evaluating Sources: General Guidelines", sources: [S.owl],
       notes: "The count in step 3 is the real diagnostic. Students with one supporting finding need a smaller claim, not more adjectives.",
     }],
     ["round", {
@@ -534,7 +534,7 @@ export const DECKS = [
       grounding: "A claim a reader cannot check does not count, in your writing or anyone else's. (Purdue OWL)",
       produces: "Three rewritten sentences and a shorter draft",
       producesNote: "Cutting is progress here. A shorter honest page beats a full page of adjectives.",
-      source: "Source: Purdue OWL, Evaluating Sources: General Guidelines", sources: [S.owl], accent: C.violet,
+      source: "Source: Purdue OWL, Evaluating Sources: General Guidelines", sources: [S.owl],
       notes: "This round is where most of the lesson lands. Do not let students skip to polishing sentences before they have done it.",
     }],
     ["round", {
@@ -549,7 +549,7 @@ export const DECKS = [
       grounding: "Claim, evidence, source, analysis. Read together it is ordinary prose, not a form.",
       produces: "One finished paragraph of your paper",
       producesNote: "Copy this shape for every section. It is the whole writing technique.",
-      source: "Sources: Investopedia, Competitive Advantage; Purdue OWL", sources: [S.advantage, S.owl], accent: C.teal,
+      source: "Sources: Investopedia, Competitive Advantage; Purdue OWL", sources: [S.advantage, S.owl],
       notes: "The bakery example is a differential advantage in Investopedia's terms: something hard for a rival to copy quickly. Read the four sentences aloud as one paragraph first so students hear it.",
     }],
     ["round", {
@@ -563,7 +563,7 @@ export const DECKS = [
       grounding: "Analysis is the part a judge, a teacher, or the business owner will actually respond to.",
       produces: "Your opportunity-or-challenge paragraph",
       producesNote: "If anyone in the room could have written your sentence, rewrite it.",
-      source: "Source: Purdue OWL, Evaluating Sources: General Guidelines", sources: [S.owl], accent: C.navy,
+      source: "Source: Purdue OWL, Evaluating Sources: General Guidelines", sources: [S.owl],
       notes: "Collect two or three so-what sentences aloud before the build starts. It sets the bar better than any explanation.",
     }],
     ["checklist", {
@@ -639,7 +639,7 @@ export const DECKS = [
       grounding: "Digital channels let you target a specific audience and measure the result, so the audience decision comes first. (Investopedia)",
       produces: "A scoring habit you will use on your own ad",
       producesNote: "Everything you just criticized, you are about to be asked to do.",
-      source: "Sources: Investopedia, Marketing and Digital Marketing", sources: [S.marketing, S.digital], accent: C.blue,
+      source: "Sources: Investopedia, Marketing and Digital Marketing", sources: [S.marketing, S.digital],
       notes: "Facilitation: 5 minutes scoring in pairs, 3 minutes on the memory test. Put the next slide up while they work.",
     }],
     ["compare", {
@@ -678,7 +678,7 @@ export const DECKS = [
       grounding: "A target market is a slice of consumers with shared characteristics, not the general public. (Investopedia)",
       produces: "The audience line for your ad",
       producesNote: "Do not invent a new audience here. Use the one you researched.",
-      source: "Source: Investopedia, Target Market", sources: [S.targetMarket], accent: C.coral,
+      source: "Source: Investopedia, Target Market", sources: [S.targetMarket],
       notes: "Students who want to switch audiences usually did not finish the target-customer section. Send them back to the paper.",
     }],
     ["round", {
@@ -692,7 +692,7 @@ export const DECKS = [
       grounding: "A brand is the distinctive identity that sets a business apart, and consistency is what builds it. (Investopedia)",
       produces: "A ten-word message that matches the business",
       producesNote: "Your ad has to sound like the business it is for, not like you.",
-      source: "Source: Investopedia, Brand and Brand Identity", sources: [S.brand, S.valueProp], accent: C.violet,
+      source: "Source: Investopedia, Brand and Brand Identity", sources: [S.brand, S.valueProp],
       notes: "A student ad that contradicts the real promise is a good teaching moment, not a failure. Surface one if you find it.",
     }],
     ["round", {
@@ -706,7 +706,7 @@ export const DECKS = [
       grounding: "One thing to look at first. If two things compete, the reader picks neither.",
       produces: "A layout that survived a real reader",
       producesNote: "Do this on paper before you open any design tool.",
-      source: "Sources: Investopedia, Marketing and Brand", sources: [S.marketing, S.brand], accent: C.teal,
+      source: "Sources: Investopedia, Marketing and Brand", sources: [S.marketing, S.brand],
       notes: "Facilitation: run it twice, swapping roles. The three-second limit is not negotiable, or it becomes a critique session.",
     }],
     ["round", {
@@ -720,7 +720,7 @@ export const DECKS = [
       grounding: "An ad with no specific next step is a poster. Promotion is supposed to move someone. (Investopedia)",
       produces: "One call to action a person could act on",
       producesNote: "This is the line the business partner will react to first.",
-      source: "Source: Investopedia, The 4 Ps of Marketing", sources: [S.fourPs], accent: C.navy,
+      source: "Source: Investopedia, The 4 Ps of Marketing", sources: [S.fourPs],
       notes: "The banned-phrases rule does most of the work. Keep it visible while they write.",
     }],
     ["challenge", {
@@ -767,6 +767,20 @@ export const DECKS = [
       sources: [S.testing],
       notes: "According to PubMed, Roediger and Karpicke (2006) found repeated studying beat repeated testing after five minutes, but after two days or a week prior testing produced substantially greater retention, even though restudying made students more confident.",
     }],
+    ["barFigure", {
+      kicker: "The evidence", title: "Testing wins, but only after a delay.",
+      sub: "Roediger & Karpicke (2006), Experiment 1: students read a passage, then either restudied it or took a recall test with no feedback.",
+      groups: [
+        { label: "After 5 minutes", values: [81, 75] },
+        { label: "After 2 days", values: [54, 68] },
+        { label: "After 1 week", values: [42, 56] },
+      ],
+      series: ["Restudied the passage", "Took a recall test"],
+      takeaway: "Restudying wins the first five minutes and loses every delay that matters. Your quiz is built for the one-week column.",
+      source: "Source: Roediger & Karpicke, Psychological Science 17(3), 2006, p. 251, via PubMed",
+      sources: [S.testing],
+      notes: "Percentages are the proportion of idea units recalled in Experiment 1, read from the paper itself. The authors also note the tested group recalled as much after a week as the restudy group did after two days, so one test bought five days of retention. Confidence ran the other way: restudying made students more sure they would remember.",
+    }],
     ["round", {
       label: "Round 1 of 5 · Closed book", minutes: 7,
       task: "Write three questions without looking at your paper.",
@@ -778,7 +792,7 @@ export const DECKS = [
       grounding: "Recall without the page in front of you is the effect the research is actually about. (Roediger & Karpicke, 2006)",
       produces: "Three questions grounded in your own research",
       producesNote: "You just ran the testing effect on yourself. That is the design brief.",
-      source: "Source: Roediger & Karpicke, Psychological Science 17(3), 2006, via PubMed", sources: [S.testing], accent: C.blue,
+      source: "Source: Roediger & Karpicke, Psychological Science 17(3), 2006, via PubMed", sources: [S.testing],
       notes: "Facilitation: 3 minutes closed, 2 checking, 2 discussing. Ask who got one wrong and make the point that this is the useful part.",
     }],
     ["round", {
@@ -792,7 +806,7 @@ export const DECKS = [
       grounding: "Recall questions carry the memory effect. Apply and spot-the-flaw are what make it worth playing.",
       produces: "Three questions of three different kinds",
       producesNote: "A quiz of pure recall is a flashcard deck. Mix it.",
-      source: "Source: Roediger & Karpicke, Psychological Science 17(3), 2006, via PubMed", sources: [S.testing], accent: C.coral,
+      source: "Source: Roediger & Karpicke, Psychological Science 17(3), 2006, via PubMed", sources: [S.testing],
       notes: "The spot-the-flaw question is the hardest to write and the one peers enjoy most. Give an example from your own business if the room stalls.",
     }],
     ["round", {
@@ -806,7 +820,7 @@ export const DECKS = [
       grounding: "If one option is a joke, your four-option question is really a three-option question.",
       produces: "One question with three plausible distractors",
       producesNote: "This is the single biggest difference between a real quiz and a filler quiz.",
-      source: "Career Canvas quiz-design bar", sources: [S.testing], accent: C.violet,
+      source: "Career Canvas quiz-design bar", sources: [S.testing],
       notes: "Have two students swap one question and try to guess the answer without knowing the topic. Guessable means the distractors failed.",
     }],
     ["round", {
@@ -820,7 +834,7 @@ export const DECKS = [
       grounding: "Correct with nothing else, and try again with no hint, are both wasted messages.",
       produces: "Feedback text for one whole question",
       producesNote: "Players read the feedback more carefully than the question. Spend your effort here.",
-      source: "Career Canvas quiz-design bar", sources: [S.testing], accent: C.teal,
+      source: "Career Canvas quiz-design bar", sources: [S.testing],
       notes: "Cap it at two lines. Students who write a paragraph have written something nobody will finish.",
     }],
     ["round", {
@@ -834,7 +848,7 @@ export const DECKS = [
       grounding: "A quiz a stranger cannot play alone is not finished, whatever it looks like on your screen.",
       produces: "A list of what broke, from a real player",
       producesNote: "Guessable questions are the most common finding. Better a peer finds them than a judge.",
-      source: "Career Canvas quiz-builder acceptance criteria", accent: C.navy,
+      source: "Career Canvas quiz-builder acceptance criteria",
       notes: "Enforce the no-asking rule. The moment the author explains, the test stops working.",
     }],
     ["challenge", {
@@ -892,7 +906,7 @@ export const DECKS = [
       grounding: "Six meetings produced a sketch, five questions, a findings log, a paper, an ad, and a quiz.",
       produces: "A complete list of your own work",
       producesNote: "Students are routinely surprised by how much is on this list.",
-      source: "Career Canvas program structure", accent: C.blue,
+      source: "Career Canvas program structure",
       notes: "Run this out loud as a whole room first, on the board, then let them write. Hearing the list is the motivating part.",
     }],
     ["round", {
@@ -906,7 +920,7 @@ export const DECKS = [
       grounding: "The sources list is not paperwork. It is the evidence the work is yours and that it is checkable. (Purdue OWL)",
       produces: "A portfolio someone can follow without you",
       producesNote: "Order matters. A reader should never have to ask what this is.",
-      source: "Source: Purdue OWL, Evaluating Sources: General Guidelines", sources: [S.owl], accent: C.coral,
+      source: "Source: Purdue OWL, Evaluating Sources: General Guidelines", sources: [S.owl],
       notes: "Ten minutes of quiet assembly. Anyone who lost a file finds out now rather than during the showcase.",
     }],
     ["round", {
@@ -920,7 +934,7 @@ export const DECKS = [
       grounding: "Analytical thinking is the top core skill employers name, with creative thinking fourth. You have now done both. (World Economic Forum)",
       produces: "Three resume lines with artifacts attached",
       producesNote: "A skill with no artifact behind it is a wish. Cut those lines.",
-      source: "Source: World Economic Forum, Future of Jobs Report 2025, Skills Outlook", sources: [S.wef], accent: C.teal,
+      source: "Source: World Economic Forum, Future of Jobs Report 2025, Skills Outlook", sources: [S.wef],
       notes: "Put the next slide up while they write so they can see specific against vague side by side.",
     }],
     ["compare", {
@@ -959,7 +973,7 @@ export const DECKS = [
       grounding: "An elevator pitch runs 30 to 60 seconds and is memorized and practised in advance. (Investopedia)",
       produces: "A written sixty-second pitch",
       producesNote: "Write it out. Improvised pitches run to two minutes every time.",
-      source: "Source: Investopedia, Elevator Pitch", sources: [S.pitch], accent: C.violet,
+      source: "Source: Investopedia, Elevator Pitch", sources: [S.pitch],
       notes: "Time the first volunteer publicly. Everyone adjusts after watching one person run over.",
     }],
     ["round", {
@@ -973,7 +987,7 @@ export const DECKS = [
       grounding: "The pitch is a thing you practise, not a summary you improvise on the spot.",
       produces: "A pitch you can deliver without notes",
       producesNote: "Three rehearsals is the minimum. Most people need the third one.",
-      source: "Source: Investopedia, Elevator Pitch", sources: [S.pitch], accent: C.navy,
+      source: "Source: Investopedia, Elevator Pitch", sources: [S.pitch],
       notes: "Circulate with the timer. The cut in step 1 is where the pitch actually gets good.",
     }],
     ["challenge", {
