@@ -4,13 +4,18 @@
 
 Create a single visual-direction homepage for approval before changing the existing quiz website. The page should make a middle-school student want to explore the program while giving parents, educators, and business partners enough structure to trust it.
 
-## Scope
+## Current implementation
 
-This pass includes only a standalone homepage at `site/inspo.html` with its own CSS and JavaScript. It does not change the existing homepage, quiz runner, data, dashboard, or deployment workflow.
+The approved visual direction is now the main `site/index.html` homepage. Career,
+DECA Event, and Digital Branding quizzes run directly on that page, while the
+student studio and quiz builder remain separate tools.
 
 ## Story
 
-The page opens with the question “What can you do that AI can’t?” and moves through one connected journey: discover human strengths, research a real business, create original work, build a quiz app, and showcase the result. The product is framed as a guided studio rather than a collection of AI generators.
+The page opens with “Discover your creativity” and moves through one connected
+journey: discover strengths, research a real business, create original work,
+build a quiz app, and showcase the result. The product is framed as a guided
+studio rather than a collection of AI generators.
 
 ## Sections
 
@@ -18,8 +23,9 @@ The page opens with the question “What can you do that AI can’t?” and move
 2. Hero question and interactive compass-path visual
 3. Four-stage learning journey
 4. Student deliverables
-5. Business-partner role
-6. Final pilot call to action
+5. Embedded career, DECA, and digital-branding quizzes
+6. Business-partner role
+7. Final pilot call to action
 
 ## Visual direction
 
@@ -45,5 +51,5 @@ The page opens with the question “What can you do that AI can’t?” and move
 - Looks intentional at desktop, tablet, and mobile widths
 - Contains no invented partner endorsements, statistics, or testimonials
 - Every link and button has a working destination
-- Existing quiz pages remain unchanged
+- All three active quizzes load and score on the homepage
 - No console errors during a complete homepage scroll-through

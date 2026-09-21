@@ -1,4 +1,4 @@
-{
+window.CAREER_CANVAS_QUIZ_DATA = {
  "quizzes": [
   {
    "key": "career",
@@ -2342,4 +2342,5 @@
   "F_STARTUP": "ENT",
   "F_MONEY": "PFL"
  }
-}
+};
+window.__QUIZ_DATA__ = window.CAREER_CANVAS_QUIZ_DATA;

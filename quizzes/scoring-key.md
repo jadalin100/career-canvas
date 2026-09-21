@@ -4,16 +4,15 @@ This is the **engine spec**: how each quiz turns answers into results. It's writ
 so a person can score by hand today *and* so a website can implement it later.
 Students never see any of this.
 
-**Three quizzes: College (20 questions), Career (24), DECA Event (30).** There
-used to be a fourth, Major, but it scored almost the same set of outcomes as
-Career with mostly the same questions, so it was merged in -- Career now covers
-all 16 of the combined results. Every question has **at most 5 options** — when a
-quiz has more possible results than that, the options **rotate** instead of
-piling onto one question.
+**Three active quizzes: Career (24 questions), DECA Event (30), and Digital
+Branding (10).** The old College and Major quizzes are no longer shown on the
+website. Major was merged into Career, which now covers all 16 combined career
+results. Every question has **at most 5 options** — when a quiz has more possible
+results than that, the options **rotate** instead of piling onto one question.
 
 ---
 
-## Universal rules (all four quizzes)
+## Universal rules (all three active quizzes)
 
 **1. Point per code.** Every answer option lists a result code in `[brackets]`.
 When a student picks that option, that code gets **+1**.
@@ -29,8 +28,8 @@ and option positions must be **shuffled** so no result is always option A.
 *Why this rule exists:* the first drafts failed both tests. Marketing was tagged on
 ~19 options in the career quiz while Entrepreneur had ~8, so the most
 founder-minded student possible still scored Marketing 13 / Entrepreneur 9. And
-option A was Marketing in 19 of 20 career questions and Big State School in all 20
-college questions — answering straight down column A gave a predetermined result.
+option A was Marketing in 19 of 20 career questions — answering straight down
+column A gave a predetermined result.
 **If you add or edit a question, re-count.**
 
 **How to check:** for each result, build the most extreme student who should get it
@@ -41,16 +40,6 @@ actually land in the top 3, ideally at #1. If they can't, the quiz is broken.
 four. Don't break ties randomly.
 
 ---
-
-## Quiz — College · 20 questions, 8 results, 4 options each
-Codes: `BIG` `POWER` `STARTUP` `CITY` `TECH` `KNIT` `GLOBAL` `CREATIVE`.
-
-**Balance:** exactly **10** options each (80 slots); each vibe is option A one to
-three times. Results also carry a `schools` field — real schools **ranked inside
-the vibe** (same feel, different selectivity), not a ranking across vibes.
-Parsed from an indented `Schools:` line under the result in
-[`2-college-quiz.md`](2-college-quiz.md) — see `SCHOOLS_RE` in
-`build_quiz_data.py`.
 
 ## Quiz — Career · 24 questions, 16 results, 4 options each
 Codes: `MKT` `FIN` `ACC` `ENT` `HOS` `SALES` `HR` `CONSULT` `SEM` `ANLY` `MGT`
@@ -63,9 +52,18 @@ Manager, Business Systems/IT Analyst, Real Estate Developer) — Major and Caree
 used to be separate quizzes scoring almost the same outcomes with duplicate
 questions. Blurbs in [`3-career-quiz.md`](3-career-quiz.md).
 
-**Verify it stays reachable:** `python3 verify_balance.py` (in this folder)
-confirms every College and Career result wins its own extreme-student persona.
-Run it after any edit to either quiz's questions.
+## Quiz — Digital Branding · 10 questions, 5 results, 5 options each
+
+Codes: `STRATEGY` `VISUAL` `CONTENT` `SOCIAL` `INTERACTIVE`.
+
+**Balance:** exactly **10** options each (50 slots), with each result appearing
+once per question. The five outcomes are Brand Strategy, Visual Identity and
+Design, Content and Storytelling, Social Media and Community, and Interactive
+Experience.
+
+**Verify both preference quizzes stay reachable:** `python3 verify_balance.py`
+(in this folder) confirms every Career and Digital Branding result wins its own
+extreme-student persona. Run it after editing either quiz.
 
 ---
 

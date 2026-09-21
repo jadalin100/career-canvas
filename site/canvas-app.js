@@ -10,6 +10,7 @@
   const status = document.querySelector("#save-status");
   const toast = document.querySelector("#toast");
   let saveTimer;
+  let toastTimer;
 
   function read(key, fallback) {
     try {
@@ -31,9 +32,13 @@
   }
 
   function showToast(message) {
+    window.clearTimeout(toastTimer);
     toast.textContent = message;
     toast.classList.add("show");
-    window.setTimeout(() => toast.classList.remove("show"), 2200);
+    toastTimer = window.setTimeout(() => {
+      toast.classList.remove("show");
+      toast.textContent = "";
+    }, 2200);
   }
 
   const project = read(PROJECT_KEY, defaults);
@@ -62,6 +67,21 @@
     saveTimer = window.setTimeout(saveProject, 350);
   }
 
+  function foundationIsComplete() {
+    return fields.every((name) => form.elements[name].value.trim());
+  }
+
+  function requireFoundation() {
+    if (foundationIsComplete()) return true;
+    const firstMissing = fields.map((name) => form.elements[name]).find((input) => !input.value.trim());
+    if (firstMissing) {
+      firstMissing.reportValidity();
+      firstMissing.focus();
+    }
+    showToast("Complete the project foundation first");
+    return false;
+  }
+
   function paintProgress() {
     const done = Object.values(deliverables).filter(Boolean).length;
     const percent = done * 25;
@@ -75,6 +95,10 @@
   form.addEventListener("input", queueSave);
   document.querySelectorAll("[data-deliverable]").forEach((input) => {
     input.addEventListener("change", () => {
+      if (input.checked && !requireFoundation()) {
+        input.checked = false;
+        return;
+      }
       deliverables[input.dataset.deliverable] = input.checked;
       write(DELIVERABLES_KEY, deliverables);
       paintProgress();
@@ -83,6 +107,7 @@
   });
 
   document.querySelector("#download-summary").addEventListener("click", () => {
+    if (!requireFoundation()) return;
     saveProject();
     const title = project.name || "Untitled Career Canvas project";
     const lines = [

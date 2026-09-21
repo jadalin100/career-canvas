@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Turns the four quiz markdown files into quizzes.json for the website.
+"""Turns the three active quiz markdown files into website quiz data.
 
 The markdown in ../quizzes/ stays the single source of truth -- Jada and Olivia
 edit there, then run this to rebuild the site's data. Nothing is hand-copied.
@@ -22,23 +22,24 @@ sys.path.insert(0, str(QUIZZES))
 from verify_deca_quiz import EVENTS, FLAVOR_CLUSTER, EVENT_SLUG  # noqa: E402
 
 OUT = SITE / "quizzes.json"
+JS_OUT = SITE / "quiz-data.js"
 
 QUIZ_FILES = {
-    "college": ("2-college-quiz.md",    "College",    "What kind of college is your vibe?"),
     "career":  ("3-career-quiz.md",     "Career",     "What business career suits you?"),
     "deca":    ("4-deca-event-quiz.md", "DECA Event", "Which DECA event should you compete in?"),
+    "branding": ("2-digital-branding-quiz.md", "Digital Branding", "Which part of digital branding fits you?"),
 }
-ORDER = ["college", "career", "deca"]
+ORDER = ["career", "deca", "branding"]
 
 # expected question count per quiz -- catches an edit that silently drops or
 # duplicates a question
-EXPECTED_QUESTIONS = {"college": 20, "career": 24, "deca": 30}
+EXPECTED_QUESTIONS = {"career": 24, "deca": 30, "branding": 10}
 
 # expected per-tag counts from scoring-key.md -- drift here means a quiz got
 # unbalanced, which is exactly the bug we spent the session fixing
 EXPECTED = {
-    "college": {10},
     "career":  {6},
+    "branding": {10},
 }
 
 QUESTION_RE = re.compile(r"^\*\*(Q\d+)\.\s*(.+?)\*\*\s*$")
@@ -187,8 +188,14 @@ def main():
             print(f"  X {p}")
         return 1
 
-    OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"\nPASS: wrote {OUT.name} ({OUT.stat().st_size // 1024} KB)")
+    payload = json.dumps(data, ensure_ascii=False, indent=1)
+    OUT.write_text(payload, encoding="utf-8")
+    JS_OUT.write_text(
+        "window.CAREER_CANVAS_QUIZ_DATA = " + payload + ";\n"
+        "window.__QUIZ_DATA__ = window.CAREER_CANVAS_QUIZ_DATA;\n",
+        encoding="utf-8",
+    )
+    print(f"\nPASS: wrote {OUT.name} ({OUT.stat().st_size // 1024} KB) and {JS_OUT.name}")
     return 0
 
 

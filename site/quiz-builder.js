@@ -15,6 +15,7 @@
   const preview = document.querySelector("#preview");
   const toast = document.querySelector("#toast");
   let saveTimer;
+  let toastTimer;
 
   function esc(value) {
     return String(value).replace(/[&<>\"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;" }[character]));
@@ -33,9 +34,13 @@
   const quiz = readQuiz();
 
   function showToast(message) {
+    window.clearTimeout(toastTimer);
     toast.textContent = message;
     toast.classList.add("show");
-    window.setTimeout(() => toast.classList.remove("show"), 2200);
+    toastTimer = window.setTimeout(() => {
+      toast.classList.remove("show");
+      toast.textContent = "";
+    }, 2200);
   }
 
   function persist() {

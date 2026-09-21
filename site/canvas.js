@@ -29,20 +29,15 @@ if ("IntersectionObserver" in window && !reducedMotion) {
   revealItems.forEach((item) => item.classList.add("visible"));
 }
 
-// The seven-meeting plan is generated from the slide decks
-// (slides/build/build_meetings_json.mjs), so the site and the decks cannot drift.
+// The seven-meeting plan is generated from the slide decks. meetings-data.js
+// keeps it available when the site is opened directly from the filesystem.
 const meetingList = document.querySelector("#meeting-list");
 
 if (meetingList) {
   const escape = (value) => String(value).replace(/[&<>"]/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-  fetch("meetings.json")
-    .then((response) => {
-      if (!response.ok) throw new Error(`meetings.json: ${response.status}`);
-      return response.json();
-    })
-    .then(({ meetings }) => {
+  const renderMeetings = ({ meetings }) => {
       meetingList.innerHTML = meetings.map((m) => `
         <li class="meeting reveal">
           <div class="meeting-head">
@@ -61,9 +56,11 @@ if (meetingList) {
           <p class="meeting-sources">Sources: ${m.sources.map(escape).join(" · ")}</p>
         </li>`).join("");
       meetingList.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
-    })
-    .catch(() => {
-      meetingList.innerHTML =
-        '<li class="meeting-loading">The meeting plan could not load. Open <code>meetings.json</code> directly.</li>';
-    });
+  };
+
+  if (window.CAREER_CANVAS_MEETINGS) {
+    renderMeetings(window.CAREER_CANVAS_MEETINGS);
+  } else {
+    meetingList.innerHTML = '<li class="meeting-loading">The meeting plan is unavailable. Reload the page or contact the workshop leader.</li>';
+  }
 }

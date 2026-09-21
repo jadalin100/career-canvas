@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# Rebuilds the site and pushes the runtime files to the public
-# career-college-compass repo. index.html is now the Career Canvas program
-# homepage; the original three-quiz hub moved to quizzes.html. That repo is what
-# GitHub Pages actually serves at
-# https://jadalin100.github.io/career-college-compass/
+# Rebuilds the site and pushes the runtime files to the gh-pages branch of the
+# separate public career-canvas repo. It does not touch the earlier
+# career-college-compass project.
+# https://jadalin100.github.io/career-canvas/
 #
 # Run automatically by .git/hooks/post-commit whenever a commit on main
 # touches site/ or quizzes/. Run by hand any time with:
@@ -21,11 +20,12 @@ python3 site/build_artifact.py
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
-git clone --quiet --depth 1 https://github.com/jadalin100/career-college-compass.git "$TMP"
+git clone --quiet --depth 1 --branch gh-pages https://github.com/jadalin100/career-canvas.git "$TMP"
 cp site/index.html site/quizzes.html site/quiz.html site/studio.html \
    site/quiz-builder.html site/app.js site/style.css site/canvas.css \
-   site/canvas.js site/canvas-app.css site/canvas-app.js \
-   site/quizzes.json site/meetings.json "$TMP/"
+   site/canvas.js site/canvas-quizzes.js site/canvas-app.css site/canvas-app.js \
+   site/quiz-builder.js site/quizzes.json site/quiz-data.js \
+   site/meetings.json site/meetings-data.js "$TMP/"
 
 cd "$TMP"
 if git diff --quiet; then
@@ -34,5 +34,5 @@ if git diff --quiet; then
 fi
 git add -A
 git commit --quiet -m "Deploy: sync from career-development-deca@${SRC_COMMIT}"
-git push --quiet origin main
-echo "deploy-pages: pushed update -- https://jadalin100.github.io/career-college-compass/"
+git push --quiet origin gh-pages
+echo "deploy-pages: pushed update -- https://jadalin100.github.io/career-canvas/"

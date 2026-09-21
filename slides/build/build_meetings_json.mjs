@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 import { DECKS } from "./content.mjs";
 
 const OUT = "/Users/jada/Documents/New project 2/career-development-deca/site/meetings.json";
+const JS_OUT = "/Users/jada/Documents/New project 2/career-development-deca/site/meetings-data.js";
 
 const meetings = DECKS.map((deck, i) => {
   const cover = deck.slides.find(([l]) => l === "cover")[1];
@@ -39,5 +40,7 @@ if (meetings.some((m) => m.agenda.some((a) => !a.label))) {
   process.exit(1);
 }
 
-await fs.writeFile(OUT, `${JSON.stringify({ generated: new Date().toISOString().slice(0, 10), meetings }, null, 2)}\n`);
-console.log(`wrote meetings.json (${meetings.length} meetings, ${meetings.reduce((n, m) => n + m.agenda.length, 0)} agenda items, ${meetings.reduce((n, m) => n + m.activeMinutes, 0)} timed minutes)`);
+const payload = { generated: new Date().toISOString().slice(0, 10), meetings };
+await fs.writeFile(OUT, `${JSON.stringify(payload, null, 2)}\n`);
+await fs.writeFile(JS_OUT, `window.CAREER_CANVAS_MEETINGS = ${JSON.stringify(payload, null, 2)};\n`);
+console.log(`wrote meetings.json and meetings-data.js (${meetings.length} meetings, ${meetings.reduce((n, m) => n + m.agenda.length, 0)} agenda items, ${meetings.reduce((n, m) => n + m.activeMinutes, 0)} timed minutes)`);

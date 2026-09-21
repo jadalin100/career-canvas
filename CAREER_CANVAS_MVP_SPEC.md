@@ -33,16 +33,16 @@ The first build stays fully local with no accounts, paid APIs, or student-data c
 
 ### 4. Existing exploration quizzes
 
-- Keep the current college, career, and DECA quizzes working.
-- Rename their user-facing brand to Career Canvas.
-- Link them from the new homepage and workspace instead of rebuilding their scoring systems.
+- Keep the Career and DECA Event quizzes working.
+- Add a Digital Branding interest quiz.
+- Run all three directly inside the Career Canvas homepage.
 
 ## Main screens
 
-1. `inspo.html` — public Career Canvas homepage.
+1. `index.html` — public Career Canvas homepage and exploration quizzes.
 2. `studio.html` — project overview and four-deliverable tracker.
 3. `quiz-builder.html` — guided quiz creation and playable preview.
-4. Existing `index.html` and `quiz.html` — exploration quizzes.
+4. `quiz.html` — standalone quiz runner retained for exported/offline builds.
 
 ## Local data model
 

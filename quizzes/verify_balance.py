@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Extreme-student reachability check for the career and college quizzes
+"""Extreme-student reachability check for the career and digital-branding quizzes
 (scoring-key.md rule #3): pick a result's own tag every time it's offered,
 confirm that result lands in the top 3. The DECA quiz has its own checker,
-verify_deca_quiz.py -- this one covers the two simple +1-per-tag quizzes.
+verify_deca_quiz.py -- this one covers the simple +1-per-tag quizzes.
 
 Run after site/build_quiz_data.py:  python3 verify_balance.py
 """
@@ -34,7 +34,7 @@ def main():
         for f in failures:
             print(f"  X {f}")
         return 1
-    print("PASS: every career and college result is reachable and wins its own persona.")
+    print("PASS: every career and digital-branding result is reachable.")
     return 0
 
 

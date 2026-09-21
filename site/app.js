@@ -11,7 +11,7 @@
 --------------------------------------------------------------------------- */
 const TALLY_ENDPOINT = "";
 
-const ORDER = ["college", "career", "deca"];
+const ORDER = ["career", "deca", "branding"];
 /* Each copy needs its OWN gradient id. With a shared id the first definition
    wins, and if that one sits inside a display:none element the gradient never
    paints -- the ring silently vanishes on every other compass. */
@@ -766,7 +766,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   if (page === "hub" || page === "single") {
-    const times = { college: "~5 min", career: "~6 min", deca: "~8 min" };
+    const times = { career: "~6 min", deca: "~8 min", branding: "~4 min" };
     $("#cards").innerHTML = ORDER.map((k) => {
       const q = getQuiz(k);
       return `<a class="card" href="${quizHref(k)}">
