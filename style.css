@@ -1,0 +1,412 @@
+/* Career Canvas — theme pulled from the project cover.
+   Navy field, purple→coral gradient, compass motif. Mobile-first. */
+
+:root {
+  --navy:        #0F1235;   /* deepened ground so the glow reads */
+  --navy-deep:   #090B26;
+  --navy-card:   #1B2050;
+  --navy-card-2: #242B66;
+  --purple:      #7C5CD6;
+  --coral:       #F0764B;
+  --white:       #ffffff;
+  --muted:       #9AA2CE;   /* neutral biased toward the purple, not flat grey */
+  --line:        rgba(154, 162, 206, 0.20);
+  --grad: linear-gradient(100deg, var(--purple), var(--coral));
+  --radius: 30px;           /* stadium geometry, not rounded-lg */
+  --radius-sm: 18px;
+  --maxw: 720px;
+  /* No webfonts: the artifact CSP blocks font CDNs and a silent fallback is
+     worse than an honest system stack. Serif for display, sans for reading. */
+  --display: ui-serif, "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(900px 620px at 50% 0%, #232a63 0%, transparent 62%),
+    radial-gradient(700px 500px at 12% 30%, #2a2060 0%, transparent 60%),
+    var(--navy);
+  background-attachment: fixed;
+  color: var(--white);
+  font: 400 17px/1.5 var(--sans);
+}
+
+h1, h2, h3 {
+  line-height: 1.1; margin: 0; font-family: var(--display);
+  font-weight: 700; letter-spacing: -0.015em; text-wrap: balance;
+}
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 24px 20px 64px; }
+
+/* ---------- compass mark + brand ---------- */
+.brand { display: flex; align-items: center; gap: 12px; }
+.compass { width: 38px; height: 38px; flex: none; }
+.brand-name {
+  font-weight: 800; font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.brand-sub { color: var(--muted); font-size: 12.5px; letter-spacing: 0.06em; }
+
+/* ---------- hub ---------- */
+/* Display sections are centered (matching the reference); the quiz itself stays
+   left-aligned, because 30 screens of option lists read better ranged left. */
+.hero { padding: 64px 0 8px; text-align: center; }
+.hero .mark { display: grid; place-items: center; margin-bottom: 34px; }
+.hero .mark .compass { width: 78px; height: 78px; }
+.hero h1 {
+  font-size: clamp(38px, 8.4vw, 64px); margin: 30px 0 18px;
+  letter-spacing: -0.03em; text-wrap: balance;
+}
+.hero .grad {
+  background: var(--grad); -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+.hero p {
+  color: var(--muted); font-size: 18px; max-width: 54ch; margin: 0 auto 8px;
+  line-height: 2.1; /* room for the chips to sit without colliding */
+}
+
+.home-cta {
+  display: inline-block; width: auto; margin-top: 18px; padding-inline: 30px;
+}
+
+/* ---------- home: about + mission ---------- */
+.about-grid { display: grid; gap: 28px; margin: 56px 0; }
+.about-block h2 { font-size: 24px; margin-bottom: 12px; }
+.about-block p { color: var(--muted); font-size: 16px; line-height: 1.7; margin: 0; }
+@media (min-width: 700px) {
+  .about-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+
+.meta-row {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 56px;
+  margin: 56px 0; padding: 30px 0;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.meta-n {
+  font-family: var(--display); font-size: 44px; font-weight: 700;
+  letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1;
+}
+.meta-l { color: var(--muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; }
+
+/* the three things this site actually answers — italicized, not pill buttons */
+.hero p em { font-style: italic; color: var(--white); }
+
+/* ---------- tabs ---------- */
+.tabbar { display: flex; gap: 6px; margin: 28px 0 0; border-bottom: 1px solid var(--line); }
+.tabbar a {
+  display: inline-block; padding: 12px 18px; text-decoration: none;
+  color: var(--muted); font-size: 14px; font-weight: 700;
+  letter-spacing: .04em; border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tabbar a:hover { color: var(--white); }
+.tabbar a.active { color: var(--white); border-bottom-color: var(--coral); }
+
+.cards { display: grid; gap: 18px; }
+.card {
+  display: block; text-decoration: none; position: relative; overflow: hidden;
+  background: var(--navy-card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 28px 28px 28px 32px;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.card::before {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--grad);
+}
+.card:hover, .card:focus-visible {
+  background: var(--navy-card-2); border-color: rgba(166,173,214,.45); transform: translateY(-2px);
+}
+.card h3 { font-size: 23px; margin-bottom: 8px; letter-spacing: -0.02em; }
+.card p { color: var(--muted); font-size: 16px; margin: 0 0 16px; }
+.card .card-meta { color: var(--muted); font-size: 13px; letter-spacing: .04em; }
+.card .go { position: absolute; right: 18px; top: 20px; color: var(--muted); font-size: 20px; }
+
+/* ---------- quiz runner ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 5; backdrop-filter: blur(10px);
+  background: rgba(23, 27, 77, .86); border-bottom: 1px solid var(--line);
+}
+.topbar-in {
+  max-width: var(--maxw); margin: 0 auto; padding: 12px 20px;
+  display: flex; align-items: center; gap: 14px;
+}
+.topbar .brand-name { font-size: 12.5px; }
+/* .bar and .progress-line are spans — they must be block, or they collapse to
+   0x0 and the progress indicator silently disappears. */
+.bar {
+  display: block; height: 6px; border-radius: 99px;
+  background: rgba(255,255,255,.12); overflow: hidden;
+}
+.bar > i { display: block; height: 100%; width: 0; background: var(--grad); transition: width .3s ease; }
+.progress-line { display: block; flex: 1; min-width: 60px; }
+.count { color: var(--muted); font-size: 13px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.qhead { color: var(--muted); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin: 48px 0 14px; }
+.qtext { font-size: clamp(28px, 5.8vw, 40px); margin-bottom: 32px; }
+
+.opts { display: grid; gap: 12px; }
+.opt {
+  display: flex; align-items: center; gap: 16px; width: 100%; text-align: left;
+  min-height: 64px; padding: 16px 22px; cursor: pointer;
+  background: var(--navy-card); border: 1px solid var(--line);
+  /* not a full pill: option text wraps to two lines and a stadium shape breaks.
+     Full pills are reserved for buttons and chips, which never wrap. */
+  border-radius: var(--radius-sm);
+  transition: background .12s ease, border-color .12s ease;
+}
+.opt:hover { background: var(--navy-card-2); border-color: rgba(166,173,214,.5); }
+.opt:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
+.opt[aria-pressed="true"] { background: var(--grad); border-color: transparent; }
+.opt[aria-pressed="true"] .key { background: rgba(255,255,255,.25); border-color: transparent; }
+.key {
+  flex: none; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
+  border: 1px solid var(--line); font-size: 14px; font-weight: 700; color: var(--white);
+}
+.opt-text { font-size: 16px; }
+
+.below {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 14px; margin-top: 22px;
+}
+.below-left { display: flex; align-items: center; gap: 4px; }
+.below .btn.primary { width: auto; padding-inline: 26px; }
+.below .btn.primary[disabled] { opacity: .4; pointer-events: none; box-shadow: none; }
+.linkbtn {
+  background: none; border: 0; color: var(--muted); cursor: pointer;
+  text-decoration: underline; text-underline-offset: 4px; padding: 10px 4px; font-size: 15px;
+}
+.linkbtn:hover { color: var(--white); }
+.linkbtn[disabled] { opacity: .35; cursor: default; text-decoration: none; }
+
+/* ---------- results ---------- */
+.res-head { text-align: center; padding: 44px 0 8px; }
+.res-head h1 { font-size: clamp(34px, 7vw, 50px); margin: 20px 0 10px; }
+.res-head p { color: var(--muted); margin: 0; }
+
+.res { display: grid; gap: 16px; margin: 34px 0; }
+.res-card {
+  position: relative; background: var(--navy-card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 26px 28px 26px 74px;
+}
+.res-card.top {
+  background: linear-gradient(150deg, #2C2A6E, #3E3161);
+  border-color: rgba(240,118,75,.45);
+  box-shadow: 0 30px 70px -34px rgba(240,118,75,.6);
+}
+.rank {
+  position: absolute; left: 24px; top: 27px; width: 34px; height: 34px; border-radius: 999px;
+  display: grid; place-items: center; font-weight: 800; font-size: 15px; background: var(--grad);
+}
+.res-card h3 { font-size: 22px; margin-bottom: 8px; }
+.res-card p { color: var(--muted); font-size: 15px; margin: 0; }
+.res-card .schools { font-size: 13.5px; margin-top: 10px; line-height: 1.7; }
+.res-card .score { color: var(--muted); font-size: 12.5px; margin-top: 10px; letter-spacing: .04em; }
+.event-link {
+  display: inline-block; margin-top: 12px; color: var(--white); font-size: 13.5px;
+  font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.4);
+}
+.event-link:hover { border-color: var(--white); }
+
+.actions { display: grid; gap: 10px; margin-top: 26px; }
+.btn {
+  display: block; width: 100%; text-align: center; text-decoration: none; cursor: pointer;
+  padding: 17px 18px; border-radius: 999px; font-weight: 700; font-size: 16px;
+  background: var(--navy-card); border: 1px solid var(--line);
+}
+.btn:hover { background: var(--navy-card-2); }
+.btn.primary {
+  background: var(--grad); border-color: transparent;
+  box-shadow: 0 14px 40px -12px rgba(240, 118, 75, .55);
+}
+.btn.primary:hover { filter: brightness(1.07); }
+
+.full { margin-top: 22px; border-top: 1px solid var(--line); padding-top: 16px; }
+.full summary { cursor: pointer; color: var(--muted); padding: 8px 0; }
+.full summary:hover { color: var(--white); }
+.rank-row {
+  display: flex; justify-content: space-between; gap: 14px; padding: 9px 0;
+  border-bottom: 1px solid rgba(166,173,214,.12); font-size: 15px;
+}
+.rank-row span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- dashboard (and the Group tab, which reuses .dash) ---------- */
+.dash { margin-top: 32px; }
+.dash-head { text-align: center; margin-bottom: 28px; }
+.dash-head h2 { font-size: clamp(28px, 5.4vw, 38px); }
+.dash-head p { color: var(--muted); margin: 8px 0 0; font-size: 14px;
+               letter-spacing: .08em; text-transform: uppercase; }
+
+.dash-body { display: grid; gap: 14px; }
+.dash-code-box + .dash-body { margin-top: 22px; }
+.dash-history { margin-top: 10px; }
+.dash-history summary { color: var(--muted); font-size: 13.5px; cursor: pointer; }
+.dash-history summary:hover { color: var(--white); }
+.dash-old { color: var(--muted); font-size: 13.5px; padding: 6px 0; }
+.dash-old span { font-variant-numeric: tabular-nums; margin-right: 10px; }
+.dash-row {
+  position: relative; background: var(--navy-card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 22px 26px;
+}
+.dash-row.empty { opacity: .62; }
+.dash-row h3 { font-size: 19px; margin-bottom: 10px; }
+.dash-row p { color: var(--muted); margin: 0; font-size: 15px; }
+.dash-picks { margin: 0; padding-left: 20px; color: var(--muted); font-size: 15px; }
+.dash-picks li { padding: 3px 0; }
+.dash-picks li:first-child { color: var(--white); font-weight: 600; }
+.dash-go {
+  display: inline-block; margin-top: 12px; color: var(--muted);
+  font-size: 14px; text-decoration: none; border-bottom: 1px solid var(--line);
+}
+.dash-go:hover { color: var(--white); }
+
+.dash-code-box {
+  margin-top: 22px; padding: 26px; border-radius: var(--radius);
+  background: rgba(255,255,255,.04); border: 1px solid var(--line);
+}
+.dash-label { margin: 0 0 6px; font-size: 12px; letter-spacing: .12em;
+              text-transform: uppercase; color: var(--muted); }
+.dash-hint { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; max-width: 52ch; }
+.dash-code-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+#dash-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 20px; letter-spacing: .14em; padding: 12px 20px; border-radius: 999px;
+  background: var(--grad); color: #fff; white-space: nowrap;
+}
+.dash-restore { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
+.dash-restore label { display: block; color: var(--muted); font-size: 14.5px; margin-bottom: 10px; }
+#dash-input, #group-input {
+  flex: 1; min-width: 190px; padding: 14px 20px; border-radius: 999px;
+  background: var(--navy); border: 1px solid var(--line); color: var(--white);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 16px; letter-spacing: .08em;
+}
+#dash-input:focus-visible, #group-input:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
+.dash-restore .btn { width: auto; padding-inline: 30px; }
+.dash-msg { color: var(--muted); font-size: 14px; margin: 12px 0 0; min-height: 1.2em; }
+
+/* ---------- group compare ---------- */
+.group-block { margin-bottom: 30px; }
+.group-block h3 { font-size: 17px; margin-bottom: 14px; }
+.group-row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 12px; align-items: center; padding: 6px 0; }
+.group-label { font-size: 14px; color: var(--muted); }
+.group-row.mine .group-label { color: var(--white); font-weight: 700; }
+.group-bar { display: block; height: 10px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
+.group-bar i { display: block; height: 100%; background: var(--grad); }
+.group-n { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; text-align: right; }
+
+.foot { color: var(--muted); font-size: 13px; text-align: center; margin-top: 34px; }
+.foot a { color: var(--muted); }
+
+/* ---------- desktop: CareerExplorer-style side rail ---------- */
+@media (min-width: 900px) {
+  .runner { display: grid; grid-template-columns: 1fr 280px; gap: 40px;
+            max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .rail { border-left: 1px solid var(--line); padding: 40px 0 40px 28px; }
+  .rail ol { list-style: none; margin: 0; padding: 0; }
+  .rail li { position: relative; padding: 0 0 30px 24px; color: var(--muted); font-size: 13px;
+             letter-spacing: .08em; text-transform: uppercase; }
+  .rail li::before {
+    content: ""; position: absolute; left: -6px; top: 4px; width: 11px; height: 11px;
+    border-radius: 50%; border: 2px solid var(--line); background: var(--navy);
+  }
+  .rail li.done::before, .rail li.now::before { background: var(--grad); border-color: transparent; }
+  .rail li.now { color: var(--white); font-weight: 700; }
+  .rail li:not(:last-child)::after {
+    content: ""; position: absolute; left: 0; top: 17px; bottom: 4px; width: 1px; background: var(--line);
+  }
+  .topbar .rail-hide { display: none; }
+}
+@media (max-width: 899px) { .rail { display: none; } }
+
+/* ---------- print (Save as PDF) ---------- */
+@media print {
+  .topbar, .rail, .tabbar, .actions, .below, .cursor-ring, .cursor-dot,
+  .foot, #dashboard, #group { display: none !important; }
+  body { background: #fff !important; color: #111 !important; }
+  .res-head, .res-head p, .full summary { color: #111 !important; }
+  .res-card { background: #fff !important; border: 1px solid #ccc !important;
+              box-shadow: none !important; break-inside: avoid; }
+  .res-card.top { background: #f6f4ff !important; }
+  .res-card p, .res-card .score, .schools { color: #444 !important; }
+  .event-link { color: #111 !important; }
+}
+
+/* ---------- motion ---------- */
+
+/* The native arrow stays visible until initCursor() turns it off (desktop,
+   motion allowed) and swaps in the trailing ring -- see .custom-cursor below.
+   A typing cursor stays on text inputs either way. */
+.custom-cursor, .custom-cursor * { cursor: none !important; }
+.custom-cursor input, .custom-cursor textarea { cursor: text !important; }
+
+.cursor-ring {
+  position: fixed; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%;
+  border: 2px solid transparent;
+  background: var(--grad) border-box;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none; z-index: 9999; opacity: 0;
+  transition: opacity .3s ease, width .18s ease, height .18s ease;
+  will-change: transform;
+}
+.cursor-ring.big { width: 58px; height: 58px; }
+.cursor-dot {
+  position: fixed; left: 0; top: 0; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--coral); pointer-events: none; z-index: 9999; opacity: 0;
+  transition: opacity .3s ease; will-change: transform;
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pop  { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+
+/* Entrance animations start at opacity 0, so they are scoped to
+   no-preference. Anything that stops them running -- reduced motion, an old
+   browser, a paused tab -- leaves the content plainly visible instead of
+   blank. Visible is the default; motion is the enhancement. */
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise .55s cubic-bezier(.22,.8,.3,1) both; }
+
+  /* staggered entrances -- each list reveals in reading order */
+  .cards .card, .opts .opt, .res .res-card, .actions .btn {
+    animation: rise .5s cubic-bezier(.22,.8,.3,1) both;
+  }
+  .cards .card:nth-child(1), .opts .opt:nth-child(1), .res .res-card:nth-child(1), .actions .btn:nth-child(1) { animation-delay: .04s; }
+  .cards .card:nth-child(2), .opts .opt:nth-child(2), .res .res-card:nth-child(2), .actions .btn:nth-child(2) { animation-delay: .10s; }
+  .cards .card:nth-child(3), .opts .opt:nth-child(3), .res .res-card:nth-child(3), .actions .btn:nth-child(3) { animation-delay: .16s; }
+  .cards .card:nth-child(4), .opts .opt:nth-child(4), .actions .btn:nth-child(4) { animation-delay: .22s; }
+  .opts .opt:nth-child(5) { animation-delay: .28s; }
+
+  .qhead, .qtext { animation: rise .5s cubic-bezier(.22,.8,.3,1) both; }
+  .qtext { animation-delay: .06s; }
+  .res-head { animation: pop .6s cubic-bezier(.22,.8,.3,1) both; }
+
+  /* the compass turns like a real one */
+  .hero .mark .compass { animation: spin 26s linear infinite; }
+  .res-head .compass { animation: spin 1.4s cubic-bezier(.3,.9,.25,1) 1; }
+}
+
+.brand .compass { transition: transform .6s cubic-bezier(.22,.8,.3,1); }
+.brand:hover .compass { transform: rotate(180deg); }
+
+.card, .opt, .btn { transition: transform .16s ease, background .14s ease, border-color .14s ease, box-shadow .16s ease; }
+.btn:hover { transform: translateY(-2px); }
+.opt:hover { transform: translateX(3px); }
+
+/* Motion is decoration here -- when it's turned off, everything must still be
+   fully visible and usable, so animations are cancelled rather than slowed. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .cursor-ring, .cursor-dot { display: none !important; }
+}
