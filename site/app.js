@@ -1,4 +1,4 @@
-/* Career & College Compass — quiz runner + scoring.
+/* Career Canvas — quiz runner + scoring.
    Scoring here must match ../quizzes/scoring-key.md exactly. The 29-event table
    comes from quizzes.json, which build_quiz_data.py generates from the same
    Python source the checker uses, so the two can't drift. */
@@ -129,7 +129,7 @@ function startRunner(key) {
   const main = $("#main");
   const bar = $("#bar > i");
   const count = $("#count");
-  document.title = `${quiz.title} Quiz — Career & College Compass`;
+  document.title = `${quiz.title} Quiz — Career Canvas`;
 
   // Only the DECA quiz has real parts. The other three are one long section, so
   // their rail tracks thirds of the way through instead of sitting on stage 1.
@@ -264,7 +264,7 @@ function renderResults(quiz, answers, main, bar, count) {
         <div class="rank-row"><span>${i + 1}. ${esc(r.name)}</span><span>${r.score}</span></div>`).join("")}
     </details>
     ${isDeca ? `<p class="foot"><a href="${DECA_GUIDE_URL}" target="_blank" rel="noopener">Full DECA Guide (all events, current year) &rarr;</a></p>` : ""}
-    <p class="foot">Career &amp; College Compass — Jada Lin &amp; Olivia Zheng</p>`;
+    <p class="foot">Career Canvas — Jada Lin &amp; Olivia Zheng</p>`;
 
   saveResult(quiz.key, top.map((r) => r.code));
   $("#save").addEventListener("click", () => window.print());

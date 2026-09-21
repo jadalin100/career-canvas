@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Build and preview a student-created quiz with Career Canvas.">
+  <title>Quiz Builder — Career Canvas</title>
+  <link rel="stylesheet" href="canvas-app.css?v=1">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="brand" href="inspo.html" aria-label="Career Canvas home">
+        <span class="brand-mark" aria-hidden="true"><span class="brand-ring"></span><span class="brand-needle"></span></span>
+        <span class="brand-copy"><small>Career</small><strong>Canvas</strong></span>
+      </a>
+      <nav class="app-nav" aria-label="Workspace navigation">
+        <a href="studio.html">Project studio</a>
+        <a href="quiz-builder.html" aria-current="page">Quiz builder</a>
+        <a href="index.html#quizzes">Explore careers</a>
+      </nav>
+      <a class="header-action" href="studio.html">Back to project</a>
+    </header>
+
+    <main class="app-main">
+      <section class="page-intro">
+        <div>
+          <p class="eyebrow">Guided quiz builder</p>
+          <h1>Turn your research into a quiz people can play.</h1>
+        </div>
+        <p>Write the questions, choose the correct answers, test the experience, and download a standalone quiz—without coding.</p>
+      </section>
+      <p class="status-line" id="save-status" role="status" aria-live="polite"></p>
+
+      <div class="builder-layout">
+        <div>
+          <section class="panel" aria-labelledby="quiz-details-heading">
+            <div class="panel-head">
+              <div><h2 id="quiz-details-heading">Quiz details</h2><p>Tell players what they are about to learn.</p></div>
+              <span class="step-tag">Step 1</span>
+            </div>
+            <form id="quiz-details" class="form-grid">
+              <div class="field full"><label for="quiz-title">Quiz title</label><input id="quiz-title" name="title" maxlength="90" placeholder="Example: How Well Do You Know Our Local Café?"></div>
+              <div class="field"><label for="quiz-audience">Audience</label><input id="quiz-audience" name="audience" maxlength="80" placeholder="Example: middle-school students"></div>
+              <div class="field"><label for="quiz-business">Business or topic</label><input id="quiz-business" name="business" maxlength="100" placeholder="Example: Harbor Café"></div>
+              <div class="field full"><label for="quiz-intro">Short introduction</label><textarea id="quiz-intro" name="intro" maxlength="300" placeholder="What will someone learn by taking this quiz?"></textarea></div>
+            </form>
+          </section>
+
+          <section class="panel" style="margin-top:22px" aria-labelledby="questions-heading">
+            <div class="panel-head">
+              <div><h2 id="questions-heading">Questions</h2><p>Each question needs four choices and one correct answer.</p></div>
+              <span class="step-tag">Step 2</span>
+            </div>
+            <div id="question-list" class="question-list"></div>
+            <div class="actions"><button class="btn blue" id="add-question" type="button">Add question <span aria-hidden="true">+</span></button></div>
+          </section>
+
+          <section class="preview" id="preview" hidden aria-labelledby="preview-title"></section>
+        </div>
+
+        <aside class="builder-sidebar">
+          <section class="mini-summary" aria-labelledby="build-summary-heading">
+            <p class="eyebrow" style="color:var(--yellow)">Your build</p>
+            <h2 id="build-summary-heading">Quiz checklist</h2>
+            <ul class="summary-list">
+              <li><span>Quiz title</span><strong id="summary-title">Missing</strong></li>
+              <li><span>Questions</span><strong id="summary-count">1</strong></li>
+              <li><span>Complete</span><strong id="summary-complete">0 / 1</strong></li>
+            </ul>
+            <div class="actions">
+              <button class="btn primary" id="preview-quiz" type="button">Preview and play</button>
+              <button class="btn" id="export-quiz" type="button">Download quiz</button>
+            </div>
+          </section>
+          <p class="field-help" style="padding:15px 4px">Your quiz is saved only in this browser. Downloading creates one HTML file you can open or share.</p>
+        </aside>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="quiz-builder.js?v=1"></script>
+</body>
+</html>

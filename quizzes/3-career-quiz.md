@@ -1,6 +1,6 @@
 # Quiz — "What Business Career Suits You?"
 
-*Career & College Compass · a Futurepreneurs quiz for middle schoolers*
+*Career Canvas · a Futurepreneurs quiz for middle schoolers*
 
 **How it works:** Imagine yourself at work in fifteen years. Pick the answer
 that feels most like you. 24 questions. At the end you'll get **your top 3

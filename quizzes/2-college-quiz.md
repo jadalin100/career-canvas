@@ -1,6 +1,6 @@
 # Quiz — "What Kind of College Is Your Vibe?"
 
-*Career & College Compass · a Futurepreneurs quiz for middle schoolers*
+*Career Canvas · a Futurepreneurs quiz for middle schoolers*
 
 **How it works:** This isn't about grades or getting in — it's about the *feel*
 of a place you'd love. Pick what sounds most like you. 20 questions. At the end

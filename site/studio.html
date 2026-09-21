@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plan and track a Career Canvas student project.">
+  <title>Project Studio — Career Canvas</title>
+  <link rel="stylesheet" href="canvas-app.css?v=1">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="brand" href="inspo.html" aria-label="Career Canvas home">
+        <span class="brand-mark" aria-hidden="true"><span class="brand-ring"></span><span class="brand-needle"></span></span>
+        <span class="brand-copy"><small>Career</small><strong>Canvas</strong></span>
+      </a>
+      <nav class="app-nav" aria-label="Workspace navigation">
+        <a href="studio.html" aria-current="page">Project studio</a>
+        <a href="quiz-builder.html">Quiz builder</a>
+        <a href="index.html#quizzes">Explore careers</a>
+      </nav>
+      <a class="header-action" href="inspo.html">View homepage</a>
+    </header>
+
+    <main class="app-main">
+      <section class="page-intro">
+        <div>
+          <p class="eyebrow">Student workspace</p>
+          <h1>Shape your idea into something real.</h1>
+        </div>
+        <p>Plan one project, track the four pieces, and keep everything on this device. Your work saves automatically—no account needed.</p>
+      </section>
+      <p class="status-line" id="save-status" role="status" aria-live="polite"></p>
+
+      <div class="project-grid">
+        <section class="panel" aria-labelledby="project-title-heading">
+          <div class="panel-head">
+            <div><h2 id="project-title-heading">Project foundation</h2><p>Write the clearest version you have today. You can revise it anytime.</p></div>
+            <span class="step-tag">Start here</span>
+          </div>
+          <form id="project-form" class="form-grid">
+            <div class="field full">
+              <label for="project-name">Project name</label>
+              <input id="project-name" name="name" maxlength="80" placeholder="Example: The Neighborhood Café Challenge">
+            </div>
+            <div class="field">
+              <label for="business">Local business</label>
+              <input id="business" name="business" maxlength="100" placeholder="Business or organization">
+            </div>
+            <div class="field">
+              <label for="audience">Who are you helping?</label>
+              <input id="audience" name="audience" maxlength="100" placeholder="Students, customers, families…">
+            </div>
+            <div class="field full">
+              <label for="problem">Problem worth solving</label>
+              <textarea id="problem" name="problem" maxlength="500" placeholder="What does this audience need, notice, or struggle with?"></textarea>
+            </div>
+            <div class="field full">
+              <label for="idea">Your idea</label>
+              <textarea id="idea" name="idea" maxlength="500" placeholder="How could your research, ad, and quiz help?"></textarea>
+            </div>
+          </form>
+        </section>
+
+        <aside class="panel progress-card" aria-labelledby="progress-heading">
+          <div class="panel-head"><div><h2 id="progress-heading">Your progress</h2><p>Each completed piece moves your canvas forward.</p></div></div>
+          <div class="progress-ring" id="progress-ring"><strong id="progress-value">0%</strong></div>
+          <p class="progress-copy" id="progress-copy">Start with the business paper, then let the research guide what you create.</p>
+          <div class="quick-links">
+            <a href="quiz-builder.html"><span>Build your quiz</span><span aria-hidden="true">→</span></a>
+            <a href="index.html#quizzes"><span>Explore career quizzes</span><span aria-hidden="true">→</span></a>
+          </div>
+        </aside>
+      </div>
+
+      <section class="panel deliverables" aria-labelledby="deliverables-heading">
+        <div class="panel-head">
+          <div><h2 id="deliverables-heading">Your four-piece project</h2><p>The paper is the research foundation. The other pieces turn that research into experiences people can use.</p></div>
+          <span class="step-tag">Project kit</span>
+        </div>
+        <div class="deliverable-grid">
+          <article class="deliverable"><span class="deliverable-number">01</span><h3>Business paper</h3><p>Explain the business, audience, problem, evidence, and your recommendation.</p><label class="check-row"><input type="checkbox" data-deliverable="paper"> Complete</label></article>
+          <article class="deliverable"><span class="deliverable-number">02</span><h3>Original ad</h3><p>Create one focused message and visual for the audience you researched.</p><label class="check-row"><input type="checkbox" data-deliverable="ad"> Complete</label></article>
+          <article class="deliverable"><span class="deliverable-number">03</span><h3>Playable quiz</h3><p>Turn key ideas from your research into an interactive learning experience.</p><label class="check-row"><input type="checkbox" data-deliverable="quiz"> Complete</label></article>
+          <article class="deliverable"><span class="deliverable-number">04</span><h3>Digital portfolio</h3><p>Show the finished work, feedback, revisions, and skills you practiced.</p><label class="check-row"><input type="checkbox" data-deliverable="portfolio"> Complete</label></article>
+        </div>
+        <div class="actions">
+          <a class="btn blue" href="quiz-builder.html">Open quiz builder <span aria-hidden="true">→</span></a>
+          <button class="btn" id="download-summary" type="button">Download project summary</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="canvas-app.js?v=1"></script>
+</body>
+</html>

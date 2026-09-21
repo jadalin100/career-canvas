@@ -1,6 +1,6 @@
 # Quiz 4 — "Which DECA Event Should You Compete In?"
 
-*Career & College Compass · a Futurepreneurs quiz for middle schoolers*
+*Career Canvas · a Futurepreneurs quiz for middle schoolers*
 *Questions Q1–Q5 written by Olivia; rest by Jada.*
 
 **How it works:** DECA has 29 role-play events. This quiz scores **all 29

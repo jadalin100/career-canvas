@@ -1,5 +1,5 @@
 /**
- * Group compare backend for the Career & College Compass quizzes.
+ * Group compare backend for the Career Canvas quizzes.
  *
  * Deploy as a Google Apps Script bound to a Google Sheet, then paste the
  * deployed web-app URL into GROUP_ENDPOINT near the top of site/app.js.

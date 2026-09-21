@@ -1,4 +1,4 @@
-# Scoring Key — Career & College Compass Quizzes
+# Scoring Key — Career Canvas Quizzes
 
 This is the **engine spec**: how each quiz turns answers into results. It's written
 so a person can score by hand today *and* so a website can implement it later.
