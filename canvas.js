@@ -44,14 +44,10 @@ if (meetingList) {
             <span class="meeting-number">${String(m.number).padStart(2, "0")}</span>
             <div>
               <h3>${escape(m.title)}</h3>
-              <p>${escape(m.summary)}</p>
             </div>
-            <span class="meeting-count">${m.activeMinutes} min of activity<br>${m.slideCount} slides</span>
           </div>
           <ul class="meeting-agenda">
-            ${m.agenda.map((a) => `<li${a.minutes ? ' class="timed"' : ""}>${
-              a.minutes ? `<span class="agenda-time">${a.minutes} min</span>` : ""
-            }${escape(a.label)}</li>`).join("")}
+            ${m.agenda.map((a) => `<li>${escape(a.label)}</li>`).join("")}
           </ul>
           <p class="meeting-sources">Sources: ${m.sources.map(escape).join(" · ")}</p>
         </li>`).join("");

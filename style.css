@@ -1,16 +1,17 @@
-/* Career Canvas — theme pulled from the project cover.
-   Navy field, purple→coral gradient, compass motif. Mobile-first. */
+/* Career Canvas palette: midnight blue, dusty blue, ivory, deep navy, buttercream. */
 
 :root {
-  --navy:        #0F1235;   /* deepened ground so the glow reads */
-  --navy-deep:   #090B26;
-  --navy-card:   #1B2050;
-  --navy-card-2: #242B66;
-  --purple:      #7C5CD6;
-  --coral:       #F0764B;
+  --navy:        #1C2E4A;
+  --navy-deep:   #0F1A2B;
+  --navy-card:   #283D58;
+  --navy-card-2: #52677D;
+  --blue:        #52677D;
+  --ice:         #BDC4D4;
+  --purple:      #BDC4D4;
+  --coral:       #D1CFC9;
   --white:       #ffffff;
-  --muted:       #9AA2CE;   /* neutral biased toward the purple, not flat grey */
-  --line:        rgba(154, 162, 206, 0.20);
+  --muted:       #BDC4D4;
+  --line:        rgba(189, 196, 212, 0.28);
   --grad: linear-gradient(100deg, var(--purple), var(--coral));
   --radius: 30px;           /* stadium geometry, not rounded-lg */
   --radius-sm: 18px;
@@ -30,8 +31,8 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(900px 620px at 50% 0%, #232a63 0%, transparent 62%),
-    radial-gradient(700px 500px at 12% 30%, #2a2060 0%, transparent 60%),
+    radial-gradient(900px 620px at 50% 0%, #52677d 0%, transparent 62%),
+    radial-gradient(700px 500px at 12% 30%, #1c2e4a 0%, transparent 60%),
     var(--navy);
   background-attachment: fixed;
   color: var(--white);
@@ -164,7 +165,7 @@ button { font: inherit; color: inherit; }
 }
 .opt:hover { background: var(--navy-card-2); border-color: rgba(166,173,214,.5); }
 .opt:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
-.opt[aria-pressed="true"] { background: var(--grad); border-color: transparent; }
+.opt[aria-pressed="true"] { background: var(--blue); border-color: var(--ice); }
 .opt[aria-pressed="true"] .key { background: rgba(255,255,255,.25); border-color: transparent; }
 .key {
   flex: none; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
@@ -197,13 +198,13 @@ button { font: inherit; color: inherit; }
   border-radius: var(--radius); padding: 26px 28px 26px 74px;
 }
 .res-card.top {
-  background: linear-gradient(150deg, #2C2A6E, #3E3161);
-  border-color: rgba(240,118,75,.45);
-  box-shadow: 0 30px 70px -34px rgba(240,118,75,.6);
+  background: linear-gradient(150deg, #1C2E4A, #52677D);
+  border-color: rgba(189,196,212,.45);
+  box-shadow: 0 30px 70px -34px rgba(15,26,43,.4);
 }
 .rank {
   position: absolute; left: 24px; top: 27px; width: 34px; height: 34px; border-radius: 999px;
-  display: grid; place-items: center; font-weight: 800; font-size: 15px; background: var(--grad);
+  display: grid; place-items: center; font-weight: 800; font-size: 15px; background: var(--navy-deep);
 }
 .res-card h3 { font-size: 22px; margin-bottom: 8px; }
 .res-card p { color: var(--muted); font-size: 15px; margin: 0; }
@@ -223,8 +224,8 @@ button { font: inherit; color: inherit; }
 }
 .btn:hover { background: var(--navy-card-2); }
 .btn.primary {
-  background: var(--grad); border-color: transparent;
-  box-shadow: 0 14px 40px -12px rgba(240, 118, 75, .55);
+  background: var(--ice); color: var(--navy-deep); border-color: transparent;
+  box-shadow: 0 14px 40px -12px rgba(15,26,43,.35);
 }
 .btn.primary:hover { filter: brightness(1.07); }
 
@@ -278,7 +279,7 @@ button { font: inherit; color: inherit; }
 #dash-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 20px; letter-spacing: .14em; padding: 12px 20px; border-radius: 999px;
-  background: var(--grad); color: #fff; white-space: nowrap;
+  background: var(--ice); color: var(--navy-deep); white-space: nowrap;
 }
 .dash-restore { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
 .dash-restore label { display: block; color: var(--muted); font-size: 14.5px; margin-bottom: 10px; }
@@ -334,7 +335,7 @@ button { font: inherit; color: inherit; }
   .res-head, .res-head p, .full summary { color: #111 !important; }
   .res-card { background: #fff !important; border: 1px solid #ccc !important;
               box-shadow: none !important; break-inside: avoid; }
-  .res-card.top { background: #f6f4ff !important; }
+  .res-card.top { background: #d1cfc9 !important; }
   .res-card p, .res-card .score, .schools { color: #444 !important; }
   .event-link { color: #111 !important; }
 }
