@@ -1,0 +1,11 @@
+.DS_Store
+# Slide build scratch and the runtime symlink; the .mjs sources are tracked.
+slides/.build/
+slides/.codex-finalizer/
+slides/build/node_modules
+slides/rendered/
+slides/rendered-v2/
+# Superseded Meeting 1 builds and the pre-activity-rewrite content, kept locally only.
+slides/output/Career_Canvas_Meeting_1_Creativity_Across_Business*.pptx
+slides/build/content_v1_teaching.mjs.bak
+slides/build/build_creativity_deck.mjs

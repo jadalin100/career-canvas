@@ -1,115 +1,220 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Career Canvas — Find your path</title>
-<meta name="description" content="Three quizzes to help you discover your college vibe, career, and DECA event.">
-<!-- bump ?v= after editing style.css or app.js so browsers don't serve a stale copy -->
-<link rel="stylesheet" href="style.css?v=15">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Career Canvas helps middle-school students turn their interests into real business, creative, and technology projects.">
+  <title>Career Canvas — Discover your creativity</title>
+  <link rel="stylesheet" href="canvas.css?v=4">
 </head>
-<body data-page="hub">
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<div class="wrap" id="hub">
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Career Canvas home">
+      <span class="brand-mark" aria-hidden="true">
+        <span class="brand-ring"></span>
+        <span class="brand-needle"></span>
+      </span>
+      <span class="brand-copy">
+        <strong>Career</strong>
+        <span>Canvas</span>
+      </span>
+    </a>
 
-  <header class="brand">
-    <span data-compass></span>
-    <span>
-      <span class="brand-name">Career Canvas</span><br>
-      <span class="brand-sub">Jada Lin &amp; Olivia Zheng · Great Neck South</span>
-    </span>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#journey">The journey</a>
+      <a href="#outcomes">What you’ll make</a>
+      <a href="#meetings">The meetings</a>
+      <a href="quizzes.html">Career quizzes</a>
+      <a href="#partners">For businesses</a>
+    </nav>
+
+    <a class="nav-cta" href="studio.html">Open the studio <span aria-hidden="true">↗</span></a>
   </header>
 
-  <nav class="tabbar" aria-label="Sections">
-    <a href="#home" data-tab="home">Home</a>
-    <a href="#quizzes" data-tab="quizzes">Quizzes</a>
-    <a href="#dashboard" data-tab="dashboard">Dashboard</a>
-    <a href="#group" data-tab="group">Group</a>
-  </nav>
-
-  <section id="tab-home">
-    <section class="hero">
-      <div class="mark" data-compass></div>
-      <h1>Career<br><span class="grad">Canvas.</span></h1>
-      <p>Real tools for figuring out what business path actually fits you —
-         built by two DECA students, for students.</p>
-      <a class="btn primary home-cta" href="#quizzes">Take the quizzes &rarr;</a>
-    </section>
-
-    <div class="about-grid">
-      <div class="about-block">
-        <h2>Who we are</h2>
-        <p>We're Jada Lin and Olivia Zheng, two DECA students at Great Neck
-           South. This site started as our DECA Career Development Project —
-           most "career exploration" for business students is a 20-minute
-           assembly or a worksheet nobody reads twice, so we built something
-           people would actually use.</p>
-      </div>
-      <div class="about-block">
-        <h2>What we're trying to do</h2>
-        <p>Give students a real way into business careers: what a marketing
-           job actually looks like day to day, which college environments fit
-           different personalities, and which DECA event matches how you
-           think. Right now that's three quizzes — more tools are coming as
-           we build them.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="tab-quizzes" hidden>
-    <section class="hero">
-      <div class="mark" data-compass></div>
-      <h1>Find out where<br><span class="grad">you're headed.</span></h1>
-      <p>Three quick quizzes to help you explore your <em>college vibe</em>,
-         your <em>career</em>, and the <em>DECA event</em> that fits you best.</p>
-    </section>
-
-    <div class="meta-row">
-      <div><div class="meta-n">3</div><div class="meta-l">Quizzes</div></div>
-      <div><div class="meta-n">20–30</div><div class="meta-l">Questions each</div></div>
-      <div><div class="meta-n">53</div><div class="meta-l">Possible results</div></div>
-    </div>
-
-    <main id="cards" class="cards"></main>
-  </section>
-
-  <section id="dashboard" class="dash" hidden>
-    <div class="dash-head">
-      <h2>Your dashboard</h2>
-      <p id="dash-count"></p>
-    </div>
-
-    <div class="dash-code-box">
-      <p class="dash-label">Your restore code</p>
-      <p class="dash-hint">Write this down. Typing it on another phone or laptop brings your
-         results with you — no account needed.</p>
-      <div class="dash-code-row">
-        <code id="dash-code"></code>
-        <button class="linkbtn" id="dash-copy" type="button">Copy code</button>
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> A hands-on program for middle school students</p>
+        <h1>Discover your creativity</h1>
+        <p class="hero-note">Designed by Jada Lin &amp; Olivia Zheng. Great Neck South.</p>
       </div>
 
-      <form id="dash-restore" class="dash-restore">
-        <label for="dash-input">Have a code from another device?</label>
-        <div class="dash-code-row">
-          <input id="dash-input" type="text" inputmode="latin" autocomplete="off"
-                 spellcheck="false" placeholder="e.g. 7K2Q-M39X-B4RT">
-          <button class="btn" type="submit">Restore</button>
+      <div class="hero-visual" aria-label="A preview of the Career Canvas learning journey">
+        <div class="visual-card" id="visual-card">
+          <div class="visual-topline">
+            <span>YOUR COMPASS</span>
+            <span>01 / 04</span>
+          </div>
+          <div class="career-screen" aria-hidden="true">
+            <div class="screen-bar"><i></i><i></i><i></i></div>
+            <div class="profile-row">
+              <div class="profile-card profile-one"><span class="avatar"></span><i></i><i></i></div>
+              <div class="profile-card profile-two"><span class="avatar"></span><i></i><i></i></div>
+              <div class="profile-card profile-three"><span class="avatar"></span><i></i><i></i></div>
+            </div>
+            <div class="magnifier"><span></span></div>
+          </div>
+          <div class="visual-question">
+            <span>Today’s prompt</span>
+            <strong>What problem would you solve<br>for a real local business?</strong>
+          </div>
+          <div class="route-mini" aria-hidden="true">
+            <i class="active"></i><i></i><i></i><i></i>
+          </div>
         </div>
-        <p id="dash-msg" class="dash-msg" role="status" aria-live="polite"></p>
-      </form>
-    </div>
+        <span class="float-tag tag-research">Research</span>
+        <span class="float-tag tag-build">Build</span>
+        <span class="float-tag tag-show">Showcase</span>
+      </div>
+    </section>
 
-    <div id="dash-body" class="dash-body"></div>
-  </section>
+    <section class="manifesto" aria-label="Program promise">
+      <p>Not another career worksheet.</p>
+      <strong>You leave with work you can actually show.</strong>
+    </section>
 
-  <section id="group" class="dash" hidden></section>
+    <section class="journey section" id="journey">
+      <div class="section-heading reveal">
+        <p class="kicker">The journey</p>
+        <h2>One idea.<br>Four real outcomes.</h2>
+        <p>Every step feeds the next, so your research becomes something people can read, use, play, and remember.</p>
+      </div>
 
-  <p class="foot">
-    Your results are saved only on this device — never sent anywhere, and no account required.
-  </p>
+      <ol class="journey-track">
+        <li class="journey-step reveal">
+          <div class="step-number">01</div>
+          <div class="step-symbol symbol-discover" aria-hidden="true"><span></span></div>
+          <p class="step-label">Discover</p>
+          <h3>Find your human edge.</h3>
+          <p>Explore the interests, strengths, and ways of thinking that make your perspective yours.</p>
+        </li>
+        <li class="journey-step reveal">
+          <div class="step-number">02</div>
+          <div class="step-symbol symbol-research" aria-hidden="true"><span></span></div>
+          <p class="step-label">Research</p>
+          <h3>Study a real business.</h3>
+          <p>Learn how a local organization serves customers, communicates value, and solves problems.</p>
+        </li>
+        <li class="journey-step reveal">
+          <div class="step-number">03</div>
+          <div class="step-symbol symbol-build" aria-hidden="true"><span></span></div>
+          <p class="step-label">Build</p>
+          <h3>Turn insight into action.</h3>
+          <p>Create an ad and a playable quiz app using guided tools—without starting from a blank screen.</p>
+        </li>
+        <li class="journey-step reveal">
+          <div class="step-number">04</div>
+          <div class="step-symbol symbol-show" aria-hidden="true"><span></span></div>
+          <p class="step-label">Showcase</p>
+          <h3>Make your work visible.</h3>
+          <p>Bring your paper, creative work, and app together in a portfolio that shows what you can do.</p>
+        </li>
+      </ol>
+    </section>
 
-</div>
+    <section class="outcomes section" id="outcomes">
+      <div class="outcomes-intro reveal">
+        <p class="kicker">Your project kit</p>
+        <h2>Four things.<br>All unmistakably yours.</h2>
+      </div>
 
-<script src="app.js?v=15"></script>
+      <div class="outcome-grid">
+        <article class="outcome-card paper-card reveal">
+          <div class="artifact paper-artifact" aria-hidden="true">
+            <span class="paper-title"></span>
+            <span></span><span></span><span></span><span></span>
+            <b>INSIGHT</b>
+          </div>
+          <p class="artifact-type">01 / BUSINESS SPOTLIGHT</p>
+          <h3>A one-page business paper</h3>
+          <p>Research, evidence, and your own analysis of a real organization.</p>
+        </article>
+
+        <article class="outcome-card ad-card reveal">
+          <div class="artifact ad-artifact" aria-hidden="true">
+            <div class="ad-sun"></div>
+            <strong>MAKE<br>THEM<br>LOOK.</strong>
+          </div>
+          <p class="artifact-type">02 / ORIGINAL AD</p>
+          <h3>A campaign concept</h3>
+          <p>A message and visual designed for a specific audience—not a generic template.</p>
+        </article>
+
+        <article class="outcome-card quiz-card reveal">
+          <div class="artifact quiz-artifact" aria-hidden="true">
+            <div class="quiz-head"><span>QUIZ 04</span><span>•••</span></div>
+            <p>Which idea creates the most value?</p>
+            <i class="selected">A</i><i>B</i><i>C</i>
+          </div>
+          <p class="artifact-type">03 / PLAYABLE QUIZ</p>
+          <h3>An app people can use</h3>
+          <p>Your research becomes an interactive experience you design and test.</p>
+        </article>
+
+        <article class="outcome-card portfolio-card reveal">
+          <div class="artifact portfolio-artifact" aria-hidden="true">
+            <div class="portfolio-person"><span></span></div>
+            <div><small>PORTFOLIO</small><strong>YOUR NAME</strong><span>Research · Design · Technology</span></div>
+          </div>
+          <p class="artifact-type">04 / DIGITAL PORTFOLIO</p>
+          <h3>Proof of what you learned</h3>
+          <p>Your finished work, feedback, and skills in one clear place.</p>
+        </article>
+      </div>
+    </section>
+
+
+    <section class="meetings section" id="meetings">
+      <div class="section-heading reveal">
+        <p class="kicker">Seven meetings</p>
+        <h2>The whole<br>program, in order.</h2>
+        <p>Every meeting is five timed rounds and a build, not a lecture. Each round hands you a finished piece of the paper, the ad, the app, or the portfolio.</p>
+      </div>
+      <ol class="meeting-list" id="meeting-list">
+        <li class="meeting-loading">Loading the meeting plan…</li>
+      </ol>
+    </section>
+
+    <section class="partners section" id="partners">
+      <div class="partner-panel reveal">
+        <div class="partner-copy">
+          <p class="kicker">Local businesses make it real</p>
+          <h2>A small ask.<br>A lasting first experience.</h2>
+          <p>Partners give students a real organization to study, one useful question to explore, and brief feedback on what they create. The student team handles the curriculum, technology, and supervision.</p>
+          <a class="button button-dark" href="#pilot">See the partner commitment <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="partner-commitment" aria-label="Business partner commitment">
+          <div><strong>30</strong><span>minute kickoff</span></div>
+          <div><strong>20</strong><span>minute review</span></div>
+          <div><strong>01</strong><span>student showcase</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pilot section" id="pilot">
+      <div class="pilot-card reveal">
+        <p class="kicker">Pilot program</p>
+        <h2>Bring your curiosity.<br>We’ll help you build the rest.</h2>
+        <p>The first Career Canvas workshops are being planned now. This inspiration page is the first look at the experience.</p>
+        <div class="pilot-actions">
+          <a class="button button-primary" href="studio.html">Open the project studio <span aria-hidden="true">→</span></a>
+          <a class="button button-outline" href="quizzes.html">Try the career quizzes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#top">
+      <span class="brand-mark" aria-hidden="true"><span class="brand-ring"></span><span class="brand-needle"></span></span>
+      <span class="brand-copy"><strong>Career</strong><span>Canvas</span></span>
+    </a>
+    <p>A student-built career development initiative.</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <script src="canvas.js?v=3"></script>
 </body>
 </html>

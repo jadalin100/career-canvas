@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Career Canvas — Career quizzes</title>
+<meta name="description" content="Three quizzes to help you discover your college vibe, career, and DECA event.">
+<!-- bump ?v= after editing style.css or app.js so browsers don't serve a stale copy -->
+<link rel="stylesheet" href="style.css?v=15">
+</head>
+<body data-page="hub">
+
+<div class="wrap" id="hub">
+
+  <header class="brand">
+    <span data-compass></span>
+    <span>
+      <span class="brand-name">Career Canvas</span><br>
+      <span class="brand-sub">Jada Lin &amp; Olivia Zheng · Great Neck South</span>
+    </span>
+  </header>
+
+  <nav class="tabbar" aria-label="Sections">
+    <a href="index.html">Career Canvas</a>
+    <a href="#home" data-tab="home">About</a>
+    <a href="#quizzes" data-tab="quizzes">Quizzes</a>
+    <a href="#dashboard" data-tab="dashboard">Dashboard</a>
+    <a href="#group" data-tab="group">Group</a>
+  </nav>
+
+  <section id="tab-home">
+    <section class="hero">
+      <div class="mark" data-compass></div>
+      <h1>Career<br><span class="grad">Canvas.</span></h1>
+      <p>Real tools for figuring out what business path actually fits you —
+         built by two DECA students, for students.</p>
+      <a class="btn primary home-cta" href="#quizzes">Take the quizzes &rarr;</a>
+    </section>
+
+    <div class="about-grid">
+      <div class="about-block">
+        <h2>Who we are</h2>
+        <p>We're Jada Lin and Olivia Zheng, two DECA students at Great Neck
+           South. This site started as our DECA Career Development Project —
+           most "career exploration" for business students is a 20-minute
+           assembly or a worksheet nobody reads twice, so we built something
+           people would actually use.</p>
+      </div>
+      <div class="about-block">
+        <h2>What we're trying to do</h2>
+        <p>Give students a real way into business careers: what a marketing
+           job actually looks like day to day, which college environments fit
+           different personalities, and which DECA event matches how you
+           think. Right now that's three quizzes — more tools are coming as
+           we build them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-quizzes" hidden>
+    <section class="hero">
+      <div class="mark" data-compass></div>
+      <h1>Find out where<br><span class="grad">you're headed.</span></h1>
+      <p>Three quick quizzes to help you explore your <em>college vibe</em>,
+         your <em>career</em>, and the <em>DECA event</em> that fits you best.</p>
+    </section>
+
+    <div class="meta-row">
+      <div><div class="meta-n">3</div><div class="meta-l">Quizzes</div></div>
+      <div><div class="meta-n">20–30</div><div class="meta-l">Questions each</div></div>
+      <div><div class="meta-n">53</div><div class="meta-l">Possible results</div></div>
+    </div>
+
+    <main id="cards" class="cards"></main>
+  </section>
+
+  <section id="dashboard" class="dash" hidden>
+    <div class="dash-head">
+      <h2>Your dashboard</h2>
+      <p id="dash-count"></p>
+    </div>
+
+    <div class="dash-code-box">
+      <p class="dash-label">Your restore code</p>
+      <p class="dash-hint">Write this down. Typing it on another phone or laptop brings your
+         results with you — no account needed.</p>
+      <div class="dash-code-row">
+        <code id="dash-code"></code>
+        <button class="linkbtn" id="dash-copy" type="button">Copy code</button>
+      </div>
+
+      <form id="dash-restore" class="dash-restore">
+        <label for="dash-input">Have a code from another device?</label>
+        <div class="dash-code-row">
+          <input id="dash-input" type="text" inputmode="latin" autocomplete="off"
+                 spellcheck="false" placeholder="e.g. 7K2Q-M39X-B4RT">
+          <button class="btn" type="submit">Restore</button>
+        </div>
+        <p id="dash-msg" class="dash-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <div id="dash-body" class="dash-body"></div>
+  </section>
+
+  <section id="group" class="dash" hidden></section>
+
+  <p class="foot">
+    Your results are saved only on this device — never sent anywhere, and no account required.
+  </p>
+
+</div>
+
+<script src="app.js?v=15"></script>
+</body>
+</html>

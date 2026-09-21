@@ -33,10 +33,10 @@ const $ = (s, r = document) => r.querySelector(s);
 const single = () => document.body.dataset.page === "single";
 /* one place that knows how a quiz is linked in each build */
 const quizHref = (key) => (single() ? `#${key}` : `quiz.html?quiz=${key}`);
-const homeHref = () => (single() ? "#" : "index.html");
+const homeHref = () => (single() ? "#" : "quizzes.html");
 /** "All quizzes" after finishing one -- explicit, so it lands on the Quizzes
  *  tab even though the Home tab is the default landing view. */
-const quizzesTabHref = () => (single() ? "#quizzes" : "index.html#quizzes");
+const quizzesTabHref = () => (single() ? "#quizzes" : "quizzes.html#quizzes");
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -790,7 +790,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (page === "quiz") {
     const key = new URLSearchParams(location.search).get("quiz");
-    if (!getQuiz(key)) { location.replace("index.html"); return; }
+    if (!getQuiz(key)) { location.replace("quizzes.html"); return; }
     startRunner(key);
   }
 
