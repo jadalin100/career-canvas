@@ -6,7 +6,7 @@
   <meta name="description" content="Career Canvas helps middle-school students turn their interests into real business, creative, and technology projects.">
   <title>Career Canvas — Discover your creativity</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="canvas.css?v=5">
+  <link rel="stylesheet" href="canvas.css?v=6">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -45,21 +45,25 @@
       <div class="hero-visual" aria-label="A preview of the Career Canvas learning journey">
         <div class="visual-card" id="visual-card">
           <div class="visual-topline">
-            <span>YOUR COMPASS</span>
+            <span>PROJECT MAP</span>
             <span>01 / 04</span>
           </div>
-          <div class="career-screen" aria-hidden="true">
-            <div class="screen-bar"><i></i><i></i><i></i></div>
-            <div class="profile-row">
-              <div class="profile-card profile-one"><span class="avatar"></span><i></i><i></i></div>
-              <div class="profile-card profile-two"><span class="avatar"></span><i></i><i></i></div>
-              <div class="profile-card profile-three"><span class="avatar"></span><i></i><i></i></div>
+          <div class="project-board" aria-hidden="true">
+            <div class="project-brief">
+              <span class="brief-orbit"></span>
+              <div><small>SAMPLE BUSINESS</small><strong>Example Café</strong></div>
+              <em>RESEARCHED</em>
             </div>
-            <div class="magnifier"><span></span></div>
+            <ol class="project-stages">
+              <li><b>01</b><span>Audience insight</span><i>DONE</i></li>
+              <li><b>02</b><span>Brand message</span><i>BUILDING</i></li>
+              <li><b>03</b><span>Campaign concept</span><i>UP NEXT</i></li>
+              <li><b>04</b><span>Playable quiz</span><i>UP NEXT</i></li>
+            </ol>
           </div>
           <div class="visual-question">
-            <span>Today’s prompt</span>
-            <strong>What problem would you solve<br>for a real local business?</strong>
+            <span>Today’s build</span>
+            <strong>Turn one business insight<br>into something people can use.</strong>
           </div>
           <div class="route-mini" aria-hidden="true">
             <i class="active"></i><i></i><i></i><i></i>
@@ -79,28 +83,28 @@
     <section class="journey section" id="journey">
       <div class="section-heading reveal">
         <p class="kicker">The journey</p>
-        <h2>One idea.<br>Four real outcomes.</h2>
+        <h2>Bring your ideas<br>to life.</h2>
         <p>Every step feeds the next, so your research becomes something people can read, use, play, and remember.</p>
       </div>
 
       <ol class="journey-track">
         <li class="journey-step reveal">
           <div class="step-number">01</div>
-          <div class="step-symbol symbol-discover" aria-hidden="true"><span></span></div>
+          <div class="step-symbol symbol-discover" aria-hidden="true"><img src="assets/journey-search.png" alt=""></div>
           <p class="step-label">Discover</p>
-          <h3>Find your human edge.</h3>
+          <h3>Defining attribute</h3>
           <p>Explore the interests, strengths, and ways of thinking that make your perspective yours.</p>
         </li>
         <li class="journey-step reveal">
           <div class="step-number">02</div>
-          <div class="step-symbol symbol-research" aria-hidden="true"><span></span></div>
+          <div class="step-symbol symbol-research" aria-hidden="true"><img src="assets/journey-magnifier.png" alt=""></div>
           <p class="step-label">Research</p>
           <h3>Study a real business.</h3>
           <p>Learn how a local organization serves customers, communicates value, and solves problems.</p>
         </li>
         <li class="journey-step reveal">
           <div class="step-number">03</div>
-          <div class="step-symbol symbol-build" aria-hidden="true"><span></span></div>
+          <div class="step-symbol symbol-build" aria-hidden="true"><img src="assets/journey-cursor.png" alt=""></div>
           <p class="step-label">Build</p>
           <h3>Turn insight into action.</h3>
           <p>Create an ad and a playable quiz app using guided tools—without starting from a blank screen.</p>
@@ -118,7 +122,7 @@
     <section class="outcomes section" id="outcomes">
       <div class="outcomes-intro reveal">
         <p class="kicker">Your project kit</p>
-        <h2>Four things.<br>All unmistakably yours.</h2>
+        <h2>A gallery of your<br>complete work.</h2>
       </div>
 
       <div class="outcome-grid">
@@ -150,7 +154,7 @@
             <i class="selected">A</i><i>B</i><i>C</i>
           </div>
           <p class="artifact-type">03 / PLAYABLE QUIZ</p>
-          <h3>An app people can use</h3>
+          <h3>A usable app</h3>
           <p>Your research becomes an interactive experience you design and test.</p>
         </article>
 
@@ -160,7 +164,7 @@
             <div><small>PORTFOLIO</small><strong>YOUR NAME</strong><span>Research · Design · Technology</span></div>
           </div>
           <p class="artifact-type">04 / DIGITAL PORTFOLIO</p>
-          <h3>Proof of what you learned</h3>
+          <h3>Your final result</h3>
           <p>Your finished work, feedback, and skills in one clear place.</p>
         </article>
       </div>
@@ -192,7 +196,7 @@
       <div class="section-heading reveal">
         <p class="kicker">Seven meetings</p>
         <h2>The whole<br>program, in order.</h2>
-        <p>Every meeting is five timed rounds and a build, not a lecture. Each round hands you a finished piece of the paper, the ad, the app, or the portfolio.</p>
+        <p>Every meeting includes practical activities that build a piece of the paper, the ad, the app, or the portfolio.</p>
       </div>
       <ol class="meeting-list" id="meeting-list">
         <li class="meeting-loading">Loading the meeting plan…</li>
@@ -239,7 +243,7 @@
 
   <script src="meetings-data.js?v=1"></script>
   <script src="quiz-data.js?v=1"></script>
-  <script src="canvas.js?v=4"></script>
+  <script src="canvas.js?v=5"></script>
   <script src="canvas-quizzes.js?v=1"></script>
 </body>
 </html>

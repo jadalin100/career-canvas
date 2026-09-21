@@ -27,13 +27,14 @@ cp site/index.html site/quizzes.html site/quiz.html site/studio.html \
    site/canvas.js site/canvas-quizzes.js site/canvas-app.css site/canvas-app.js \
    site/quiz-builder.js site/quizzes.json site/quiz-data.js \
    site/meetings.json site/meetings-data.js site/favicon.svg "$TMP/"
+cp -R site/assets "$TMP/"
 
 cd "$TMP"
-if git diff --quiet; then
+git add -A
+if git diff --cached --quiet; then
   echo "deploy-pages: built site is unchanged, nothing to push"
   exit 0
 fi
-git add -A
 git commit --quiet -m "Deploy: sync from career-development-deca@${SRC_COMMIT}"
 git push --quiet origin gh-pages
 echo "deploy-pages: pushed update -- https://jadalin100.github.io/career-canvas/"
