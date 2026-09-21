@@ -1,4 +1,4 @@
-/* Career Canvas palette: midnight blue, dusty blue, ivory, deep navy, buttercream. */
+/* Career Canvas palette: midnight and dusty blues, soft neutrals, electric-blue accents. */
 
 :root {
   --navy:        #1C2E4A;
@@ -6,13 +6,14 @@
   --navy-card:   #283D58;
   --navy-card-2: #52677D;
   --blue:        #52677D;
+  --electric:    #2563EB;
   --ice:         #BDC4D4;
   --purple:      #BDC4D4;
   --coral:       #D1CFC9;
   --white:       #ffffff;
   --muted:       #BDC4D4;
   --line:        rgba(189, 196, 212, 0.28);
-  --grad: linear-gradient(100deg, var(--purple), var(--coral));
+  --grad: linear-gradient(100deg, #91BDFF, var(--electric));
   --radius: 30px;           /* stadium geometry, not rounded-lg */
   --radius-sm: 18px;
   --maxw: 720px;
@@ -110,7 +111,7 @@ button { font: inherit; color: inherit; }
   letter-spacing: .04em; border-bottom: 2px solid transparent; margin-bottom: -1px;
 }
 .tabbar a:hover { color: var(--white); }
-.tabbar a.active { color: var(--white); border-bottom-color: var(--coral); }
+.tabbar a.active { color: var(--white); border-bottom-color: var(--electric); }
 
 .cards { display: grid; gap: 18px; }
 .card {
@@ -164,8 +165,8 @@ button { font: inherit; color: inherit; }
   transition: background .12s ease, border-color .12s ease;
 }
 .opt:hover { background: var(--navy-card-2); border-color: rgba(166,173,214,.5); }
-.opt:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
-.opt[aria-pressed="true"] { background: var(--blue); border-color: var(--ice); }
+.opt:focus-visible { outline: 3px solid var(--electric); outline-offset: 2px; }
+.opt[aria-pressed="true"] { background: var(--electric); border-color: #91BDFF; }
 .opt[aria-pressed="true"] .key { background: rgba(255,255,255,.25); border-color: transparent; }
 .key {
   flex: none; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
@@ -224,7 +225,7 @@ button { font: inherit; color: inherit; }
 }
 .btn:hover { background: var(--navy-card-2); }
 .btn.primary {
-  background: var(--ice); color: var(--navy-deep); border-color: transparent;
+  background: var(--electric); color: var(--white); border-color: transparent;
   box-shadow: 0 14px 40px -12px rgba(15,26,43,.35);
 }
 .btn.primary:hover { filter: brightness(1.07); }

@@ -20,7 +20,7 @@ const COMPASS = () => {
   const id = `cg${compassSeq++}`;
   return `<svg class="compass" viewBox="0 0 100 100" aria-hidden="true">
 <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="#52677D"/><stop offset="1" stop-color="#D1CFC9"/>
+<stop offset="0" stop-color="#2563EB"/><stop offset="1" stop-color="#91BDFF"/>
 </linearGradient></defs>
 <circle cx="50" cy="50" r="46" fill="none" stroke="url(#${id})" stroke-width="5"/>
 <path d="M50 8 L58 42 L92 50 L58 58 L50 92 L42 58 L8 50 L42 42 Z" fill="#fff"/></svg>`;
