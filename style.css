@@ -49,9 +49,10 @@ button { font: inherit; color: inherit; }
 
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 24px 20px 64px; }
 
-/* ---------- compass mark + brand ---------- */
+/* ---------- Career Canvas logo + brand ---------- */
 .brand { display: flex; align-items: center; gap: 12px; }
-.compass { width: 38px; height: 38px; flex: none; }
+.logo-crop { width: 38px; height: 38px; flex: none; display: inline-block; position: relative; overflow: hidden; border-radius: 50%; background: var(--white); vertical-align: middle; }
+.logo-crop img { position: absolute; height: 114%; width: auto; max-width: none; top: -7%; left: 50%; transform: translateX(-50%); }
 .brand-name {
   font-weight: 800; font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase;
 }
@@ -62,7 +63,7 @@ button { font: inherit; color: inherit; }
    left-aligned, because 30 screens of option lists read better ranged left. */
 .hero { padding: 64px 0 8px; text-align: center; }
 .hero .mark { display: grid; place-items: center; margin-bottom: 34px; }
-.hero .mark .compass { width: 78px; height: 78px; }
+.hero .mark .logo-crop { width: 78px; height: 78px; }
 .hero h1 {
   font-size: clamp(38px, 8.4vw, 64px); margin: 30px 0 18px;
   letter-spacing: -0.03em; text-wrap: balance;
@@ -367,7 +368,6 @@ button { font: inherit; color: inherit; }
 }
 
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-@keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pop  { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
 
 /* Entrance animations start at opacity 0, so they are scoped to
@@ -391,13 +391,7 @@ button { font: inherit; color: inherit; }
   .qtext { animation-delay: .06s; }
   .res-head { animation: pop .6s cubic-bezier(.22,.8,.3,1) both; }
 
-  /* the compass turns like a real one */
-  .hero .mark .compass { animation: spin 26s linear infinite; }
-  .res-head .compass { animation: spin 1.4s cubic-bezier(.3,.9,.25,1) 1; }
 }
-
-.brand .compass { transition: transform .6s cubic-bezier(.22,.8,.3,1); }
-.brand:hover .compass { transform: rotate(180deg); }
 
 .card, .opt, .btn { transition: transform .16s ease, background .14s ease, border-color .14s ease, box-shadow .16s ease; }
 .btn:hover { transform: translateY(-2px); }

@@ -12,19 +12,8 @@
 const TALLY_ENDPOINT = "";
 
 const ORDER = ["career", "deca", "branding"];
-/* Each copy needs its OWN gradient id. With a shared id the first definition
-   wins, and if that one sits inside a display:none element the gradient never
-   paints -- the ring silently vanishes on every other compass. */
-let compassSeq = 0;
-const COMPASS = () => {
-  const id = `cg${compassSeq++}`;
-  return `<svg class="compass" viewBox="0 0 100 100" aria-hidden="true">
-<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="#A9D8FF"/><stop offset="1" stop-color="#7DBCF2"/>
-</linearGradient></defs>
-<circle cx="50" cy="50" r="46" fill="none" stroke="url(#${id})" stroke-width="5"/>
-<path d="M50 8 L58 42 L92 50 L58 58 L50 92 L42 58 L8 50 L42 42 Z" fill="#fff"/></svg>`;
-};
+const LOGO_URL = window.__CAREER_CANVAS_LOGO__ || "assets/career-canvas-logo.png";
+const LOGO = () => `<span class="logo-crop" aria-hidden="true"><img src="${LOGO_URL}" alt=""></span>`;
 
 let DATA = null;
 let keyHandler = null;
@@ -235,7 +224,7 @@ function renderResults(quiz, answers, main, bar, count) {
 
   main.innerHTML = `
     <div class="res-head">
-      ${COMPASS()}
+      ${LOGO()}
       <h1>Your top matches</h1>
       <p>${esc(quiz.subtitle)}</p>
     </div>
@@ -746,7 +735,7 @@ function showHubTab(tab) {
 /* ------------------------------ boot ------------------------------ */
 
 document.addEventListener("DOMContentLoaded", async () => {
-  document.querySelectorAll("[data-compass]").forEach((el) => (el.innerHTML = COMPASS()));
+  document.querySelectorAll("[data-logo]").forEach((el) => (el.innerHTML = LOGO()));
   initCursor();
   document.querySelectorAll(".hero h1, .hero p, .meta-row, .foot").forEach((el, i) => {
     el.classList.add("rise");
