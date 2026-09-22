@@ -8,6 +8,7 @@ out of sync. Edit the real pages; this just inlines them.
 Dependency-free. Run:  python3 build_quiz_data.py && python3 build_artifact.py
 """
 
+import base64
 import json
 import re
 import sys
@@ -61,6 +62,7 @@ def main():
     css = css_ascii((SITE / "style.css").read_text(encoding="utf-8"))
     js = js_ascii((SITE / "app.js").read_text(encoding="utf-8"))
     data = json.loads((SITE / "quizzes.json").read_text(encoding="utf-8"))
+    logo_data = base64.b64encode((SITE / "assets/career-canvas-logo.png").read_bytes()).decode("ascii")
 
     hub = body_of(SITE / "quizzes.html")
     runner = body_of(SITE / "quiz.html")
@@ -88,6 +90,7 @@ document.body.dataset.page = "single";
 /* hide the quiz shell until the router decides, so it doesn't flash */
 document.getElementById("topbar").hidden = true;
 document.getElementById("runner").hidden = true;
+window.__CAREER_CANVAS_LOGO__ = "data:image/png;base64,{logo_data}";
 {js}
 </script>
 """

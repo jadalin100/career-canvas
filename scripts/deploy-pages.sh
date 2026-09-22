@@ -26,7 +26,7 @@ cp site/index.html site/quizzes.html site/quiz.html site/studio.html \
    site/quiz-builder.html site/app.js site/style.css site/canvas.css \
    site/canvas.js site/canvas-quizzes.js site/canvas-app.css site/canvas-app.js \
    site/quiz-builder.js site/quizzes.json site/quiz-data.js \
-   site/meetings.json site/meetings-data.js site/favicon.svg "$TMP/"
+   site/meetings.json site/meetings-data.js "$TMP/"
 cp -R site/assets "$TMP/"
 
 cd "$TMP"
