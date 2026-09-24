@@ -2,13 +2,43 @@
   "use strict";
 
   const STORAGE_KEY = "careerCanvasQuiz";
+  const GALLERY_KEY = "careerCanvasQuizGallery";
   const blankQuestion = () => ({
     id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
     prompt: "",
     choices: ["", "", "", ""],
     correct: 0
   });
-  const defaultQuiz = { title: "", audience: "", business: "", intro: "", updatedAt: "", questions: [blankQuestion()] };
+  const defaultQuiz = { galleryId: "", classQuizId: "", title: "", audience: "", business: "", intro: "", updatedAt: "", questions: [blankQuestion()] };
+  const templates = {
+    knowledge: {
+      title: "How Well Do You Know This Business?",
+      intro: "Use your research to teach players three useful facts about the business.",
+      questions: [
+        ["What is this business best known for?", ["Correct answer", "Distractor", "Distractor", "Distractor"]],
+        ["Who is the main audience for this business?", ["Correct answer", "Distractor", "Distractor", "Distractor"]],
+        ["Which fact best explains this business's role in the community?", ["Correct answer", "Distractor", "Distractor", "Distractor"]]
+      ]
+    },
+    scenario: {
+      title: "What Would You Do?",
+      intro: "Put players into realistic situations connected to the business and its customers.",
+      questions: [
+        ["A customer needs help choosing between two options. What should happen first?", ["Best response", "Distractor", "Distractor", "Distractor"]],
+        ["The business wants to reach a new audience. Which idea fits the research best?", ["Best response", "Distractor", "Distractor", "Distractor"]],
+        ["A campaign is not getting attention. What should the team test next?", ["Best response", "Distractor", "Distractor", "Distractor"]]
+      ]
+    },
+    brand: {
+      title: "Brand Detective",
+      intro: "Help players identify the audience, message, and visual decisions behind a brand.",
+      questions: [
+        ["Which audience is this message designed for?", ["Correct audience", "Distractor", "Distractor", "Distractor"]],
+        ["Which detail communicates the brand's main promise?", ["Correct detail", "Distractor", "Distractor", "Distractor"]],
+        ["Which design choice best supports the intended mood?", ["Correct choice", "Distractor", "Distractor", "Distractor"]]
+      ]
+    }
+  };
   const details = document.querySelector("#quiz-details");
   const list = document.querySelector("#question-list");
   const status = document.querySelector("#save-status");
@@ -31,7 +61,27 @@
     }
   }
 
+  function readGallery() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(GALLERY_KEY));
+      return Array.isArray(saved) ? saved : [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function writeGallery(items) {
+    try {
+      localStorage.setItem(GALLERY_KEY, JSON.stringify(items));
+      return true;
+    } catch (_) {
+      showToast("This browser could not save the gallery");
+      return false;
+    }
+  }
+
   const quiz = readQuiz();
+  let gallery = readGallery();
 
   function showToast(message) {
     window.clearTimeout(toastTimer);
@@ -44,10 +94,19 @@
   }
 
   function persist() {
+    if (!hasContent()) {
+      localStorage.removeItem(STORAGE_KEY);
+      status.textContent = "Nothing saved yet. Add your title and first question.";
+      paintSummary();
+      return;
+    }
     quiz.updatedAt = new Date().toISOString();
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(quiz));
       status.textContent = `Saved on this device at ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}.`;
+      window.CareerCanvasClassroom?.syncStudent({ quizDraft: quiz }).catch(() => {
+        status.textContent = "Saved on this iPad. Class sync will retry when the connection returns.";
+      });
     } catch (_) {
       status.textContent = "This browser could not save your quiz. Download it before leaving.";
     }
@@ -69,6 +128,30 @@
     document.querySelector("#summary-title").textContent = quiz.title.trim() ? "Ready" : "Missing";
     document.querySelector("#summary-count").textContent = String(quiz.questions.length);
     document.querySelector("#summary-complete").textContent = `${complete} / ${quiz.questions.length}`;
+  }
+
+  function syncDetails() {
+    ["title", "audience", "business", "intro"].forEach((name) => {
+      details.elements[name].value = quiz[name] || "";
+    });
+  }
+
+  function paintGallery() {
+    const container = document.querySelector("#quiz-gallery");
+    document.querySelector("#gallery-count").textContent = `${gallery.length} saved`;
+    if (!gallery.length) {
+      container.innerHTML = '<p class="gallery-empty">Save a finished quiz and it will appear here.</p>';
+      return;
+    }
+    container.innerHTML = gallery.map((item) => `
+      <article class="gallery-item" data-gallery-id="${esc(item.galleryId)}">
+        <strong>${esc(item.title || "Untitled quiz")}</strong>
+        <span>${item.questions.length} questions · ${new Date(item.updatedAt).toLocaleDateString()}</span>
+        <div class="gallery-item-actions">
+          <button type="button" data-gallery-action="open">Open</button>
+          <button type="button" data-gallery-action="play">Play</button>
+        </div>
+      </article>`).join("");
   }
 
   function renderQuestions() {
@@ -98,9 +181,7 @@
     paintSummary();
   }
 
-  ["title", "audience", "business", "intro"].forEach((name) => {
-    details.elements[name].value = quiz[name] || "";
-  });
+  syncDetails();
 
   details.addEventListener("input", (event) => {
     quiz[event.target.name] = event.target.value;
@@ -142,6 +223,32 @@
     persist();
     list.lastElementChild?.querySelector("input[data-field='prompt']")?.focus();
   });
+
+  function hasContent() {
+    return Boolean(quiz.title.trim() || quiz.intro.trim() || quiz.business.trim() || quiz.questions.some((question) => question.prompt.trim() || question.choices.some((choice) => choice.trim())));
+  }
+
+  function replaceQuiz(nextQuiz) {
+    Object.keys(quiz).forEach((key) => delete quiz[key]);
+    Object.assign(quiz, structuredClone(nextQuiz));
+    syncDetails();
+    renderQuestions();
+    preview.hidden = true;
+    persist();
+  }
+
+  function applyTemplate(key, askFirst = true) {
+    const template = templates[key];
+    if (!template) return;
+    if (askFirst && hasContent() && !window.confirm("Replace the current draft with this starter template? Your saved gallery quizzes will stay available.")) return;
+    replaceQuiz({
+      ...structuredClone(defaultQuiz),
+      title: template.title,
+      intro: template.intro,
+      questions: template.questions.map(([prompt, choices]) => ({ ...blankQuestion(), prompt, choices: [...choices], correct: 0 }))
+    });
+    showToast("Starter template loaded");
+  }
 
   function validate() {
     if (!quiz.title.trim()) return "Add a quiz title first.";
@@ -201,6 +308,70 @@ const quiz=${safeData};let index=0,score=0,selected=null;const app=document.quer
   }
 
   document.querySelector("#preview-quiz").addEventListener("click", runPreview);
+  document.querySelector("#quiz-template-picker").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-template]");
+    if (button) applyTemplate(button.dataset.template);
+  });
+
+  document.querySelector("#save-gallery").addEventListener("click", () => {
+    const issue = validate();
+    if (issue) { showToast(issue); return; }
+    persist();
+    if (!quiz.galleryId) quiz.galleryId = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const snapshot = structuredClone(quiz);
+    const existing = gallery.findIndex((item) => item.galleryId === quiz.galleryId);
+    if (existing >= 0) gallery[existing] = snapshot;
+    else gallery.unshift(snapshot);
+    if (writeGallery(gallery)) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(quiz));
+      paintGallery();
+      showToast(existing >= 0 ? "Gallery quiz updated" : "Quiz saved to your gallery");
+    }
+  });
+
+  document.querySelector("#submit-class").addEventListener("click", async (event) => {
+    const issue = validate();
+    if (issue) { showToast(issue); return; }
+    const classroom = window.CareerCanvasClassroom;
+    if (!classroom?.getSession()) {
+      if (window.confirm("Join the class before submitting. Go to the class-code page now?")) location.href = "join.html";
+      return;
+    }
+    const button = event.currentTarget;
+    button.disabled = true;
+    button.textContent = "Submitting…";
+    try {
+      persist();
+      const submitted = await classroom.submitQuiz(quiz);
+      quiz.classQuizId = submitted.id;
+      persist();
+      showToast("Sent to the teacher for approval");
+      button.textContent = "Update class submission";
+    } catch (error) {
+      showToast(error.message || "Could not submit the quiz");
+      button.textContent = "Submit to class gallery";
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  document.querySelector("#new-quiz").addEventListener("click", () => {
+    if (hasContent() && !window.confirm("Start a new quiz? Save this draft to your gallery first if you want to keep it.")) return;
+    replaceQuiz(structuredClone(defaultQuiz));
+    showToast("New quiz started");
+  });
+
+  document.querySelector("#quiz-gallery").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-gallery-action]");
+    const card = button?.closest("[data-gallery-id]");
+    if (!button || !card) return;
+    const saved = gallery.find((item) => item.galleryId === card.dataset.galleryId);
+    if (!saved) return;
+    replaceQuiz(saved);
+    if (button.dataset.galleryAction === "play") runPreview();
+    else document.querySelector("#quiz-details-heading").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
   document.querySelector("#export-quiz").addEventListener("click", () => {
     const issue = validate();
     if (issue) { showToast(issue); return; }
@@ -215,6 +386,28 @@ const quiz=${safeData};let index=0,score=0,selected=null;const app=document.quer
     showToast("Standalone quiz downloaded");
   });
 
+  window.addEventListener("pagehide", persist);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") persist();
+  });
+
   renderQuestions();
+  paintGallery();
+  const requestedTemplate = new URLSearchParams(window.location.search).get("template");
+  if (requestedTemplate && templates[requestedTemplate]) {
+    applyTemplate(requestedTemplate, hasContent());
+    window.history.replaceState({}, "", window.location.pathname);
+  }
   status.textContent = quiz.updatedAt ? "Your saved quiz is ready." : "Nothing saved yet. Add your title and first question.";
+  const classSession = window.CareerCanvasClassroom?.getSession();
+  if (classSession) {
+    document.querySelector("#classroom-save-note").textContent = `Signed in as ${classSession.username}. Finished quizzes can be sent to the teacher for the class-wide gallery.`;
+    if (quiz.classQuizId) document.querySelector("#submit-class").textContent = "Update class submission";
+    window.CareerCanvasClassroom.getStudentRecord().then((record) => {
+      const remote = record?.quizDraft;
+      if (!remote?.updatedAt || (quiz.updatedAt && remote.updatedAt <= quiz.updatedAt)) return;
+      replaceQuiz(remote);
+      showToast("Latest class draft loaded");
+    }).catch(() => {});
+  }
 })();

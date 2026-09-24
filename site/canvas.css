@@ -29,6 +29,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; }
+button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 ::selection { color: var(--navy-deep); background: var(--yellow); }
 
 .skip-link {
@@ -307,10 +308,25 @@ a { color: inherit; }
 .partner-panel h2 { color: var(--white); font-size: clamp(40px, 4.6vw, 60px); }
 .partner-copy > p:not(.kicker) { max-width: 620px; color: rgba(255,255,255,.72); font-size: 16px; }
 .button-dark { margin-top: 18px; color: var(--navy); background: var(--white); }
+.partner-actions { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.partner-actions .button-dark { margin-top: 0; }
+.partner-email { color: var(--yellow); font-weight: 800; text-underline-offset: 4px; }
 .partner-commitment { display: grid; align-content: center; gap: 4px; }
 .partner-commitment div { min-height: 100px; padding: 18px 20px; display: flex; align-items: end; justify-content: space-between; gap: 18px; border-bottom: 1px solid rgba(255,255,255,.24); }
 .partner-commitment strong { color: var(--yellow); font: 800 48px/.8 var(--display); letter-spacing: -.05em; }
 .partner-commitment span { max-width: 118px; text-align: right; font: 800 9px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+.partner-form { grid-column: 1 / -1; padding-top: 38px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; border-top: 1px solid rgba(255,255,255,.2); }
+.partner-form-heading { grid-column: 1 / -1; max-width: 720px; }
+.partner-form-heading h3 { margin: 0; color: var(--white); font-size: 30px; }
+.partner-form-heading > p:last-child { margin: 8px 0 0; color: rgba(255,255,255,.66); }
+.partner-form label { display: grid; gap: 8px; color: var(--white); font-weight: 800; }
+.partner-form label:nth-of-type(n+4) { grid-column: 1 / -1; }
+.partner-form label span { font: 800 10px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.partner-form input, .partner-form textarea { width: 100%; min-height: 48px; padding: 12px 14px; color: var(--navy-deep); background: var(--white); border: 2px solid transparent; border-radius: 4px; outline: none; }
+.partner-form textarea { resize: vertical; }
+.partner-form input:focus, .partner-form textarea:focus { border-color: var(--baby-blue); box-shadow: 0 0 0 3px rgba(169,216,255,.28); }
+.partner-form .button { width: fit-content; border: 0; cursor: pointer; }
+.partner-form-status { min-height: 22px; margin: 0; align-self: center; color: var(--yellow); font-weight: 800; }
 
 .pilot { padding-top: 0; background: var(--white); }
 .pilot-card { padding: 84px 52px; text-align: center; color: var(--ink); background: #f5f6f8; border-top: 5px solid var(--baby-blue); }
@@ -323,11 +339,14 @@ a { color: inherit; }
 .site-footer { padding: 30px 46px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 22px; color: var(--white); background: var(--navy-deep); }
 .site-footer p { color: rgba(255,255,255,.52); font-size: 12px; }
 .site-footer > a:last-child { justify-self: end; color: var(--ice); font-size: 12px; }
+.site-footer > div:last-child { justify-self: end; color: var(--ice); font-size: 12px; }
+.site-footer > div:last-child a { text-decoration: none; }
 .button:focus-visible, .site-nav a:focus-visible, .brand:focus-visible, .nav-cta:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity: 1; transform: none; }
 
 @media (max-width: 980px) {
+  input, textarea, select { font-size: 16px; }
   .site-header { grid-template-columns: 1fr auto; }
   .site-nav { display: none; }
   .hero { grid-template-columns: 1fr; padding-top: 72px; }
@@ -378,6 +397,9 @@ a { color: inherit; }
   .partner-commitment { grid-template-columns: 1fr; }
   .partner-commitment div { min-height: 82px; flex-direction: row; align-items: end; }
   .partner-commitment span { text-align: right; }
+  .partner-form { grid-template-columns: 1fr; }
+  .partner-form label, .partner-form label:nth-of-type(n+4) { grid-column: 1; }
+  .partner-form .button { width: 100%; }
   .pilot-card { padding: 70px 22px; }
   .site-footer { grid-template-columns: 1fr auto; padding-inline: 20px; }
   .site-footer p { display: none; }
