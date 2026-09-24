@@ -6,6 +6,7 @@
   const TIMES = { career: "About 6 minutes", deca: "About 8 minutes", branding: "About 4 minutes" };
   const ACCENTS = { career: "blue", deca: "yellow", branding: "ice" };
   const STORE_KEY = "careerCanvasQuizResults";
+  const PROGRESS_KEY = "careerCanvasQuizProgress";
   const cards = document.querySelector("#canvas-quiz-cards");
   const overview = document.querySelector("#quiz-overview");
   const stage = document.querySelector("#canvas-quiz-stage");
@@ -38,6 +39,30 @@
     const saved = readResults();
     saved[key] = { topResults, completedAt: new Date().toISOString() };
     try { localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (_) {}
+    window.CareerCanvasClassroom?.syncStudent({ careerQuizResults: saved }).catch(() => {});
+  }
+
+  function readProgress() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(PROGRESS_KEY));
+      return saved && typeof saved === "object" ? saved : {};
+    } catch (_) {
+      return {};
+    }
+  }
+
+  function saveProgress() {
+    if (!currentKey) return;
+    const saved = readProgress();
+    saved[currentKey] = { answers, questionIndex, updatedAt: new Date().toISOString() };
+    try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(saved)); } catch (_) {}
+    window.CareerCanvasClassroom?.syncStudent({ careerQuizProgress: saved }).catch(() => {});
+  }
+
+  function clearProgress(key) {
+    const saved = readProgress();
+    delete saved[key];
+    try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(saved)); } catch (_) {}
   }
 
   function scoreSimple(quiz) {
@@ -82,6 +107,7 @@
 
   function renderCards() {
     const saved = readResults();
+    const drafts = readProgress();
     cards.innerHTML = ORDER.map((key, index) => {
       const quiz = getQuiz(key);
       const done = saved[key];
@@ -90,8 +116,8 @@
         <p class="canvas-quiz-type">${esc(quiz.title)}</p>
         <h3>${esc(quiz.subtitle)}</h3>
         <p>${quiz.questions.length} questions · ${TIMES[key]}</p>
-        <span class="canvas-quiz-action">${done ? "Retake quiz" : "Start quiz"}<b aria-hidden="true">↗</b></span>
-        ${done ? `<span class="canvas-quiz-saved">Saved on this device</span>` : ""}
+        <span class="canvas-quiz-action">${drafts[key] ? "Continue quiz" : done ? "Retake quiz" : "Start quiz"}<b aria-hidden="true">↗</b></span>
+        ${done || drafts[key] ? `<span class="canvas-quiz-saved">${drafts[key] ? "Progress saved on this device" : "Result saved on this device"}</span>` : ""}
       </a>`;
     }).join("");
   }
@@ -129,16 +155,18 @@
     stageBody.querySelectorAll(".quiz-option").forEach((button) => {
       button.addEventListener("click", () => {
         answers[questionIndex] = button.dataset.tag;
+        saveProgress();
         stageBody.querySelectorAll(".quiz-option").forEach((choice) =>
           choice.setAttribute("aria-pressed", String(choice === button)));
         document.querySelector("#canvas-quiz-next").disabled = false;
       });
     });
     document.querySelector("#canvas-quiz-previous").addEventListener("click", () => {
-      if (questionIndex > 0) { questionIndex -= 1; showQuestion(); }
+      if (questionIndex > 0) { questionIndex -= 1; saveProgress(); showQuestion(); }
     });
     document.querySelector("#canvas-quiz-skip").addEventListener("click", () => {
       answers[questionIndex] = null;
+      saveProgress();
       advance();
     });
     document.querySelector("#canvas-quiz-next").addEventListener("click", advance);
@@ -149,6 +177,7 @@
     const quiz = getQuiz(currentKey);
     if (questionIndex < quiz.questions.length - 1) {
       questionIndex += 1;
+      saveProgress();
       showQuestion();
     } else {
       showResults();
@@ -165,6 +194,7 @@
     const ranked = rankedResults(quiz);
     const top = ranked.slice(0, 3);
     saveResult(currentKey, top.map((result) => result.code));
+    clearProgress(currentKey);
     stageCount.textContent = "Complete";
     progress.style.width = "100%";
     stageBody.innerHTML = `
@@ -187,17 +217,23 @@
         <a class="button button-quiet" href="#quizzes">Choose another quiz</a>
         <button class="quiz-text-button" id="canvas-quiz-print" type="button">Save results as PDF</button>
       </div>`;
-    document.querySelector("#canvas-quiz-retake").addEventListener("click", () => startQuiz(currentKey));
+    document.querySelector("#canvas-quiz-retake").addEventListener("click", () => startQuiz(currentKey, true));
     document.querySelector("#canvas-quiz-print").addEventListener("click", () => window.print());
     stageBody.focus({ preventScroll: true });
   }
 
-  function startQuiz(key) {
+  function startQuiz(key, fresh = false) {
     const quiz = getQuiz(key);
     if (!quiz) return;
     currentKey = key;
-    answers = new Array(quiz.questions.length).fill(null);
-    questionIndex = 0;
+    const draft = fresh ? null : readProgress()[key];
+    answers = draft && Array.isArray(draft.answers) && draft.answers.length === quiz.questions.length
+      ? draft.answers
+      : new Array(quiz.questions.length).fill(null);
+    questionIndex = draft && Number.isInteger(draft.questionIndex)
+      ? Math.min(Math.max(draft.questionIndex, 0), quiz.questions.length - 1)
+      : 0;
+    saveProgress();
     overview.hidden = true;
     stage.hidden = false;
     showQuestion();
@@ -219,5 +255,20 @@
 
   renderCards();
   window.addEventListener("hashchange", route);
-  route();
+  if (window.CareerCanvasClassroom?.getSession()) {
+    window.CareerCanvasClassroom.getStudentRecord().then((record) => {
+      const localResults = readResults();
+      const localProgress = readProgress();
+      Object.entries(record?.careerQuizResults || {}).forEach(([key, value]) => {
+        if (!localResults[key]?.completedAt || value.completedAt > localResults[key].completedAt) localResults[key] = value;
+      });
+      Object.entries(record?.careerQuizProgress || {}).forEach(([key, value]) => {
+        if (!localProgress[key]?.updatedAt || value.updatedAt > localProgress[key].updatedAt) localProgress[key] = value;
+      });
+      localStorage.setItem(STORE_KEY, JSON.stringify(localResults));
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(localProgress));
+      renderCards();
+      route();
+    }).catch(route);
+  } else route();
 })();

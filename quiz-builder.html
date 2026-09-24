@@ -16,6 +16,7 @@
         <span class="brand-copy"><small>Career</small><strong>Canvas</strong></span>
       </a>
       <nav class="app-nav" aria-label="Workspace navigation">
+        <a href="student.html">My class</a>
         <a href="studio.html">Project studio</a>
         <a href="quiz-builder.html" aria-current="page">Quiz builder</a>
         <a href="index.html#quizzes">Explore careers</a>
@@ -35,7 +36,19 @@
 
       <div class="builder-layout">
         <div>
-          <section class="panel" aria-labelledby="quiz-details-heading">
+          <section class="panel" aria-labelledby="quiz-template-heading">
+            <div class="panel-head">
+              <div><h2 id="quiz-template-heading">Choose a quiz format</h2><p>Start blank or load a structure you can rewrite.</p></div>
+              <span class="step-tag">Starter</span>
+            </div>
+            <div class="quiz-template-picker" id="quiz-template-picker">
+              <button class="template-choice" type="button" data-template="knowledge"><strong>Knowledge check</strong><span>Facts from the business research</span></button>
+              <button class="template-choice" type="button" data-template="scenario"><strong>Scenario challenge</strong><span>Choices in realistic situations</span></button>
+              <button class="template-choice" type="button" data-template="brand"><strong>Brand detective</strong><span>Audience, message, and design clues</span></button>
+            </div>
+          </section>
+
+          <section class="panel" style="margin-top:22px" aria-labelledby="quiz-details-heading">
             <div class="panel-head">
               <div><h2 id="quiz-details-heading">Quiz details</h2><p>Tell players what they are about to learn.</p></div>
               <span class="step-tag">Step 1</span>
@@ -71,15 +84,24 @@
             </ul>
             <div class="actions">
               <button class="btn primary" id="preview-quiz" type="button">Preview and play</button>
+              <button class="btn" id="save-gallery" type="button">Save to my gallery</button>
+              <button class="btn blue" id="submit-class" type="button">Submit to class gallery</button>
               <button class="btn" id="export-quiz" type="button">Download quiz</button>
+              <button class="btn" id="new-quiz" type="button">Start a new quiz</button>
             </div>
           </section>
-          <p class="field-help" style="padding:15px 4px">Your quiz is saved only in this browser. Downloading creates one HTML file you can open or share.</p>
+          <section class="local-gallery" aria-labelledby="gallery-heading">
+            <div class="local-gallery-head"><h2 id="gallery-heading">My quiz gallery</h2><span id="gallery-count">0 saved</span></div>
+            <div id="quiz-gallery"></div>
+          </section>
+          <p class="field-help" id="classroom-save-note" style="padding:15px 4px">Your draft is saved on this iPad. Join the class to submit a finished quiz to the shared gallery.</p>
         </aside>
       </div>
     </main>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="quiz-builder.js?v=4"></script>
+  <script src="classroom-config.js?v=1"></script>
+  <script src="classroom-data.js?v=1"></script>
+  <script src="quiz-builder.js?v=6"></script>
 </body>
 </html>

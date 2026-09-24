@@ -55,9 +55,13 @@
 
   function saveProject() {
     fields.forEach((name) => { project[name] = form.elements[name].value.trim(); });
+    if (!fields.some((name) => project[name])) return;
     project.updatedAt = new Date().toISOString();
     if (write(PROJECT_KEY, project)) {
-      status.textContent = `Saved on this device at ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}.`;
+      status.textContent = `Saved at ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}.`;
+      window.CareerCanvasClassroom?.syncStudent({ project, deliverables }).catch(() => {
+        status.textContent = "Saved on this iPad. Class sync will retry when the connection returns.";
+      });
     }
   }
 
@@ -101,6 +105,7 @@
       }
       deliverables[input.dataset.deliverable] = input.checked;
       write(DELIVERABLES_KEY, deliverables);
+      saveProject();
       paintProgress();
       showToast(input.checked ? "Marked complete" : "Moved back to in progress");
     });
@@ -141,6 +146,30 @@
     showToast("Project summary downloaded");
   });
 
+  window.addEventListener("pagehide", saveProject);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") saveProject();
+  });
+
   paintProgress();
   status.textContent = project.updatedAt ? "Your saved project is ready." : "Nothing saved yet. Start typing to create your project.";
+  if (window.CareerCanvasClassroom?.getSession()) {
+    window.CareerCanvasClassroom.getStudentRecord().then((record) => {
+      if (!record) return;
+      const remoteProject = record.project || {};
+      const remoteIsNewer = remoteProject.updatedAt && (!project.updatedAt || remoteProject.updatedAt > project.updatedAt);
+      if (remoteIsNewer) {
+        Object.assign(project, remoteProject);
+        fields.forEach((name) => { if (form.elements[name]) form.elements[name].value = project[name] || ""; });
+        write(PROJECT_KEY, project);
+      }
+      if (record.deliverables && remoteIsNewer) {
+        Object.assign(deliverables, record.deliverables);
+        document.querySelectorAll("[data-deliverable]").forEach((input) => { input.checked = Boolean(deliverables[input.dataset.deliverable]); });
+        write(DELIVERABLES_KEY, deliverables);
+      }
+      paintProgress();
+      status.textContent = "Your latest saved project is ready.";
+    }).catch(() => { status.textContent = "Using the version saved on this iPad."; });
+  }
 })();

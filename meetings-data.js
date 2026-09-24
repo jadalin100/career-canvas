@@ -1,5 +1,5 @@
 window.CAREER_CANVAS_MEETINGS = {
-  "generated": "2026-09-21",
+  "generated": "2026-09-24",
   "meetings": [
     {
       "number": 1,

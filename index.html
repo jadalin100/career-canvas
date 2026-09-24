@@ -28,9 +28,10 @@
       <a href="#meetings">The meetings</a>
       <a href="#quizzes">Career quizzes</a>
       <a href="#partners">For businesses</a>
+      <a href="join.html">Join class</a>
     </nav>
 
-    <a class="nav-cta" href="studio.html">Open the studio <span aria-hidden="true">↗</span></a>
+    <a class="nav-cta" href="join.html">Join class <span aria-hidden="true">↗</span></a>
   </header>
 
   <main id="main">
@@ -208,13 +209,30 @@
           <p class="kicker">Local businesses make it real</p>
           <h2>A small ask.<br>A lasting first experience.</h2>
           <p>Partners give students a real organization to study, one useful question to explore, and brief feedback on what they create. The student team handles the curriculum, technology, and supervision.</p>
-          <a class="button button-dark" href="#pilot">See the partner commitment <span aria-hidden="true">↓</span></a>
+          <div class="partner-actions">
+            <a class="button button-dark" href="mailto:careercanvas.gns@gmail.com?subject=Career%20Canvas%20partnership">Email Career Canvas <span aria-hidden="true">↗</span></a>
+            <a class="partner-email" href="mailto:careercanvas.gns@gmail.com">careercanvas.gns@gmail.com</a>
+          </div>
         </div>
         <div class="partner-commitment" aria-label="Business partner commitment">
           <div><strong>30</strong><span>minute kickoff</span></div>
           <div><strong>20</strong><span>minute review</span></div>
           <div><strong>01</strong><span>student showcase</span></div>
         </div>
+        <form class="partner-form" id="partner-form">
+          <div class="partner-form-heading">
+            <p class="kicker">Interested in partnering?</p>
+            <h3>Tell us the basics.</h3>
+            <p>This opens a ready-to-send email. Nothing is submitted until you press Send.</p>
+          </div>
+          <label><span>Your name</span><input name="name" autocomplete="name" required></label>
+          <label><span>Business name</span><input name="business" autocomplete="organization" required></label>
+          <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+          <label><span>What should students learn about your business?</span><textarea name="focus" rows="3" required></textarea></label>
+          <label><span>What could students create for you?</span><textarea name="idea" rows="3" placeholder="An advertisement, quiz topic, audience, or campaign idea"></textarea></label>
+          <button class="button button-primary" type="submit">Open my email draft <span aria-hidden="true">→</span></button>
+          <p class="partner-form-status" id="partner-form-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
@@ -237,12 +255,15 @@
       <span class="brand-copy"><strong>Career</strong><span>Canvas</span></span>
     </a>
     <p>A student-built career development initiative.</p>
-    <a href="#top">Back to top ↑</a>
+    <div><a href="teacher.html">Teacher dashboard</a> · <a href="#top">Back to top ↑</a></div>
   </footer>
 
   <script src="meetings-data.js?v=1"></script>
   <script src="quiz-data.js?v=1"></script>
+  <script src="classroom-config.js?v=1"></script>
+  <script src="classroom-data.js?v=1"></script>
   <script src="canvas.js?v=6"></script>
-  <script src="canvas-quizzes.js?v=1"></script>
+  <script src="canvas-quizzes.js?v=2"></script>
+  <script src="partner-form.js?v=1"></script>
 </body>
 </html>
