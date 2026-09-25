@@ -21,4 +21,4 @@ npx firebase-tools deploy --only firestore:rules --project career-canvas-classro
 
 ## Before the first live class
 
-Run one hands-on check on two actual school iPads: join as a student, submit a quiz, approve it from `teacher.html`, and confirm it appears in the class gallery. The automated two-session cloud test passed on September 23, 2026.
+Run one hands-on check on two actual school iPads: join as a student, submit a quiz, approve it from `teacher.html`, and confirm it appears in the class gallery. The automated two-session cloud test and deployed-browser pipeline passed on September 24, 2026.

@@ -11,7 +11,10 @@ service cloud.firestore {
       allow create: if pilotClass(classId) && signedIn()
         && request.resource.data.authUid == request.auth.uid
         && !exists(/databases/$(database)/documents/classes/$(classId)/students/$(studentId));
-      allow read: if pilotClass(classId) && (teacher() || (signedIn() && resource.data.authUid == request.auth.uid));
+      allow get: if pilotClass(classId) && (teacher() || (signedIn()
+        && (!exists(/databases/$(database)/documents/classes/$(classId)/students/$(studentId))
+          || resource.data.authUid == request.auth.uid)));
+      allow list: if pilotClass(classId) && teacher();
       allow update: if pilotClass(classId) && (teacher() || (signedIn()
         && resource.data.authUid == request.auth.uid
         && request.resource.data.authUid == request.auth.uid));
