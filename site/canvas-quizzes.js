@@ -116,7 +116,7 @@
         <p class="canvas-quiz-type">${esc(quiz.title)}</p>
         <h3>${esc(quiz.subtitle)}</h3>
         <p>${quiz.questions.length} questions · ${TIMES[key]}</p>
-        <span class="canvas-quiz-action">${drafts[key] ? "Continue quiz" : done ? "Retake quiz" : "Start quiz"}<b aria-hidden="true">↗</b></span>
+        <span class="canvas-quiz-action">${drafts[key] ? "Continue quiz" : done ? "View saved result" : "Start quiz"}<b aria-hidden="true">↗</b></span>
         ${done || drafts[key] ? `<span class="canvas-quiz-saved">${drafts[key] ? "Progress saved on this device" : "Result saved on this device"}</span>` : ""}
       </a>`;
     }).join("");
@@ -222,11 +222,32 @@
     stageBody.focus({ preventScroll: true });
   }
 
+  function showSavedResults(key) {
+    const quiz = getQuiz(key);
+    const saved = readResults()[key];
+    const top = (saved?.topResults || []).map(code => quiz.results.find(result => result.code === code)).filter(Boolean);
+    if (!top.length) { startQuiz(key, true); return; }
+    currentKey = key;
+    overview.hidden = true;
+    stage.hidden = false;
+    stageLabel.textContent = `${quiz.title} quiz`;
+    stageCount.textContent = "Saved result";
+    progress.style.width = "100%";
+    stageBody.innerHTML = `
+      <div class="quiz-results-heading"><p class="quiz-question-kicker">Your saved matches</p><h3>${esc(quiz.subtitle)}</h3><p>Completed ${saved.completedAt ? new Date(saved.completedAt).toLocaleDateString() : "previously"}. Your result stays here and follows your class account across school iPads.</p></div>
+      <div class="canvas-results">${top.map((result, index) => `<article class="canvas-result-card${index === 0 ? " first" : ""}"><span class="canvas-result-rank">${index + 1}</span><h4>${esc(result.name)}</h4><p>${esc(result.blurb)}</p>${quiz.key === "deca" && eventUrl(result.code) ? `<a href="${eventUrl(result.code)}" target="_blank" rel="noopener">View official DECA event</a>` : ""}</article>`).join("")}</div>
+      <div class="quiz-result-actions"><button class="button button-primary" id="canvas-quiz-retake" type="button">Retake this quiz</button><a class="button button-quiet" href="#quizzes">Choose another quiz</a><button class="quiz-text-button" id="canvas-quiz-print" type="button">Save results as PDF</button></div>`;
+    document.querySelector("#canvas-quiz-retake").addEventListener("click", () => startQuiz(key, true));
+    document.querySelector("#canvas-quiz-print").addEventListener("click", () => window.print());
+    stageBody.focus({ preventScroll: true });
+  }
+
   function startQuiz(key, fresh = false) {
     const quiz = getQuiz(key);
     if (!quiz) return;
     currentKey = key;
     const draft = fresh ? null : readProgress()[key];
+    if (!fresh && !draft && readResults()[key]) { showSavedResults(key); return; }
     answers = draft && Array.isArray(draft.answers) && draft.answers.length === quiz.questions.length
       ? draft.answers
       : new Array(quiz.questions.length).fill(null);

@@ -1,5 +1,5 @@
 window.CAREER_CANVAS_MEETINGS = {
-  "generated": "2026-09-21",
+  "generated": "2026-09-25",
   "meetings": [
     {
       "number": 1,
@@ -59,7 +59,7 @@ window.CAREER_CANVAS_MEETINGS = {
     {
       "number": 2,
       "title": "Meet the business",
-      "summary": "Take a real business apart, meet the people who run one, and leave with five questions",
+      "summary": "Take a real business apart, meet the people who run one, and leave with five research questions",
       "slideCount": 11,
       "activeMinutes": 52,
       "agenda": [
@@ -108,10 +108,10 @@ window.CAREER_CANVAS_MEETINGS = {
     },
     {
       "number": 3,
-      "title": "Business research lab",
-      "summary": "Five rounds of hunting, judging, and throwing sources out",
-      "slideCount": 11,
-      "activeMinutes": 52,
+      "title": "Research and write the business story",
+      "summary": "Find trustworthy evidence, test every source, and turn your research into a one-to-four-page article",
+      "slideCount": 20,
+      "activeMinutes": 95,
       "agenda": [
         {
           "label": "Two kinds of data, and you need both.",
@@ -130,10 +130,6 @@ window.CAREER_CANVAS_MEETINGS = {
           "minutes": 12
         },
         {
-          "label": "Name who your business could lose a customer to.",
-          "minutes": 8
-        },
-        {
           "label": "Put your findings in four boxes and find the empty one.",
           "minutes": 7
         },
@@ -148,21 +144,11 @@ window.CAREER_CANVAS_MEETINGS = {
         {
           "label": "Name the source you threw out and the finding that surprised you.",
           "minutes": null
-        }
-      ],
-      "sources": [
-        "Investopedia",
-        "Purdue OWL"
-      ],
-      "deck": "Career_Canvas_Meeting_3_Business_Research_Lab.pptx"
-    },
-    {
-      "number": 4,
-      "title": "Write the business spotlight",
-      "summary": "Five writing rounds that assemble into the one-page paper before you leave",
-      "slideCount": 11,
-      "activeMinutes": 51,
-      "agenda": [
+        },
+        {
+          "label": "The CRAAP test for student research",
+          "minutes": null
+        },
         {
           "label": "A paper is one claim, held up by evidence.",
           "minutes": null
@@ -188,11 +174,11 @@ window.CAREER_CANVAS_MEETINGS = {
           "minutes": 5
         },
         {
-          "label": "Your page is done when all eight are filled.",
+          "label": "Your article and campaign plan are ready when these sections connect.",
           "minutes": null
         },
         {
-          "label": "Assemble the page and submit it.",
+          "label": "Assemble the article and campaign plan.",
           "minutes": 20
         },
         {
@@ -202,16 +188,17 @@ window.CAREER_CANVAS_MEETINGS = {
       ],
       "sources": [
         "Investopedia",
-        "Purdue OWL"
+        "Purdue OWL",
+        "California State University Chico"
       ],
-      "deck": "Career_Canvas_Meeting_4_Write_The_Business_Spotlight.pptx"
+      "deck": "Career_Canvas_Meeting_3_Research_And_Write_The_Business_Story.pptx"
     },
     {
-      "number": 5,
-      "title": "Create for a real audience",
-      "summary": "Four decisions, five rounds, one ad the business will actually see",
-      "slideCount": 11,
-      "activeMinutes": 50,
+      "number": 4,
+      "title": "Create the ad and build the quiz",
+      "summary": "Turn one audience insight into an original advertisement and an educational quiz people can play",
+      "slideCount": 21,
+      "activeMinutes": 107,
       "agenda": [
         {
           "label": "An ad is the promotion decision.",
@@ -248,20 +235,7 @@ window.CAREER_CANVAS_MEETINGS = {
         {
           "label": "Send it to the business with one specific question attached.",
           "minutes": null
-        }
-      ],
-      "sources": [
-        "Investopedia"
-      ],
-      "deck": "Career_Canvas_Meeting_5_Create_For_A_Real_Audience.pptx"
-    },
-    {
-      "number": 6,
-      "title": "Build your quiz app",
-      "summary": "Write it, build it, and have someone else break it, all in one meeting",
-      "slideCount": 11,
-      "activeMinutes": 57,
-      "agenda": [
+        },
         {
           "label": "Being tested beats re-reading.",
           "minutes": null
@@ -300,17 +274,17 @@ window.CAREER_CANVAS_MEETINGS = {
         }
       ],
       "sources": [
+        "Investopedia",
         "Roediger & Karpicke (2006)",
         "DECA",
-        "Investopedia",
         "Purdue OWL"
       ],
-      "deck": "Career_Canvas_Meeting_6_Build_Your_Quiz_App.pptx"
+      "deck": "Career_Canvas_Meeting_4_Create_The_Ad_And_Build_The_Quiz.pptx"
     },
     {
-      "number": 7,
+      "number": 5,
       "title": "Showcase your work",
-      "summary": "Assemble it, name what it proves, and say it out loud in sixty seconds",
+      "summary": "Build a portfolio and resume, then present the project story to a real audience",
       "slideCount": 11,
       "activeMinutes": 61,
       "agenda": [
@@ -357,7 +331,7 @@ window.CAREER_CANVAS_MEETINGS = {
         "Purdue OWL",
         "DECA"
       ],
-      "deck": "Career_Canvas_Meeting_7_Showcase_Your_Work.pptx"
+      "deck": "Career_Canvas_Meeting_5_Showcase_Your_Work.pptx"
     }
   ]
 };

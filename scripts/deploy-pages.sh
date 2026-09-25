@@ -22,11 +22,11 @@ trap 'rm -rf "$TMP"' EXIT
 
 git clone --quiet --depth 1 --branch gh-pages https://github.com/jadalin100/career-canvas.git "$TMP"
 touch "$TMP/.nojekyll"
-cp site/index.html site/quizzes.html site/quiz.html site/studio.html \
+cp site/index.html site/businesses.html site/gallery.html site/quizzes.html site/quiz.html site/studio.html \
    site/quiz-builder.html site/join.html site/student.html site/teacher.html \
    site/play.html site/app.js site/style.css site/canvas.css \
    site/canvas.js site/canvas-quizzes.js site/canvas-app.css site/canvas-app.js \
-   site/quiz-builder.js site/partner-form.js site/classroom.css \
+   site/quiz-builder.js site/partner-form.js site/gallery.js site/classroom.css \
    site/classroom-config.js site/classroom-data.js site/classroom-ui.js \
    site/quizzes.json site/quiz-data.js \
    site/meetings.json site/meetings-data.js "$TMP/"

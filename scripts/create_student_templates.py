@@ -143,120 +143,81 @@ def section(doc, heading, guidance, fields=None, lines=4):
         add_writing_space(doc, lines)
 
 
-def save_paper_spotlight():
+def save_business_article():
     doc = base_document(
-        "Local Business Spotlight Paper",
-        "Use this template to explain one local business, the audience it serves, and one evidence-based recommendation.",
+        "Business Article and Campaign Guide",
+        "Use this guide to write a one-to-four-page article that explains the partner business and turns your evidence into an original advertisement recommendation.",
     )
-    section(doc, "Business overview", "Introduce the business in your own words.", [
-        ("What it offers", "Main product or service"),
+    section(doc, "Business introduction", "Explain what the business does, who it serves, and why it matters in the community. Write in your own words.", [
+        ("Main product or service", "What the business offers"),
         ("Audience", "Who the business serves"),
-        ("Community role", "Why it matters locally"),
+        ("Community role", "Why this business matters locally"),
     ])
-    section(doc, "What we learned", "Summarize the strongest facts from the business introduction, interview, and research.", lines=5)
-    section(doc, "Audience insight", "Explain one need, preference, or behavior you noticed in the target audience.", lines=4)
-    section(doc, "Recommendation", "Propose one realistic idea. Connect it directly to your evidence.", lines=5)
-    section(doc, "Sources", "List each source with its title, organization, date, and link. Do not paste text from the source.", lines=4)
-    doc.save(OUTPUT / "paper-local-business-spotlight.docx")
-
-
-def save_paper_comparison():
-    doc = base_document(
-        "Competitor Comparison Paper",
-        "Use this template to compare a partner business with two relevant competitors and identify a focused opportunity.",
-    )
-    section(doc, "Comparison question", "Write the exact question your comparison will answer.", lines=3)
-    doc.add_heading("Evidence table", level=1)
-    add_field_table(doc, [
-        ("Business", "Partner business and two competitors"),
-        ("Audience", "Who each one targets"),
-        ("Message", "What each brand emphasizes"),
-        ("Digital presence", "Website, social media, reviews, or other evidence"),
-        ("Creative strength", "One thing each does especially well"),
-    ])
-    section(doc, "Pattern you found", "Explain the most important similarity or difference.", lines=4)
-    section(doc, "Opportunity", "Recommend one way the partner could stand out. Support it with evidence.", lines=5)
-    section(doc, "Sources", "List each source with its title, organization, date, and link.", lines=4)
-    doc.save(OUTPUT / "paper-competitor-comparison.docx")
-
-
-def save_paper_campaign():
-    doc = base_document(
-        "Creative Campaign Brief",
-        "Use this template to turn business research into a clear plan for an advertisement or digital campaign.",
-    )
-    section(doc, "Campaign goal", "State one specific result the campaign should support.", [
+    section(doc, "Research question", "Write the main question your article will answer.", lines=2)
+    section(doc, "Evidence and source check", "Summarize the strongest facts from the business introduction and outside research. For every source, check currency, relevance, authority, accuracy, and purpose.", lines=6)
+    doc.add_page_break()
+    section(doc, "Audience insight", "Explain one need, preference, or behavior you noticed. Connect it to specific evidence.", lines=5)
+    section(doc, "Advertisement recommendation", "Turn the insight into one focused campaign direction.", [
+        ("Goal", "What the advertisement should help accomplish"),
         ("Audience", "Who should notice or act"),
         ("Desired action", "What you want the audience to do"),
         ("Key message", "The single idea they should remember"),
+        ("Format", "Flyer, social post, or short video"),
     ])
-    section(doc, "Research evidence", "Add three findings that shaped the campaign. Explain where each came from.", lines=6)
-    doc.add_page_break()
-    doc.add_paragraph()
-    section(doc, "Creative direction", "Describe the tone, visual choices, and channel. Explain why they fit the audience.", lines=5)
+    section(doc, "Creative direction", "Describe the tone, color, type, imagery, and layout. Explain why each choice fits the audience and partner.", lines=5)
     section(doc, "Success measure", "Name one practical way the business could tell whether the idea worked.", lines=3)
-    section(doc, "Sources", "List each source with its title, organization, date, and link.", lines=4)
-    doc.save(OUTPUT / "paper-creative-campaign-brief.docx")
+    section(doc, "Sources", "List each source with its title, organization, publication date, access date, and link. Do not paste wording from a source into your article.", lines=5)
+    doc.save(OUTPUT / "business-article-and-campaign-guide.docx")
 
 
-def save_portfolio_story():
+def save_portfolio(filename, aesthetic, body_font, subtitle):
     doc = base_document(
-        "Project Story Portfolio",
-        "Use this portfolio to show how your work changed from the first idea to the finished project.",
+        f"{aesthetic} Project Portfolio",
+        subtitle,
     )
-    for heading, prompt in [
-        ("The challenge", "What did the business or audience need?"),
-        ("My research", "What evidence changed your thinking?"),
-        ("First version", "Insert or link your first draft and explain your choices."),
-        ("Feedback and revision", "What feedback did you receive, and what did you change?"),
-        ("Final work", "Insert or link the paper, ad, and quiz. Describe how they connect."),
-        ("Reflection", "What creative or business skill improved most? What would you try next?"),
-    ]:
-        section(doc, heading, prompt, lines=4)
-    doc.save(OUTPUT / "portfolio-project-story.docx")
-
-
-def save_portfolio_showcase():
-    doc = base_document(
-        "Visual Showcase Portfolio",
-        "Use this portfolio when the ad, quiz screens, and visual decisions are the strongest part of your project.",
-    )
-    section(doc, "One sentence concept", "Describe the whole project in one sentence.", lines=2)
-    section(doc, "Audience and visual direction", "Name the audience, mood, colors, type, and image style. Explain why they fit.", lines=4)
-    section(doc, "Featured work 1", "Insert a screenshot or link. Add a short caption explaining the goal, your choice, and what you learned.", lines=5)
+    doc.styles["Normal"].font.name = body_font
+    section(doc, "Project story", "Explain the business challenge, the audience, your first idea, and the evidence that changed your thinking.", lines=6)
+    section(doc, "Research to concept", "Show how one research finding shaped your advertisement or quiz.", lines=5)
+    section(doc, "Featured work one", "Insert or link a visual. Add a caption that names the goal, design choice, and result.", lines=5)
     doc.add_page_break()
-    doc.add_paragraph()
-    for n in range(2, 4):
-        section(doc, f"Featured work {n}", "Insert a screenshot or link. Add a short caption explaining the goal, your choice, and what you learned.", lines=5)
-    section(doc, "Consistency check", "Explain how the paper, ad, and quiz feel like parts of one brand experience.", lines=4)
-    section(doc, "Reflection", "What is the strongest creative decision in this portfolio, and why?", lines=3)
-    doc.save(OUTPUT / "portfolio-visual-showcase.docx")
+    section(doc, "Featured work two", "Insert or link a second visual. Explain how it connects to the same audience and message.", lines=5)
+    section(doc, "Featured work three", "Insert or link a third visual. Show the final quiz, advertisement, article, portfolio page, or resume.", lines=5)
+    section(doc, "Feedback and revision", "Name the feedback you received and show the change you made because of it.", lines=4)
+    section(doc, "Skills and reflection", "Name the business and creative skills this work proves. Explain what you would improve next.", lines=4)
+    doc.save(OUTPUT / filename)
 
 
-def save_portfolio_case_study():
-    doc = base_document(
-        "Business Case Study Portfolio",
-        "Use this portfolio to emphasize your reasoning, evidence, and recommendation for the partner business.",
-    )
-    section(doc, "Business context", "What does the business do, who does it serve, and what question did you investigate?", lines=4)
-    section(doc, "Evidence", "Summarize the interview, research, and observations that mattered most.", lines=5)
-    section(doc, "Insight", "What did the evidence reveal about the audience or business?", lines=4)
-    doc.add_page_break()
-    doc.add_paragraph()
-    section(doc, "Solution and reflection", "Show how your final work responds to the evidence, then explain what changed.", [
-        ("Solution", "How the ad and quiz respond to the insight"),
-        ("Feedback", "What a student, teacher, or partner said and what you revised"),
-        ("Result", "What you completed"),
-        ("Next step", "What you would improve with more time"),
-    ])
-    doc.save(OUTPUT / "portfolio-business-case-study.docx")
+def save_ad_template(filename, title, subtitle, sections):
+    doc = base_document(title, subtitle)
+    for heading, prompt, lines in sections:
+        section(doc, heading, prompt, lines=lines)
+    doc.save(OUTPUT / filename)
 
 
 if __name__ == "__main__":
-    save_paper_spotlight()
-    save_paper_comparison()
-    save_paper_campaign()
-    save_portfolio_story()
-    save_portfolio_showcase()
-    save_portfolio_case_study()
-    print("Created 6 Career Canvas templates")
+    save_business_article()
+    save_ad_template("ad-flyer-template.docx", "Business Flyer Template", "Plan an original one-page flyer. Use this as a structure, not a finished design.", [
+        ("Goal and audience", "What should this flyer accomplish, and who needs to notice it?", 4),
+        ("Headline and message", "Write one headline and the single idea the audience should remember.", 4),
+        ("Visual plan", "Sketch the placement of the main image, headline, details, and call to action. Name the colors and fonts you plan to use.", 8),
+        ("Required information", "List every fact, date, location, link, price, or disclaimer that must be correct.", 4),
+        ("Final check", "Can someone understand the message in five seconds? Is every fact verified?", 3),
+    ])
+    save_ad_template("ad-social-post-template.docx", "Social Media Advertisement Template", "Plan a square or vertical social post and the caption that supports it.", [
+        ("Goal and audience", "What should someone think, feel, or do after seeing this post?", 4),
+        ("Post layout", "Sketch the visual, headline, logo placement, and call to action.", 8),
+        ("Caption", "Write a concise caption in the business's voice. Include a clear next step.", 5),
+        ("Accessibility text", "Describe the visual for someone who cannot see it.", 3),
+        ("Fact and permission check", "List facts, images, names, or claims that need business approval.", 3),
+    ])
+    save_ad_template("ad-video-storyboard-template.docx", "Short Video Advertisement Storyboard", "Plan a 15-to-30-second vertical video before recording or editing.", [
+        ("Goal and audience", "What should the viewer remember or do?", 3),
+        ("Opening hook", "What happens in the first two seconds?", 3),
+        ("Six-scene storyboard", "For each scene, write the visual, on-screen words, audio, and approximate time.", 12),
+        ("Closing action", "What exact next step appears at the end?", 3),
+        ("Production check", "Confirm facts, music rights, image permissions, captions, and business approval.", 4),
+    ])
+    save_portfolio("portfolio-editorial-blue.docx", "Editorial Blue", "Aptos", "Combine your project story with a visual showcase in a structured editorial style.")
+    save_portfolio("portfolio-minimal-ivory.docx", "Minimal Ivory", "Georgia", "Combine your project story with a visual showcase using calm typography and generous space.")
+    save_portfolio("portfolio-bold-grid.docx", "Bold Grid", "Trebuchet MS", "Combine your project story with a visual showcase built for strong screenshots and captions.")
+    print("Created 7 Career Canvas templates")

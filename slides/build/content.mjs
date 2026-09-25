@@ -60,7 +60,7 @@ const JOURNEY = [
 // the business paper, the ad, the quiz app, and the portfolio.
 const plan = (rows) => rows.map(([n, name, desc, color]) => [n, name, desc, color]);
 
-export const DECKS = [
+const ORIGINAL_DECKS = [
 
 // ───────────────────────────── MEETING 1 ─────────────────────────────
 // Producible fed: the concept sketch that becomes the business choice.
@@ -1012,4 +1012,90 @@ export const DECKS = [
     ["sourceLibrary", { entries: [lib.pitch, lib.wef, lib.owl, lib.decaCompete] }],
   ],
 },
+];
+
+const contentSlides = (deck) => deck.slides.filter(([layout]) => layout !== "cover" && layout !== "sourceLibrary");
+const sourceEntries = (...decks) => {
+  const entries = decks.flatMap(deck => deck.slides.filter(([layout]) => layout === "sourceLibrary").flatMap(([, props]) => props.entries));
+  return [...new Map(entries.map(entry => [entry[3], entry])).values()];
+};
+const replaceMeetingText = (value, replacements) => {
+  if (typeof value === "string") return replacements.reduce((text, [from, to]) => text.replaceAll(from, to), value);
+  if (Array.isArray(value)) return value.map(item => replaceMeetingText(item, replacements));
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, replaceMeetingText(item, replacements)]));
+  return value;
+};
+const retitleDeck = (deck, number, file, title, sub, replacements = []) => ({
+  file,
+  slides: deck.slides.map(([layout, props]) => [layout, replaceMeetingText(layout === "cover" ? { ...props, meeting: `Meeting ${number}`, title, sub } : props, replacements)]),
+});
+
+const craapSlide = ["checklist", {
+  kicker: "Source check", title: "The CRAAP test for student research",
+  sub: "Before a source enters your article, answer all five questions and record the evidence in your research notes.",
+  items: [
+    "Currency: When was it published or updated, and is that date appropriate for your question?",
+    "Relevance: Does it directly help answer your research question for this business and audience?",
+    "Authority: Who created it, and what gives that person or organization credibility?",
+    "Accuracy: Can you verify the claim with evidence or another reliable source?",
+    "Purpose: Is the source trying to inform, sell, persuade, entertain, or collect attention?",
+    "Decision: Use it, use it with a warning, or leave it out. Write one sentence explaining why.",
+  ],
+  aside: "A source can look professional and still fail. Save the title, publisher, date, link, and your five-part decision before you start writing.",
+  source: "Source: California State University Chico, Meriam Library, CRAAP Test",
+  sources: ["https://library.csuchico.edu/sites/default/files/craap-test.pdf"],
+  notes: "Students complete this check for every outside source. CRAAP stands for Currency, Relevance, Authority, Accuracy, and Purpose. The slide paraphrases the original checklist for middle-school use.",
+}];
+
+const researchSlides = contentSlides(ORIGINAL_DECKS[2]).filter(([, props]) => !String(props.label || "").toLowerCase().includes("competitor sweep"));
+const writingSlides = contentSlides(ORIGINAL_DECKS[3]).map(([layout, props]) => {
+  if (props.title === "Your page is done when all eight are filled.") return ["checklist", {
+    ...props,
+    title: "Your article and campaign plan are ready when these sections connect.",
+    sub: "The article may run one to four pages. Every section should help the reader understand the business, the audience, and the creative recommendation.",
+    items: ["Business overview", "Research question", "Evidence with source checks", "Audience insight", "Advertisement goal", "Message and desired action", "Creative direction", "Sources"],
+    aside: "The campaign recommendation belongs in the same paper because it should grow directly from the research, not appear as a separate guess.",
+  }];
+  if (props.title === "Assemble the page and submit it.") return [layout, {
+    ...props,
+    title: "Assemble the article and campaign plan.",
+    steps: [
+      ["01", "Put the business overview, research question, and strongest evidence first."],
+      ["02", "Explain the audience insight in your own words and connect it to evidence."],
+      ["03", "Add the advertisement goal, message, action, and creative direction."],
+      ["04", "Run the source and fact check, then add your source list."],
+    ],
+    deliverable: { big: "One-to-four-page\nbusiness\narticle", note: "Research and creative recommendation in one paper." },
+  }];
+  return [layout, props];
+});
+
+const researchWriting = {
+  file: "Career_Canvas_Meeting_3_Research_And_Write_The_Business_Story",
+  slides: [
+    ["cover", { ...ORIGINAL_DECKS[2].slides[0][1], meeting: "Meeting 3", title: "Research and write\nthe business story", sub: "Find trustworthy evidence, test every source, and turn your research into a one-to-four-page article" }],
+    ...researchSlides,
+    craapSlide,
+    ...writingSlides,
+    ["sourceLibrary", { entries: sourceEntries(ORIGINAL_DECKS[2], ORIGINAL_DECKS[3]).concat([["California State University Chico", "CRAAP Test", "library.csuchico.edu", "https://library.csuchico.edu/sites/default/files/craap-test.pdf"]]) }],
+  ],
+};
+
+const createBuild = {
+  file: "Career_Canvas_Meeting_4_Create_The_Ad_And_Build_The_Quiz",
+  slides: [
+    ["cover", { ...ORIGINAL_DECKS[4].slides[0][1], meeting: "Meeting 4", title: "Create the ad\nand build the quiz", sub: "Turn one audience insight into an original advertisement and an educational quiz people can play" }],
+    ...contentSlides(retitleDeck(ORIGINAL_DECKS[4], 4, "", "", "", [["Meeting 5", "Meeting 4"], ["Meeting 6", "Meeting 4"]])),
+    ...contentSlides(retitleDeck(ORIGINAL_DECKS[5], 4, "", "", "", [["Meeting 6", "Meeting 4"], ["Meeting 7", "Meeting 5"]])),
+    ["sourceLibrary", { entries: sourceEntries(ORIGINAL_DECKS[4], ORIGINAL_DECKS[5]).slice(0, 8) }],
+    ["sourceLibrary", { entries: sourceEntries(ORIGINAL_DECKS[4], ORIGINAL_DECKS[5]).slice(8) }],
+  ],
+};
+
+export const DECKS = [
+  retitleDeck(ORIGINAL_DECKS[0], 1, "Career_Canvas_Meeting_1_Creativity_Across_DECA_Areas", "Creativity across\nbusiness", "Five timed rounds, five DECA career areas, one idea you build and defend"),
+  retitleDeck(ORIGINAL_DECKS[1], 2, "Career_Canvas_Meeting_2_Meet_The_Business", "Meet the\nbusiness", "Take a real business apart, meet the people who run one, and leave with five research questions"),
+  researchWriting,
+  createBuild,
+  retitleDeck(ORIGINAL_DECKS[6], 5, "Career_Canvas_Meeting_5_Showcase_Your_Work", "Showcase\nyour work", "Build a portfolio and resume, then present the project story to a real audience", [["Meeting 7", "Meeting 5"], ["Meetings 1 through 6", "Meetings 1 through 4"], ["six meetings", "four meetings"]]),
 ];

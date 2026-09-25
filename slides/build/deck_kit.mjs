@@ -64,16 +64,20 @@ export function makeDeckBuilder() {
   }
 
   function header(slide, kicker, title, sub = "", onDark = false) {
-    text(slide, kicker.toUpperCase(), 72, 44, 520, 28, { fontSize: 15, bold: true, color: onDark ? C.yellow : C.blue });
-    const size = title.length > 62 ? 30 : title.length > 46 ? 34 : 38;
-    text(slide, title, 72, 78, 1120, 66, { fontSize: size, bold: true, color: onDark ? C.white : C.navy });
-    if (sub) text(slide, sub, 72, 146, 1110, 46, { fontSize: 19, color: onDark ? C.sky : C.muted });
+    const titleColor = onDark ? C.white : C.navy;
+    const bandFill = onDark ? C.blue : C.navy;
+    text(slide, title, 54, 34, 1172, 58, { fontSize: title.length > 62 ? 29 : title.length > 46 ? 33 : 37, bold: true, color: titleColor, alignment: "center" });
+    shape(slide, 54, 102, 1172, 42, bandFill);
+    text(slide, kicker.toUpperCase(), 68, 111, 1144, 24, { fontSize: 15, bold: true, color: C.white });
+    if (sub) text(slide, sub, 68, 156, 1144, 42, { fontSize: 18, color: onDark ? C.ivory : C.muted });
   }
 
   function footer(slide, sourceLabel = "", onDark = false) {
-    shape(slide, 72, 676, 1136, 1, onDark ? C.blue : C.line);
-    if (sourceLabel) text(slide, sourceLabel, 102, 682, 970, 22, { fontSize: 10, color: onDark ? C.sky : C.muted });
-    text(slide, String(n).padStart(2, "0"), 1145, 682, 62, 20, { fontSize: 11, bold: true, color: onDark ? C.yellow : C.blue, alignment: "right" });
+    if (sourceLabel) text(slide, sourceLabel, 54, 654, 1134, 20, { fontSize: 9, color: onDark ? C.ivory : C.muted });
+    shape(slide, 0, 684, 1280, 36, onDark ? C.blue : C.navy);
+    text(slide, "CAREER CANVAS", 28, 692, 250, 20, { fontSize: 12, bold: true, color: C.white });
+    shape(slide, 278, 701, 900, 2, C.ivory);
+    text(slide, String(n).padStart(2, "0"), 1195, 692, 56, 20, { fontSize: 12, bold: true, color: C.white, alignment: "right" });
   }
 
   function notes(slide, teaching, sources = []) {
@@ -151,22 +155,18 @@ export function makeDeckBuilder() {
   };
 
   function cover({ title, sub, meeting, figure, byline = "Designed by Jada Lin and Olivia Zheng\nGreat Neck South", notes: teaching, sources }) {
-    const slide = newSlide(C.white);
-    if (figure && FIGURES[figure]) {
-      FIGURES[figure](slide);
-    } else {
-      shape(slide, 700, 0, 580, 720, C.deep);
-      shape(slide, 760, 140, 460, 440, C.navy, "roundRect");
-      text(slide, meeting.toUpperCase(), 800, 186, 380, 28, { fontSize: 14, bold: true, color: C.cream });
-      shape(slide, 800, 226, 60, 6, C.cream, "roundRect");
-      text(slide, title, 800, 262, 384, 280, { fontSize: 38, bold: true, color: C.white });
-    }
-    text(slide, "CAREER CANVAS", 72, 58, 300, 26, { fontSize: 15, bold: true, color: C.blue });
-    shape(slide, 72, 96, 72, 8, C.navy, "roundRect");
-    text(slide, title, 72, 152, 520, 190, { fontSize: title.length > 26 ? 44 : 52, bold: true, color: C.navy });
-    text(slide, sub, 72, 364, 500, 120, { fontSize: 21, color: C.muted });
-    text(slide, meeting, 72, 566, 220, 30, { fontSize: 17, bold: true, color: C.navy });
-    text(slide, byline, 72, 606, 380, 50, { fontSize: 13, color: C.muted });
+    const slide = newSlide(C.deep);
+    text(slide, "CAREER CANVAS", 58, 42, 470, 30, { fontSize: 20, bold: true, color: C.cream });
+    text(slide, "CAREER DEVELOPMENT WORKSHOP", 58, 84, 700, 24, { fontSize: 13, bold: true, color: C.ivory });
+    shape(slide, 58, 148, 1164, 374, C.cream);
+    shape(slide, 58, 148, 15, 374, C.blue);
+    text(slide, meeting.toUpperCase(), 100, 184, 620, 28, { fontSize: 18, bold: true, color: C.blue });
+    text(slide, title, 100, 230, 1040, 156, { fontSize: title.length > 30 ? 58 : 66, bold: true, color: C.deep });
+    shape(slide, 100, 408, 1070, 3, C.blue);
+    text(slide, sub, 100, 432, 1030, 67, { fontSize: 22, color: C.deep });
+    text(slide, byline, 58, 577, 490, 55, { fontSize: 18, color: C.white });
+    text(slide, "GREAT NECK SOUTH", 814, 584, 408, 30, { fontSize: 19, bold: true, color: C.ivory, alignment: "right" });
+    shape(slide, 0, 684, 1280, 36, C.blue);
     notes(slide, teaching, sources);
   }
 
@@ -174,24 +174,33 @@ export function makeDeckBuilder() {
   function barFigure({ kicker, title, sub, groups, series, takeaway, source, notes: teaching, sources }) {
     const slide = newSlide(C.white);
     header(slide, kicker, title, sub);
-    groupedBars(slide, 110, 240, 700, 250, groups, series);
-    shape(slide, 880, 230, 300, 330, C.cream, "roundRect");
-    text(slide, "WHAT IT MEANS", 910, 262, 250, 24, { fontSize: 13, bold: true, color: C.navy });
-    text(slide, takeaway, 910, 300, 244, 230, { fontSize: 19, bold: true, color: C.navy });
+    shape(slide, 54, 212, 770, 42, C.blue);
+    text(slide, "RECALL AFTER STUDYING", 70, 222, 734, 25, { fontSize: 16, bold: true, color: C.white });
+    shape(slide, 54, 262, 770, 352, C.cream, "rect", C.blue, 4);
+    groupedBars(slide, 95, 292, 688, 215, groups, series);
+    shape(slide, 844, 212, 382, 42, C.navy);
+    text(slide, "WHAT IT MEANS", 860, 222, 350, 25, { fontSize: 16, bold: true, color: C.white });
+    shape(slide, 844, 262, 382, 352, C.white, "rect", C.blue, 4);
+    text(slide, takeaway, 874, 300, 322, 277, { fontSize: 23, bold: true, color: C.navy, verticalAlignment: "middle" });
     footer(slide, source);
     notes(slide, teaching, sources);
   }
 
   // Dark slide built around one number or one short claim.
   function statement({ kicker, title, stat, statText, footline, source, notes: teaching, sources }) {
-    const slide = newSlide(C.deep);
-    text(slide, kicker.toUpperCase(), 72, 50, 380, 26, { fontSize: 15, bold: true, color: C.yellow });
-    text(slide, title, 72, 100, 820, 112, { fontSize: title.length > 40 ? 40 : 46, bold: true, color: C.white });
-    text(slide, stat, 78, 248, 300, 180, { fontSize: stat.length > 4 ? 78 : 116, bold: true, color: C.yellow });
-    text(slide, statText, 400, 268, 700, 150, { fontSize: 27, bold: true, color: C.white });
-    shape(slide, 72, 488, 1035, 2, C.blue);
-    text(slide, footline, 72, 522, 1040, 78, { fontSize: 24, color: C.sky });
-    footer(slide, source, true);
+    const slide = newSlide(C.white);
+    header(slide, kicker, title);
+    shape(slide, 54, 178, 1172, 42, C.blue);
+    text(slide, "THE IDEA", 68, 187, 1120, 24, { fontSize: 16, bold: true, color: C.white });
+    shape(slide, 54, 230, 1172, 236, C.cream, "rect", C.blue, 4);
+    text(slide, stat, 84, 260, 245, 150, { fontSize: stat.length > 3 ? 64 : stat.length > 2 ? 84 : 118, bold: true, color: C.navy, alignment: "center" });
+    shape(slide, 348, 252, 3, 190, C.blue);
+    text(slide, statText, 390, 270, 778, 148, { fontSize: 29, bold: true, color: C.deep, verticalAlignment: "middle" });
+    shape(slide, 54, 482, 1172, 42, C.navy);
+    text(slide, "WHY IT MATTERS TODAY", 68, 491, 1120, 24, { fontSize: 16, bold: true, color: C.white });
+    shape(slide, 54, 534, 1172, 100, C.white, "rect", C.blue, 4);
+    text(slide, footline, 78, 554, 1122, 62, { fontSize: 23, color: C.deep });
+    footer(slide, source);
     notes(slide, teaching, sources);
   }
 
@@ -199,14 +208,15 @@ export function makeDeckBuilder() {
   function nodeMap({ kicker, title, sub, centre, nodes, source, notes: teaching, sources }) {
     const slide = newSlide(C.white);
     header(slide, kicker, title, sub);
-    shape(slide, 507, 255, 266, 166, C.yellow, "ellipse");
-    text(slide, centre, 527, 310, 226, 44, { fontSize: centre.length > 11 ? 22 : 27, bold: true, color: C.navy, alignment: "center" });
-    const spots = [[88, 230], [82, 455], [432, 496], [845, 455], [875, 230]];
+    shape(slide, 54, 218, 1172, 62, C.navy);
+    text(slide, centre.toUpperCase(), 80, 234, 1120, 32, { fontSize: 24, bold: true, color: C.white, alignment: "center" });
+    const spots = [[54, 300], [455, 300], [856, 300], [255, 457], [656, 457]];
     nodes.forEach(([name, blurb, color], i) => {
       const [x, y] = spots[i];
-      shape(slide, x, y, 320, 102, C.white, "roundRect", color, 3);
-      text(slide, name, x + 18, y + 16, 284, 24, { fontSize: 15, bold: true, color });
-      text(slide, blurb, x + 18, y + 46, 284, 46, { fontSize: 17, color: C.ink });
+      shape(slide, x, y, 370, 137, C.cream, "rect", C.blue, 3);
+      shape(slide, x, y, 370, 39, C.blue);
+      text(slide, name, x + 16, y + 8, 338, 27, { fontSize: 16, bold: true, color: C.white });
+      text(slide, blurb, x + 18, y + 51, 334, 70, { fontSize: 18, color: C.ink });
     });
     footer(slide, source);
     notes(slide, teaching, sources);
@@ -215,20 +225,20 @@ export function makeDeckBuilder() {
   // Teaching slide: definition, three moves, and a boxed activity.
   function feature({ label, title, bigWord, intro, items, activity, activityNote = "Constraint first. Then ideas.", source, notes: teaching, sources }) {
     const slide = newSlide(C.white);
-    shape(slide, 0, 0, 34, 720, C.navy);
-    text(slide, label.toUpperCase(), 72, 44, 560, 28, { fontSize: 15, bold: true, color: C.blue });
-    const size = title.length > 55 ? 29 : title.length > 43 ? 33 : 38;
-    text(slide, title, 72, 78, 1120, 74, { fontSize: size, bold: true, color: C.navy });
-    text(slide, intro, 72, 150, 1110, 46, { fontSize: 19, color: C.muted });
-    text(slide, bigWord, 75, 232, 640, 70, { fontSize: bigWord.length > 11 ? 44 : 58, bold: true, color: C.pale });
+    header(slide, label, title, intro);
+    shape(slide, 54, 215, 690, 44, C.blue);
+    text(slide, bigWord.toUpperCase(), 70, 225, 658, 27, { fontSize: 17, bold: true, color: C.white });
+    shape(slide, 54, 266, 690, 330, C.cream, "rect", C.blue, 4);
     items.forEach((item, i) => {
-      shape(slide, 96, 326 + i * 70, 10, 10, i === 1 ? C.yellow : C.blue, "ellipse");
-      text(slide, item, 124, 320 + i * 70, 582, 56, { fontSize: 21, color: C.ink });
+      const y = 294 + i * 87;
+      text(slide, String(i + 1).padStart(2, "0"), 76, y, 50, 35, { fontSize: 20, bold: true, color: C.blue });
+      text(slide, item, 136, y - 2, 574, 65, { fontSize: 21, color: C.ink });
     });
-    shape(slide, 780, 210, 398, 362, C.navy, "roundRect");
-    text(slide, "TRY IT", 820, 250, 300, 30, { fontSize: 15, bold: true, color: C.yellow });
-    text(slide, activity, 840, 292, 288, 225, { fontSize: 22, bold: true, color: C.white, verticalAlignment: "middle" });
-    text(slide, activityNote, 820, 520, 310, 26, { fontSize: 14, color: C.sky });
+    shape(slide, 770, 215, 456, 44, C.navy);
+    text(slide, "TRY IT", 786, 225, 420, 27, { fontSize: 17, bold: true, color: C.white });
+    shape(slide, 770, 266, 456, 330, C.white, "rect", C.blue, 4);
+    text(slide, activity, 802, 298, 392, 220, { fontSize: 23, bold: true, color: C.navy, verticalAlignment: "middle" });
+    text(slide, activityNote, 802, 542, 392, 39, { fontSize: 16, color: C.blue });
     footer(slide, source);
     notes(slide, teaching, sources);
   }
@@ -237,40 +247,41 @@ export function makeDeckBuilder() {
   // the right names the piece of a real deliverable the student walks out with.
   function round({ label, minutes, task, steps, grounding, produces, producesNote, source, notes: teaching, sources }) {
     const slide = newSlide(C.white);
-    shape(slide, 0, 0, 34, 720, C.navy);
-    text(slide, label.toUpperCase(), 72, 44, 470, 28, { fontSize: 15, bold: true, color: C.blue });
-    // Timer badge, top right of the working column.
-    shape(slide, 560, 38, 146, 44, C.yellow, "roundRect");
-    text(slide, `${minutes} MIN`, 560, 50, 146, 26, { fontSize: 17, bold: true, color: C.navy, alignment: "center" });
-    const size = task.length > 55 ? 30 : task.length > 42 ? 34 : 38;
-    text(slide, task, 72, 92, 634, 106, { fontSize: size, bold: true, color: C.navy });
+    header(slide, label, task);
+    shape(slide, 1070, 104, 154, 40, C.cream);
+    text(slide, `${minutes} MIN`, 1074, 113, 146, 23, { fontSize: 17, bold: true, color: C.deep, alignment: "center" });
+    shape(slide, 54, 178, 690, 44, C.blue);
+    text(slide, "YOUR TASK", 68, 188, 650, 25, { fontSize: 16, bold: true, color: C.white });
+    shape(slide, 54, 230, 690, 350, C.cream, "rect", C.blue, 4);
     steps.forEach((step, i) => {
-      const y = 216 + i * 84;
-      shape(slide, 72, y, 38, 38, C.pale, "roundRect");
-      text(slide, String(i + 1), 72, y + 7, 38, 26, { fontSize: 18, bold: true, color: C.blue, alignment: "center" });
-      text(slide, step, 126, y - 2, 580, 76, { fontSize: 21, color: C.ink });
+      const y = 260 + i * 103;
+      shape(slide, 78, y, 48, 48, C.navy);
+      text(slide, String(i + 1), 80, y + 7, 44, 30, { fontSize: 22, bold: true, color: C.white, alignment: "center" });
+      text(slide, step, 146, y - 2, 566, 78, { fontSize: 21, color: C.deep });
     });
-    shape(slide, 72, 596, 634, 52, C.pale, "roundRect");
-    text(slide, grounding, 94, 610, 594, 30, { fontSize: 15, color: C.navy });
-    shape(slide, 780, 120, 398, 452, C.navy, "roundRect");
-    text(slide, "YOU WALK OUT WITH", 820, 158, 320, 30, { fontSize: 14, bold: true, color: C.yellow });
-    text(slide, produces, 820, 206, 318, 250, { fontSize: 25, bold: true, color: C.white, verticalAlignment: "middle" });
-    text(slide, producesNote, 820, 476, 318, 66, { fontSize: 15, color: C.sky });
+    shape(slide, 770, 178, 456, 44, C.navy);
+    text(slide, "YOU LEAVE WITH", 786, 188, 410, 25, { fontSize: 16, bold: true, color: C.white });
+    shape(slide, 770, 230, 456, 350, C.white, "rect", C.blue, 4);
+    text(slide, produces, 802, 272, 388, 184, { fontSize: 30, bold: true, color: C.navy, verticalAlignment: "middle" });
+    shape(slide, 802, 480, 385, 3, C.ivory);
+    text(slide, producesNote, 802, 499, 385, 65, { fontSize: 17, color: C.blue });
+    text(slide, grounding, 58, 599, 1166, 46, { fontSize: 16, color: C.muted });
     footer(slide, source);
     notes(slide, teaching, sources);
   }
 
   // Pill + sentence rows. Good for "same problem, five lenses" style slides.
   function rows({ kicker, title, sub, rows: items, source, notes: teaching, sources, bg = C.pale }) {
-    const slide = newSlide(bg);
+    const slide = newSlide(C.white);
     header(slide, kicker, title, sub);
-    const top = items.length > 4 ? 220 : 244;
-    const gap = items.length > 4 ? 78 : 92;
+    const top = items.length > 4 ? 212 : 230;
+    const gap = items.length > 4 ? 84 : 102;
     items.forEach(([pill, body, color], i) => {
       const y = top + i * gap;
-      shape(slide, 72, y, 215, 58, color, "roundRect");
-      text(slide, pill, 84, y + 18, 191, 25, { fontSize: 14, bold: true, color: C.white, alignment: "center" });
-      text(slide, body, 318, y + 10, 842, 46, { fontSize: 21, color: C.ink });
+      shape(slide, 54, y, 1172, 70, C.cream, "rect", C.blue, 3);
+      shape(slide, 54, y, 234, 70, C.navy);
+      text(slide, pill, 72, y + 18, 200, 40, { fontSize: 17, bold: true, color: C.white, alignment: "center" });
+      text(slide, body, 318, y + 12, 882, 51, { fontSize: 21, color: C.ink });
     });
     footer(slide, source);
     notes(slide, teaching, sources);
@@ -280,13 +291,15 @@ export function makeDeckBuilder() {
   function pipeline({ kicker, title, sub, stages, source, notes: teaching, sources }) {
     const slide = newSlide(C.white);
     header(slide, kicker, title, sub);
-    shape(slide, 155, 352, 970, 5, C.line, "roundRect");
+    shape(slide, 54, 220, 1172, 44, C.blue);
+    text(slide, "MEETING PLAN", 68, 230, 1128, 25, { fontSize: 16, bold: true, color: C.white });
     stages.forEach(([num, name, desc, color], i) => {
-      const x = 105 + i * 290;
-      shape(slide, x, 290, 125, 125, color, "ellipse");
-      text(slide, num, x + 33, 314, 60, 64, { fontSize: 44, bold: true, color: C.white, alignment: "center" });
-      text(slide, name, x - 18, 440, 160, 30, { fontSize: 18, bold: true, color, alignment: "center" });
-      text(slide, desc, x - 52, 482, 230, 78, { fontSize: 17, color: C.muted, alignment: "center" });
+      const x = 54 + i * 293;
+      shape(slide, x, 278, 279, 324, i % 2 ? C.white : C.cream, "rect", C.blue, 3);
+      shape(slide, x, 278, 279, 104, C.navy);
+      text(slide, num, x + 24, 294, 231, 75, { fontSize: 56, bold: true, color: C.white, alignment: "center" });
+      text(slide, name, x + 18, 402, 243, 50, { fontSize: 18, bold: true, color: C.navy, alignment: "center" });
+      text(slide, desc, x + 20, 464, 239, 115, { fontSize: 18, color: C.deep, alignment: "center" });
     });
     footer(slide, source);
     notes(slide, teaching, sources);
@@ -296,13 +309,14 @@ export function makeDeckBuilder() {
   function compare({ kicker, title, sub, left, right, source, notes: teaching, sources }) {
     const slide = newSlide(C.white);
     header(slide, kicker, title, sub);
-    [[left, 72, C.blue], [right, 665, C.coral]].forEach(([col, x, color]) => {
-      shape(slide, x, 212, 515, 400, C.white, "roundRect", color, 3);
-      shape(slide, x, 212, 515, 56, color, "roundRect");
-      text(slide, col.heading.toUpperCase(), x + 26, 228, 470, 28, { fontSize: 16, bold: true, color: C.white });
+    [[left, 54, C.navy], [right, 650, C.blue]].forEach(([col, x, color]) => {
+      shape(slide, x, 212, 576, 420, C.cream, "rect", C.blue, 4);
+      shape(slide, x, 212, 576, 56, color);
+      text(slide, col.heading.toUpperCase(), x + 26, 228, 520, 28, { fontSize: 17, bold: true, color: C.white });
       col.points.forEach((p, i) => {
-        shape(slide, x + 28, 306 + i * 74, 9, 9, color, "ellipse");
-        text(slide, p, x + 54, 298 + i * 74, 434, 62, { fontSize: 19, color: C.ink });
+        const y = 294 + i * (col.points.length > 4 ? 64 : 78);
+        text(slide, String(i + 1).padStart(2, "0"), x + 28, y, 45, 34, { fontSize: 17, bold: true, color: C.blue });
+        text(slide, p, x + 82, y - 3, 452, 61, { fontSize: 19, color: C.ink });
       });
     });
     footer(slide, source);
@@ -312,21 +326,25 @@ export function makeDeckBuilder() {
   // Numbered dark slide with a deliverable card: the in-meeting build task.
   function challenge({ kicker, title, minutes, steps, deliverable, source, notes: teaching, sources }) {
     const slide = newSlide(C.navy);
-    text(slide, kicker.toUpperCase(), 72, 50, 340, 26, { fontSize: 15, bold: true, color: C.yellow });
-    text(slide, title, 72, 96, 860, 72, { fontSize: title.length > 40 ? 36 : 42, bold: true, color: C.white });
+    header(slide, kicker, title, "", true);
     if (minutes) {
-      shape(slide, 970, 96, 146, 44, C.yellow, "roundRect");
-      text(slide, `${minutes} MIN`, 970, 108, 146, 26, { fontSize: 17, bold: true, color: C.navy, alignment: "center" });
+      shape(slide, 1070, 104, 154, 40, C.cream);
+      text(slide, `${minutes} MIN`, 1074, 113, 146, 25, { fontSize: 17, bold: true, color: C.navy, alignment: "center" });
     }
+    shape(slide, 54, 188, 860, 44, C.blue);
+    text(slide, "BUILD STEPS", 68, 198, 820, 25, { fontSize: 16, bold: true, color: C.white });
     steps.forEach(([num, body], i) => {
-      const y = 210 + i * 91;
-      text(slide, num, 84, y, 72, 38, { fontSize: 26, bold: true, color: C.yellow });
-      text(slide, body, 170, y - 2, 760, 60, { fontSize: 22, color: C.white });
+      const y = 248 + i * (steps.length > 4 ? 73 : 87);
+      shape(slide, 54, y, 860, 68, C.cream, "rect", C.blue, 2);
+      text(slide, num, 74, y + 12, 72, 43, { fontSize: 28, bold: true, color: C.blue });
+      text(slide, body, 160, y + 9, 734, 50, { fontSize: 21, color: C.deep });
     });
-    shape(slide, 970, 203, 230, 360, C.yellow, "roundRect");
-    text(slide, "DELIVERABLE", 995, 235, 180, 25, { fontSize: 14, bold: true, color: C.navy, alignment: "center" });
-    text(slide, deliverable.big, 995, 296, 180, 152, { fontSize: 30, bold: true, color: C.navy, alignment: "center", verticalAlignment: "middle" });
-    text(slide, deliverable.note, 995, 468, 180, 66, { fontSize: 15, color: C.navy, alignment: "center" });
+    shape(slide, 932, 188, 294, 44, C.cream);
+    text(slide, "DELIVERABLE", 948, 198, 260, 25, { fontSize: 16, bold: true, color: C.navy });
+    shape(slide, 932, 240, 294, 355, C.white, "rect", C.cream, 4);
+    text(slide, deliverable.big, 958, 278, 242, 187, { fontSize: 31, bold: true, color: C.navy, alignment: "center", verticalAlignment: "middle" });
+    shape(slide, 958, 482, 242, 3, C.ivory);
+    text(slide, deliverable.note, 958, 503, 242, 72, { fontSize: 16, color: C.blue, alignment: "center" });
     footer(slide, source, true);
     notes(slide, teaching, sources);
   }
@@ -336,17 +354,18 @@ export function makeDeckBuilder() {
     const slide = newSlide(C.white);
     header(slide, kicker, title, sub);
     const col = (list, x) => list.forEach((item, i) => {
-      const y = 222 + i * 78;
-      shape(slide, x, y, 36, 36, C.pale, "roundRect");
-      text(slide, "✓", x + 10, y + 4, 24, 28, { fontSize: 18, bold: true, color: C.blue });
-      text(slide, item, x + 52, y - 2, aside ? 430 : 430, 66, { fontSize: 19, color: C.ink });
+      const y = 234 + i * 80;
+      shape(slide, x, y, 555, 76, C.cream, "rect", C.blue, 3);
+      shape(slide, x, y, 58, 76, C.navy);
+      text(slide, String(i + 1).padStart(2, "0"), x + 9, y + 22, 40, 30, { fontSize: 18, bold: true, color: C.white, alignment: "center" });
+      text(slide, item, x + 76, y + 9, 462, 58, { fontSize: 19, color: C.ink });
     });
     const half = Math.ceil(items.length / 2);
-    col(items.slice(0, half), 72);
-    col(items.slice(half), 600);
+    col(items.slice(0, half), 54);
+    col(items.slice(half), 671);
     if (aside) {
-      shape(slide, 72, 600, 1136, 60, C.pale, "roundRect");
-      text(slide, aside, 96, 616, 1090, 34, { fontSize: 18, color: C.navy });
+      shape(slide, 54, 568, 1172, 65, C.blue);
+      text(slide, aside, 76, 582, 1128, 43, { fontSize: 18, color: C.white });
     }
     footer(slide, source);
     notes(slide, teaching, sources);
@@ -356,30 +375,39 @@ export function makeDeckBuilder() {
   function closer({ kicker, title, exit, next, source, notes: teaching, sources }) {
     const slide = newSlide(C.white);
     header(slide, kicker, title);
-    shape(slide, 72, 210, 520, 350, C.pale, "roundRect");
-    text(slide, "EXIT TICKET", 110, 250, 260, 25, { fontSize: 15, bold: true, color: C.blue });
-    exit.forEach((q, i) => text(slide, q, 110, 300 + i * 78, 420, 60, { fontSize: 24, bold: true, color: C.navy }));
-    shape(slide, 665, 210, 515, 350, C.yellow, "roundRect");
-    text(slide, "NEXT MEETING", 704, 250, 260, 25, { fontSize: 15, bold: true, color: C.navy });
-    text(slide, next.title, 704, 300, 420, 58, { fontSize: next.title.length > 22 ? 27 : 32, bold: true, color: C.navy });
-    text(slide, next.body, 704, 386, 410, 110, { fontSize: 22, color: C.navy });
+    shape(slide, 54, 188, 572, 44, C.navy);
+    text(slide, "EXIT TICKET", 70, 198, 540, 25, { fontSize: 16, bold: true, color: C.white });
+    shape(slide, 54, 240, 572, 366, C.cream, "rect", C.blue, 4);
+    exit.forEach((q, i) => {
+      const y = 270 + i * 101;
+      text(slide, String(i + 1).padStart(2, "0"), 78, y, 54, 34, { fontSize: 21, bold: true, color: C.blue });
+      text(slide, q, 148, y - 3, 450, 75, { fontSize: 23, bold: true, color: C.navy });
+    });
+    shape(slide, 650, 188, 576, 44, C.blue);
+    text(slide, "NEXT MEETING", 666, 198, 544, 25, { fontSize: 16, bold: true, color: C.white });
+    shape(slide, 650, 240, 576, 366, C.white, "rect", C.blue, 4);
+    text(slide, next.title, 686, 298, 504, 76, { fontSize: next.title.length > 22 ? 29 : 35, bold: true, color: C.navy });
+    shape(slide, 686, 395, 492, 3, C.ivory);
+    text(slide, next.body, 686, 421, 496, 143, { fontSize: 23, color: C.deep });
     footer(slide, source);
     notes(slide, teaching, sources);
   }
 
   // The source library slide. Two columns of org / title / url.
   function sourceLibrary({ entries, accessed, notes: teaching }) {
-    const slide = newSlide(C.pale);
+    const slide = newSlide(C.white);
     header(slide, "Source library", "Research used in this meeting", `All links were accessed ${accessed}.`);
     const half = Math.ceil(entries.length / 2);
     const col = (list, x) => list.forEach(([org, title, url], i) => {
-      const y = 220 + i * 102;
-      text(slide, org, x, y, 470, 24, { fontSize: 16, bold: true, color: C.blue });
-      text(slide, title, x, y + 27, 470, 30, { fontSize: 17, bold: true, color: C.navy });
-      text(slide, url, x, y + 60, 470, 32, { fontSize: 12, color: C.muted });
+      const y = 216 + i * (half > 3 ? 105 : 130);
+      shape(slide, x, y, 552, half > 3 ? 94 : 114, C.cream, "rect", C.blue, 2);
+      shape(slide, x, y, 12, half > 3 ? 94 : 114, C.navy);
+      text(slide, org, x + 28, y + 9, 510, 24, { fontSize: 16, bold: true, color: C.blue });
+      text(slide, title, x + 28, y + 36, 510, 32, { fontSize: 17, bold: true, color: C.navy });
+      text(slide, url, x + 28, y + 72, 510, 25, { fontSize: 12, color: C.muted });
     });
-    col(entries.slice(0, half), 72);
-    col(entries.slice(half), 665);
+    col(entries.slice(0, half), 54);
+    col(entries.slice(half), 674);
     footer(slide, "Full URLs are also stored in the speaker notes of the slides that use them");
     notes(slide, teaching ?? "Show only if students or reviewers want the research base.", entries.map((e) => e[3] ?? e[2]));
   }

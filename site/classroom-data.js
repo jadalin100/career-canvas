@@ -27,7 +27,7 @@
   }
 
   function demoDb() {
-    return read(DB_KEY, { students: {}, quizzes: {}, attempts: {} });
+    return read(DB_KEY, { students: {}, quizzes: {}, attempts: {}, artifacts: {} });
   }
 
   function saveDemoDb(db) { write(DB_KEY, db); }
@@ -185,6 +185,46 @@
     }
   }
 
+  async function submitArtifact(artifact) {
+    const session = getSession();
+    if (!session) throw new Error("Join the class before submitting work.");
+    const type = String(artifact.type || "");
+    if (!["article", "ad", "portfolio"].includes(type)) throw new Error("Choose a project type.");
+    const title = String(artifact.title || "").trim();
+    const url = String(artifact.url || "").trim();
+    if (!title || !/^https:\/\//i.test(url)) throw new Error("Add a title and an https share link.");
+    const id = artifact.id || `${session.studentId}-${type}-${Date.now().toString(36)}`;
+    const payload = { id, type, title, url, ownerId: session.studentId, ownerUsername: session.username, status: "pending", updatedAt: now() };
+    if (hasFirebase()) {
+      const user = await anonymousUser(); payload.authUid = user.uid;
+      const { db, storeSdk } = cloud;
+      await storeSdk.setDoc(storeSdk.doc(db, "classes", config.classId, "artifacts", id), payload, { merge: true });
+    } else { const db = demoDb(); db.artifacts ||= {}; db.artifacts[id] = payload; saveDemoDb(db); }
+    return payload;
+  }
+
+  async function listArtifacts(includeOwn = true) {
+    const session = getSession();
+    if (hasFirebase()) {
+      const user = await anonymousUser(); const { db, storeSdk } = cloud;
+      const items = storeSdk.collection(db, "classes", config.classId, "artifacts");
+      const published = await storeSdk.getDocs(storeSdk.query(items, storeSdk.where("status", "==", "published")));
+      const results = new Map(published.docs.map(item => [item.id, item.data()]));
+      if (includeOwn && session) {
+        const own = await storeSdk.getDocs(storeSdk.query(items, storeSdk.where("authUid", "==", user.uid)));
+        own.docs.forEach(item => results.set(item.id, item.data()));
+      }
+      return [...results.values()].sort((a,b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
+    }
+    return Object.values(demoDb().artifacts || {}).filter(item => item.status === "published" || (includeOwn && session && item.ownerId === session.studentId));
+  }
+
+  async function setArtifactStatus(id, status) {
+    if (!["pending", "published"].includes(status)) throw new Error("Invalid artifact status.");
+    if (hasFirebase()) { const { db, storeSdk } = await initCloud(); await storeSdk.updateDoc(storeSdk.doc(db, "classes", config.classId, "artifacts", id), { status, updatedAt: now() }); }
+    else { const db = demoDb(); if (db.artifacts?.[id]) db.artifacts[id] = { ...db.artifacts[id], status, updatedAt: now() }; saveDemoDb(db); }
+  }
+
   async function teacherSignIn() {
     if (!hasFirebase()) return { demo: true, email: config.teacherEmail };
     const services = await initCloud();
@@ -203,15 +243,16 @@
       const services = await initCloud();
       const email = services.auth.currentUser?.email?.toLowerCase();
       if (email !== String(config.teacherEmail || "").toLowerCase()) throw new Error("Teacher sign-in required.");
-      const [students, quizzes, attempts] = await Promise.all([
+      const [students, quizzes, attempts, artifacts] = await Promise.all([
         services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", config.classId, "students")),
         services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", config.classId, "quizzes")),
-        services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", config.classId, "attempts"))
+        services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", config.classId, "attempts")),
+        services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", config.classId, "artifacts"))
       ]);
-      return { students: students.docs.map(d => d.data()), quizzes: quizzes.docs.map(d => d.data()), attempts: attempts.docs.map(d => d.data()) };
+      return { students: students.docs.map(d => d.data()), quizzes: quizzes.docs.map(d => d.data()), attempts: attempts.docs.map(d => d.data()), artifacts: artifacts.docs.map(d => d.data()) };
     }
     const db = demoDb();
-    return { students: Object.values(db.students), quizzes: Object.values(db.quizzes), attempts: Object.values(db.attempts) };
+    return { students: Object.values(db.students), quizzes: Object.values(db.quizzes), attempts: Object.values(db.attempts), artifacts: Object.values(db.artifacts || {}) };
   }
 
   async function setQuizStatus(id, status) {
@@ -238,6 +279,9 @@
     listQuizzes,
     getQuiz,
     saveAttempt,
+    submitArtifact,
+    listArtifacts,
+    setArtifactStatus,
     teacherSignIn,
     teacherDashboard,
     setQuizStatus,

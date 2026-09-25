@@ -30,8 +30,8 @@ const meetings = DECKS.map((deck, i) => {
   };
 });
 
-if (meetings.length !== 7) {
-  console.error(`expected 7 meetings, got ${meetings.length}`);
+if (meetings.length !== 5) {
+  console.error(`expected 5 meetings, got ${meetings.length}`);
   process.exit(1);
 }
 

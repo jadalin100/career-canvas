@@ -41,5 +41,20 @@ service cloud.firestore {
       allow read: if pilotClass(classId) && (teacher() || (signedIn() && resource.data.authUid == request.auth.uid));
       allow update, delete: if false;
     }
+
+    match /classes/{classId}/artifacts/{artifactId} {
+      allow read: if pilotClass(classId) && (teacher()
+        || (signedIn() && resource.data.status == "published")
+        || (signedIn() && resource.data.authUid == request.auth.uid));
+      allow create: if pilotClass(classId) && signedIn()
+        && request.resource.data.authUid == request.auth.uid
+        && request.resource.data.status == "pending";
+      allow update: if pilotClass(classId) && (teacher()
+        || (signedIn()
+          && resource.data.authUid == request.auth.uid
+          && request.resource.data.authUid == request.auth.uid
+          && request.resource.data.status == "pending"));
+      allow delete: if pilotClass(classId) && teacher();
+    }
   }
 }
