@@ -97,6 +97,10 @@
   }
 
   form.addEventListener("input", queueSave);
+  document.querySelector("#save-project")?.addEventListener("click", () => {
+    saveProject();
+    showToast("Project saved");
+  });
   document.querySelectorAll("[data-deliverable]").forEach((input) => {
     input.addEventListener("change", () => {
       if (input.checked && !requireFoundation()) {
@@ -144,6 +148,21 @@
     link.click();
     URL.revokeObjectURL(url);
     showToast("Project summary downloaded");
+  });
+
+  document.querySelector("#artifact-form")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const artifactForm = event.currentTarget;
+    if (!artifactForm.reportValidity()) return;
+    const classroom = window.CareerCanvasClassroom;
+    if (!classroom?.getSession()) { showToast("Join the class before submitting work"); return; }
+    const button = artifactForm.querySelector("button[type='submit']");
+    button.disabled = true;
+    try {
+      await classroom.submitArtifact({ type: artifactForm.elements.type.value, title: artifactForm.elements.title.value, url: artifactForm.elements.url.value });
+      artifactForm.reset(); showToast("Sent to the teacher for gallery review");
+    } catch (error) { showToast(error.message || "Could not submit this project"); }
+    finally { button.disabled = false; }
   });
 
   window.addEventListener("pagehide", saveProject);

@@ -6,7 +6,7 @@
   <meta name="description" content="Plan and track a Career Canvas student project.">
   <title>Project Studio — Career Canvas</title>
   <link rel="icon" href="assets/career-canvas-logo.png" type="image/png">
-  <link rel="stylesheet" href="canvas-app.css?v=5">
+  <link rel="stylesheet" href="canvas-app.css?v=6">
 </head>
 <body>
   <div class="app-shell">
@@ -69,8 +69,12 @@
           <div class="progress-ring" id="progress-ring"><strong id="progress-value">0%</strong></div>
           <p class="progress-copy" id="progress-copy">Start with the business paper, then let the research guide what you create.</p>
           <div class="quick-links">
-            <a href="quiz-builder.html"><span>Build your quiz</span><span aria-hidden="true">→</span></a>
-            <a href="index.html#quizzes"><span>Explore career quizzes</span><span aria-hidden="true">→</span></a>
+            <a href="#paper-templates"><span>Write your business article</span><span aria-hidden="true">→</span></a>
+            <a href="#ad-templates"><span>Create your business ad</span><span aria-hidden="true">→</span></a>
+            <a href="quiz-builder.html"><span>Build your quiz app</span><span aria-hidden="true">→</span></a>
+            <a href="#portfolio-templates"><span>Design your portfolio</span><span aria-hidden="true">→</span></a>
+            <a href="index.html#quizzes"><span>Save your career quiz results</span><span aria-hidden="true">→</span></a>
+            <a href="gallery.html"><span>Explore the class gallery</span><span aria-hidden="true">→</span></a>
           </div>
         </aside>
       </div>
@@ -87,6 +91,7 @@
           <article class="deliverable"><span class="deliverable-number">04</span><h3>Digital portfolio</h3><p>Show the finished work, feedback, revisions, and skills you practiced.</p><label class="check-row"><input type="checkbox" data-deliverable="portfolio"> Complete</label></article>
         </div>
         <div class="actions">
+          <button class="btn primary" id="save-project" type="button">Save project</button>
           <a class="btn blue" href="quiz-builder.html">Open quiz builder <span aria-hidden="true">→</span></a>
           <button class="btn" id="download-summary" type="button">Download project summary</button>
         </div>
@@ -98,7 +103,7 @@
           <span class="step-tag">Template library</span>
         </div>
 
-        <div class="template-group">
+        <div class="template-group" id="paper-templates">
           <div class="template-group-heading"><span>01</span><div><h3>Quiz app</h3><p>Open a guided quiz with starter questions already in place.</p></div></div>
           <div class="template-grid">
             <a class="template-card" href="quiz-builder.html?template=knowledge"><strong>Business knowledge check</strong><span>Teach players facts from your research.</span><b>Use template →</b></a>
@@ -110,26 +115,43 @@
         <div class="template-group">
           <div class="template-group-heading"><span>02</span><div><h3>Business paper</h3><p>Download an editable Word template for your research.</p></div></div>
           <div class="template-grid">
-            <a class="template-card" href="templates/paper-local-business-spotlight.docx" download><strong>Local business spotlight</strong><span>Explain the business, its audience, and one recommendation.</span><b>Download Word template ↓</b></a>
-            <a class="template-card" href="templates/paper-competitor-comparison.docx" download><strong>Competitor comparison</strong><span>Compare three businesses and find one opportunity.</span><b>Download Word template ↓</b></a>
-            <a class="template-card" href="templates/paper-creative-campaign-brief.docx" download><strong>Creative campaign brief</strong><span>Turn research into an audience-focused campaign plan.</span><b>Download Word template ↓</b></a>
+            <a class="template-card" href="templates/business-article-and-campaign-guide.docx" download><strong>Business article and campaign guide</strong><span>Build a one-to-four-page paper from research, audience insight, and an ad recommendation.</span><b>Download Word template ↓</b></a>
           </div>
         </div>
 
-        <div class="template-group">
-          <div class="template-group-heading"><span>03</span><div><h3>Digital portfolio</h3><p>Choose how you want to explain and showcase your final work.</p></div></div>
+        <div class="template-group" id="ad-templates">
+          <div class="template-group-heading"><span>03</span><div><h3>Business advertisement</h3><p>Choose the format the partner can use, then replace the prompts with your original idea.</p></div></div>
           <div class="template-grid">
-            <a class="template-card" href="templates/portfolio-project-story.docx" download><strong>Project story</strong><span>Show the path from first idea to final revision.</span><b>Download Word template ↓</b></a>
-            <a class="template-card" href="templates/portfolio-visual-showcase.docx" download><strong>Visual showcase</strong><span>Lead with screenshots, design decisions, and captions.</span><b>Download Word template ↓</b></a>
-            <a class="template-card" href="templates/portfolio-business-case-study.docx" download><strong>Business case study</strong><span>Emphasize evidence, insight, solution, and feedback.</span><b>Download Word template ↓</b></a>
+            <a class="template-card" href="templates/ad-flyer-template.docx" download><strong>Flyer layout</strong><span>Headline, visual plan, offer, and call to action.</span><b>Download Word template ↓</b></a>
+            <a class="template-card" href="templates/ad-social-post-template.docx" download><strong>Social media post</strong><span>Square post, caption, and accessibility text.</span><b>Download Word template ↓</b></a>
+            <a class="template-card" href="templates/ad-video-storyboard-template.docx" download><strong>Short video storyboard</strong><span>Plan six scenes for a 15–30 second video.</span><b>Download Word template ↓</b></a>
           </div>
         </div>
+
+        <div class="template-group" id="portfolio-templates">
+          <div class="template-group-heading"><span>04</span><div><h3>Digital portfolio</h3><p>Every option includes the same project story and visual showcase. Choose the aesthetic that feels like you.</p></div></div>
+          <div class="template-grid">
+            <a class="template-card" href="templates/portfolio-editorial-blue.docx" download><strong>Editorial blue</strong><span>Structured, polished, and magazine-inspired.</span><b>Download Word template ↓</b></a>
+            <a class="template-card" href="templates/portfolio-minimal-ivory.docx" download><strong>Minimal ivory</strong><span>Clean typography with generous space for visuals.</span><b>Download Word template ↓</b></a>
+            <a class="template-card" href="templates/portfolio-bold-grid.docx" download><strong>Bold grid</strong><span>High-contrast sections for screenshots and captions.</span><b>Download Word template ↓</b></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" style="margin-top:22px" aria-labelledby="share-heading">
+        <div class="panel-head"><div><h2 id="share-heading">Submit finished work to the gallery</h2><p>Paste a view-only Canva, Google Drive, or website link. Your teacher reviews it before it becomes public.</p></div><span class="step-tag">Share</span></div>
+        <form id="artifact-form" class="form-grid">
+          <div class="field"><label for="artifact-type">Project type</label><select id="artifact-type" name="type" required><option value="article">Business article</option><option value="ad">Advertisement</option><option value="portfolio">Portfolio</option></select></div>
+          <div class="field"><label for="artifact-title">Project title</label><input id="artifact-title" name="title" maxlength="100" required></div>
+          <div class="field full"><label for="artifact-url">View-only https link</label><input id="artifact-url" name="url" type="url" inputmode="url" placeholder="https://" required></div>
+          <div class="actions full"><button class="btn blue" type="submit">Send for gallery review</button><a class="btn" href="gallery.html">View gallery</a></div>
+        </form>
       </section>
     </main>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="classroom-config.js?v=1"></script>
-  <script src="classroom-data.js?v=1"></script>
-  <script src="canvas-app.js?v=3"></script>
+  <script src="classroom-data.js?v=2"></script>
+  <script src="canvas-app.js?v=4"></script>
 </body>
 </html>

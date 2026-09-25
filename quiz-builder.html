@@ -6,7 +6,7 @@
   <meta name="description" content="Build and preview a student-created quiz with Career Canvas.">
   <title>Quiz Builder — Career Canvas</title>
   <link rel="icon" href="assets/career-canvas-logo.png" type="image/png">
-  <link rel="stylesheet" href="canvas-app.css?v=5">
+  <link rel="stylesheet" href="canvas-app.css?v=6">
 </head>
 <body>
   <div class="app-shell">
@@ -58,6 +58,8 @@
               <div class="field"><label for="quiz-audience">Audience</label><input id="quiz-audience" name="audience" maxlength="80" placeholder="Example: middle-school students"></div>
               <div class="field"><label for="quiz-business">Business or topic</label><input id="quiz-business" name="business" maxlength="100" placeholder="Example: Harbor Café"></div>
               <div class="field full"><label for="quiz-intro">Short introduction</label><textarea id="quiz-intro" name="intro" maxlength="300" placeholder="What will someone learn by taking this quiz?"></textarea></div>
+              <div class="field"><label for="quiz-theme">Color style</label><select id="quiz-theme" name="theme"><option value="midnight">Midnight blue</option><option value="dusty">Dusty blue</option><option value="buttercream">Buttercream</option><option value="ivory">Ivory</option></select></div>
+              <div class="field"><label for="quiz-font">Font style</label><select id="quiz-font" name="font"><option value="modern">Modern</option><option value="classic">Classic</option><option value="rounded">Rounded</option></select></div>
             </form>
           </section>
 
@@ -101,7 +103,7 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="classroom-config.js?v=1"></script>
-  <script src="classroom-data.js?v=1"></script>
-  <script src="quiz-builder.js?v=6"></script>
+  <script src="classroom-data.js?v=2"></script>
+  <script src="quiz-builder.js?v=7"></script>
 </body>
 </html>

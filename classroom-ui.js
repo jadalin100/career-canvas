@@ -46,11 +46,20 @@
     const done = Object.values(deliverables).filter(Boolean).length;
     document.querySelector("#project-progress").textContent = `${done * 25}%`;
     document.querySelector("#career-result-count").textContent = String(Object.keys(results).length);
+    const resultList = document.querySelector("#career-results-list");
+    if (resultList) {
+      const labels = { career: "Business career fit", deca: "DECA event fit", branding: "Digital branding strengths" };
+      resultList.innerHTML = Object.keys(results).length ? Object.entries(results).map(([key, value]) => `<a class="step-link" href="index.html#quiz-${encodeURIComponent(key)}"><span><strong>${esc(labels[key] || key)}</strong><br>${esc((value.topResults || []).join(", ") || "Result saved")} · ${value.completedAt ? new Date(value.completedAt).toLocaleDateString() : "Saved"}</span><b>→</b></a>`).join("") : '<p class="empty">Complete a career quiz to save a result.</p>';
+    }
     await api.syncStudent({ project, deliverables, careerQuizResults: results });
     const quizzes = await api.listQuizzes(true);
     document.querySelector("#gallery-count").textContent = String(quizzes.filter(q => q.status === "published").length);
     const gallery = document.querySelector("#class-gallery");
     gallery.innerHTML = quizzes.length ? quizzes.map(q => `<article class="quiz-tile"><span class="pill ${q.status === "published" ? "published" : ""}">${esc(q.status === "published" ? "Class gallery" : "Waiting for teacher")}</span><strong>${esc(q.title || "Untitled quiz")}</strong><span>By ${esc(q.ownerUsername)} · ${q.questions?.length || 0} questions</span><footer><span>${q.ownerId === session.studentId ? "Your quiz" : "Student quiz"}</span><a class="class-button secondary" href="play.html?id=${encodeURIComponent(q.id)}">Play</a></footer></article>`).join("") : '<p class="empty">No quizzes yet. Build one and submit it for the teacher to publish.</p>';
+    const artifacts = await api.listArtifacts(true);
+    const artifactGallery = document.createElement("div");
+    artifactGallery.innerHTML = `<h3 style="margin-top:24px">Articles, ads, and portfolios</h3><div class="gallery-grid">${artifacts.length ? artifacts.map(item => `<article class="quiz-tile"><span class="pill ${item.status === "published" ? "published" : ""}">${esc(item.status === "published" ? "Class gallery" : "Waiting for teacher")}</span><strong>${esc(item.title)}</strong><span>${esc(item.type)} by ${esc(item.ownerUsername)}</span><footer><span>${item.ownerId === session.studentId ? "Your project" : "Student project"}</span><a class="class-button secondary" href="${esc(item.url)}" target="_blank" rel="noopener">Open</a></footer></article>`).join("") : '<p class="empty">No project links yet. Submit an article, ad, or portfolio from the Project Studio.</p>'}</div>`;
+    gallery.after(artifactGallery);
   }
 
   document.querySelector("#leave-class")?.addEventListener("click", () => { api.leaveClass(); location.href = "join.html"; });
@@ -74,6 +83,8 @@
       }).join("") : '<p class="empty">No students have joined yet.</p>';
       const quizzes = document.querySelector("#teacher-quiz-list");
       quizzes.innerHTML = data.quizzes.length ? data.quizzes.sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).map(q => `<div class="teacher-row" data-quiz-id="${esc(q.id)}"><div><strong>${esc(q.title || "Untitled quiz")}</strong><span>By ${esc(q.ownerUsername)} · ${q.questions?.length || 0} questions · ${esc(q.status)}</span></div><div class="teacher-row-actions"><a class="small-button" href="play.html?id=${encodeURIComponent(q.id)}&teacher=1">Play</a><button class="small-button" data-status="${q.status === "published" ? "pending" : "published"}">${q.status === "published" ? "Unpublish" : "Publish"}</button></div></div>`).join("") : '<p class="empty">No quizzes have been submitted.</p>';
+      const artifacts = document.querySelector("#teacher-artifact-list");
+      if (artifacts) artifacts.innerHTML = data.artifacts.length ? data.artifacts.sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).map(item => `<div class="teacher-row" data-artifact-id="${esc(item.id)}"><div><strong>${esc(item.title)}</strong><span>${esc(item.type)} by ${esc(item.ownerUsername)} · ${esc(item.status)}</span></div><div class="teacher-row-actions"><a class="small-button" href="${esc(item.url)}" target="_blank" rel="noopener">Open</a><button class="small-button" data-artifact-status="${item.status === "published" ? "pending" : "published"}">${item.status === "published" ? "Unpublish" : "Publish"}</button></div></div>`).join("") : '<p class="empty">No project links have been submitted.</p>';
       status.textContent = "Dashboard updated.";
     } catch (error) { status.className = "status error"; status.textContent = error.message; }
   }
@@ -90,6 +101,12 @@
     try { await api.setQuizStatus(button.closest("[data-quiz-id]").dataset.quizId, button.dataset.status); await renderTeacher(); }
     catch (error) { document.querySelector("#teacher-status").textContent = error.message; button.disabled = false; }
   });
+  document.querySelector("#teacher-artifact-list")?.addEventListener("click", async event => {
+    const button = event.target.closest("[data-artifact-status]"); if (!button) return;
+    button.disabled = true;
+    try { await api.setArtifactStatus(button.closest("[data-artifact-id]").dataset.artifactId, button.dataset.artifactStatus); await renderTeacher(); }
+    catch (error) { document.querySelector("#teacher-status").textContent = error.message; button.disabled = false; }
+  });
   if (document.querySelector("#teacher-dashboard") && api.mode === "demo") renderTeacher();
 
   async function renderPlayer() {
@@ -100,6 +117,10 @@
     const participant = session && !teacherPreview ? session : null;
     if (!session && !teacherPreview) { location.replace("join.html"); return; }
     if (!quiz || (quiz.status !== "published" && quiz.ownerId !== participant?.studentId && !teacherPreview)) { root.innerHTML = '<p class="empty">This quiz is not available.</p>'; return; }
+    const themes = { midnight:["#1c2e4a","#a9d8ff","#0f1a2b"], dusty:["#52677d","#bdc4d4","#0f1a2b"], buttercream:["#1c2e4a","#d1cfc9","#1c2e4a"], ivory:["#52677d","#bdc4d4","#0f1a2b"] };
+    const fonts = { modern:'"Avenir Next",Arial,sans-serif', classic:'Georgia,"Times New Roman",serif', rounded:'"Arial Rounded MT Bold","Trebuchet MS",sans-serif' };
+    const [header, accent, ink] = themes[quiz.theme] || themes.midnight;
+    root.style.setProperty("--quiz-header", header); root.style.setProperty("--quiz-accent", accent); root.style.setProperty("--quiz-ink", ink); root.style.fontFamily = fonts[quiz.font] || fonts.modern;
     let index = 0, score = 0, selected = null;
     const paint = () => {
       const q = quiz.questions[index];

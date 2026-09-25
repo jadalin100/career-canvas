@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Partner with Career Canvas and give middle-school students a real digital branding brief.">
+  <title>For Local Businesses — Career Canvas</title>
+  <link rel="icon" href="assets/career-canvas-logo.png" type="image/png">
+  <link rel="stylesheet" href="canvas.css?v=10">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark"><img src="assets/career-canvas-logo.png" alt=""></span><span class="brand-copy"><strong>Career</strong><span>Canvas</span></span></a>
+    <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="businesses.html" aria-current="page">For businesses</a><a href="gallery.html">Gallery</a><a href="index.html#outcomes">Student work</a><a href="index.html#quizzes">Career quizzes</a></nav>
+    <div class="header-ctas"><a class="nav-cta nav-cta-quiet" href="businesses.html">Businesses <span aria-hidden="true">↗</span></a><a class="nav-cta" href="join.html">Join class <span aria-hidden="true">↗</span></a></div>
+  </header>
+  <main id="main">
+    <section class="subpage-hero">
+      <p class="eyebrow"><span></span> A simple pilot partnership</p>
+      <h1>Give students a real audience for their ideas.</h1>
+      <p>Career Canvas students research your business, publish a business article, create an educational quiz, and design an original advertisement for you. You receive every finished piece.</p>
+    </section>
+
+    <section class="section">
+      <div class="business-grid">
+        <article class="business-card">
+          <p class="kicker">What students create</p><h2>Four connected deliverables</h2>
+          <ol class="commitment-list"><li>A one-to-four-page article about your business and audience</li><li>An educational quiz connected to your industry</li><li>An original flyer, social post, or short video concept</li><li>A portfolio story that credits your partnership</li></ol>
+        </article>
+        <article class="business-card">
+          <p class="kicker">What we ask from you</p><h2>A short introduction and clear brief</h2>
+          <ol class="commitment-list"><li>Introduce the business by video clip or short paragraph</li><li>Complete the student details form</li><li>Share advertisement ideas you would genuinely use</li><li>Optional: offer brief feedback on student work</li></ol>
+        </article>
+        <article class="business-card">
+          <p class="kicker">Ready-to-use attachments</p><h2>Everything you need to begin</h2>
+          <p>These three PDFs match the questions in our outreach email and can be completed at your pace.</p>
+          <div class="attachment-list">
+            <a href="templates/Career_Canvas_Business_Details_Form.pdf" target="_blank"><span>Business details form</span><b>PDF ↗</b></a>
+            <a href="templates/Career_Canvas_Introduction_Guide.pdf" target="_blank"><span>Optional introduction questions</span><b>PDF ↗</b></a>
+            <a href="templates/Career_Canvas_Advertisement_Brief.pdf" target="_blank"><span>Student advertisement brief</span><b>PDF ↗</b></a>
+          </div>
+        </article>
+        <article class="business-card">
+          <p class="kicker">In return</p><h2>Work you can use and impact you can show</h2>
+          <p>You receive the students’ finished work and credit on our website, Instagram, and project presentations. If a call is easier, Jada and Olivia will schedule around your availability.</p>
+          <p><strong>Email:</strong> <a href="mailto:careercanva.gns@gmail.com">careercanva.gns@gmail.com</a><br><strong>Instagram:</strong> <a href="https://www.instagram.com/careercanvas.gns/" target="_blank" rel="noopener">@careercanvas.gns</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="partners section" aria-labelledby="partners-title">
+      <div class="section-heading"><p class="kicker">Current partners</p><h2 id="partners-title">Our first community collaborators.</h2><p>Open any logo to learn more about the business or organization.</p></div>
+      <div class="partner-logo-grid">
+        <a href="https://www.doublehappinesscreations.com/" target="_blank" rel="noopener"><img src="assets/partners/double-happiness.png" alt="Double Happiness Creations"><span>Double Happiness Creations</span></a>
+        <a href="https://myteengig.com/" target="_blank" rel="noopener"><img src="assets/partners/myteengig.png" alt="MyTeenGig"><span>MyTeenGig</span></a>
+        <a href="https://www.fountainofkindness.org/" target="_blank" rel="noopener"><img src="assets/partners/fountain-of-kindness.png" alt="Fountain of Kindness"><span>Fountain of Kindness</span></a>
+        <a href="https://www.lalijewels.com/" target="_blank" rel="noopener"><img src="assets/partners/lali-jewels.png" alt="LALI Jewels"><span>LALI Jewels</span></a>
+      </div>
+    </section>
+
+    <section class="section" id="email-us">
+      <div class="partner-page-panel">
+        <form class="partner-form" id="partner-form">
+          <div class="partner-form-heading"><p class="kicker">Build your email</p><h3>Open a personalized partnership draft.</h3><p>Complete the fields below. We create the full email to Jada and Olivia, and nothing sends until you press Send in your email app.</p></div>
+          <label><span>Your name</span><input name="name" autocomplete="name" required></label>
+          <label><span>Business name</span><input name="business" autocomplete="organization" required></label>
+          <label><span>Your email</span><input name="email" type="email" autocomplete="email" required></label>
+          <label><span>Your business focus or role in the community</span><textarea name="focus" rows="3" required placeholder="Example: fine jewelry craftsmanship and service in Great Neck"></textarea></label>
+          <label><span>Advertisement ideas students could create</span><textarea name="idea" rows="3" placeholder="Example: a holiday flyer, Instagram post, or 30-second video concept"></textarea></label>
+          <button class="button button-primary" type="submit">Open my email draft <span aria-hidden="true">→</span></button>
+          <button class="button button-dark" id="copy-email-draft" type="button">Copy draft</button>
+          <p class="partner-form-status" id="partner-form-status" role="status" aria-live="polite"></p>
+          <pre class="email-preview" id="email-preview" aria-label="Email draft preview"></pre>
+        </form>
+      </div>
+    </section>
+
+    <section class="pilot section"><div class="pilot-card"><p class="kicker">Pilot study</p><h2>Starting local.<br>Ready to grow.</h2><p>We are piloting Career Canvas with one class and documenting the process so future students, schools, and business partners can build on what works.</p><div class="pilot-actions"><a class="button button-primary" href="#email-us">Become a pilot partner <span aria-hidden="true">→</span></a></div></div></section>
+  </main>
+  <footer class="site-footer"><a class="brand footer-brand" href="index.html"><span class="brand-mark"><img src="assets/career-canvas-logo.png" alt=""></span><span class="brand-copy"><strong>Career</strong><span>Canvas</span></span></a><p>A student-built career development initiative.</p><div><a href="index.html">Home</a> · <a href="gallery.html">Gallery</a> · <a href="mailto:careercanva.gns@gmail.com">Email us</a></div></footer>
+  <script src="partner-form.js?v=2"></script>
+</body>
+</html>

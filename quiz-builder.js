@@ -9,7 +9,14 @@
     choices: ["", "", "", ""],
     correct: 0
   });
-  const defaultQuiz = { galleryId: "", classQuizId: "", title: "", audience: "", business: "", intro: "", updatedAt: "", questions: [blankQuestion()] };
+  const defaultQuiz = { galleryId: "", classQuizId: "", title: "", audience: "", business: "", intro: "", theme: "midnight", font: "modern", updatedAt: "", questions: [blankQuestion()] };
+  const themes = {
+    midnight: { bg: "#bdc4d4", ink: "#0f1a2b", header: "#1c2e4a", accent: "#a9d8ff", surface: "#ffffff" },
+    dusty: { bg: "#d1cfc9", ink: "#0f1a2b", header: "#52677d", accent: "#bdc4d4", surface: "#ffffff" },
+    buttercream: { bg: "#d1cfc9", ink: "#1c2e4a", header: "#1c2e4a", accent: "#d1cfc9", surface: "#ffffff" },
+    ivory: { bg: "#f7f5ef", ink: "#0f1a2b", header: "#52677d", accent: "#bdc4d4", surface: "#ffffff" }
+  };
+  const fonts = { modern: '"Avenir Next",Arial,sans-serif', classic: 'Georgia,"Times New Roman",serif', rounded: '"Arial Rounded MT Bold","Trebuchet MS",sans-serif' };
   const templates = {
     knowledge: {
       title: "How Well Do You Know This Business?",
@@ -131,7 +138,7 @@
   }
 
   function syncDetails() {
-    ["title", "audience", "business", "intro"].forEach((name) => {
+    ["title", "audience", "business", "intro", "theme", "font"].forEach((name) => {
       details.elements[name].value = quiz[name] || "";
     });
   }
@@ -225,12 +232,12 @@
   });
 
   function hasContent() {
-    return Boolean(quiz.title.trim() || quiz.intro.trim() || quiz.business.trim() || quiz.questions.some((question) => question.prompt.trim() || question.choices.some((choice) => choice.trim())));
+    return Boolean(quiz.title.trim() || quiz.intro.trim() || quiz.business.trim() || quiz.theme !== defaultQuiz.theme || quiz.font !== defaultQuiz.font || quiz.questions.some((question) => question.prompt.trim() || question.choices.some((choice) => choice.trim())));
   }
 
   function replaceQuiz(nextQuiz) {
     Object.keys(quiz).forEach((key) => delete quiz[key]);
-    Object.assign(quiz, structuredClone(nextQuiz));
+    Object.assign(quiz, structuredClone({ ...defaultQuiz, ...nextQuiz }));
     syncDetails();
     renderQuestions();
     preview.hidden = true;
@@ -266,7 +273,13 @@
 
     function paint() {
       const question = quiz.questions[index];
+      const palette = themes[quiz.theme] || themes.midnight;
       preview.hidden = false;
+      preview.style.setProperty("--quiz-accent", palette.accent);
+      preview.style.setProperty("--quiz-header", palette.header);
+      preview.style.setProperty("--quiz-surface", palette.surface);
+      preview.style.setProperty("--quiz-ink", palette.ink);
+      preview.style.fontFamily = fonts[quiz.font] || fonts.modern;
       preview.innerHTML = `
         <p class="eyebrow">Live preview · ${index + 1} of ${quiz.questions.length}</p>
         <h2 id="preview-title">${esc(quiz.title)}</h2>
@@ -299,9 +312,11 @@
   }
 
   function exportedHtml() {
-    const safeData = JSON.stringify({ title: quiz.title.trim(), intro: quiz.intro.trim(), questions: quiz.questions }).replace(/</g, "\\u003c");
+    const safeData = JSON.stringify({ title: quiz.title.trim(), intro: quiz.intro.trim(), theme: quiz.theme, font: quiz.font, questions: quiz.questions }).replace(/</g, "\\u003c");
+    const palette = themes[quiz.theme] || themes.midnight;
+    const font = fonts[quiz.font] || fonts.modern;
     return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(quiz.title)}</title><style>
-*{box-sizing:border-box}body{margin:0;background:#bdc4d4;color:#0f1a2b;font:16px/1.5 Arial,sans-serif}.wrap{width:min(760px,calc(100% - 32px));margin:40px auto;background:#fff;box-shadow:0 18px 45px rgba(28,46,74,.1)}header{padding:18px 24px;color:#fff;background:#1c2e4a;font-weight:800}main{padding:36px}h1{margin:0;color:#0f1a2b;font-size:clamp(34px,7vw,56px);line-height:1}.intro{color:#52677d}.count{color:#52677d;font-size:12px;font-weight:800;text-transform:uppercase}.question{margin:28px 0 18px;font-size:26px;font-weight:800}.options{display:grid;gap:10px}.options button{padding:14px;text-align:left;color:#1c2e4a;background:#fff;border:1px solid rgba(28,46,74,.16);font:inherit;cursor:pointer}.options button.selected{border-color:#52677d;box-shadow:inset 4px 0 #a9d8ff}.next{margin-top:22px;padding:13px 18px;color:#0f1a2b;background:#a9d8ff;border:0;font-weight:800;cursor:pointer}.next:disabled{opacity:.45}.result{padding:24px;color:#fff;background:#1c2e4a}.result strong{color:#a9d8ff;font-size:34px}@media(max-width:600px){.wrap{width:100%;margin:0;min-height:100vh}main{padding:28px 20px}}
+*{box-sizing:border-box}body{margin:0;background:${palette.bg};color:${palette.ink};font:16px/1.5 ${font}}.wrap{width:min(760px,calc(100% - 32px));margin:40px auto;background:${palette.surface};box-shadow:0 18px 45px rgba(28,46,74,.1)}header{padding:18px 24px;color:#fff;background:${palette.header};font-weight:800}main{padding:36px}h1{margin:0;color:${palette.ink};font-size:clamp(34px,7vw,56px);line-height:1}.intro,.count{color:#52677d}.count{font-size:12px;font-weight:800;text-transform:uppercase}.question{margin:28px 0 18px;font-size:26px;font-weight:800}.options{display:grid;gap:10px}.options button{padding:14px;text-align:left;color:${palette.ink};background:${palette.surface};border:1px solid rgba(28,46,74,.16);font:inherit;cursor:pointer}.options button.selected{border-color:${palette.header};box-shadow:inset 4px 0 ${palette.accent}}.next{margin-top:22px;padding:13px 18px;color:${palette.ink};background:${palette.accent};border:0;font-family:inherit;font-size:16px;font-weight:800;line-height:1.3;cursor:pointer}.next:disabled{opacity:.45}.result{padding:24px;color:#fff;background:${palette.header}}.result strong{color:${palette.accent};font-size:34px}@media(max-width:600px){.wrap{width:100%;margin:0;min-height:100vh}main{padding:28px 20px}}
 </style></head><body><div class="wrap"><header>CAREER CANVAS · STUDENT QUIZ</header><main id="app"></main></div><script>
 const quiz=${safeData};let index=0,score=0,selected=null;const app=document.querySelector('#app');const esc=s=>String(s).replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));function paint(){const q=quiz.questions[index];app.innerHTML='<p class="count">Question '+(index+1)+' of '+quiz.questions.length+'</p><h1>'+esc(quiz.title)+'</h1>'+(index===0&&quiz.intro?'<p class="intro">'+esc(quiz.intro)+'</p>':'')+'<p class="question">'+esc(q.prompt)+'</p><div class="options">'+q.choices.map((c,i)=>'<button data-choice="'+i+'">'+esc(c)+'</button>').join('')+'</div><button class="next" disabled>'+(index===quiz.questions.length-1?'See score':'Next question')+'</button>';app.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.choice);app.querySelectorAll('[data-choice]').forEach(o=>o.classList.toggle('selected',o===b));app.querySelector('.next').disabled=false});app.querySelector('.next').onclick=()=>{if(selected===q.correct)score++;index++;selected=null;index<quiz.questions.length?paint():finish()}}function finish(){app.innerHTML='<h1>'+esc(quiz.title)+'</h1><div class="result"><strong>'+score+' / '+quiz.questions.length+'</strong><br>You finished the quiz.</div><button class="next" id="again">Play again</button>';document.querySelector('#again').onclick=()=>{index=0;score=0;paint()}}paint();
 <\/script></body></html>`;
