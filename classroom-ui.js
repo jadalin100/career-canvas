@@ -2,6 +2,9 @@
   "use strict";
   const api = window.CareerCanvasClassroom;
   const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const classSelect = document.querySelector("#teacher-class-select");
+  if (classSelect) classSelect.innerHTML = api.listClasses().map(item => `<option value="${esc(item.id)}">${esc(item.name)}</option>`).join("");
+  const selectedClassId = () => classSelect?.value || api.listClasses()[0].id;
   const modeText = api.mode === "cloud" ? "Cloud sync is on. Work will follow students across school iPads." : "Demo mode: this works fully on one iPad, but class data is not shared across devices until Firebase is connected.";
   document.querySelectorAll("[data-mode-banner]").forEach(el => { el.innerHTML = `<strong>${api.mode === "cloud" ? "Classroom connected" : "Same-iPad demo"}</strong>${modeText}`; });
 
@@ -28,6 +31,8 @@
     const session = api.getSession();
     if (!session) { location.replace("join.html"); return; }
     document.querySelector("#student-name").textContent = session.username;
+    const className = document.querySelector("#student-class-name");
+    if (className) className.textContent = api.getClass(session.classId).name;
     const readLocal = (key) => { try { return JSON.parse(localStorage.getItem(key) || "{}"); } catch (_) { return {}; } };
     let project = readLocal("careerCanvasProject");
     let deliverables = readLocal("careerCanvasDeliverables");
@@ -138,11 +143,13 @@
     if (!root) return;
     const status = document.querySelector("#teacher-status");
     try {
-      const data = await api.teacherDashboard();
+      const classId = selectedClassId();
+      const selectedClass = api.getClass(classId);
+      const data = await api.teacherDashboard(classId);
       document.querySelector("#teacher-students").textContent = data.students.length;
       document.querySelector("#teacher-quizzes").textContent = data.quizzes.length;
       document.querySelector("#teacher-attempts").textContent = data.attempts.length;
-      document.querySelector("#teacher-code").textContent = api.config.classCode;
+      document.querySelector("#teacher-code").textContent = selectedClass.code;
       renderAnalytics(data);
       const students = document.querySelector("#student-list");
       students.innerHTML = data.students.length ? data.students.sort((a,b)=>a.username.localeCompare(b.username)).map(s => {
@@ -152,10 +159,10 @@
         return `<div class="teacher-row" data-student-id="${esc(studentId)}" data-student-name="${esc(s.username)}"><div><strong>${esc(s.username)}</strong><span>${complete}/4 project pieces · ${results}/3 career quizzes<br>Last active ${s.lastSeenAt ? new Date(s.lastSeenAt).toLocaleDateString() : "—"}</span></div><button class="small-button danger-button" type="button" data-delete-student>Delete student</button></div>`;
       }).join("") : '<p class="empty">No students have joined yet.</p>';
       const quizzes = document.querySelector("#teacher-quiz-list");
-      quizzes.innerHTML = data.quizzes.length ? data.quizzes.sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).map(q => `<div class="teacher-row" data-quiz-id="${esc(q.id)}"><div><strong>${esc(q.title || "Untitled quiz")}</strong><span>By ${esc(q.ownerUsername)} · ${q.questions?.length || 0} questions · ${esc(q.status)}</span></div><div class="teacher-row-actions"><a class="small-button" href="play.html?id=${encodeURIComponent(q.id)}&teacher=1">Play</a><button class="small-button" data-status="${q.status === "published" ? "pending" : "published"}">${q.status === "published" ? "Unpublish" : "Publish"}</button></div></div>`).join("") : '<p class="empty">No quizzes have been submitted.</p>';
+      quizzes.innerHTML = data.quizzes.length ? data.quizzes.sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).map(q => `<div class="teacher-row" data-quiz-id="${esc(q.id)}"><div><strong>${esc(q.title || "Untitled quiz")}</strong><span>By ${esc(q.ownerUsername)} · ${q.questions?.length || 0} questions · ${esc(q.status)}</span></div><div class="teacher-row-actions"><a class="small-button" href="play.html?id=${encodeURIComponent(q.id)}&teacher=1&class=${encodeURIComponent(classId)}">Play</a><button class="small-button" data-status="${q.status === "published" ? "pending" : "published"}">${q.status === "published" ? "Unpublish" : "Publish"}</button></div></div>`).join("") : '<p class="empty">No quizzes have been submitted.</p>';
       const artifacts = document.querySelector("#teacher-artifact-list");
       if (artifacts) artifacts.innerHTML = data.artifacts.length ? data.artifacts.sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).map(item => `<div class="teacher-row" data-artifact-id="${esc(item.id)}"><div><strong>${esc(item.title)}</strong><span>${esc(item.type)} by ${esc(item.ownerUsername)} · ${esc(item.status)}</span></div><div class="teacher-row-actions"><a class="small-button" href="${esc(item.url)}" target="_blank" rel="noopener">Open</a><button class="small-button" data-artifact-status="${item.status === "published" ? "pending" : "published"}">${item.status === "published" ? "Unpublish" : "Publish"}</button></div></div>`).join("") : '<p class="empty">No project links have been submitted.</p>';
-      status.textContent = "Dashboard updated.";
+      status.textContent = `${selectedClass.name} dashboard updated.`;
     } catch (error) { status.className = "status error"; status.textContent = error.message; }
   }
 
@@ -165,10 +172,11 @@
     try { await api.teacherSignIn(); await renderTeacher(); } catch (error) { status.className = "status error"; status.textContent = error.message; }
     event.currentTarget.disabled = false;
   });
+  classSelect?.addEventListener("change", () => renderTeacher());
   document.querySelector("#teacher-quiz-list")?.addEventListener("click", async event => {
     const button = event.target.closest("[data-status]"); if (!button) return;
     button.disabled = true;
-    try { await api.setQuizStatus(button.closest("[data-quiz-id]").dataset.quizId, button.dataset.status); await renderTeacher(); }
+    try { await api.setQuizStatus(button.closest("[data-quiz-id]").dataset.quizId, button.dataset.status, selectedClassId()); await renderTeacher(); }
     catch (error) { document.querySelector("#teacher-status").textContent = error.message; button.disabled = false; }
   });
   document.querySelector("#student-list")?.addEventListener("click", async event => {
@@ -179,20 +187,21 @@
     button.disabled = true;
     const status = document.querySelector("#teacher-status");
     status.className = "status"; status.textContent = `Deleting ${name}…`;
-    try { await api.deleteStudent(row.dataset.studentId); await renderTeacher(); status.textContent = `${name} was deleted.`; }
+    try { await api.deleteStudent(row.dataset.studentId, selectedClassId()); await renderTeacher(); status.textContent = `${name} was deleted.`; }
     catch (error) { status.className = "status error"; status.textContent = error.message; button.disabled = false; }
   });
   document.querySelector("#teacher-artifact-list")?.addEventListener("click", async event => {
     const button = event.target.closest("[data-artifact-status]"); if (!button) return;
     button.disabled = true;
-    try { await api.setArtifactStatus(button.closest("[data-artifact-id]").dataset.artifactId, button.dataset.artifactStatus); await renderTeacher(); }
+    try { await api.setArtifactStatus(button.closest("[data-artifact-id]").dataset.artifactId, button.dataset.artifactStatus, selectedClassId()); await renderTeacher(); }
     catch (error) { document.querySelector("#teacher-status").textContent = error.message; button.disabled = false; }
   });
   if (document.querySelector("#teacher-dashboard") && api.mode === "demo") renderTeacher();
 
   async function renderPlayer() {
     const root = document.querySelector("#quiz-player"); if (!root) return;
-    const quiz = await api.getQuiz(new URLSearchParams(location.search).get("id"));
+    const params = new URLSearchParams(location.search);
+    const quiz = await api.getQuiz(params.get("id"), params.get("class"));
     const session = api.getSession();
     const teacherPreview = new URLSearchParams(location.search).get("teacher") === "1" && await api.isTeacherSignedIn();
     const participant = session && !teacherPreview ? session : null;
