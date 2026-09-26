@@ -48,7 +48,7 @@
     document.querySelector("#career-result-count").textContent = String(Object.keys(results).length);
     const resultList = document.querySelector("#career-results-list");
     if (resultList) {
-      const labels = { career: "Business career fit", deca: "DECA event fit", branding: "Digital branding strengths" };
+      const labels = { career: "Business career fit", deca: "DECA event fit", branding: "Digital marketing strengths" };
       resultList.innerHTML = Object.keys(results).length ? Object.entries(results).map(([key, value]) => `<a class="step-link" href="index.html#quiz-${encodeURIComponent(key)}"><span><strong>${esc(labels[key] || key)}</strong><br>${esc((value.topResults || []).join(", ") || "Result saved")} · ${value.completedAt ? new Date(value.completedAt).toLocaleDateString() : "Saved"}</span><b>→</b></a>`).join("") : '<p class="empty">Complete a career quiz to save a result.</p>';
     }
     await api.syncStudent({ project, deliverables, careerQuizResults: results });
@@ -99,7 +99,7 @@
     const charts = [
       discoveryChart(data.students, "career", "Business career fit"),
       discoveryChart(data.students, "deca", "DECA event fit"),
-      discoveryChart(data.students, "branding", "Digital branding strengths"),
+      discoveryChart(data.students, "branding", "Digital marketing strengths"),
       studentQuizChart(data.quizzes, data.attempts)
     ];
     target.innerHTML = charts.map(chart => `<article class="analytics-chart"><h3>${esc(chart.title)}</h3><p>${esc(chart.note)}</p>${chart.rows.length ? `<div class="bar-list">${chart.rows.map(row => `<div class="bar-row"><div class="bar-copy"><span>${esc(row.label)}</span><strong>${esc(row.display)}</strong></div><div class="bar-track" role="img" aria-label="${esc(`${row.label}: ${row.display}`)}"><i class="bar-fill" style="width:${Math.max(0, Math.min(100, (row.value / chart.max) * 100))}%"></i></div></div>`).join("")}</div>` : '<p class="analytics-empty">No results yet.</p>'}</article>`).join("");

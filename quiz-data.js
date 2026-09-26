@@ -1773,8 +1773,8 @@ window.CAREER_CANVAS_QUIZ_DATA = {
   },
   {
    "key": "branding",
-   "title": "Digital Branding",
-   "subtitle": "Which part of digital branding fits you?",
+   "title": "Digital Marketing",
+   "subtitle": "Which part of digital marketing fits you?",
    "questions": [
     {
      "id": "Q1",
