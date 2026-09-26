@@ -29,7 +29,7 @@ if ("IntersectionObserver" in window && !reducedMotion) {
   revealItems.forEach((item) => item.classList.add("visible"));
 }
 
-// The seven-meeting plan is generated from the slide decks. meetings-data.js
+// The five-meeting plan is generated from the slide decks. meetings-data.js
 // keeps it available when the site is opened directly from the filesystem.
 const meetingList = document.querySelector("#meeting-list");
 

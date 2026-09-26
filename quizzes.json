@@ -1027,107 +1027,76 @@
        "letter": "E",
        "text": "commercials and ad campaigns",
        "tag": "F_ADS"
+      },
+      {
+       "letter": "F",
+       "text": "store displays and what goes on the shelf",
+       "tag": "F_RETAIL"
+      },
+      {
+       "letter": "G",
+       "text": "stadiums and concerts",
+       "tag": "F_SPORTS"
+      },
+      {
+       "letter": "H",
+       "text": "convincing a customer face-to-face",
+       "tag": "F_SELL"
+      },
+      {
+       "letter": "I",
+       "text": "keeping financial records perfect",
+       "tag": "F_ACCT"
+      },
+      {
+       "letter": "J",
+       "text": "investing and growing money",
+       "tag": "F_INVEST"
+      },
+      {
+       "letter": "K",
+       "text": "hotels and front desks",
+       "tag": "F_HOTEL"
+      },
+      {
+       "letter": "L",
+       "text": "drive-thrus and fast food",
+       "tag": "F_FASTFOOD"
+      },
+      {
+       "letter": "M",
+       "text": "restaurants and dining rooms",
+       "tag": "F_RESTAURANT"
+      },
+      {
+       "letter": "N",
+       "text": "vacations and destinations",
+       "tag": "F_TRAVEL"
+      },
+      {
+       "letter": "O",
+       "text": "hiring and training people",
+       "tag": "F_PEOPLE"
+      },
+      {
+       "letter": "P",
+       "text": "rules, contracts, and fairness",
+       "tag": "F_LAW"
+      },
+      {
+       "letter": "Q",
+       "text": "starting your own company",
+       "tag": "F_STARTUP"
+      },
+      {
+       "letter": "R",
+       "text": "your own budget and savings goals",
+       "tag": "F_MONEY"
       }
      ]
     },
     {
      "id": "Q10",
-     "part": 2,
-     "text": "…or one of these?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "store displays and what goes on the shelf",
-       "tag": "F_RETAIL"
-      },
-      {
-       "letter": "B",
-       "text": "stadiums and concerts",
-       "tag": "F_SPORTS"
-      },
-      {
-       "letter": "C",
-       "text": "convincing a customer face-to-face",
-       "tag": "F_SELL"
-      },
-      {
-       "letter": "D",
-       "text": "keeping financial records perfect",
-       "tag": "F_ACCT"
-      },
-      {
-       "letter": "E",
-       "text": "investing and growing money",
-       "tag": "F_INVEST"
-      }
-     ]
-    },
-    {
-     "id": "Q11",
-     "part": 2,
-     "text": "…or these?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "hotels and front desks",
-       "tag": "F_HOTEL"
-      },
-      {
-       "letter": "B",
-       "text": "drive-thrus and fast food",
-       "tag": "F_FASTFOOD"
-      },
-      {
-       "letter": "C",
-       "text": "restaurants and dining rooms",
-       "tag": "F_RESTAURANT"
-      },
-      {
-       "letter": "D",
-       "text": "vacations and destinations",
-       "tag": "F_TRAVEL"
-      },
-      {
-       "letter": "E",
-       "text": "hiring and training people",
-       "tag": "F_PEOPLE"
-      }
-     ]
-    },
-    {
-     "id": "Q12",
-     "part": 2,
-     "text": "…or these?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "rules, contracts, and fairness",
-       "tag": "F_LAW"
-      },
-      {
-       "letter": "B",
-       "text": "starting your own company",
-       "tag": "F_STARTUP"
-      },
-      {
-       "letter": "C",
-       "text": "your own budget and savings goals",
-       "tag": "F_MONEY"
-      },
-      {
-       "letter": "D",
-       "text": "a clothing brand's new line",
-       "tag": "F_FASHION"
-      },
-      {
-       "letter": "E",
-       "text": "a car dealership",
-       "tag": "F_AUTO"
-      }
-     ]
-    },
-    {
-     "id": "Q13",
      "part": 2,
      "text": "Which job shadow would you pick?",
      "options": [
@@ -1159,7 +1128,7 @@
      ]
     },
     {
-     "id": "Q14",
+     "id": "Q11",
      "part": 2,
      "text": "Which task sounds most fun?",
      "options": [
@@ -1191,7 +1160,7 @@
      ]
     },
     {
-     "id": "Q15",
+     "id": "Q12",
      "part": 2,
      "text": "You'd be proudest of…",
      "options": [
@@ -1223,7 +1192,7 @@
      ]
     },
     {
-     "id": "Q16",
+     "id": "Q13",
      "part": 2,
      "text": "Which would you read about?",
      "options": [
@@ -1255,7 +1224,7 @@
      ]
     },
     {
-     "id": "Q17",
+     "id": "Q14",
      "part": 2,
      "text": "Pick the pop-up you'd run:",
      "options": [
@@ -1283,11 +1252,16 @@
        "letter": "E",
        "text": "a free tax-help desk",
        "tag": "F_ACCT"
+      },
+      {
+       "letter": "F",
+       "text": "a streetwear customization booth",
+       "tag": "F_FASHION"
       }
      ]
     },
     {
-     "id": "Q18",
+     "id": "Q15",
      "part": 2,
      "text": "Which detail would you obsess over?",
      "options": [
@@ -1315,11 +1289,16 @@
        "letter": "E",
        "text": "how smooth a trip's itinerary is",
        "tag": "F_TRAVEL"
+      },
+      {
+       "letter": "F",
+       "text": "how a car showroom feels to a customer",
+       "tag": "F_AUTO"
       }
      ]
     },
     {
-     "id": "Q19",
+     "id": "Q16",
      "part": 2,
      "text": "You'd want to be the expert on…",
      "options": [
@@ -1351,7 +1330,7 @@
      ]
     },
     {
-     "id": "Q20",
+     "id": "Q17",
      "part": 2,
      "text": "Which class would you take?",
      "options": [
@@ -1383,7 +1362,7 @@
      ]
     },
     {
-     "id": "Q21",
+     "id": "Q18",
      "part": 2,
      "text": "Which would you brag about?",
      "options": [
@@ -1415,7 +1394,7 @@
      ]
     },
     {
-     "id": "Q22",
+     "id": "Q19",
      "part": 2,
      "text": "Where would you rather work a summer?",
      "options": [
@@ -1447,7 +1426,7 @@
      ]
     },
     {
-     "id": "Q23",
+     "id": "Q20",
      "part": 2,
      "text": "Your dream headline about you:",
      "options": [
@@ -1479,7 +1458,7 @@
      ]
     },
     {
-     "id": "Q24",
+     "id": "Q21",
      "part": 2,
      "text": "Which problem would you solve?",
      "options": [
@@ -1511,7 +1490,7 @@
      ]
     },
     {
-     "id": "Q25",
+     "id": "Q22",
      "part": 2,
      "text": "Pick the tool you'd master:",
      "options": [
@@ -1543,7 +1522,7 @@
      ]
     },
     {
-     "id": "Q26",
+     "id": "Q23",
      "part": 2,
      "text": "What would you plan for fun?",
      "options": [
@@ -1575,24 +1554,24 @@
      ]
     },
     {
-     "id": "Q27",
+     "id": "Q24",
      "part": 3,
      "text": "Alone or with a partner?",
      "options": [
       {
        "letter": "A",
-       "text": "Alone — I want the whole thing to be mine",
+       "text": "Alone. I want the whole thing to be mine.",
        "tag": "SOLO"
       },
       {
        "letter": "B",
-       "text": "With a partner — I'm sharper bouncing ideas",
+       "text": "With a partner. I'm sharper when I can bounce ideas.",
        "tag": "TEAM"
       }
      ]
     },
     {
-     "id": "Q28",
+     "id": "Q25",
      "part": 3,
      "text": "In a role-play you'd rather…",
      "options": [
@@ -1609,7 +1588,7 @@
      ]
     },
     {
-     "id": "Q29",
+     "id": "Q26",
      "part": 3,
      "text": "Which appeals more?",
      "options": [
@@ -1626,7 +1605,7 @@
      ]
     },
     {
-     "id": "Q30",
+     "id": "Q27",
      "part": 3,
      "text": "Your competition style:",
      "options": [
@@ -1638,6 +1617,23 @@
       {
        "letter": "B",
        "text": "\"Give me the industry I know best.\"",
+       "tag": "SPEC"
+      }
+     ]
+    },
+    {
+     "id": "Q28",
+     "part": 3,
+     "text": "Is this your first year in DECA?",
+     "options": [
+      {
+       "letter": "A",
+       "text": "Yes, this is my first year.",
+       "tag": "FOUND"
+      },
+      {
+       "letter": "B",
+       "text": "No, I've competed before.",
        "tag": "SPEC"
       }
      ]

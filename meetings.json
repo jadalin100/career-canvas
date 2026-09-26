@@ -1,15 +1,19 @@
 {
-  "generated": "2026-09-25",
+  "generated": "2026-09-26",
   "meetings": [
     {
       "number": 1,
       "title": "Creativity across business",
       "summary": "Five timed rounds, five DECA career areas, one idea you build and defend",
-      "slideCount": 12,
+      "slideCount": 13,
       "activeMinutes": 50,
       "agenda": [
         {
           "label": "Creative thinking is a business skill.",
+          "minutes": null
+        },
+        {
+          "label": "AI changes tasks inside every career",
           "minutes": null
         },
         {
