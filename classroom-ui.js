@@ -75,22 +75,46 @@
     });
     const rows = [...counts.entries()].sort((a, b) => b[1] - a[1] || String(labels.get(a[0]) || a[0]).localeCompare(String(labels.get(b[0]) || b[0])));
     const completed = rows.reduce((total, [, count]) => total + count, 0);
-    return { title, note: `${completed} of ${students.length} students completed`, rows: rows.map(([code, count]) => ({ label: labels.get(code) || code, value: count, display: String(count) })), max: Math.max(...rows.map(([, count]) => count), 1) };
+    return { title, note: `${completed} of ${students.length} students completed`, center: String(completed), centerLabel: "responses", rows: rows.map(([code, count]) => ({ label: labels.get(code) || code, value: count, display: `${count} ${count === 1 ? "student" : "students"}` })) };
   }
 
-  function studentQuizChart(quizzes, attempts) {
+  function studentQuizCharts(quizzes, attempts) {
     const groups = new Map();
     attempts.forEach(attempt => {
       if (!attempt.quizId || !Number.isFinite(Number(attempt.score)) || !Number.isFinite(Number(attempt.total)) || Number(attempt.total) <= 0) return;
-      const group = groups.get(attempt.quizId) || { title: attempt.quizTitle || quizzes.find(quiz => quiz.id === attempt.quizId)?.title || "Untitled quiz", percentages: [] };
-      group.percentages.push((Number(attempt.score) / Number(attempt.total)) * 100);
+      const group = groups.get(attempt.quizId) || { title: attempt.quizTitle || quizzes.find(quiz => quiz.id === attempt.quizId)?.title || "Untitled quiz", correct: 0, total: 0, plays: 0 };
+      group.correct += Number(attempt.score);
+      group.total += Number(attempt.total);
+      group.plays++;
       groups.set(attempt.quizId, group);
     });
-    const rows = [...groups.values()].map(group => {
-      const average = Math.round(group.percentages.reduce((sum, value) => sum + value, 0) / group.percentages.length);
-      return { label: group.title, value: average, display: `${average}% · ${group.percentages.length} ${group.percentages.length === 1 ? "play" : "plays"}` };
-    }).sort((a, b) => b.value - a.value || a.label.localeCompare(b.label));
-    return { title: "Student-created quizzes", note: `${attempts.length} recorded ${attempts.length === 1 ? "play" : "plays"}`, rows, max: 100 };
+    return [...groups.values()].sort((a, b) => a.title.localeCompare(b.title)).map(group => {
+      const missed = Math.max(0, group.total - group.correct);
+      const average = group.total ? Math.round((group.correct / group.total) * 100) : 0;
+      return { title: group.title, note: `${group.plays} recorded ${group.plays === 1 ? "play" : "plays"}`, center: `${average}%`, centerLabel: "class average", rows: [
+        { label: "Correct answers", value: group.correct, display: String(group.correct) },
+        { label: "Missed answers", value: missed, display: String(missed) }
+      ] };
+    });
+  }
+
+  const pieColors = ["#1c2e4a", "#a9d8ff", "#52677d", "#d1cfc9", "#6f95bb", "#87c6a7", "#e4b86c", "#947aa8", "#d8877d", "#7694a6"];
+
+  function pieBackground(rows) {
+    const total = rows.reduce((sum, row) => sum + Math.max(0, Number(row.value) || 0), 0);
+    if (!total) return "#e3e7ee";
+    let cursor = 0;
+    const stops = rows.map((row, index) => {
+      const start = cursor;
+      cursor += (Math.max(0, Number(row.value) || 0) / total) * 100;
+      return `${pieColors[index % pieColors.length]} ${start.toFixed(2)}% ${cursor.toFixed(2)}%`;
+    });
+    return `conic-gradient(${stops.join(",")})`;
+  }
+
+  function renderPie(chart) {
+    const label = chart.rows.map(row => `${row.label}: ${row.display}`).join(", ");
+    return `<article class="analytics-chart"><h3>${esc(chart.title)}</h3><p>${esc(chart.note)}</p>${chart.rows.length ? `<div class="pie-layout"><div class="pie-chart" role="img" aria-label="${esc(label)}" style="--pie:${pieBackground(chart.rows)}"><span><strong>${esc(chart.center)}</strong><small>${esc(chart.centerLabel)}</small></span></div><div class="pie-legend">${chart.rows.map((row, index) => `<div class="pie-key"><i style="--key-color:${pieColors[index % pieColors.length]}"></i><span>${esc(row.label)}</span><strong>${esc(row.display)}</strong></div>`).join("")}</div></div>` : '<p class="analytics-empty">No results yet.</p>'}</article>`;
   }
 
   function renderAnalytics(data) {
@@ -100,9 +124,13 @@
       discoveryChart(data.students, "career", "Business career fit"),
       discoveryChart(data.students, "deca", "DECA event fit"),
       discoveryChart(data.students, "branding", "Digital marketing strengths"),
-      studentQuizChart(data.quizzes, data.attempts)
+      ...studentQuizCharts(data.quizzes, data.attempts)
     ];
-    target.innerHTML = charts.map(chart => `<article class="analytics-chart"><h3>${esc(chart.title)}</h3><p>${esc(chart.note)}</p>${chart.rows.length ? `<div class="bar-list">${chart.rows.map(row => `<div class="bar-row"><div class="bar-copy"><span>${esc(row.label)}</span><strong>${esc(row.display)}</strong></div><div class="bar-track" role="img" aria-label="${esc(`${row.label}: ${row.display}`)}"><i class="bar-fill" style="width:${Math.max(0, Math.min(100, (row.value / chart.max) * 100))}%"></i></div></div>`).join("")}</div>` : '<p class="analytics-empty">No results yet.</p>'}</article>`).join("");
+    if (!charts.some(chart => chart.rows.length)) {
+      target.innerHTML = '<p class="analytics-empty">No quiz results yet.</p>';
+      return;
+    }
+    target.innerHTML = charts.map(renderPie).join("");
   }
 
   async function renderTeacher() {
@@ -120,7 +148,8 @@
       students.innerHTML = data.students.length ? data.students.sort((a,b)=>a.username.localeCompare(b.username)).map(s => {
         const complete = Object.values(s.deliverables || {}).filter(Boolean).length;
         const results = Object.keys(s.careerQuizResults || {}).length;
-        return `<div class="teacher-row"><div><strong>${esc(s.username)}</strong><span>${complete}/4 project pieces · ${results}/3 career quizzes</span></div><span>Last active ${s.lastSeenAt ? new Date(s.lastSeenAt).toLocaleDateString() : "—"}</span></div>`;
+        const studentId = s.id || s.usernameKey;
+        return `<div class="teacher-row" data-student-id="${esc(studentId)}" data-student-name="${esc(s.username)}"><div><strong>${esc(s.username)}</strong><span>${complete}/4 project pieces · ${results}/3 career quizzes<br>Last active ${s.lastSeenAt ? new Date(s.lastSeenAt).toLocaleDateString() : "—"}</span></div><button class="small-button danger-button" type="button" data-delete-student>Delete student</button></div>`;
       }).join("") : '<p class="empty">No students have joined yet.</p>';
       const quizzes = document.querySelector("#teacher-quiz-list");
       quizzes.innerHTML = data.quizzes.length ? data.quizzes.sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).map(q => `<div class="teacher-row" data-quiz-id="${esc(q.id)}"><div><strong>${esc(q.title || "Untitled quiz")}</strong><span>By ${esc(q.ownerUsername)} · ${q.questions?.length || 0} questions · ${esc(q.status)}</span></div><div class="teacher-row-actions"><a class="small-button" href="play.html?id=${encodeURIComponent(q.id)}&teacher=1">Play</a><button class="small-button" data-status="${q.status === "published" ? "pending" : "published"}">${q.status === "published" ? "Unpublish" : "Publish"}</button></div></div>`).join("") : '<p class="empty">No quizzes have been submitted.</p>';
@@ -141,6 +170,17 @@
     button.disabled = true;
     try { await api.setQuizStatus(button.closest("[data-quiz-id]").dataset.quizId, button.dataset.status); await renderTeacher(); }
     catch (error) { document.querySelector("#teacher-status").textContent = error.message; button.disabled = false; }
+  });
+  document.querySelector("#student-list")?.addEventListener("click", async event => {
+    const button = event.target.closest("[data-delete-student]"); if (!button) return;
+    const row = button.closest("[data-student-id]");
+    const name = row.dataset.studentName || "this student";
+    if (!window.confirm(`Delete ${name}? This will permanently remove their profile, submitted work, and quiz results.`)) return;
+    button.disabled = true;
+    const status = document.querySelector("#teacher-status");
+    status.className = "status"; status.textContent = `Deleting ${name}…`;
+    try { await api.deleteStudent(row.dataset.studentId); await renderTeacher(); status.textContent = `${name} was deleted.`; }
+    catch (error) { status.className = "status error"; status.textContent = error.message; button.disabled = false; }
   });
   document.querySelector("#teacher-artifact-list")?.addEventListener("click", async event => {
     const button = event.target.closest("[data-artifact-status]"); if (!button) return;

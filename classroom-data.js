@@ -249,10 +249,40 @@
         services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", config.classId, "attempts")),
         services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", config.classId, "artifacts"))
       ]);
-      return { students: students.docs.map(d => d.data()), quizzes: quizzes.docs.map(d => d.data()), attempts: attempts.docs.map(d => d.data()), artifacts: artifacts.docs.map(d => d.data()) };
+      return { students: students.docs.map(d => ({ ...d.data(), id: d.id })), quizzes: quizzes.docs.map(d => d.data()), attempts: attempts.docs.map(d => d.data()), artifacts: artifacts.docs.map(d => d.data()) };
     }
     const db = demoDb();
-    return { students: Object.values(db.students), quizzes: Object.values(db.quizzes), attempts: Object.values(db.attempts), artifacts: Object.values(db.artifacts || {}) };
+    return { students: Object.entries(db.students).map(([id, student]) => ({ ...student, id })), quizzes: Object.values(db.quizzes), attempts: Object.values(db.attempts), artifacts: Object.values(db.artifacts || {}) };
+  }
+
+  async function deleteStudent(studentId) {
+    const id = usernameKey(studentId);
+    if (!id) throw new Error("Student record not found.");
+    if (hasFirebase()) {
+      const services = await initCloud();
+      const email = services.auth.currentUser?.email?.toLowerCase();
+      if (email !== String(config.teacherEmail || "").toLowerCase()) throw new Error("Teacher sign-in required.");
+      const { db, storeSdk } = services;
+      const classRoot = ["classes", config.classId];
+      const queries = await Promise.all([
+        storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "quizzes"), storeSdk.where("ownerId", "==", id))),
+        storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "artifacts"), storeSdk.where("ownerId", "==", id))),
+        storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "attempts"), storeSdk.where("playerId", "==", id))),
+        storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "attempts"), storeSdk.where("ownerId", "==", id)))
+      ]);
+      const refs = new Map();
+      queries.forEach(snapshot => snapshot.docs.forEach(document => refs.set(document.ref.path, document.ref)));
+      refs.set(`classes/${config.classId}/students/${id}`, storeSdk.doc(db, ...classRoot, "students", id));
+      await Promise.all([...refs.values()].map(ref => storeSdk.deleteDoc(ref)));
+      return refs.size;
+    }
+    const db = demoDb();
+    delete db.students[id];
+    Object.keys(db.quizzes).forEach(key => { if (db.quizzes[key]?.ownerId === id) delete db.quizzes[key]; });
+    Object.keys(db.attempts).forEach(key => { if (db.attempts[key]?.playerId === id || db.attempts[key]?.ownerId === id) delete db.attempts[key]; });
+    Object.keys(db.artifacts || {}).forEach(key => { if (db.artifacts[key]?.ownerId === id) delete db.artifacts[key]; });
+    saveDemoDb(db);
+    return true;
   }
 
   async function setQuizStatus(id, status) {
@@ -284,6 +314,7 @@
     setArtifactStatus,
     teacherSignIn,
     teacherDashboard,
+    deleteStudent,
     setQuizStatus,
     async isTeacherSignedIn() {
       if (!hasFirebase()) return true;
