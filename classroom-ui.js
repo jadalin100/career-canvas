@@ -29,7 +29,7 @@
       event.preventDefault();
       const status = document.querySelector("#join-status");
       const button = joinForm.querySelector("button[type='submit']");
-      status.className = "status"; status.textContent = "Joining…"; button.disabled = true;
+      status.className = "status"; status.textContent = api.mode === "cloud" ? "Opening Google sign-in…" : "Joining…"; button.disabled = true;
       try {
         await api.joinClass(joinForm.elements.code.value, joinForm.elements.username.value);
         location.href = "student.html";
@@ -230,7 +230,7 @@
       const q = quiz.questions[index];
       root.innerHTML = `<p class="kicker">${esc(quiz.title)} · ${index+1} of ${quiz.questions.length}</p><div class="progress-track"><i style="width:${(index/quiz.questions.length)*100}%"></i></div><p class="player-question">${esc(q.prompt)}</p><div class="player-options">${q.choices.map((choice,i)=>`<button class="player-option" data-choice="${i}" aria-pressed="false">${esc(choice)}</button>`).join("")}</div><div class="class-actions"><button class="class-button" id="player-next" disabled>${index === quiz.questions.length-1 ? "See score" : "Next question"}</button></div>`;
       root.querySelectorAll("[data-choice]").forEach(button => button.addEventListener("click",()=>{ selected=Number(button.dataset.choice); root.querySelectorAll("[data-choice]").forEach(item=>item.setAttribute("aria-pressed",String(item===button))); root.querySelector("#player-next").disabled=false; }));
-      root.querySelector("#player-next").addEventListener("click", async()=>{ if(selected===q.correct) score++; index++; selected=null; if(index<quiz.questions.length) paint(); else { if(participant) await api.saveAttempt(quiz,score,quiz.questions.length); root.innerHTML=`<div class="result-card"><p class="kicker" style="color:var(--accent)">Quiz complete</p><h1>${esc(quiz.title)}</h1><strong>${score} / ${quiz.questions.length}</strong><p>${participant ? "Your result was saved to the class." : "Teacher preview—this result was not recorded."}</p></div><div class="class-actions"><a class="class-button" href="${participant ? "student.html" : "teacher.html"}">Back to ${participant ? "class gallery" : "teacher dashboard"}</a><button class="class-button secondary" id="play-again">Play again</button></div>`; root.querySelector("#play-again").onclick=()=>{index=0;score=0;paint();}; }});
+      root.querySelector("#player-next").addEventListener("click", async()=>{ if(selected===q.correct) score++; index++; selected=null; if(index<quiz.questions.length) paint(); else { const saved = participant ? await api.saveAttempt(quiz,score,quiz.questions.length) : null; const resultNote = !participant ? "Teacher preview—this result was not recorded." : saved?.savedOffline ? "Your result is saved on this iPad and will sync when the connection returns." : "Your result was saved to the class."; root.innerHTML=`<div class="result-card"><p class="kicker" style="color:var(--accent)">Quiz complete</p><h1>${esc(quiz.title)}</h1><strong>${score} / ${quiz.questions.length}</strong><p>${esc(resultNote)}</p></div><div class="class-actions"><a class="class-button" href="${participant ? "student.html" : "teacher.html"}">Back to ${participant ? "class gallery" : "teacher dashboard"}</a><button class="class-button secondary" id="play-again">Play again</button></div>`; root.querySelector("#play-again").onclick=()=>{index=0;score=0;paint();}; }});
     };
     paint();
   }

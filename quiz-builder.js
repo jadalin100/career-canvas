@@ -360,7 +360,7 @@ const quiz=${safeData};let index=0,score=0,selected=null;const app=document.quer
       const submitted = await classroom.submitQuiz(quiz);
       quiz.classQuizId = submitted.id;
       persist();
-      showToast("Sent to the teacher for approval");
+      showToast(submitted.savedOffline ? "Saved on this iPad—will sync when the connection returns" : "Sent to the teacher for approval");
       button.textContent = "Update class submission";
     } catch (error) {
       showToast(error.message || "Could not submit the quiz");
