@@ -65,6 +65,46 @@
   document.querySelector("#leave-class")?.addEventListener("click", () => { api.leaveClass(); location.href = "join.html"; });
   renderStudent().catch(error => { const root = document.querySelector("#student-dashboard"); if (root) root.innerHTML = `<p class="status error">${esc(error.message)}</p>`; });
 
+  function discoveryChart(students, key, title) {
+    const quiz = (window.CAREER_CANVAS_QUIZ_DATA?.quizzes || []).find(item => item.key === key);
+    const labels = new Map((quiz?.results || []).map(result => [result.code, result.name]));
+    const counts = new Map();
+    students.forEach(student => {
+      const primary = student.careerQuizResults?.[key]?.topResults?.[0];
+      if (primary) counts.set(primary, (counts.get(primary) || 0) + 1);
+    });
+    const rows = [...counts.entries()].sort((a, b) => b[1] - a[1] || String(labels.get(a[0]) || a[0]).localeCompare(String(labels.get(b[0]) || b[0])));
+    const completed = rows.reduce((total, [, count]) => total + count, 0);
+    return { title, note: `${completed} of ${students.length} students completed`, rows: rows.map(([code, count]) => ({ label: labels.get(code) || code, value: count, display: String(count) })), max: Math.max(...rows.map(([, count]) => count), 1) };
+  }
+
+  function studentQuizChart(quizzes, attempts) {
+    const groups = new Map();
+    attempts.forEach(attempt => {
+      if (!attempt.quizId || !Number.isFinite(Number(attempt.score)) || !Number.isFinite(Number(attempt.total)) || Number(attempt.total) <= 0) return;
+      const group = groups.get(attempt.quizId) || { title: attempt.quizTitle || quizzes.find(quiz => quiz.id === attempt.quizId)?.title || "Untitled quiz", percentages: [] };
+      group.percentages.push((Number(attempt.score) / Number(attempt.total)) * 100);
+      groups.set(attempt.quizId, group);
+    });
+    const rows = [...groups.values()].map(group => {
+      const average = Math.round(group.percentages.reduce((sum, value) => sum + value, 0) / group.percentages.length);
+      return { label: group.title, value: average, display: `${average}% · ${group.percentages.length} ${group.percentages.length === 1 ? "play" : "plays"}` };
+    }).sort((a, b) => b.value - a.value || a.label.localeCompare(b.label));
+    return { title: "Student-created quizzes", note: `${attempts.length} recorded ${attempts.length === 1 ? "play" : "plays"}`, rows, max: 100 };
+  }
+
+  function renderAnalytics(data) {
+    const target = document.querySelector("#teacher-analytics");
+    if (!target) return;
+    const charts = [
+      discoveryChart(data.students, "career", "Business career fit"),
+      discoveryChart(data.students, "deca", "DECA event fit"),
+      discoveryChart(data.students, "branding", "Digital branding strengths"),
+      studentQuizChart(data.quizzes, data.attempts)
+    ];
+    target.innerHTML = charts.map(chart => `<article class="analytics-chart"><h3>${esc(chart.title)}</h3><p>${esc(chart.note)}</p>${chart.rows.length ? `<div class="bar-list">${chart.rows.map(row => `<div class="bar-row"><div class="bar-copy"><span>${esc(row.label)}</span><strong>${esc(row.display)}</strong></div><div class="bar-track" role="img" aria-label="${esc(`${row.label}: ${row.display}`)}"><i class="bar-fill" style="width:${Math.max(0, Math.min(100, (row.value / chart.max) * 100))}%"></i></div></div>`).join("")}</div>` : '<p class="analytics-empty">No results yet.</p>'}</article>`).join("");
+  }
+
   async function renderTeacher() {
     const root = document.querySelector("#teacher-dashboard");
     if (!root) return;
@@ -75,6 +115,7 @@
       document.querySelector("#teacher-quizzes").textContent = data.quizzes.length;
       document.querySelector("#teacher-attempts").textContent = data.attempts.length;
       document.querySelector("#teacher-code").textContent = api.config.classCode;
+      renderAnalytics(data);
       const students = document.querySelector("#student-list");
       students.innerHTML = data.students.length ? data.students.sort((a,b)=>a.username.localeCompare(b.username)).map(s => {
         const complete = Object.values(s.deliverables || {}).filter(Boolean).length;
