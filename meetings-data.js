@@ -5,7 +5,7 @@ window.CAREER_CANVAS_MEETINGS = {
       "number": 1,
       "title": "Creativity across business",
       "summary": "Five timed rounds, five DECA career areas, one idea you build and defend",
-      "slideCount": 13,
+      "slideCount": 15,
       "activeMinutes": 50,
       "agenda": [
         {
@@ -14,6 +14,14 @@ window.CAREER_CANVAS_MEETINGS = {
         },
         {
           "label": "AI changes tasks inside every career",
+          "minutes": null
+        },
+        {
+          "label": "What part of digital marketing fits you?",
+          "minutes": null
+        },
+        {
+          "label": "What business career pathway fits you?",
           "minutes": null
         },
         {
