@@ -377,9 +377,9 @@ button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-c
 .founder-photo { width: 210px; aspect-ratio: 1; border-radius: 50%; background-image: url("assets/about-founders.png"); background-repeat: no-repeat; background-size: 333% auto; box-shadow: 0 0 0 10px var(--white), 0 20px 44px rgba(9,36,84,.16); }
 .founder-jada { background-position: 12% 37%; }
 .founder-olivia { background-position: 96% 37%; }
-.founder-role { margin: 0 0 12px; color: var(--blue); font: 800 9px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 .founder-copy h3 { margin: 0; color: var(--navy); font: 800 38px/1 var(--display); letter-spacing: -.04em; }
-.founder-copy > p:last-child { margin: 18px 0 0; color: var(--muted); font-size: 14px; }
+.founder-copy > p { margin: 18px 0 0; color: var(--muted); font-size: 14px; }
+.founder-email { margin-top: 16px; display: inline-block; color: var(--navy); font-size: 13px; font-weight: 800; overflow-wrap: anywhere; text-underline-offset: 4px; }
 .about-mission { display: grid; grid-template-columns: .92fr 1.08fr; gap: 90px; color: var(--white); background: var(--navy); }
 .about-mission .kicker { color: var(--baby-blue); }
 .about-mission h2 { color: var(--white); }
@@ -479,7 +479,6 @@ button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-c
   .founder-grid { grid-template-columns: 1fr; margin-top: 48px; }
   .founder-profile { padding: 26px 20px; grid-template-columns: 1fr; text-align: center; }
   .founder-photo { width: min(250px, 78vw); margin-inline: auto; }
-  .founder-role { margin-top: 8px; }
   .about-mission-copy li { grid-template-columns: 1fr; gap: 5px; }
   .pilot-card { padding: 70px 22px; }
   .site-footer { grid-template-columns: 1fr auto; padding-inline: 20px; }
