@@ -154,6 +154,7 @@ button { font: inherit; color: inherit; }
 
 .qhead { color: var(--muted); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin: 48px 0 14px; }
 .qtext { font-size: clamp(28px, 5.8vw, 40px); margin-bottom: 32px; }
+.selection-count { margin: -18px 0 24px; color: var(--baby-blue); font-size: 14px; font-weight: 700; }
 
 .opts { display: grid; gap: 12px; }
 .opt {

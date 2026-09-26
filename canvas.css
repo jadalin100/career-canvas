@@ -245,6 +245,7 @@ button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-c
 .quiz-stage-body { min-height: 570px; padding: 64px 70px 58px; outline: none; }
 .quiz-question-kicker { margin: 0 0 18px; color: var(--blue); font: 800 10px/1 var(--mono); text-transform: uppercase; letter-spacing: .12em; }
 .quiz-question { max-width: 850px; margin: 0; color: var(--navy); font: 800 clamp(31px, 4vw, 48px)/1.06 var(--display); letter-spacing: -.04em; }
+.quiz-selection-count { margin: 16px 0 0; color: var(--blue); font-size: 14px; font-weight: 800; }
 .quiz-options { margin-top: 38px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .quiz-option { min-height: 88px; padding: 14px 18px; display: grid; grid-template-columns: 36px 1fr; align-items: center; gap: 14px; color: var(--ink); background: #f5f6f8; border: 1px solid var(--line); text-align: left; cursor: pointer; font: inherit; }
 .quiz-option > span { width: 32px; height: 32px; display: grid; place-items: center; color: var(--blue); background: var(--white); border: 1px solid var(--line); font: 800 11px/1 var(--mono); }

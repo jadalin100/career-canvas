@@ -62,31 +62,32 @@ function scoreEvents(quiz, answers) {
   Object.keys(events).forEach((e) => (totals[e] = 0));
 
   quiz.questions.forEach((q, i) => {
-    const tag = answers[i];
-    if (!tag) return;
-
-    if (q.part === 1) {
-      // your business world lifts every event in it
-      for (const [code, ev] of Object.entries(events)) {
-        if (ev.cluster === tag) totals[code] += 1;
+    const value = answers[i];
+    const tags = Array.isArray(value) ? value : value ? [value] : [];
+    tags.forEach((tag) => {
+      if (q.part === 1) {
+        // your business world lifts every event in it
+        for (const [code, ev] of Object.entries(events)) {
+          if (ev.cluster === tag) totals[code] += 1;
+        }
+      } else if (q.part === 2) {
+        const cluster = flavorCluster[tag];
+        for (const [code, ev] of Object.entries(events)) {
+          if (ev.flavor === tag) totals[code] += 3;
+          // Principles events have no industry of their own, so they take
+          // partial credit for anything in their world -- without this, two of
+          // them are mathematically unreachable.
+          else if (ev.tier === "PRIN" && ev.cluster === cluster) totals[code] += 1;
+        }
+      } else {
+        for (const [code, ev] of Object.entries(events)) {
+          if (tag === "SOLO" && ev.tier === "SERIES") totals[code] += 3;
+          else if (tag === "TEAM" && ev.tier === "TDM") totals[code] += 3;
+          else if (tag === "FOUND" && ev.tier === "PRIN") totals[code] += 5;
+          else if (tag === "SPEC" && (ev.tier === "SERIES" || ev.tier === "TDM")) totals[code] += 3;
+        }
       }
-    } else if (q.part === 2) {
-      const cluster = flavorCluster[tag];
-      for (const [code, ev] of Object.entries(events)) {
-        if (ev.flavor === tag) totals[code] += 3;
-        // Principles events have no industry of their own, so they take
-        // partial credit for anything in their world -- without this, two of
-        // them are mathematically unreachable.
-        else if (ev.tier === "PRIN" && ev.cluster === cluster) totals[code] += 1;
-      }
-    } else {
-      for (const [code, ev] of Object.entries(events)) {
-        if (tag === "SOLO" && ev.tier === "SERIES") totals[code] += 3;
-        else if (tag === "TEAM" && ev.tier === "TDM") totals[code] += 3;
-        else if (tag === "FOUND" && ev.tier === "PRIN") totals[code] += 5;
-        else if (tag === "SPEC" && (ev.tier === "SERIES" || ev.tier === "TDM")) totals[code] += 3;
-      }
-    }
+    });
   });
   return totals;
 }
@@ -144,15 +145,19 @@ function startRunner(key) {
 
   function renderQuestion() {
     const q = quiz.questions[idx];
+    const maxSelections = Number(q.maxSelections) || 1;
+    const isMultiple = maxSelections > 1;
+    const selected = Array.isArray(answers[idx]) ? answers[idx] : answers[idx] ? [answers[idx]] : [];
     bar.style.width = `${(idx / quiz.questions.length) * 100}%`;
     count.textContent = `${idx + 1} / ${quiz.questions.length}`;
 
     main.innerHTML = `
-      <p class="qhead">${esc(quiz.title)} quiz</p>
+      <p class="qhead">${isMultiple ? `Select up to ${maxSelections} answers` : `${esc(quiz.title)} quiz`}</p>
       <h1 class="qtext">${esc(q.text)}</h1>
+      ${isMultiple ? `<p class="selection-count" id="selection-count" aria-live="polite">${selected.length} of ${maxSelections} selected</p>` : ""}
       <div class="opts" role="group" aria-label="Answer choices">
         ${q.options.map((o, n) => `
-          <button class="opt" data-tag="${esc(o.tag)}" aria-pressed="${answers[idx] === o.tag}">
+          <button class="opt" data-tag="${esc(o.tag)}" aria-pressed="${selected.includes(o.tag)}">
             <span class="key" aria-hidden="true">${n + 1}</span>
             <span class="opt-text">${esc(o.text)}</span>
           </button>`).join("")}
@@ -162,11 +167,11 @@ function startRunner(key) {
           <button class="linkbtn" id="back" ${idx === 0 ? "disabled" : ""}>&larr; Back</button>
           <button class="linkbtn" id="skip">Skip question</button>
         </div>
-        <button class="btn primary" id="next" ${answers[idx] == null ? "disabled" : ""}>Next question &rarr;</button>
+        <button class="btn primary" id="next" ${selected.length === 0 ? "disabled" : ""}>Next question &rarr;</button>
       </div>`;
 
     main.querySelectorAll(".opt").forEach((b) =>
-      b.addEventListener("click", () => select(b.dataset.tag)));
+      b.addEventListener("click", () => select(b.dataset.tag, maxSelections)));
     $("#skip").addEventListener("click", () => advance(null));
     $("#next").addEventListener("click", () => advance(answers[idx]));
     $("#back").addEventListener("click", () => { if (idx > 0) { idx--; renderQuestion(); } });
@@ -176,12 +181,23 @@ function startRunner(key) {
 
   /** Picking an option only marks it -- it doesn't move on, so a student who
    *  taps the wrong option first can see and fix their choice before advancing. */
-  function select(tag) {
-    answers[idx] = tag;
+  function select(tag, maxSelections = 1) {
+    if (maxSelections > 1) {
+      const current = Array.isArray(answers[idx]) ? [...answers[idx]] : [];
+      const at = current.indexOf(tag);
+      if (at >= 0) current.splice(at, 1);
+      else if (current.length < maxSelections) current.push(tag);
+      answers[idx] = current;
+    } else {
+      answers[idx] = tag;
+    }
+    const current = Array.isArray(answers[idx]) ? answers[idx] : [answers[idx]];
     main.querySelectorAll(".opt").forEach((b) =>
-      b.setAttribute("aria-pressed", String(b.dataset.tag === tag)));
+      b.setAttribute("aria-pressed", String(current.includes(b.dataset.tag))));
+    const selectionCount = $("#selection-count");
+    if (selectionCount) selectionCount.textContent = `${current.filter(Boolean).length} of ${maxSelections} selected`;
     const next = $("#next");
-    if (next) next.disabled = false;
+    if (next) next.disabled = current.filter(Boolean).length === 0;
   }
 
   function advance(tag) {

@@ -1093,7 +1093,8 @@ window.CAREER_CANVAS_QUIZ_DATA = {
        "text": "your own budget and savings goals",
        "tag": "F_MONEY"
       }
-     ]
+     ],
+     "maxSelections": 3
     },
     {
      "id": "Q10",
@@ -1556,23 +1557,6 @@ window.CAREER_CANVAS_QUIZ_DATA = {
     {
      "id": "Q24",
      "part": 3,
-     "text": "Alone or with a partner?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "Alone. I want the whole thing to be mine.",
-       "tag": "SOLO"
-      },
-      {
-       "letter": "B",
-       "text": "With a partner. I'm sharper when I can bounce ideas.",
-       "tag": "TEAM"
-      }
-     ]
-    },
-    {
-     "id": "Q25",
-     "part": 3,
      "text": "In a role-play you'd rather…",
      "options": [
       {
@@ -1588,7 +1572,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q26",
+     "id": "Q25",
      "part": 3,
      "text": "Which appeals more?",
      "options": [
@@ -1605,7 +1589,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q27",
+     "id": "Q26",
      "part": 3,
      "text": "Your competition style:",
      "options": [
@@ -1622,7 +1606,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q28",
+     "id": "Q27",
      "part": 3,
      "text": "Is this your first year in DECA?",
      "options": [
