@@ -1,5 +1,19 @@
 (() => {
   "use strict";
+  const stripHeadlinePeriods = () => {
+    document.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach((heading) => {
+      const textNodes = [];
+      const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) textNodes.push(walker.currentNode);
+      for (let index = textNodes.length - 1; index >= 0; index--) {
+        const node = textNodes[index];
+        if (!node.data.trim()) continue;
+        node.data = node.data.replace(/\.\s*$/, "");
+        break;
+      }
+    });
+  };
+  stripHeadlinePeriods();
   const api = window.CareerCanvasClassroom;
   const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const classSelect = document.querySelector("#teacher-class-select");
