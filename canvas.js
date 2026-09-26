@@ -28,31 +28,3 @@ if ("IntersectionObserver" in window && !reducedMotion) {
 } else {
   revealItems.forEach((item) => item.classList.add("visible"));
 }
-
-// The five-meeting plan is generated from the slide decks. meetings-data.js
-// keeps it available when the site is opened directly from the filesystem.
-const meetingList = document.querySelector("#meeting-list");
-
-if (meetingList) {
-  const escape = (value) => String(value).replace(/[&<>"]/g, (c) =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const renderMeetings = ({ meetings }) => {
-      meetingList.innerHTML = meetings.map((m) => `
-        <li class="meeting reveal">
-          <div class="meeting-head">
-            <span class="meeting-number">${String(m.number).padStart(2, "0")}</span>
-            <div>
-              <h3>${escape(m.title)}</h3>
-            </div>
-          </div>
-          <p class="meeting-sources">Sources: ${m.sources.map(escape).join(" · ")}</p>
-        </li>`).join("");
-      meetingList.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
-  };
-
-  if (window.CAREER_CANVAS_MEETINGS) {
-    renderMeetings(window.CAREER_CANVAS_MEETINGS);
-  } else {
-    meetingList.innerHTML = '<li class="meeting-loading">The meeting plan is unavailable. Reload the page or contact the workshop leader.</li>';
-  }
-}
