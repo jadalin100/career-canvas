@@ -166,6 +166,7 @@ function startRunner(key) {
         <div class="below-left">
           <button class="linkbtn" id="back" ${idx === 0 ? "disabled" : ""}>&larr; Back</button>
           <button class="linkbtn" id="skip">Skip question</button>
+          <button class="linkbtn" id="restart">Restart quiz</button>
         </div>
         <button class="btn primary" id="next" ${selected.length === 0 ? "disabled" : ""}>Next question &rarr;</button>
       </div>`;
@@ -173,6 +174,12 @@ function startRunner(key) {
     main.querySelectorAll(".opt").forEach((b) =>
       b.addEventListener("click", () => select(b.dataset.tag, maxSelections)));
     $("#skip").addEventListener("click", () => advance(null));
+    $("#restart").addEventListener("click", () => {
+      if (!window.confirm("Restart this quiz and clear your progress?")) return;
+      answers.fill(null);
+      idx = 0;
+      renderQuestion();
+    });
     $("#next").addEventListener("click", () => advance(answers[idx]));
     $("#back").addEventListener("click", () => { if (idx > 0) { idx--; renderQuestion(); } });
     paintRail();

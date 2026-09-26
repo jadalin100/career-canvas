@@ -63,6 +63,7 @@
     const saved = readProgress();
     delete saved[key];
     try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(saved)); } catch (_) {}
+    window.CareerCanvasClassroom?.syncStudent({ careerQuizProgress: saved }).catch(() => {});
   }
 
   function scoreSimple(quiz) {
@@ -155,6 +156,7 @@
       <div class="quiz-controls">
         <button class="quiz-text-button" id="canvas-quiz-previous" type="button" ${questionIndex === 0 ? "disabled" : ""}>Previous</button>
         <button class="quiz-text-button" id="canvas-quiz-skip" type="button">Skip</button>
+        <button class="quiz-text-button" id="canvas-quiz-restart" type="button">Restart quiz</button>
         <button class="button button-primary quiz-next" id="canvas-quiz-next" type="button" ${selectedTags.length === 0 ? "disabled" : ""}>${questionIndex === quiz.questions.length - 1 ? "See my results" : "Next question"}</button>
       </div>`;
 
@@ -185,6 +187,14 @@
       answers[questionIndex] = null;
       saveProgress();
       advance();
+    });
+    document.querySelector("#canvas-quiz-restart").addEventListener("click", () => {
+      if (!window.confirm("Restart this quiz and clear your saved progress?")) return;
+      clearProgress(currentKey);
+      answers = new Array(quiz.questions.length).fill(null);
+      questionIndex = 0;
+      saveProgress();
+      showQuestion();
     });
     document.querySelector("#canvas-quiz-next").addEventListener("click", advance);
     stageBody.focus({ preventScroll: true });
