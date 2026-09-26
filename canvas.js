@@ -36,13 +36,6 @@ const meetingList = document.querySelector("#meeting-list");
 if (meetingList) {
   const escape = (value) => String(value).replace(/[&<>"]/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const untimedLabel = (label) => ({
-    "Sixty seconds each. Say the choice, not the idea.": "Share your choice and explain why it works.",
-    "Show a partner your layout for three seconds.": "Show a partner your layout and ask what stood out.",
-    "Sixty seconds is a real format.": "A short pitch helps you focus your message.",
-    "Write the pitch to these four time blocks.": "Write a clear beginning, middle, and ending for your pitch.",
-  })[label] || label;
-
   const renderMeetings = ({ meetings }) => {
       meetingList.innerHTML = meetings.map((m) => `
         <li class="meeting reveal">
@@ -52,9 +45,6 @@ if (meetingList) {
               <h3>${escape(m.title)}</h3>
             </div>
           </div>
-          <ul class="meeting-agenda">
-            ${m.agenda.map((a) => `<li>${escape(untimedLabel(a.label))}</li>`).join("")}
-          </ul>
           <p class="meeting-sources">Sources: ${m.sources.map(escape).join(" · ")}</p>
         </li>`).join("");
       meetingList.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
