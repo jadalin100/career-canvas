@@ -159,8 +159,8 @@
     const button = artifactForm.querySelector("button[type='submit']");
     button.disabled = true;
     try {
-      await classroom.submitArtifact({ type: artifactForm.elements.type.value, title: artifactForm.elements.title.value, url: artifactForm.elements.url.value });
-      artifactForm.reset(); showToast("Sent to the teacher for gallery review");
+      const submitted = await classroom.submitArtifact({ type: artifactForm.elements.type.value, title: artifactForm.elements.title.value, url: artifactForm.elements.url.value });
+      artifactForm.reset(); showToast(submitted.savedOffline ? "Saved on this iPad—will sync when the connection returns" : "Sent to the teacher for gallery review");
     } catch (error) { showToast(error.message || "Could not submit this project"); }
     finally { button.disabled = false; }
   });

@@ -27,13 +27,13 @@ JS_OUT = SITE / "quiz-data.js"
 QUIZ_FILES = {
     "career":  ("3-career-quiz.md",     "Career",     "What business career suits you?"),
     "deca":    ("4-deca-event-quiz.md", "DECA Event", "Which DECA event should you compete in?"),
-    "branding": ("2-digital-branding-quiz.md", "Digital Branding", "Which part of digital branding fits you?"),
+    "branding": ("2-digital-branding-quiz.md", "Digital Marketing", "Which part of digital marketing fits you?"),
 }
 ORDER = ["career", "deca", "branding"]
 
 # expected question count per quiz -- catches an edit that silently drops or
 # duplicates a question
-EXPECTED_QUESTIONS = {"career": 24, "deca": 30, "branding": 10}
+EXPECTED_QUESTIONS = {"career": 24, "deca": 27, "branding": 10}
 
 # expected per-tag counts from scoring-key.md -- drift here means a quiz got
 # unbalanced, which is exactly the bug we spent the session fixing
@@ -43,7 +43,8 @@ EXPECTED = {
 }
 
 QUESTION_RE = re.compile(r"^\*\*(Q\d+)\.\s*(.+?)\*\*\s*$")
-OPTION_RE = re.compile(r"^-\s+([A-E])\)\s+(.*?)\s*`\[([A-Z_+]+)\]`\s*$")
+OPTION_RE = re.compile(r"^-\s+([A-Z])\)\s+(.*?)\s*`\[([A-Z_+]+)\]`\s*$")
+SELECT_RE = re.compile(r"^\*Select up to ([0-9]+) choices?\.\*$")
 RESULT_RE = re.compile(r"^-\s+\*\*(.+?)\*\*\s+`\[([A-Z_]+)\]`\s+[—-]\s+(.*)$")
 SCHOOLS_RE = re.compile(r"^\s+Schools:\s*(.*)$")
 
@@ -98,6 +99,11 @@ def parse_quiz(path):
             })
             continue
 
+        m = SELECT_RE.match(line)
+        if m and questions:
+            questions[-1]["maxSelections"] = int(m.group(1))
+            continue
+
         m = OPTION_RE.match(line)
         if m and questions:
             letter, text, tag = m.groups()
@@ -130,8 +136,9 @@ def main():
         if len(questions) != expected_n:
             problems.append(f"{key}: expected {expected_n} questions, parsed {len(questions)}")
         for q in questions:
-            if not (2 <= len(q["options"]) <= 5):
-                problems.append(f"{key} {q['id']}: {len(q['options'])} options (want 2-5)")
+            max_options = 18 if key == "deca" else 5
+            if not (2 <= len(q["options"]) <= max_options):
+                problems.append(f"{key} {q['id']}: {len(q['options'])} options (want 2-{max_options})")
         if not results:
             problems.append(f"{key}: parsed no results")
 

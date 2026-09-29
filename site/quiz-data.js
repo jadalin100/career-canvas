@@ -1027,107 +1027,77 @@ window.CAREER_CANVAS_QUIZ_DATA = {
        "letter": "E",
        "text": "commercials and ad campaigns",
        "tag": "F_ADS"
-      }
-     ]
-    },
-    {
-     "id": "Q10",
-     "part": 2,
-     "text": "…or one of these?",
-     "options": [
+      },
       {
-       "letter": "A",
+       "letter": "F",
        "text": "store displays and what goes on the shelf",
        "tag": "F_RETAIL"
       },
       {
-       "letter": "B",
+       "letter": "G",
        "text": "stadiums and concerts",
        "tag": "F_SPORTS"
       },
       {
-       "letter": "C",
+       "letter": "H",
        "text": "convincing a customer face-to-face",
        "tag": "F_SELL"
       },
       {
-       "letter": "D",
+       "letter": "I",
        "text": "keeping financial records perfect",
        "tag": "F_ACCT"
       },
       {
-       "letter": "E",
+       "letter": "J",
        "text": "investing and growing money",
        "tag": "F_INVEST"
-      }
-     ]
-    },
-    {
-     "id": "Q11",
-     "part": 2,
-     "text": "…or these?",
-     "options": [
+      },
       {
-       "letter": "A",
+       "letter": "K",
        "text": "hotels and front desks",
        "tag": "F_HOTEL"
       },
       {
-       "letter": "B",
+       "letter": "L",
        "text": "drive-thrus and fast food",
        "tag": "F_FASTFOOD"
       },
       {
-       "letter": "C",
+       "letter": "M",
        "text": "restaurants and dining rooms",
        "tag": "F_RESTAURANT"
       },
       {
-       "letter": "D",
+       "letter": "N",
        "text": "vacations and destinations",
        "tag": "F_TRAVEL"
       },
       {
-       "letter": "E",
+       "letter": "O",
        "text": "hiring and training people",
        "tag": "F_PEOPLE"
-      }
-     ]
-    },
-    {
-     "id": "Q12",
-     "part": 2,
-     "text": "…or these?",
-     "options": [
+      },
       {
-       "letter": "A",
+       "letter": "P",
        "text": "rules, contracts, and fairness",
        "tag": "F_LAW"
       },
       {
-       "letter": "B",
+       "letter": "Q",
        "text": "starting your own company",
        "tag": "F_STARTUP"
       },
       {
-       "letter": "C",
+       "letter": "R",
        "text": "your own budget and savings goals",
        "tag": "F_MONEY"
-      },
-      {
-       "letter": "D",
-       "text": "a clothing brand's new line",
-       "tag": "F_FASHION"
-      },
-      {
-       "letter": "E",
-       "text": "a car dealership",
-       "tag": "F_AUTO"
       }
-     ]
+     ],
+     "maxSelections": 3
     },
     {
-     "id": "Q13",
+     "id": "Q10",
      "part": 2,
      "text": "Which job shadow would you pick?",
      "options": [
@@ -1159,7 +1129,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q14",
+     "id": "Q11",
      "part": 2,
      "text": "Which task sounds most fun?",
      "options": [
@@ -1191,7 +1161,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q15",
+     "id": "Q12",
      "part": 2,
      "text": "You'd be proudest of…",
      "options": [
@@ -1223,7 +1193,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q16",
+     "id": "Q13",
      "part": 2,
      "text": "Which would you read about?",
      "options": [
@@ -1255,7 +1225,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q17",
+     "id": "Q14",
      "part": 2,
      "text": "Pick the pop-up you'd run:",
      "options": [
@@ -1283,11 +1253,16 @@ window.CAREER_CANVAS_QUIZ_DATA = {
        "letter": "E",
        "text": "a free tax-help desk",
        "tag": "F_ACCT"
+      },
+      {
+       "letter": "F",
+       "text": "a streetwear customization booth",
+       "tag": "F_FASHION"
       }
      ]
     },
     {
-     "id": "Q18",
+     "id": "Q15",
      "part": 2,
      "text": "Which detail would you obsess over?",
      "options": [
@@ -1315,11 +1290,16 @@ window.CAREER_CANVAS_QUIZ_DATA = {
        "letter": "E",
        "text": "how smooth a trip's itinerary is",
        "tag": "F_TRAVEL"
+      },
+      {
+       "letter": "F",
+       "text": "how a car showroom feels to a customer",
+       "tag": "F_AUTO"
       }
      ]
     },
     {
-     "id": "Q19",
+     "id": "Q16",
      "part": 2,
      "text": "You'd want to be the expert on…",
      "options": [
@@ -1351,7 +1331,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q20",
+     "id": "Q17",
      "part": 2,
      "text": "Which class would you take?",
      "options": [
@@ -1383,7 +1363,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q21",
+     "id": "Q18",
      "part": 2,
      "text": "Which would you brag about?",
      "options": [
@@ -1415,7 +1395,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q22",
+     "id": "Q19",
      "part": 2,
      "text": "Where would you rather work a summer?",
      "options": [
@@ -1447,7 +1427,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q23",
+     "id": "Q20",
      "part": 2,
      "text": "Your dream headline about you:",
      "options": [
@@ -1479,7 +1459,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q24",
+     "id": "Q21",
      "part": 2,
      "text": "Which problem would you solve?",
      "options": [
@@ -1511,7 +1491,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q25",
+     "id": "Q22",
      "part": 2,
      "text": "Pick the tool you'd master:",
      "options": [
@@ -1543,7 +1523,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q26",
+     "id": "Q23",
      "part": 2,
      "text": "What would you plan for fun?",
      "options": [
@@ -1575,24 +1555,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q27",
-     "part": 3,
-     "text": "Alone or with a partner?",
-     "options": [
-      {
-       "letter": "A",
-       "text": "Alone — I want the whole thing to be mine",
-       "tag": "SOLO"
-      },
-      {
-       "letter": "B",
-       "text": "With a partner — I'm sharper bouncing ideas",
-       "tag": "TEAM"
-      }
-     ]
-    },
-    {
-     "id": "Q28",
+     "id": "Q24",
      "part": 3,
      "text": "In a role-play you'd rather…",
      "options": [
@@ -1609,7 +1572,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q29",
+     "id": "Q25",
      "part": 3,
      "text": "Which appeals more?",
      "options": [
@@ -1626,7 +1589,7 @@ window.CAREER_CANVAS_QUIZ_DATA = {
      ]
     },
     {
-     "id": "Q30",
+     "id": "Q26",
      "part": 3,
      "text": "Your competition style:",
      "options": [
@@ -1638,6 +1601,23 @@ window.CAREER_CANVAS_QUIZ_DATA = {
       {
        "letter": "B",
        "text": "\"Give me the industry I know best.\"",
+       "tag": "SPEC"
+      }
+     ]
+    },
+    {
+     "id": "Q27",
+     "part": 3,
+     "text": "Is this your first year in DECA?",
+     "options": [
+      {
+       "letter": "A",
+       "text": "Yes, this is my first year.",
+       "tag": "FOUND"
+      },
+      {
+       "letter": "B",
+       "text": "No, I've competed before.",
        "tag": "SPEC"
       }
      ]
@@ -1793,8 +1773,8 @@ window.CAREER_CANVAS_QUIZ_DATA = {
   },
   {
    "key": "branding",
-   "title": "Digital Branding",
-   "subtitle": "Which part of digital branding fits you?",
+   "title": "Digital Marketing",
+   "subtitle": "Which part of digital marketing fits you?",
    "questions": [
     {
      "id": "Q1",

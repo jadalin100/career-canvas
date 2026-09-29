@@ -6,6 +6,14 @@ window.CAREER_CANVAS_CONFIG = {
   className: "Career Canvas Pilot",
   classCode: "CANVAS26",
   teacherEmail: "careercanva.gns@gmail.com",
+  classes: [
+    { id: "career-canvas-pilot", name: "Career Canvas Pilot", code: "CANVAS26" }
+  ],
+  teacherEmails: [
+    "careercanva.gns@gmail.com",
+    "jadaxinyulin@gmail.com",
+    "jlin15@student.gn.k12.ny.us"
+  ],
   firebase: {
     projectId: "career-canvas-classroom",
     appId: "1:298841013518:web:e3e07d1428e097452f2b5f",

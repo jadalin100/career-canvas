@@ -17,7 +17,7 @@
     const body = [
       "Hi Jada and Olivia,", "",
       `My name is ${name}, and I'm interested in discussing a Career Canvas pilot partnership for ${business}. Our focus is ${focus}.`, "",
-      "I understand that students will research our business, write a one-to-four-page article for the Career Canvas site, create an educational quiz connected to our industry, and design an original advertisement for us.", "",
+      "I understand that students will research our business, write a one-to-four-page article for the Career Canvas site, design an original advertisement for us, and create an educational quiz connected to our industry.", "",
       "Advertisement ideas:", idea, "",
       "I can also provide a short business introduction and complete the attached details form. Please let me know the best next step or a convenient time for a phone call.", "",
       `My email: ${email || "[your email]"}`, "", "Thank you,", name

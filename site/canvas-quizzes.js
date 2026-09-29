@@ -63,6 +63,7 @@
     const saved = readProgress();
     delete saved[key];
     try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(saved)); } catch (_) {}
+    window.CareerCanvasClassroom?.syncStudent({ careerQuizProgress: saved }).catch(() => {});
   }
 
   function scoreSimple(quiz) {
@@ -74,26 +75,28 @@
   function scoreDeca(quiz) {
     const totals = Object.fromEntries(Object.keys(DATA.events).map((code) => [code, 0]));
     quiz.questions.forEach((question, index) => {
-      const tag = answers[index];
-      if (!tag) return;
-      if (question.part === 1) {
-        Object.entries(DATA.events).forEach(([code, event]) => {
-          if (event.cluster === tag) totals[code] += 1;
-        });
-      } else if (question.part === 2) {
-        const cluster = DATA.flavorCluster[tag];
-        Object.entries(DATA.events).forEach(([code, event]) => {
-          if (event.flavor === tag) totals[code] += 3;
-          else if (event.tier === "PRIN" && event.cluster === cluster) totals[code] += 1;
-        });
-      } else {
-        Object.entries(DATA.events).forEach(([code, event]) => {
-          if (tag === "SOLO" && event.tier === "SERIES") totals[code] += 3;
-          else if (tag === "TEAM" && event.tier === "TDM") totals[code] += 3;
-          else if (tag === "FOUND" && event.tier === "PRIN") totals[code] += 5;
-          else if (tag === "SPEC" && (event.tier === "SERIES" || event.tier === "TDM")) totals[code] += 3;
-        });
-      }
+      const value = answers[index];
+      const tags = Array.isArray(value) ? value : value ? [value] : [];
+      tags.forEach((tag) => {
+        if (question.part === 1) {
+          Object.entries(DATA.events).forEach(([code, event]) => {
+            if (event.cluster === tag) totals[code] += 1;
+          });
+        } else if (question.part === 2) {
+          const cluster = DATA.flavorCluster[tag];
+          Object.entries(DATA.events).forEach(([code, event]) => {
+            if (event.flavor === tag) totals[code] += 3;
+            else if (event.tier === "PRIN" && event.cluster === cluster) totals[code] += 1;
+          });
+        } else {
+          Object.entries(DATA.events).forEach(([code, event]) => {
+            if (tag === "SOLO" && event.tier === "SERIES") totals[code] += 3;
+            else if (tag === "TEAM" && event.tier === "TDM") totals[code] += 3;
+            else if (tag === "FOUND" && event.tier === "PRIN") totals[code] += 5;
+            else if (tag === "SPEC" && (event.tier === "SERIES" || event.tier === "TDM")) totals[code] += 3;
+          });
+        }
+      });
     });
     return totals;
   }
@@ -133,32 +136,48 @@
     const quiz = getQuiz(currentKey);
     const question = quiz.questions[questionIndex];
     const selected = answers[questionIndex];
+    const maxSelections = Number(question.maxSelections) || 1;
+    const selectedTags = Array.isArray(selected) ? selected : selected ? [selected] : [];
+    const isMultiple = maxSelections > 1;
     const percent = Math.round((questionIndex / quiz.questions.length) * 100);
     stageLabel.textContent = `${quiz.title} quiz`;
     stageCount.textContent = `${questionIndex + 1} of ${quiz.questions.length}`;
     progress.style.width = `${percent}%`;
     stageBody.innerHTML = `
-      <p class="quiz-question-kicker">Choose the answer that feels most like you</p>
+      <p class="quiz-question-kicker">${isMultiple ? `Select up to ${maxSelections} answers` : "Choose the answer that feels most like you"}</p>
       <h3 class="quiz-question">${esc(question.text)}</h3>
+      ${isMultiple ? `<p class="quiz-selection-count" id="quiz-selection-count" aria-live="polite">${selectedTags.length} of ${maxSelections} selected</p>` : ""}
       <div class="quiz-options" role="group" aria-label="Answer choices">
         ${question.options.map((option, index) => `
-          <button class="quiz-option" type="button" data-tag="${esc(option.tag)}" aria-pressed="${selected === option.tag}">
+          <button class="quiz-option" type="button" data-tag="${esc(option.tag)}" aria-pressed="${selectedTags.includes(option.tag)}">
             <span>${String.fromCharCode(65 + index)}</span><strong>${esc(option.text)}</strong>
           </button>`).join("")}
       </div>
       <div class="quiz-controls">
         <button class="quiz-text-button" id="canvas-quiz-previous" type="button" ${questionIndex === 0 ? "disabled" : ""}>Previous</button>
         <button class="quiz-text-button" id="canvas-quiz-skip" type="button">Skip</button>
-        <button class="button button-primary quiz-next" id="canvas-quiz-next" type="button" ${selected == null ? "disabled" : ""}>${questionIndex === quiz.questions.length - 1 ? "See my results" : "Next question"}</button>
+        <button class="quiz-text-button" id="canvas-quiz-restart" type="button">Restart quiz</button>
+        <button class="button button-primary quiz-next" id="canvas-quiz-next" type="button" ${selectedTags.length === 0 ? "disabled" : ""}>${questionIndex === quiz.questions.length - 1 ? "See my results" : "Next question"}</button>
       </div>`;
 
     stageBody.querySelectorAll(".quiz-option").forEach((button) => {
       button.addEventListener("click", () => {
-        answers[questionIndex] = button.dataset.tag;
+        if (isMultiple) {
+          const current = Array.isArray(answers[questionIndex]) ? [...answers[questionIndex]] : [];
+          const at = current.indexOf(button.dataset.tag);
+          if (at >= 0) current.splice(at, 1);
+          else if (current.length < maxSelections) current.push(button.dataset.tag);
+          answers[questionIndex] = current;
+        } else {
+          answers[questionIndex] = button.dataset.tag;
+        }
         saveProgress();
+        const current = Array.isArray(answers[questionIndex]) ? answers[questionIndex] : [answers[questionIndex]];
         stageBody.querySelectorAll(".quiz-option").forEach((choice) =>
-          choice.setAttribute("aria-pressed", String(choice === button)));
-        document.querySelector("#canvas-quiz-next").disabled = false;
+          choice.setAttribute("aria-pressed", String(current.includes(choice.dataset.tag))));
+        const count = document.querySelector("#quiz-selection-count");
+        if (count) count.textContent = `${current.filter(Boolean).length} of ${maxSelections} selected`;
+        document.querySelector("#canvas-quiz-next").disabled = current.filter(Boolean).length === 0;
       });
     });
     document.querySelector("#canvas-quiz-previous").addEventListener("click", () => {
@@ -168,6 +187,14 @@
       answers[questionIndex] = null;
       saveProgress();
       advance();
+    });
+    document.querySelector("#canvas-quiz-restart").addEventListener("click", () => {
+      if (!window.confirm("Restart this quiz and clear your saved progress?")) return;
+      clearProgress(currentKey);
+      answers = new Array(quiz.questions.length).fill(null);
+      questionIndex = 0;
+      saveProgress();
+      showQuestion();
     });
     document.querySelector("#canvas-quiz-next").addEventListener("click", advance);
     stageBody.focus({ preventScroll: true });
