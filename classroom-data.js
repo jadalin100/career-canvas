@@ -85,22 +85,6 @@
     return (await services.authSdk.signInAnonymously(services.auth)).user;
   }
 
-  async function studentGoogleUser() {
-    const services = await initCloud();
-    if (services.auth.currentUser && !services.auth.currentUser.isAnonymous && !isTeacherEmail(services.auth.currentUser.email)) return services.auth.currentUser;
-    const provider = new services.authSdk.GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: "select_account" });
-    let result;
-    if (services.auth.currentUser?.isAnonymous) {
-      try { result = await services.authSdk.linkWithPopup(services.auth.currentUser, provider); }
-      catch (error) {
-        if (!/credential-already-in-use|email-already-in-use/i.test(String(error?.code || ""))) throw error;
-        result = await services.authSdk.signInWithPopup(services.auth, provider);
-      }
-    } else result = await services.authSdk.signInWithPopup(services.auth, provider);
-    if (isTeacherEmail(result.user.email)) throw new Error("Use a student Google account to join the class.");
-    return result.user;
-  }
 
   function offlineMessage(error) {
     return /failed to fetch|network|offline|internet|dynamically imported module/i.test(String(error?.message || error));
@@ -110,8 +94,8 @@
     const selectedClass = classByCode(code);
     if (!selectedClass) throw new Error("That class code does not match.");
     const clean = String(username || "").trim().replace(/\s+/g, " ");
-    if (clean.length < 3 || clean.length > 20) throw new Error("Choose a username that is 3–20 characters.");
-    if (!/^[a-zA-Z0-9 _-]+$/.test(clean)) throw new Error("Use only letters, numbers, spaces, hyphens, or underscores.");
+    if (clean.length < 3 || clean.length > 40) throw new Error("Choose a name that is 3–40 characters.");
+    if (!/^[a-zA-Z0-9 _'-]+$/.test(clean)) throw new Error("Use only letters, numbers, spaces, apostrophes, hyphens, or underscores.");
     return { clean, selectedClass };
   }
 
@@ -121,7 +105,7 @@
     const studentId = usernameKey(clean);
     const joinedAt = now();
     if (hasFirebase()) {
-      const user = await studentGoogleUser();
+      const user = await anonymousUser();
       const { db, storeSdk } = cloud;
       const ref = storeSdk.doc(db, "classes", classId, "students", studentId);
       const blockRef = storeSdk.doc(db, "classes", classId, "blockedStudents", studentId);
@@ -129,11 +113,11 @@
         const existing = await storeSdk.getDoc(ref);
         const blocked = await storeSdk.getDoc(blockRef);
         if (blocked.exists()) throw new Error("That student was removed from the class. Ask the teacher before joining again.");
-        if (existing.exists() && existing.data().authUid !== user.uid) throw new Error("That username belongs to another student account. Choose another username.");
+        if (existing.exists() && existing.data().authUid !== user.uid && existing.data().locked) throw new Error("That name is locked. Ask the teacher to unlock it, or add your middle initial if it isn't you.");
         await storeSdk.setDoc(ref, { username: clean, usernameKey: studentId, authUid: user.uid, joinedAt: existing.data()?.joinedAt || joinedAt, lastSeenAt: joinedAt }, { merge: true });
       } catch (error) {
         if (/removed|another student account/i.test(error.message || "")) throw error;
-        if (error?.code === "permission-denied") throw new Error("That username belongs to another student account or was removed. Choose another username or ask the teacher.");
+        if (error?.code === "permission-denied") throw new Error("That name is already used by another student or was removed. Add your middle initial or ask the teacher.");
         throw error;
       }
       const local = demoDb(classId);
@@ -266,7 +250,7 @@
         const publishedSnap = await storeSdk.getDocs(storeSdk.query(quizzes, storeSdk.where("status", "==", "published")));
         const items = new Map([...localItems.map(item => [item.id, item]), ...publishedSnap.docs.map(item => [item.id, item.data()])]);
         if (includeOwn && session && user.uid === session.authUid) {
-          const ownSnap = await storeSdk.getDocs(storeSdk.query(quizzes, storeSdk.where("authUid", "==", user.uid)));
+          const ownSnap = await storeSdk.getDocs(storeSdk.query(quizzes, storeSdk.where("ownerId", "==", session.studentId)));
           ownSnap.docs.forEach(item => items.set(item.id, item.data()));
         }
         return [...items.values()].sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
@@ -358,7 +342,7 @@
         const published = await storeSdk.getDocs(storeSdk.query(items, storeSdk.where("status", "==", "published")));
         const results = new Map([...localItems.map(item => [item.id, item]), ...published.docs.map(item => [item.id, item.data()])]);
         if (includeOwn && session && user.uid === session.authUid) {
-          const own = await storeSdk.getDocs(storeSdk.query(items, storeSdk.where("authUid", "==", user.uid)));
+          const own = await storeSdk.getDocs(storeSdk.query(items, storeSdk.where("ownerId", "==", session.studentId)));
           own.docs.forEach(item => results.set(item.id, item.data()));
         }
         return [...results.values()].sort((a,b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
@@ -405,6 +389,13 @@
     }
     const db = demoDb(classId);
     return { students: Object.entries(db.students).map(([id, student]) => ({ ...student, id })), quizzes: Object.values(db.quizzes), attempts: Object.values(db.attempts), artifacts: Object.values(db.artifacts || {}) };
+  }
+
+  async function setStudentLocked(studentId, locked, requestedClassId) {
+    const classId = requireClass(requestedClassId).id;
+    const id = usernameKey(studentId);
+    if (hasFirebase()) { const { db, storeSdk } = await initCloud(); await storeSdk.updateDoc(storeSdk.doc(db, "classes", classId, "students", id), { locked: Boolean(locked) }); }
+    else { const db = demoDb(classId); if (db.students[id]) db.students[id].locked = Boolean(locked); saveDemoDb(db, classId); }
   }
 
   async function deleteStudent(studentId, requestedClassId) {
@@ -475,6 +466,7 @@
     teacherDashboard,
     deleteStudent,
     setQuizStatus,
+    setStudentLocked,
     async isTeacherSignedIn() {
       if (!hasFirebase()) return true;
       const services = await initCloud();
