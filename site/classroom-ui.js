@@ -29,7 +29,7 @@
       event.preventDefault();
       const status = document.querySelector("#join-status");
       const button = joinForm.querySelector("button[type='submit']");
-      status.className = "status"; status.textContent = api.mode === "cloud" ? "Opening Google sign-in…" : "Joining…"; button.disabled = true;
+      status.className = "status"; status.textContent = api.mode === "cloud" ? "Joining…" : "Joining…"; button.disabled = true;
       try {
         await api.joinClass(joinForm.elements.code.value, joinForm.elements.username.value);
         location.href = "student.html";
@@ -88,20 +88,22 @@
     const quiz = (window.CAREER_CANVAS_QUIZ_DATA?.quizzes || []).find(item => item.key === key);
     const labels = new Map((quiz?.results || []).map(result => [result.code, result.name]));
     const counts = new Map();
+    const people = [];
     students.forEach(student => {
       const primary = student.careerQuizResults?.[key]?.topResults?.[0];
-      if (primary) counts.set(primary, (counts.get(primary) || 0) + 1);
+      if (primary) { counts.set(primary, (counts.get(primary) || 0) + 1); people.push({ name: student.username, result: labels.get(primary) || primary }); }
     });
     const rows = [...counts.entries()].sort((a, b) => b[1] - a[1] || String(labels.get(a[0]) || a[0]).localeCompare(String(labels.get(b[0]) || b[0])));
     const completed = rows.reduce((total, [, count]) => total + count, 0);
-    return { title, note: `${completed} of ${students.length} students completed`, center: String(completed), centerLabel: "responses", rows: rows.map(([code, count]) => ({ label: labels.get(code) || code, value: count, display: `${count} ${count === 1 ? "student" : "students"}` })) };
+    return { title, people, note: `${completed} of ${students.length} students completed`, center: String(completed), centerLabel: "responses", rows: rows.map(([code, count]) => ({ label: labels.get(code) || code, value: count, display: `${count} ${count === 1 ? "student" : "students"}` })) };
   }
 
   function studentQuizCharts(quizzes, attempts) {
     const groups = new Map();
     attempts.forEach(attempt => {
       if (!attempt.quizId || !Number.isFinite(Number(attempt.score)) || !Number.isFinite(Number(attempt.total)) || Number(attempt.total) <= 0) return;
-      const group = groups.get(attempt.quizId) || { title: attempt.quizTitle || quizzes.find(quiz => quiz.id === attempt.quizId)?.title || "Untitled quiz", correct: 0, total: 0, plays: 0 };
+      const group = groups.get(attempt.quizId) || { title: attempt.quizTitle || quizzes.find(quiz => quiz.id === attempt.quizId)?.title || "Untitled quiz", correct: 0, total: 0, plays: 0, people: [] };
+      group.people.push({ name: attempt.playerUsername || "Unknown", result: `${Number(attempt.score)} / ${Number(attempt.total)}` });
       group.correct += Number(attempt.score);
       group.total += Number(attempt.total);
       group.plays++;
@@ -110,7 +112,7 @@
     return [...groups.values()].sort((a, b) => a.title.localeCompare(b.title)).map(group => {
       const missed = Math.max(0, group.total - group.correct);
       const average = group.total ? Math.round((group.correct / group.total) * 100) : 0;
-      return { title: group.title, note: `${group.plays} recorded ${group.plays === 1 ? "play" : "plays"}`, center: `${average}%`, centerLabel: "class average", rows: [
+      return { title: group.title, people: group.people, note: `${group.plays} recorded ${group.plays === 1 ? "play" : "plays"}`, center: `${average}%`, centerLabel: "class average", rows: [
         { label: "Correct answers", value: group.correct, display: String(group.correct) },
         { label: "Missed answers", value: missed, display: String(missed) }
       ] };
@@ -133,7 +135,12 @@
 
   function renderPie(chart) {
     const label = chart.rows.map(row => `${row.label}: ${row.display}`).join(", ");
-    return `<article class="analytics-chart"><h3>${esc(chart.title)}</h3><p>${esc(chart.note)}</p>${chart.rows.length ? `<div class="pie-layout"><div class="pie-chart" role="img" aria-label="${esc(label)}" style="--pie:${pieBackground(chart.rows)}"><span><strong>${esc(chart.center)}</strong><small>${esc(chart.centerLabel)}</small></span></div><div class="pie-legend">${chart.rows.map((row, index) => `<div class="pie-key"><i style="--key-color:${pieColors[index % pieColors.length]}"></i><span>${esc(row.label)}</span><strong>${esc(row.display)}</strong></div>`).join("")}</div></div>` : '<p class="analytics-empty">No results yet.</p>'}</article>`;
+    return `<article class="analytics-chart"><h3>${esc(chart.title)}</h3><p>${esc(chart.note)}</p>${chart.rows.length ? `<details class="pie-details"><summary><div class="pie-layout"><div class="pie-chart" role="img" aria-label="${esc(label)}" style="--pie:${pieBackground(chart.rows)}"><span><strong>${esc(chart.center)}</strong><small>${esc(chart.centerLabel)}</small></span></div><div class="pie-legend">${chart.rows.map((row, index) => `<div class="pie-key"><i style="--key-color:${pieColors[index % pieColors.length]}"></i><span>${esc(row.label)}</span><strong>${esc(row.display)}</strong></div>`).join("")}</div></div><span class="pie-hint">Click to see each student</span></summary>${renderPeople(chart.people)}</details>` : '<p class="analytics-empty">No results yet.</p>'}</article>`;
+  }
+
+  function renderPeople(people = []) {
+    const sorted = [...people].sort((a, b) => String(a.name).localeCompare(String(b.name)));
+    return `<table class="pie-people"><thead><tr><th>Student</th><th>Result</th></tr></thead><tbody>${sorted.map(p => `<tr><td>${esc(p.name)}</td><td>${esc(p.result)}</td></tr>`).join("")}</tbody></table>`;
   }
 
   function renderAnalytics(data) {
@@ -170,7 +177,7 @@
         const complete = Object.values(s.deliverables || {}).filter(Boolean).length;
         const results = Object.keys(s.careerQuizResults || {}).length;
         const studentId = s.id || s.usernameKey;
-        return `<div class="teacher-row" data-student-id="${esc(studentId)}" data-student-name="${esc(s.username)}"><div><strong>${esc(s.username)}</strong><span>${complete}/4 project pieces · ${results}/3 career quizzes<br>Last active ${s.lastSeenAt ? new Date(s.lastSeenAt).toLocaleDateString() : "—"}</span></div><button class="small-button danger-button" type="button" data-delete-student>Delete student</button></div>`;
+        return `<div class="teacher-row" data-student-id="${esc(studentId)}" data-student-name="${esc(s.username)}"><div><strong>${esc(s.username)}</strong><span>${complete}/4 project pieces · ${results}/3 career quizzes<br>Last active ${s.lastSeenAt ? new Date(s.lastSeenAt).toLocaleDateString() : "—"}</span></div><div class="teacher-row-actions"><button class="small-button" type="button" data-lock-student="${s.locked ? "0" : "1"}" title="${s.locked ? "Only the current device can use this name" : "Anyone with the class code can rejoin under this name"}">${s.locked ? "Unlock name" : "Lock name"}</button><button class="small-button danger-button" type="button" data-delete-student>Delete student</button></div></div>`;
       }).join("") : '<p class="empty">No students have joined yet.</p>';
       const quizzes = document.querySelector("#teacher-quiz-list");
       quizzes.innerHTML = data.quizzes.length ? data.quizzes.sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).map(q => `<div class="teacher-row" data-quiz-id="${esc(q.id)}"><div><strong>${esc(q.title || "Untitled quiz")}</strong><span>By ${esc(q.ownerUsername)} · ${q.questions?.length || 0} questions · ${esc(q.status)}</span></div><div class="teacher-row-actions"><a class="small-button" href="play.html?id=${encodeURIComponent(q.id)}&teacher=1&class=${encodeURIComponent(classId)}">Play</a><button class="small-button" data-status="${q.status === "published" ? "pending" : "published"}">${q.status === "published" ? "Unpublish" : "Publish"}</button></div></div>`).join("") : '<p class="empty">No quizzes have been submitted.</p>';
@@ -194,6 +201,13 @@
     catch (error) { document.querySelector("#teacher-status").textContent = error.message; button.disabled = false; }
   });
   document.querySelector("#student-list")?.addEventListener("click", async event => {
+    const lock = event.target.closest("[data-lock-student]");
+    if (lock) {
+      lock.disabled = true;
+      try { await api.setStudentLocked(lock.closest("[data-student-id]").dataset.studentId, lock.dataset.lockStudent === "1", selectedClassId()); await renderTeacher(); }
+      catch (error) { document.querySelector("#teacher-status").textContent = error.message; lock.disabled = false; }
+      return;
+    }
     const button = event.target.closest("[data-delete-student]"); if (!button) return;
     const row = button.closest("[data-student-id]");
     const name = row.dataset.studentName || "this student";
@@ -210,7 +224,7 @@
     try { await api.setArtifactStatus(button.closest("[data-artifact-id]").dataset.artifactId, button.dataset.artifactStatus, selectedClassId()); await renderTeacher(); }
     catch (error) { document.querySelector("#teacher-status").textContent = error.message; button.disabled = false; }
   });
-  if (document.querySelector("#teacher-dashboard") && api.mode === "demo") renderTeacher();
+  if (document.querySelector("#teacher-dashboard")) (async () => { if (api.mode === "demo" || await api.isTeacherSignedIn()) renderTeacher(); })();
 
   async function renderPlayer() {
     const root = document.querySelector("#quiz-player"); if (!root) return;
