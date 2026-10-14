@@ -368,6 +368,13 @@ button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-c
 .gallery-link-card { padding: 18px; display: grid; gap: 7px; color: var(--navy); background: var(--white); border: 1px solid var(--line); text-decoration: none; }
 .gallery-link-card span { color: var(--muted); font-size: 12px; }
 .gallery-doc-card { width: 100%; font: inherit; text-align: left; cursor: pointer; }
+.gallery-section { min-width: 0; }
+/* Doc cards: 3 across on the All work page (featured only), 4 across on the articles page; 2 on phones. */
+.gallery-items:has(> .gallery-doc-card) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gallery-sections:has(> .gallery-section[hidden]) .gallery-items:has(> .gallery-doc-card) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 720px) { .gallery-sections .gallery-items:has(> .gallery-doc-card) { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } .section .gallery-section h2 { font-size: 34px; } }
+.gallery-doc-card { padding: 12px; gap: 5px; font-size: 13px; }
+.gallery-doc-card strong { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .gallery-doc-card img { width: 100%; aspect-ratio: 8.5 / 6; object-fit: cover; object-position: top; border: 1px solid var(--line); background: var(--white); }
 .gallery-doc-card:hover, .gallery-doc-card:focus-visible { border-color: var(--navy); }
 .doc-preview { width: min(900px, calc(100% - 32px)); height: min(88vh, 1100px); padding: 0; border: 0; background: var(--white); }

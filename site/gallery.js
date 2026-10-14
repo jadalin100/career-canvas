@@ -46,7 +46,9 @@
   window.CareerCanvasClassroom.listArtifacts(false).then(items => {
     ["article", "ad", "portfolio"].forEach(type => {
       const section = document.querySelector(`[data-gallery-kind="${type}"]`);
-      const matches = items.filter(item => item.status === "published" && item.type === type);
+      let matches = items.filter(item => item.status === "published" && item.type === type);
+      // The All work page shows only featured items when a section has any; section pages show everything.
+      if (!only && matches.some(item => item.featured)) matches = matches.filter(item => item.featured);
       if (section && matches.length) section.innerHTML = matches.map(card).join("");
     });
   }).catch(() => {});
