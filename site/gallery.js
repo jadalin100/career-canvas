@@ -1,5 +1,13 @@
 (() => {
   "use strict";
+  // gallery.html?section=articles|ads|quizzes|portfolios shows just that section as its own page.
+  const only = document.getElementById(new URLSearchParams(location.search).get("section") || "");
+  if (only?.classList.contains("gallery-section")) {
+    document.querySelectorAll(".gallery-section").forEach(section => { section.hidden = section !== only; });
+    const name = only.querySelector("h2").textContent;
+    document.querySelector(".subpage-hero h1").textContent = name;
+    document.title = `${name} — Career Canvas`;
+  }
   const target = document.querySelector("#public-quiz-gallery");
   if (!target || !window.CareerCanvasClassroom) return;
   const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));

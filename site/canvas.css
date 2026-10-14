@@ -63,6 +63,12 @@ button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-c
 .site-nav a, .nav-cta { text-decoration: none; font-size: 12px; font-weight: 700; }
 .site-nav a { color: rgba(255, 255, 255, .8); }
 .site-nav a:hover { color: var(--white); }
+.nav-drop { position: relative; }
+.nav-menu { display: none; position: absolute; top: 100%; left: -16px; z-index: 50; min-width: 200px; padding: 14px 0 8px; }
+.nav-menu::before { content: ""; position: absolute; inset: 8px 0 0; z-index: -1; background: var(--navy); box-shadow: 0 12px 30px rgba(0, 0, 0, .25); }
+.nav-drop:hover .nav-menu, .nav-drop:focus-within .nav-menu { display: grid; }
+.site-nav .nav-menu a { padding: 9px 16px; white-space: nowrap; }
+.gallery-sections:has(> .gallery-section[hidden]) { grid-template-columns: 1fr; }
 .nav-cta { justify-self: end; padding: 10px 16px; color: var(--navy-deep); background: var(--baby-blue); border-radius: 6px; }
 .nav-cta:hover { background: #8cc8f8; }
 .header-ctas { justify-self: end; display: flex; gap: 9px; }
