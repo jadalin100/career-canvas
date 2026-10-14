@@ -361,6 +361,17 @@ button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-c
 .gallery-empty { padding: 22px; color: var(--muted); background: var(--white); border: 1px dashed var(--line); }
 .gallery-link-card { padding: 18px; display: grid; gap: 7px; color: var(--navy); background: var(--white); border: 1px solid var(--line); text-decoration: none; }
 .gallery-link-card span { color: var(--muted); font-size: 12px; }
+.gallery-doc-card { width: 100%; font: inherit; text-align: left; cursor: pointer; }
+.gallery-doc-card img { width: 100%; aspect-ratio: 8.5 / 6; object-fit: cover; object-position: top; border: 1px solid var(--line); background: var(--white); }
+.gallery-doc-card:hover, .gallery-doc-card:focus-visible { border-color: var(--navy); }
+.doc-preview { width: min(900px, calc(100% - 32px)); height: min(88vh, 1100px); padding: 0; border: 0; background: var(--white); }
+.doc-preview::backdrop { background: rgba(28, 46, 74, .6); }
+.doc-preview[open] { display: flex; flex-direction: column; }
+.doc-preview-bar { display: flex; align-items: center; gap: 14px; padding: 12px 16px; color: var(--white); background: var(--navy); }
+.doc-preview-bar strong { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.doc-preview-bar a { color: var(--white); font-size: 13px; }
+.doc-preview-bar button { padding: 0 6px; color: var(--white); background: none; border: 0; font-size: 26px; line-height: 1; cursor: pointer; }
+.doc-preview iframe { flex: 1; width: 100%; border: 0; }
 
 /* About page: an editorial founder spread built from the students' DECA intro slide. */
 .about-hero { padding: 96px max(46px, calc((100% - var(--content)) / 2)) 90px; color: var(--white); background: var(--navy-deep); }
