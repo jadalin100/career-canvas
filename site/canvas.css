@@ -157,6 +157,15 @@ button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-c
 .manifesto p { margin: 0; font: 800 9px/1 var(--mono); text-transform: uppercase; letter-spacing: .12em; }
 .manifesto strong { font-size: clamp(22px, 2.6vw, 34px); text-align: right; }
 
+/* Why Career Canvas: the pilot-class numbers behind the program, right under the mission line. */
+.why-stats { padding: 56px max(46px, calc((100% - var(--content)) / 2)); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; color: var(--white); background: var(--navy); }
+.why-stats > p { grid-column: 1 / -1; margin: 0; color: var(--baby-blue); font: 800 9px/1 var(--mono); text-transform: uppercase; letter-spacing: .12em; }
+.why-stats div { display: grid; gap: 8px; align-content: start; }
+.why-stats strong { font: 800 clamp(44px, 5vw, 64px)/1 var(--display); }
+.why-stats span { color: var(--ice); font-size: 15px; line-height: 1.5; }
+.why-stats a { color: var(--baby-blue); font-weight: 700; }
+@media (max-width: 720px) { .why-stats { padding: 40px 20px; grid-template-columns: 1fr; } }
+
 .section { padding: 102px max(46px, calc((100% - var(--content)) / 2)); background: var(--white); }
 .section-heading { display: grid; grid-template-columns: 1fr .82fr; align-items: end; gap: 80px; }
 .section-heading .kicker { grid-column: 1 / -1; }
@@ -386,6 +395,9 @@ button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-c
 .doc-preview-bar a { color: var(--white); font-size: 13px; }
 .doc-preview-bar button { padding: 0 6px; color: var(--white); background: none; border: 0; font-size: 26px; line-height: 1; cursor: pointer; }
 .doc-preview iframe { flex: 1; width: 100%; border: 0; }
+.doc-preview-bar button[hidden] { display: none; }
+/* Ads come in many shapes, so show the whole ad instead of cropping it like a document page. */
+.gallery-ad-card img { aspect-ratio: 1; object-fit: contain; object-position: center; }
 
 /* About page: an editorial founder spread built from the students' DECA intro slide. */
 .about-hero { padding: 96px max(46px, calc((100% - var(--content)) / 2)) 90px; color: var(--white); background: var(--navy-deep); }
