@@ -276,7 +276,7 @@ function renderResults(quiz, answers, main, bar, count) {
         <div class="rank-row"><span>${i + 1}. ${esc(r.name)}</span><span>${r.score}</span></div>`).join("")}
     </details>
     ${isDeca ? `<p class="foot"><a href="${DECA_GUIDE_URL}" target="_blank" rel="noopener">Full DECA Guide (all events, current year) &rarr;</a></p>` : ""}
-    <p class="foot">Career Canvas — Jada Lin &amp; Olivia Zheng</p>`;
+    <p class="foot">Career Canvas — Jada Lin</p>`;
 
   saveResult(quiz.key, top.map((r) => r.code));
   $("#save").addEventListener("click", () => window.print());

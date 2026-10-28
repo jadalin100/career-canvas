@@ -1,0 +1,90 @@
+/* Career Canvas app shell: shared top bar, phone tab bar, and rounder app-style surfaces.
+   Loaded after each page's own stylesheet so it can soften the older square styles. */
+:root {
+  --cc-navy: #1c2e4a; --cc-deep: #0f1a2b; --cc-sky: #a9d8ff; --cc-sky-pale: #eaf5ff;
+  --cc-line: rgba(28, 46, 74, .14); --cc-radius: 18px; --cc-radius-sm: 12px;
+  --cc-font: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+  --cc-shadow: 0 1px 2px rgba(15, 26, 43, .06), 0 8px 24px rgba(15, 26, 43, .07);
+}
+
+/* Top bar */
+.cc-bar {
+  position: sticky; top: 0; z-index: 50; min-height: 64px; display: flex; align-items: center; gap: 18px;
+  padding: 10px max(20px, env(safe-area-inset-right)) 10px max(20px, env(safe-area-inset-left));
+  padding-top: max(10px, env(safe-area-inset-top));
+  color: #fff; background: rgba(15, 26, 43, .94); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px);
+  font-family: var(--cc-font);
+}
+.cc-brand { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 17px; letter-spacing: -.01em; text-decoration: none; white-space: nowrap; }
+.cc-brand img { width: 36px; height: 36px; border-radius: 50%; }
+.cc-tabs { flex: 1; display: flex; justify-content: center; gap: 4px; }
+.cc-tab { display: flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 14px; color: rgba(255, 255, 255, .78); border-radius: 999px; font-size: 14px; font-weight: 700; text-decoration: none; transition: background .15s, color .15s; }
+.cc-tab svg, .cc-dock-tab svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cc-tab:hover { color: #fff; background: rgba(255, 255, 255, .08); }
+.cc-tab[aria-current="page"] { color: var(--cc-deep); background: var(--cc-sky); }
+.cc-actions { display: flex; align-items: center; gap: 8px; }
+.cc-join, .cc-account, .cc-page-action {
+  min-height: 40px; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border-radius: 999px;
+  font: 700 14px/1 var(--cc-font); text-decoration: none; white-space: nowrap; cursor: pointer;
+}
+.cc-join { color: var(--cc-deep); background: var(--cc-sky); }
+.cc-account { padding: 0 14px 0 4px; color: #fff; background: rgba(255, 255, 255, .1); }
+.cc-account b { width: 32px; height: 32px; display: grid; place-items: center; color: var(--cc-deep); background: var(--cc-sky); border-radius: 50%; font-size: 12px; }
+.cc-page-action { color: #fff !important; background: transparent !important; border: 1px solid rgba(255, 255, 255, .28) !important; box-shadow: none !important; margin: 0 !important; width: auto !important; }
+.cc-page-action:hover { background: rgba(255, 255, 255, .08) !important; }
+
+/* Phone tab bar */
+.cc-dock { display: none; }
+@media (max-width: 820px) {
+  .cc-bar { min-height: 56px; gap: 10px; }
+  .cc-tabs { display: none; }
+  .cc-actions { margin-left: auto; }
+  .cc-brand span { font-size: 16px; }
+  .cc-account span { display: none; }
+  .cc-bar:has(.cc-page-action) .cc-brand span { display: none; }
+  .cc-join, .cc-page-action { min-height: 36px; padding: 0 13px; font-size: 13px; }
+  .cc-dock {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+    padding: 6px max(6px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(6px, env(safe-area-inset-left));
+    background: rgba(255, 255, 255, .94); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border-top: 1px solid var(--cc-line); font-family: var(--cc-font);
+  }
+  .cc-dock-tab { min-height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #6b7a8c; border-radius: 14px; font-size: 11px; font-weight: 700; text-decoration: none; }
+  .cc-dock-tab svg { width: 23px; height: 23px; }
+  .cc-dock-tab[aria-current="page"] { color: var(--cc-navy); }
+  .cc-dock-tab[aria-current="page"] svg { stroke-width: 2.3; }
+  .cc-dock-tab[aria-current="page"]::before { content: ""; position: absolute; width: 46px; height: 30px; margin-top: -18px; background: var(--cc-sky-pale); border-radius: 999px; z-index: -1; }
+  .cc-dock-tab { position: relative; z-index: 0; }
+  html.cc-shell body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+}
+
+/* App-style surfaces: rounder cards and buttons across every page's stylesheet. */
+.cc-shell :is(.gallery-link-card, .gallery-section, .pilot-card, .outcome-card, .business-card, .contact-card, .canvas-quiz-card, .canvas-result-card,
+  .class-card, .join-card, .analytics-card, .result-card, .analytics-chart, .teacher-toolbar, .stat-grid > *, .class-shell,
+  .progress-card, .question-card, .template-card, .card, .res-card, .visual-card, .social-banner, .unit, .lesson-node, .doc-preview,
+  .panel, .deliverable, .template-choice, .local-gallery, .gallery-item, .preview-option, .step-link, .quiz-tile, .teacher-row, .player-option, .comment-list li) {
+  border-radius: var(--cc-radius); overflow: hidden;
+}
+.cc-shell :is(.gallery-link-card, .class-card, .join-card, .template-card, .question-card, .progress-card, .card, .business-card, .outcome-card) { box-shadow: var(--cc-shadow); }
+.cc-shell :is(.gallery-link-card):hover { transform: translateY(-2px); transition: transform .15s; }
+.cc-shell :is(.button, .class-button, .nav-cta, .header-action, button.primary, .btn, .small-button, .icon-btn) { border-radius: 999px; }
+.cc-shell :is(.path-stats p) { border-radius: var(--cc-radius-sm); }
+.cc-shell :is(input, select, textarea) { border-radius: var(--cc-radius-sm); }
+.cc-shell .gallery-doc-card img { border-radius: var(--cc-radius-sm); }
+/* The classroom pages sat in a floating box; on the app shell they fill the screen under the bar. */
+.cc-shell .class-shell { margin-top: 24px; }
+@media (max-width: 820px) { .cc-shell .class-shell { margin-top: 0; border-radius: 0; } }
+
+/* Gallery section chips (replace the old Gallery dropdown) */
+.cc-chips { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 2px; scrollbar-width: none; }
+.cc-chips::-webkit-scrollbar { display: none; }
+.cc-chips a { flex: none; min-height: 38px; display: inline-flex; align-items: center; padding: 0 16px; color: var(--cc-navy); background: #fff; border: 1px solid var(--cc-line); border-radius: 999px; font: 700 14px/1 var(--cc-font); text-decoration: none; }
+.cc-chips a[aria-current="page"] { color: #fff; background: var(--cc-navy); border-color: var(--cc-navy); }
+
+@media (prefers-reduced-motion: reduce) { .cc-shell .gallery-link-card:hover { transform: none; } }
+/* Chips sitting on the dark gallery header */
+.subpage-hero .cc-chips { margin-top: 22px; }
+.subpage-hero .cc-chips a { color: #fff; background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .28); }
+.subpage-hero .cc-chips a[aria-current="page"] { color: var(--cc-deep); background: var(--cc-sky); border-color: var(--cc-sky); }
+/* On a single gallery section page the big header already names the section, so drop the repeat. */
+.gallery-sections:has(> .gallery-section[hidden]) .gallery-section:not([hidden]) > :is(.kicker, h2) { display: none; }

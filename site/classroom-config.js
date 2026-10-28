@@ -6,13 +6,12 @@ window.CAREER_CANVAS_CONFIG = {
   className: "Career Canvas Pilot",
   classCode: "CANVAS26",
   teacherEmail: "careercanva.gns@gmail.com",
-  classes: [
-    { id: "career-canvas-pilot", name: "Career Canvas Pilot", code: "CANVAS26" }
-  ],
-  teacherEmails: [
-    "careercanva.gns@gmail.com",
-    "jadaxinyulin@gmail.com",
-    "jlin15@student.gn.k12.ny.us"
+  // Classes and teachers now live in the database: any teacher can sign in with Google and create a class.
+  // These two classes existed before that change; the first time one of their teachers signs in,
+  // the dashboard saves them to the database once. After that, this list is not used.
+  legacyClasses: [
+    { id: "career-canvas-cac", name: "Career Canvas Demo", code: "CAC2026", teacherEmails: ["careercanva.gns@gmail.com", "jadaxinyulin@gmail.com", "jlin15@student.gn.k12.ny.us"] },
+    { id: "career-canvas-pilot", name: "Career Canvas Pilot", code: "CANVAS26", teacherEmails: ["careercanva.gns@gmail.com", "jadaxinyulin@gmail.com", "jlin15@student.gn.k12.ny.us"] }
   ],
   firebase: {
     projectId: "career-canvas-classroom",

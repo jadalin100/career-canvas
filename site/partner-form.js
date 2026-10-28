@@ -15,7 +15,7 @@
     const focus = String(data.get("focus") || "[specific focus and role in the Great Neck community]").trim() || "[specific focus and role in the Great Neck community]";
     const idea = String(data.get("idea") || "We would be glad to choose an advertisement direction together.").trim();
     const body = [
-      "Hi Jada and Olivia,", "",
+      "Hi Career Canvas team,", "",
       `My name is ${name}, and I'm interested in discussing a Career Canvas pilot partnership for ${business}. Our focus is ${focus}.`, "",
       "I understand that students will research our business, write a one-to-four-page article for the Career Canvas site, design an original advertisement for us, and create an educational quiz connected to our industry.", "",
       "Advertisement ideas:", idea, "",

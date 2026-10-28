@@ -8,6 +8,13 @@
     document.querySelector(".subpage-hero h1").textContent = name;
     document.title = `${name} — Career Canvas`;
   }
+  // Section chips under the page title, so every gallery section is one tap away.
+  const hero = document.querySelector(".subpage-hero");
+  if (hero) {
+    const chips = [["", "All work"], ["articles", "Articles"], ["ads", "Ads"], ["quizzes", "Quiz apps"], ["portfolios", "Portfolios"]];
+    const current = only?.classList.contains("gallery-section") ? only.id : "";
+    hero.insertAdjacentHTML("beforeend", `<nav class="cc-chips" aria-label="Gallery sections">${chips.map(([id, label]) => `<a href="gallery.html${id ? `?section=${id}` : ""}"${id === current ? ' aria-current="page"' : ""}>${label}</a>`).join("")}</nav>`);
+  }
   const target = document.querySelector("#public-quiz-gallery");
   if (!target || !window.CareerCanvasClassroom) return;
   const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -24,8 +31,10 @@
     const [kind, id] = pages[page];
     const base = kind === "doc" ? `https://docs.google.com/document/d/${id}` : `https://drive.google.com/file/d/${id}`;
     dialog.querySelector("strong").textContent = pages.length > 1 ? `${title} (${page + 1} of ${pages.length})` : title;
-    dialog.querySelector("a").href = `${base}/view`;
-    frame.src = `${base}/preview`;
+    dialog.querySelector("a").href = kind === "img" ? id : `${base}/view`;
+    // Site-hosted images are fitted to the pop-up; Drive and Docs use their own preview page.
+    if (kind === "img") { frame.removeAttribute("src"); frame.srcdoc = `<body style="margin:0;height:100vh;display:grid;place-items:center;background:#111"><img src="${new URL(id, location.href)}" style="max-width:100%;max-height:100vh"></body>`; }
+    else { frame.removeAttribute("srcdoc"); frame.src = `${base}/preview`; }
   };
   dialog.querySelector(".doc-close").addEventListener("click", () => dialog.close());
   dialog.querySelector(".doc-prev").addEventListener("click", () => { page = (page + pages.length - 1) % pages.length; show(); });
@@ -44,10 +53,10 @@
 
   const card = item => {
     const id = docId(item.url);
-    const pages = item.files ? item.files.map(f => `file:${f}`) : id ? [`doc:${id}`] : [];
+    const pages = item.src ? [`img:${item.src}`] : item.files ? item.files.map(f => `file:${f}`) : id ? [`doc:${id}`] : [];
     const by = `<span>By ${esc(item.ownerUsername || "Career Canvas student")}</span>`;
     if (!pages.length) return `<a class="gallery-link-card" href="${esc(item.url)}" target="_blank" rel="noopener"><strong>${esc(item.title)}</strong>${by}<b>Open project ↗</b></a>`;
-    return `<button type="button" class="gallery-link-card gallery-doc-card${item.files ? " gallery-ad-card" : ""}" data-pages="${pages.join(",")}" data-title="${esc(item.title)}"><img src="${esc(item.thumb || `https://drive.google.com/thumbnail?id=${pages[0].split(":")[1]}&sz=w600`)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><strong>${esc(item.title)}</strong>${by}<b>${item.files?.length > 1 ? `Preview ${item.files.length} pages ↗` : "Preview ↗"}</b></button>`;
+    return `<button type="button" class="gallery-link-card gallery-doc-card${item.type === "ad" ? " gallery-ad-card" : ""}" data-pages="${pages.join(",")}" data-title="${esc(item.title)}"><img src="${esc(item.thumb || item.src || `https://drive.google.com/thumbnail?id=${pages[0].split(":")[1]}&sz=w600`)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><strong>${esc(item.title)}</strong>${by}<b>${item.files?.length > 1 ? `Preview ${item.files.length} pages ↗` : "Preview ↗"}</b></button>`;
   };
 
   window.CareerCanvasClassroom.listQuizzes(false).then(items => {

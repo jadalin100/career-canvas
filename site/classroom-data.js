@@ -13,17 +13,22 @@
   const uniqueId = (prefix) => `${prefix}-${globalThis.crypto?.randomUUID?.() || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`}`;
   const usernameKey = (value) => String(value || "").trim().toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "");
   const hasFirebase = () => Boolean(config.firebase && config.firebase.apiKey && config.firebase.projectId && config.firebase.appId);
-  const classes = () => Array.isArray(config.classes) && config.classes.length ? config.classes : [{ id: config.classId, name: config.className, code: config.classCode }];
-  const classById = (id) => id ? classes().find(item => item.id === id) : classes()[0];
+  // Classes live in the database. This browser remembers the ones it has seen (name and code) for display.
+  const KNOWN_CLASSES_KEY = "careerCanvasKnownClasses";
+  const defaultClass = () => ({ id: config.classId, name: config.className, code: config.classCode });
+  const knownClasses = () => { try { return JSON.parse(localStorage.getItem(KNOWN_CLASSES_KEY)) || {}; } catch (_) { return {}; } };
+  const rememberClass = (item) => { const all = knownClasses(); all[item.id] = { ...all[item.id], ...item }; localStorage.setItem(KNOWN_CLASSES_KEY, JSON.stringify(all)); return all[item.id]; };
+  const classes = () => { const all = { [config.classId]: defaultClass(), ...knownClasses() }; return Object.values(all); };
+  const classById = (id) => !id ? defaultClass() : (knownClasses()[id] || (id === config.classId ? defaultClass() : { id, name: "Your class" }));
   const requireClass = (id) => {
     const selected = classById(id);
-    if (!selected) throw new Error("That class is not configured.");
+    if (!/^[a-z0-9][a-z0-9-]{2,60}$/.test(String(selected.id || ""))) throw new Error("That class could not be found.");
     return selected;
   };
-  const classByCode = (code) => classes().find(item => String(item.code || "").toUpperCase() === String(code || "").trim().toUpperCase());
   const studentClassId = () => requireClass(getSession()?.classId).id;
-  const teacherEmails = () => (Array.isArray(config.teacherEmails) && config.teacherEmails.length ? config.teacherEmails : [config.teacherEmail]).map(email => String(email || "").toLowerCase());
-  const isTeacherEmail = (email) => teacherEmails().includes(String(email || "").toLowerCase());
+  const CODE_LETTERS = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  const randomCode = (length) => Array.from(globalThis.crypto.getRandomValues(new Uint32Array(length)), n => CODE_LETTERS[n % CODE_LETTERS.length]).join("");
+  const isGoogleTeacher = (user) => Boolean(user && !user.isAnonymous && user.email);
 
   function read(key, fallback) {
     try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch (_) { return fallback; }
@@ -40,13 +45,13 @@
 
   function demoKey(classId) { return `${DB_KEY}:${requireClass(classId).id}`; }
 
-  function emptyDemoDb() { return { students: {}, quizzes: {}, attempts: {}, artifacts: {}, blocked: {} }; }
+  function emptyDemoDb() { return { students: {}, quizzes: {}, attempts: {}, artifacts: {}, comments: {}, blocked: {} }; }
 
   function demoDb(classId) {
     const selectedId = requireClass(classId || getSession()?.classId).id;
     const scoped = read(demoKey(selectedId), null);
     if (scoped) return { ...emptyDemoDb(), ...scoped };
-    if (selectedId === classes()[0].id) return { ...emptyDemoDb(), ...read(DB_KEY, emptyDemoDb()) };
+    if (selectedId === config.classId) return { ...emptyDemoDb(), ...read(DB_KEY, emptyDemoDb()) };
     return emptyDemoDb();
   }
 
@@ -90,8 +95,21 @@
     return /failed to fetch|network|offline|internet|dynamically imported module/i.test(String(error?.message || error));
   }
 
-  function validateJoin(code, username) {
-    const selectedClass = classByCode(code);
+  async function findClassByCode(code) {
+    const clean = String(code || "").trim().toUpperCase();
+    if (!/^[A-Z0-9]{4,10}$/.test(clean)) return null;
+    if (hasFirebase()) {
+      await anonymousUser();
+      const found = await cloud.storeSdk.getDoc(cloud.storeSdk.doc(cloud.db, "classCodes", clean));
+      if (found.exists()) return rememberClass({ id: found.data().classId, name: found.data().name, code: clean });
+      // The two original classes work before a teacher's first sign-in saves their codes (the rules allow it too).
+      const legacy = (config.legacyClasses || []).find(item => item.code === clean);
+      return legacy ? rememberClass({ id: legacy.id, name: legacy.name, code: legacy.code }) : null;
+    }
+    return classes().find(item => String(item.code || "").toUpperCase() === clean) || null;
+  }
+
+  function validateJoin(selectedClass, username) {
     if (!selectedClass) throw new Error("That class code does not match.");
     const clean = String(username || "").trim().replace(/\s+/g, " ");
     if (clean.length < 3 || clean.length > 40) throw new Error("Choose a name that is 3–40 characters.");
@@ -100,7 +118,7 @@
   }
 
   async function joinClass(code, username) {
-    const { clean, selectedClass } = validateJoin(code, username);
+    const { clean, selectedClass } = validateJoin(await findClassByCode(code), username);
     const classId = selectedClass.id;
     const studentId = usernameKey(clean);
     const joinedAt = now();
@@ -115,6 +133,7 @@
         if (blocked.exists()) throw new Error("That student was removed from the class. Ask the teacher before joining again.");
         if (existing.exists() && existing.data().authUid !== user.uid && existing.data().locked) throw new Error("That name is locked. Ask the teacher to unlock it, or add your middle initial if it isn't you.");
         await storeSdk.setDoc(ref, { username: clean, usernameKey: studentId, authUid: user.uid, joinedAt: existing.data()?.joinedAt || joinedAt, lastSeenAt: joinedAt }, { merge: true });
+        await storeSdk.setDoc(storeSdk.doc(db, "classes", classId, "members", user.uid), { studentId }).catch(() => {});
       } catch (error) {
         if (/removed|another student account/i.test(error.message || "")) throw error;
         if (error?.code === "permission-denied") throw new Error("That name is already used by another student or was removed. Add your middle initial or ask the teacher.");
@@ -360,35 +379,133 @@
     else { const db = demoDb(classId); if (db.artifacts?.[id]) db.artifacts[id] = { ...db.artifacts[id], status, updatedAt: now() }; saveDemoDb(db, classId); }
   }
 
+  // Comments are visible only to students in the same class (enforced by Firestore rules through members/{uid}).
+  async function cloudStudent() {
+    const session = getSession();
+    if (!session) throw new Error("Join the class to see comments.");
+    const user = await anonymousUser();
+    if (!user || user.uid !== session.authUid) throw new Error("Rejoin the class to see comments.");
+    const { db, storeSdk } = cloud;
+    await storeSdk.setDoc(storeSdk.doc(db, "classes", session.classId, "members", user.uid), { studentId: session.studentId });
+    return { session, user, db, storeSdk };
+  }
+
+  async function listComments() {
+    const session = getSession();
+    if (!session) return [];
+    if (hasFirebase()) {
+      const { db, storeSdk } = await cloudStudent();
+      const snapshot = await storeSdk.getDocs(storeSdk.collection(db, "classes", session.classId, "comments"));
+      return snapshot.docs.map(d => d.data()).sort((a,b) => String(a.createdAt).localeCompare(String(b.createdAt)));
+    }
+    return Object.values(demoDb(session.classId).comments || {}).sort((a,b) => String(a.createdAt).localeCompare(String(b.createdAt)));
+  }
+
+  async function addComment(targetId, text) {
+    const session = getSession();
+    if (!session) throw new Error("Join the class before commenting.");
+    const clean = String(text || "").trim().replace(/\s+/g, " ");
+    if (!clean || clean.length > 300) throw new Error("Write a comment between 1 and 300 characters.");
+    const comment = { id: uniqueId(`${session.studentId}-comment`), targetId: String(targetId), text: clean, authorId: session.studentId, authorUsername: session.username, createdAt: now() };
+    if (hasFirebase()) {
+      const { user, db, storeSdk } = await cloudStudent();
+      comment.authUid = user.uid;
+      await storeSdk.setDoc(storeSdk.doc(db, "classes", session.classId, "comments", comment.id), comment);
+    } else {
+      const db = demoDb(session.classId); db.comments ||= {}; db.comments[comment.id] = comment; saveDemoDb(db, session.classId);
+    }
+    return comment;
+  }
+
+  async function deleteComment(id, requestedClassId) {
+    const classId = requireClass(requestedClassId || getSession()?.classId).id;
+    if (hasFirebase()) { const { db, storeSdk } = await initCloud(); await storeSdk.deleteDoc(storeSdk.doc(db, "classes", classId, "comments", id)); }
+    else { const db = demoDb(classId); delete db.comments?.[id]; saveDemoDb(db, classId); }
+  }
+
   async function teacherSignIn() {
     if (!hasFirebase()) return { demo: true, email: config.teacherEmail };
     const services = await initCloud();
     const provider = new services.authSdk.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const result = await services.authSdk.signInWithPopup(services.auth, provider);
-    if (!isTeacherEmail(result.user.email)) {
-      await services.authSdk.signOut(services.auth);
-      throw new Error(`Use an approved teacher account: ${teacherEmails().join(", ")}`);
-    }
     return result.user;
+  }
+
+  async function teacherUser() {
+    const services = await initCloud();
+    const user = services.auth.currentUser;
+    if (!isGoogleTeacher(user)) throw new Error("Sign in as a teacher with Google first.");
+    return { services, user, email: user.email.toLowerCase() };
+  }
+
+  // Classes this teacher teaches. Classes that existed before the database move are saved once, here.
+  async function listTeacherClasses() {
+    if (!hasFirebase()) return classes();
+    const { services, user, email } = await teacherUser();
+    const { db, storeSdk } = services;
+    const mine = async () => (await storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, "classes"), storeSdk.where("teacherEmails", "array-contains", email)))).docs.map(d => d.data());
+    let found = await mine();
+    const legacy = (config.legacyClasses || []).filter(item => (item.teacherEmails || []).includes(email) && !found.some(f => f.id === item.id));
+    for (const item of legacy) {
+      try { await saveClassRecord(services, user, item.id, item.name, item.code, item.teacherEmails); } catch (_) { /* already saved by a co-teacher, or not allowed */ }
+    }
+    if (legacy.length) found = await mine();
+    return found.map(item => rememberClass({ id: item.id, name: item.name, code: item.code, teacherEmails: item.teacherEmails })).sort((a,b) => a.name.localeCompare(b.name));
+  }
+
+  async function saveClassRecord(services, user, id, name, code, teacherEmails) {
+    const { db, storeSdk } = services;
+    const batch = storeSdk.writeBatch(db);
+    batch.set(storeSdk.doc(db, "classes", id), { id, name, code, teacherEmails, ownerUid: user.uid, createdAt: now() });
+    batch.set(storeSdk.doc(db, "classCodes", code), { classId: id, name });
+    await batch.commit();
+  }
+
+  async function createClass(name) {
+    const clean = String(name || "").trim().replace(/\s+/g, " ");
+    if (!clean || clean.length > 60) throw new Error("Give the class a name up to 60 characters.");
+    if (!hasFirebase()) {
+      const item = rememberClass({ id: `class-${randomCode(8).toLowerCase()}`, name: clean, code: randomCode(6) });
+      return item;
+    }
+    const { services, user, email } = await teacherUser();
+    for (let tries = 0; tries < 4; tries++) {
+      const id = `class-${randomCode(10).toLowerCase()}`;
+      const code = randomCode(6);
+      try {
+        await saveClassRecord(services, user, id, clean, code, [email]);
+        return rememberClass({ id, name: clean, code, teacherEmails: [email] });
+      } catch (error) {
+        if (error?.code !== "permission-denied" || tries === 3) throw error;
+      }
+    }
+  }
+
+  async function addCoTeacher(classId, coTeacherEmail) {
+    const email = String(coTeacherEmail || "").trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Enter a full email address.");
+    const id = requireClass(classId).id;
+    if (!hasFirebase()) return;
+    const { services } = await teacherUser();
+    await services.storeSdk.updateDoc(services.storeSdk.doc(services.db, "classes", id), { teacherEmails: services.storeSdk.arrayUnion(email) });
   }
 
   async function teacherDashboard(requestedClassId) {
     const classId = requireClass(requestedClassId).id;
     if (hasFirebase()) {
-      const services = await initCloud();
-      const email = services.auth.currentUser?.email?.toLowerCase();
-      if (!isTeacherEmail(email)) throw new Error("Teacher sign-in required.");
-      const [students, quizzes, attempts, artifacts] = await Promise.all([
+      const { services } = await teacherUser();
+      const [students, quizzes, attempts, artifacts, comments] = await Promise.all([
         services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", classId, "students")),
         services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", classId, "quizzes")),
         services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", classId, "attempts")),
-        services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", classId, "artifacts"))
+        services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", classId, "artifacts")),
+        services.storeSdk.getDocs(services.storeSdk.collection(services.db, "classes", classId, "comments"))
       ]);
-      return { students: students.docs.map(d => ({ ...d.data(), id: d.id })), quizzes: quizzes.docs.map(d => d.data()), attempts: attempts.docs.map(d => d.data()), artifacts: artifacts.docs.map(d => d.data()) };
+      return { students: students.docs.map(d => ({ ...d.data(), id: d.id })), quizzes: quizzes.docs.map(d => d.data()), attempts: attempts.docs.map(d => d.data()), artifacts: artifacts.docs.map(d => d.data()), comments: comments.docs.map(d => d.data()) };
     }
     const db = demoDb(classId);
-    return { students: Object.entries(db.students).map(([id, student]) => ({ ...student, id })), quizzes: Object.values(db.quizzes), attempts: Object.values(db.attempts), artifacts: Object.values(db.artifacts || {}) };
+    return { students: Object.entries(db.students).map(([id, student]) => ({ ...student, id })), quizzes: Object.values(db.quizzes), attempts: Object.values(db.attempts), artifacts: Object.values(db.artifacts || {}), comments: Object.values(db.comments || {}) };
   }
 
   async function setStudentLocked(studentId, locked, requestedClassId) {
@@ -403,9 +520,7 @@
     const classId = requireClass(requestedClassId).id;
     if (!id) throw new Error("Student record not found.");
     if (hasFirebase()) {
-      const services = await initCloud();
-      const email = services.auth.currentUser?.email?.toLowerCase();
-      if (!isTeacherEmail(email)) throw new Error("Teacher sign-in required.");
+      const { services, email } = await teacherUser();
       const { db, storeSdk } = services;
       const classRoot = ["classes", classId];
       await storeSdk.setDoc(storeSdk.doc(db, ...classRoot, "blockedStudents", id), { studentId: id, deletedAt: now(), deletedBy: email });
@@ -413,7 +528,9 @@
         storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "quizzes"), storeSdk.where("ownerId", "==", id))),
         storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "artifacts"), storeSdk.where("ownerId", "==", id))),
         storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "attempts"), storeSdk.where("playerId", "==", id))),
-        storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "attempts"), storeSdk.where("ownerId", "==", id)))
+        storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "attempts"), storeSdk.where("ownerId", "==", id))),
+        storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "comments"), storeSdk.where("authorId", "==", id))),
+        storeSdk.getDocs(storeSdk.query(storeSdk.collection(db, ...classRoot, "members"), storeSdk.where("studentId", "==", id)))
       ]);
       const refs = new Map();
       queries.forEach(snapshot => snapshot.docs.forEach(document => refs.set(document.ref.path, document.ref)));
@@ -428,6 +545,7 @@
     Object.keys(db.quizzes).forEach(key => { if (db.quizzes[key]?.ownerId === id) delete db.quizzes[key]; });
     Object.keys(db.attempts).forEach(key => { if (db.attempts[key]?.playerId === id || db.attempts[key]?.ownerId === id) delete db.attempts[key]; });
     Object.keys(db.artifacts || {}).forEach(key => { if (db.artifacts[key]?.ownerId === id) delete db.artifacts[key]; });
+    Object.keys(db.comments || {}).forEach(key => { if (db.comments[key]?.authorId === id) delete db.comments[key]; });
     saveDemoDb(db, classId);
     return true;
   }
@@ -450,6 +568,9 @@
     mode: hasFirebase() ? "cloud" : "demo",
     listClasses: classes,
     getClass: classById,
+    listTeacherClasses,
+    createClass,
+    addCoTeacher,
     getSession,
     joinClass,
     leaveClass() { localStorage.removeItem(SESSION_KEY); },
@@ -462,6 +583,9 @@
     submitArtifact,
     listArtifacts,
     setArtifactStatus,
+    listComments,
+    addComment,
+    deleteComment,
     teacherSignIn,
     teacherDashboard,
     deleteStudent,
@@ -470,7 +594,7 @@
     async isTeacherSignedIn() {
       if (!hasFirebase()) return true;
       const services = await initCloud();
-      return isTeacherEmail(services.auth.currentUser?.email);
+      return isGoogleTeacher(services.auth.currentUser);
     }
   };
 })();

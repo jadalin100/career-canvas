@@ -17,8 +17,14 @@
   const api = window.CareerCanvasClassroom;
   const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const classSelect = document.querySelector("#teacher-class-select");
-  if (classSelect) classSelect.innerHTML = api.listClasses().map(item => `<option value="${esc(item.id)}">${esc(item.name)}</option>`).join("");
-  const selectedClassId = () => classSelect?.value || api.listClasses()[0].id;
+  const selectedClassId = () => classSelect?.value || "";
+  async function loadTeacherClasses(selectId) {
+    if (!classSelect) return;
+    const list = await api.listTeacherClasses();
+    const keep = selectId || classSelect.value;
+    classSelect.innerHTML = list.length ? list.map(item => `<option value="${esc(item.id)}">${esc(item.name)}</option>`).join("") : '<option value="">No classes yet</option>';
+    if (keep && list.some(item => item.id === keep)) classSelect.value = keep;
+  }
   const modeText = api.mode === "cloud" ? "Cloud sync is on. Work will follow students across school iPads." : "Demo mode: this works fully on one iPad, but class data is not shared across devices until Firebase is connected.";
   document.querySelectorAll("[data-mode-banner]").forEach(el => { el.innerHTML = `<strong>${api.mode === "cloud" ? "Classroom connected" : "Same-iPad demo"}</strong>${modeText}`; });
 
@@ -46,7 +52,7 @@
     if (!session) { location.replace("join.html"); return; }
     document.querySelector("#student-name").textContent = session.username;
     const className = document.querySelector("#student-class-name");
-    if (className) className.textContent = api.getClass(session.classId).name;
+    if (className) className.textContent = session.className || api.getClass(session.classId).name;
     const readLocal = (key) => { try { return JSON.parse(localStorage.getItem(key) || "{}"); } catch (_) { return {}; } };
     let project = readLocal("careerCanvasProject");
     let deliverables = readLocal("careerCanvasDeliverables");
@@ -68,17 +74,51 @@
     const resultList = document.querySelector("#career-results-list");
     if (resultList) {
       const labels = { career: "Business career fit", deca: "DECA event fit", branding: "Digital marketing strengths" };
-      resultList.innerHTML = Object.keys(results).length ? Object.entries(results).map(([key, value]) => `<a class="step-link" href="index.html#quiz-${encodeURIComponent(key)}"><span><strong>${esc(labels[key] || key)}</strong><br>${esc((value.topResults || []).join(", ") || "Result saved")} · ${value.completedAt ? new Date(value.completedAt).toLocaleDateString() : "Saved"}</span><b>→</b></a>`).join("") : '<p class="empty">Complete a career quiz to save a result.</p>';
+      resultList.innerHTML = Object.keys(results).length ? Object.entries(results).map(([key, value]) => `<a class="step-link" href="discover.html#quiz-${encodeURIComponent(key)}"><span><strong>${esc(labels[key] || key)}</strong><br>${esc((value.topResults || []).join(", ") || "Result saved")} · ${value.completedAt ? new Date(value.completedAt).toLocaleDateString() : "Saved"}</span><b>→</b></a>`).join("") : '<p class="empty">Complete a career quiz to save a result.</p>';
     }
     await api.syncStudent({ project, deliverables, careerQuizResults: results });
     const quizzes = await api.listQuizzes(true);
     document.querySelector("#gallery-count").textContent = String(quizzes.filter(q => q.status === "published").length);
     const gallery = document.querySelector("#class-gallery");
-    gallery.innerHTML = quizzes.length ? quizzes.map(q => `<article class="quiz-tile"><span class="pill ${q.status === "published" ? "published" : ""}">${esc(q.status === "published" ? "Class gallery" : "Waiting for teacher")}</span><strong>${esc(q.title || "Untitled quiz")}</strong><span>By ${esc(q.ownerUsername)} · ${q.questions?.length || 0} questions</span><footer><span>${q.ownerId === session.studentId ? "Your quiz" : "Student quiz"}</span><a class="class-button secondary" href="play.html?id=${encodeURIComponent(q.id)}">Play</a></footer></article>`).join("") : '<p class="empty">No quizzes yet. Build one and submit it for the teacher to publish.</p>';
+    gallery.innerHTML = quizzes.length ? quizzes.map(q => `<article class="quiz-tile"><span class="pill ${q.status === "published" ? "published" : ""}">${esc(q.status === "published" ? "Class gallery" : "Waiting for teacher")}</span><strong>${esc(q.title || "Untitled quiz")}</strong><span>By ${esc(q.ownerUsername)} · ${q.questions?.length || 0} questions</span><footer><span>${q.ownerId === session.studentId ? "Your quiz" : "Student quiz"}</span><a class="class-button secondary" href="play.html?id=${encodeURIComponent(q.id)}">Play</a></footer>${q.status === "published" ? commentBox(q.id) : ""}</article>`).join("") : '<p class="empty">No quizzes yet. Build one and submit it for the teacher to publish.</p>';
     const artifacts = await api.listArtifacts(true);
     const artifactGallery = document.createElement("div");
-    artifactGallery.innerHTML = `<h3 style="margin-top:24px">Articles, ads, and portfolios</h3><div class="gallery-grid">${artifacts.length ? artifacts.map(item => `<article class="quiz-tile"><span class="pill ${item.status === "published" ? "published" : ""}">${esc(item.status === "published" ? "Class gallery" : "Waiting for teacher")}</span><strong>${esc(item.title)}</strong><span>${esc(item.type)} by ${esc(item.ownerUsername)}</span><footer><span>${item.ownerId === session.studentId ? "Your project" : "Student project"}</span><a class="class-button secondary" href="${esc(item.url)}" target="_blank" rel="noopener">Open</a></footer></article>`).join("") : '<p class="empty">No project links yet. Submit an article, ad, or portfolio from the Project Studio.</p>'}</div>`;
+    artifactGallery.innerHTML = `<h3 style="margin-top:24px">Articles, ads, and portfolios</h3><div class="gallery-grid">${artifacts.length ? artifacts.map(item => `<article class="quiz-tile"><span class="pill ${item.status === "published" ? "published" : ""}">${esc(item.status === "published" ? "Class gallery" : "Waiting for teacher")}</span><strong>${esc(item.title)}</strong><span>${esc(item.type)} by ${esc(item.ownerUsername)}</span><footer><span>${item.ownerId === session.studentId ? "Your project" : "Student project"}</span><a class="class-button secondary" href="${esc(item.url)}" target="_blank" rel="noopener">Open</a></footer>${item.status === "published" ? commentBox(item.id) : ""}</article>`).join("") : '<p class="empty">No project links yet. Submit an article, ad, or portfolio from the Project Studio.</p>'}</div>`;
     gallery.after(artifactGallery);
+    await refreshComments(session);
+    if (!commentsWired) {
+      commentsWired = true;
+      root.addEventListener("submit", async event => {
+        const form = event.target.closest("[data-comment-target]"); if (!form) return;
+        event.preventDefault();
+        const input = form.querySelector("input"); const button = form.querySelector("button");
+        button.disabled = true;
+        try { await api.addComment(form.dataset.commentTarget, input.value); input.value = ""; await refreshComments(session); }
+        catch (error) { form.querySelector(".comment-error").textContent = error.message; }
+        button.disabled = false;
+      });
+      root.addEventListener("click", async event => {
+        const button = event.target.closest("[data-delete-comment]"); if (!button) return;
+        button.disabled = true;
+        try { await api.deleteComment(button.dataset.deleteComment); await refreshComments(session); } catch (_) { button.disabled = false; }
+      });
+    }
+  }
+
+  let commentsWired = false;
+  function commentBox(id) {
+    return `<details class="comment-box" data-comments-for="${esc(id)}"><summary>Comments (<span data-comment-count>0</span>)</summary><ul class="comment-list"></ul><form class="comment-form" data-comment-target="${esc(id)}"><label class="sr-only" for="comment-${esc(id)}">Add a comment</label><input id="comment-${esc(id)}" maxlength="300" placeholder="Say something kind and specific" required><button class="small-button" type="submit">Post</button><p class="comment-error" role="alert"></p></form><p class="comment-note">Only your class can see comments.</p></details>`;
+  }
+  async function refreshComments(session) {
+    let comments = [];
+    try { comments = await api.listComments(); } catch (_) { return; }
+    const byTarget = {};
+    comments.forEach(c => { (byTarget[c.targetId] ||= []).push(c); });
+    document.querySelectorAll("[data-comments-for]").forEach(box => {
+      const items = byTarget[box.dataset.commentsFor] || [];
+      box.querySelector("[data-comment-count]").textContent = String(items.length);
+      box.querySelector(".comment-list").innerHTML = items.length ? items.map(c => `<li><strong>${esc(c.authorUsername)}</strong> ${esc(c.text)}${c.authorId === session.studentId ? ` <button class="link-button" type="button" data-delete-comment="${esc(c.id)}">Delete</button>` : ""}</li>`).join("") : '<li class="comment-empty">No comments yet.</li>';
+    });
   }
 
   document.querySelector("#leave-class")?.addEventListener("click", () => { api.leaveClass(); location.href = "join.html"; });
@@ -165,6 +205,7 @@
     const status = document.querySelector("#teacher-status");
     try {
       const classId = selectedClassId();
+      if (!classId) { status.className = "status"; status.textContent = "Create your first class below, then share its code with your students."; return; }
       const selectedClass = api.getClass(classId);
       const data = await api.teacherDashboard(classId);
       document.querySelector("#teacher-students").textContent = data.students.length;
@@ -183,15 +224,22 @@
       quizzes.innerHTML = data.quizzes.length ? data.quizzes.sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).map(q => `<div class="teacher-row" data-quiz-id="${esc(q.id)}"><div><strong>${esc(q.title || "Untitled quiz")}</strong><span>By ${esc(q.ownerUsername)} · ${q.questions?.length || 0} questions · ${esc(q.status)}</span></div><div class="teacher-row-actions"><a class="small-button" href="play.html?id=${encodeURIComponent(q.id)}&teacher=1&class=${encodeURIComponent(classId)}">Play</a><button class="small-button" data-status="${q.status === "published" ? "pending" : "published"}">${q.status === "published" ? "Unpublish" : "Publish"}</button></div></div>`).join("") : '<p class="empty">No quizzes have been submitted.</p>';
       const artifacts = document.querySelector("#teacher-artifact-list");
       if (artifacts) artifacts.innerHTML = data.artifacts.length ? data.artifacts.sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).map(item => `<div class="teacher-row" data-artifact-id="${esc(item.id)}"><div><strong>${esc(item.title)}</strong><span>${esc(item.type)} by ${esc(item.ownerUsername)} · ${esc(item.status)}</span></div><div class="teacher-row-actions"><a class="small-button" href="${esc(item.url)}" target="_blank" rel="noopener">Open</a><button class="small-button" data-artifact-status="${item.status === "published" ? "pending" : "published"}">${item.status === "published" ? "Unpublish" : "Publish"}</button></div></div>`).join("") : '<p class="empty">No project links have been submitted.</p>';
+      const commentList = document.querySelector("#teacher-comment-list");
+      if (commentList) {
+        const titles = Object.fromEntries([...data.quizzes, ...data.artifacts].map(item => [item.id, item.title || "Untitled"]));
+        const comments = (data.comments || []).sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+        commentList.innerHTML = comments.length ? comments.map(c => `<div class="teacher-row" data-comment-id="${esc(c.id)}"><div><strong>${esc(c.authorUsername)}</strong> ${esc(c.text)}<span>On ${esc(titles[c.targetId] || "deleted work")} · ${c.createdAt ? new Date(c.createdAt).toLocaleDateString() : ""}</span></div><div class="teacher-row-actions"><button class="small-button danger-button" type="button" data-delete-comment-teacher>Delete</button></div></div>`).join("") : '<p class="empty">No comments yet.</p>';
+      }
       status.textContent = `${selectedClass.name} dashboard updated.`;
     } catch (error) { status.className = "status error"; status.textContent = error.message; }
   }
 
   document.querySelector("#teacher-sign-in")?.addEventListener("click", async event => {
-    event.currentTarget.disabled = true;
-    const status = document.querySelector("#teacher-status"); status.textContent = "Signing in…";
-    try { await api.teacherSignIn(); await renderTeacher(); } catch (error) { status.className = "status error"; status.textContent = error.message; }
-    event.currentTarget.disabled = false;
+    const button = event.currentTarget; // currentTarget is null after the first await
+    button.disabled = true;
+    const status = document.querySelector("#teacher-status"); status.className = "status"; status.textContent = "Signing in…";
+    try { await api.teacherSignIn(); await loadTeacherClasses(); await renderTeacher(); } catch (error) { status.className = "status error"; status.textContent = error.message; }
+    button.disabled = false;
   });
   classSelect?.addEventListener("change", () => renderTeacher());
   document.querySelector("#teacher-quiz-list")?.addEventListener("click", async event => {
@@ -224,7 +272,46 @@
     try { await api.setArtifactStatus(button.closest("[data-artifact-id]").dataset.artifactId, button.dataset.artifactStatus, selectedClassId()); await renderTeacher(); }
     catch (error) { document.querySelector("#teacher-status").textContent = error.message; button.disabled = false; }
   });
-  if (document.querySelector("#teacher-dashboard")) (async () => { if (api.mode === "demo" || await api.isTeacherSignedIn()) renderTeacher(); })();
+  document.querySelector("#teacher-comment-list")?.addEventListener("click", async event => {
+    const button = event.target.closest("[data-delete-comment-teacher]"); if (!button) return;
+    button.disabled = true;
+    try { await api.deleteComment(button.closest("[data-comment-id]").dataset.commentId, selectedClassId()); await renderTeacher(); }
+    catch (error) { document.querySelector("#teacher-status").textContent = error.message; button.disabled = false; }
+  });
+  document.querySelector("#create-class-form")?.addEventListener("submit", async event => {
+    event.preventDefault();
+    const form = event.currentTarget; const button = form.querySelector("button");
+    const status = document.querySelector("#teacher-status");
+    button.disabled = true;
+    try {
+      const created = await api.createClass(form.elements.name.value);
+      form.reset();
+      await loadTeacherClasses(created.id);
+      await renderTeacher();
+      status.className = "status"; status.textContent = `${created.name} is ready. Share class code ${created.code} with your students.`;
+    } catch (error) { status.className = "status error"; status.textContent = error.message; }
+    button.disabled = false;
+  });
+  document.querySelector("#co-teacher-form")?.addEventListener("submit", async event => {
+    event.preventDefault();
+    const form = event.currentTarget; const button = form.querySelector("button");
+    const status = document.querySelector("#teacher-status");
+    if (!selectedClassId()) { status.className = "status error"; status.textContent = "Create or choose a class first."; return; }
+    button.disabled = true;
+    try {
+      const email = form.elements.email.value.trim();
+      await api.addCoTeacher(selectedClassId(), email);
+      form.reset();
+      status.className = "status"; status.textContent = `${email} can now sign in with Google and manage this class.`;
+    } catch (error) { status.className = "status error"; status.textContent = error.message; }
+    button.disabled = false;
+  });
+  if (document.querySelector("#teacher-dashboard")) (async () => {
+    if (api.mode === "demo" || await api.isTeacherSignedIn()) {
+      try { await loadTeacherClasses(); } catch (error) { document.querySelector("#teacher-status").textContent = error.message; }
+      renderTeacher();
+    }
+  })();
 
   async function renderPlayer() {
     const root = document.querySelector("#quiz-player"); if (!root) return;

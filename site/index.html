@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Career Canvas helps middle-school students turn their interests into real business, creative, and technology projects.">
   <title>Career Canvas — Discover your creativity</title>
-  <link rel="icon" href="assets/career-canvas-logo.png" type="image/png">
-  <link rel="stylesheet" href="canvas.css?v=19">
-</head>
+  <link rel="icon" href="assets/career-canvas-logo.png?v=2" type="image/png">
+  <link rel="stylesheet" href="canvas.css?v=21">
+<link rel="stylesheet" href="shell.css?v=7"><script src="shell.js?v=7" defer></script></head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Career Canvas home">
       <span class="brand-mark" aria-hidden="true">
-        <img src="assets/career-canvas-logo.png" alt="">
+        <img src="assets/career-canvas-logo.png?v=2" alt="">
       </span>
       <span class="brand-copy">
         <strong>Career</strong>
@@ -24,15 +24,13 @@
 
     <nav class="site-nav" aria-label="Main navigation">
       <a href="index.html" aria-current="page">Home</a>
-      <a href="about.html">About us</a>
-      <a href="contact.html">Contact</a>
-      <a href="businesses.html">For businesses</a>
+      <a href="learn.html">Business Lessons</a>
       <span class="nav-drop"><a href="gallery.html">Gallery <span aria-hidden="true">▾</span></a><span class="nav-menu"><a href="gallery.html">All work</a><a href="gallery.html?section=articles">Business articles</a><a href="gallery.html?section=ads">Advertisements</a><a href="gallery.html?section=quizzes">Quiz apps</a><a href="gallery.html?section=portfolios">Portfolios</a></span></span>
       <a href="#outcomes">What you’ll make</a>
-      <a href="#quizzes">Career quizzes</a>
+      <a href="discover.html">Career quizzes</a>
     </nav>
 
-    <div class="header-ctas"><a class="nav-cta nav-cta-quiet" href="businesses.html">Businesses <span aria-hidden="true">↗</span></a><a class="nav-cta" href="join.html">Join class <span aria-hidden="true">↗</span></a></div>
+    <div class="header-ctas"><a class="nav-cta nav-cta-quiet" href="learn.html">Lessons <span aria-hidden="true">↗</span></a><a class="nav-cta" href="join.html">Join class <span aria-hidden="true">↗</span></a></div>
   </header>
 
   <main id="main">
@@ -40,7 +38,7 @@
       <div class="hero-copy">
         <p class="eyebrow"><span></span> A Digital Marketing Career Development Program for Middle School Students</p>
         <h1>Discover your <em>creativity</em></h1>
-        <p class="hero-note">Designed by Jada Lin &amp; Olivia Zheng. Great Neck South.</p>
+        <p class="hero-note">Designed by Jada Lin. Great Neck South.</p>
       </div>
 
       <div class="hero-visual" aria-label="A preview of the Career Canvas learning journey">
@@ -57,7 +55,7 @@
             </div>
             <ol class="project-stages">
               <li><b>01</b><span>Discover strengths</span><i>DONE</i></li>
-              <li><b>02</b><span>Research partner</span><i>BUILDING</i></li>
+              <li><b>02</b><span>Research a business</span><i>BUILDING</i></li>
               <li><b>03</b><span>Create real ad</span><i>UP NEXT</i></li>
               <li><b>04</b><span>Build quiz app</span><i>UP NEXT</i></li>
               <li><b>05</b><span>Showcase work</span><i>UP NEXT</i></li>
@@ -79,7 +77,7 @@
 
     <section class="manifesto" aria-label="Program promise">
       <p>Our mission</p>
-      <strong>A win-win: students create real work they can show, while local businesses receive original ads and community impact.</strong>
+      <strong>Students learn business one bite-sized lesson at a time, then use it to create real work they can show.</strong>
     </section>
 
     <section class="why-stats" aria-label="Why Career Canvas">
@@ -109,14 +107,14 @@
           <div class="step-symbol symbol-research" aria-hidden="true"><img src="assets/journey-magnifier.png" alt=""></div>
           <p class="step-label">Research</p>
           <h3>Publish what you learn</h3>
-          <p>Research one local business partner and publish a one-to-four-page business article to our site.</p>
+          <p>Research one local business and publish a one-to-four-page business article to our site.</p>
         </li>
         <li class="journey-step reveal">
           <div class="step-number">03</div>
           <div class="step-symbol symbol-show" aria-hidden="true"><span></span></div>
           <p class="step-label">Create</p>
           <h3>Design a real ad</h3>
-          <p>Create an original business ad that the partner can actually use.</p>
+          <p>Create an original ad for the business you researched.</p>
         </li>
         <li class="journey-step reveal">
           <div class="step-number">04</div>
@@ -186,24 +184,16 @@
       </div>
     </section>
 
-    <section class="quiz-hub section" id="quizzes">
-      <div class="quiz-overview" id="quiz-overview">
-        <div class="section-heading reveal">
-          <p class="kicker">Find your direction</p>
-          <h2>Three quizzes</h2>
-          <p>Explore a possible business career, find a DECA event that fits how you work, or discover the part of digital marketing you would most enjoy creating.</p>
-        </div>
-        <div class="canvas-quiz-grid" id="canvas-quiz-cards" aria-label="Career Canvas quizzes"></div>
-      </div>
 
-      <div class="canvas-quiz-stage" id="canvas-quiz-stage" hidden>
-        <div class="quiz-stage-top">
-          <a class="quiz-back" href="#quizzes">Back to all quizzes</a>
-          <p class="quiz-stage-label" id="quiz-stage-label"></p>
-          <p class="quiz-stage-count" id="quiz-stage-count"></p>
+
+    <section class="pilot section" id="lessons">
+      <div class="pilot-card reveal">
+        <p class="kicker">Business Lessons</p>
+        <h2>Learn business<br>five minutes at a time</h2>
+        <p>Five units: Creative Thinking, Branding &amp; Design, Social Media &amp; Content, Ads &amp; Campaigns, and Metrics &amp; Money. Short lessons, instant feedback, XP, and a daily streak.</p>
+        <div class="pilot-actions">
+          <a class="button button-primary" href="learn.html">Start the lesson path <span aria-hidden="true">→</span></a>
         </div>
-        <div class="quiz-stage-progress" aria-hidden="true"><i id="quiz-stage-progress"></i></div>
-        <div class="quiz-stage-body" id="quiz-stage-body" tabindex="-1"></div>
       </div>
     </section>
 
@@ -215,17 +205,16 @@
         <a href="https://www.fountainofkindness.org/" target="_blank" rel="noopener"><img src="assets/partners/fountain-of-kindness.png" alt="Fountain of Kindness"><span>Fountain of Kindness</span></a>
         <a href="https://www.lalijewels.com/" target="_blank" rel="noopener"><img src="assets/partners/lali-jewels.png" alt="LALI Jewels"><span>LALI Jewels</span></a>
       </div>
-      <div class="partner-home-cta"><p><strong>Could your business become our next student brief?</strong><br>See the pilot, commitment, example outreach, and attachments.</p><a class="button button-primary" href="businesses.html">For local businesses <span aria-hidden="true">→</span></a></div>
     </section>
 
     <section class="pilot section" id="pilot">
       <div class="pilot-card reveal">
         <p class="kicker">Pilot program</p>
         <h2>Bring your curiosity<br>We’ll help you build the rest</h2>
-        <p>Career Canvas is beginning as a pilot study at Great Neck South. We are documenting what students learn and preparing to grow with more schools and local businesses.</p>
+        <p>Career Canvas is beginning as a pilot study at Great Neck South. We are documenting what students learn.</p>
         <div class="pilot-actions">
           <a class="button button-primary" href="studio.html">Open the project studio <span aria-hidden="true">→</span></a>
-          <a class="button button-outline" href="#quizzes">Try the career quizzes <span aria-hidden="true">→</span></a>
+          <a class="button button-outline" href="discover.html">Try the career quizzes <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -233,17 +222,16 @@
 
   <footer class="site-footer">
     <a class="brand footer-brand" href="#top">
-      <span class="brand-mark" aria-hidden="true"><img src="assets/career-canvas-logo.png" alt=""></span>
+      <span class="brand-mark" aria-hidden="true"><img src="assets/career-canvas-logo.png?v=2" alt=""></span>
       <span class="brand-copy"><strong>Career</strong><span>Canvas</span></span>
     </a>
     <p>A student-built career development initiative.</p>
-    <div><a href="about.html">About us</a> · <a href="contact.html">Contact</a> · <a href="businesses.html">Businesses</a> · <a href="gallery.html">Gallery</a> · <a href="https://www.instagram.com/careercanvas.gns/" target="_blank" rel="noopener">@careercanvas.gns</a> · <a href="teacher.html">Teacher dashboard</a></div>
+    <div><a href="about.html">About us</a> · <a href="learn.html">Business Lessons</a> · <a href="gallery.html">Gallery</a> · <a href="https://www.instagram.com/careercanvas.gns/" target="_blank" rel="noopener">@careercanvas.gns</a> · <a href="teacher.html">Teacher dashboard</a></div>
   </footer>
 
   <script src="quiz-data.js?v=2"></script>
-  <script src="classroom-config.js?v=2"></script>
-  <script src="classroom-data.js?v=6"></script>
+  <script src="classroom-config.js?v=4"></script>
+  <script src="classroom-data.js?v=8"></script>
   <script src="canvas.js?v=7"></script>
-  <script src="canvas-quizzes.js?v=5"></script>
 </body>
 </html>

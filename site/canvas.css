@@ -53,9 +53,9 @@ button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-c
 .brand { width: fit-content; display: inline-flex; align-items: center; gap: 11px; text-decoration: none; }
 .brand-mark {
   width: 38px; height: 38px; flex: none; display: inline-grid; place-items: center;
-  position: relative; overflow: hidden; background: var(--white); border-radius: 50%;
+  position: relative; overflow: hidden; border-radius: 50%;
 }
-.brand-mark img { position: absolute; height: 114%; width: auto; max-width: none; top: -7%; left: 50%; transform: translateX(-50%); }
+.brand-mark img { position: absolute; inset: 0; width: 100%; height: 100%; }
 .brand-copy { display: grid; line-height: 1; text-transform: uppercase; letter-spacing: .07em; }
 .brand-copy strong { font: 800 10px/1 var(--mono); }
 .brand-copy span { margin-top: 5px; color: var(--yellow); font: 800 16px/1 var(--display); letter-spacing: .01em; }
@@ -358,7 +358,7 @@ button, a, input, textarea { touch-action: manipulation; -webkit-tap-highlight-c
 /* Standalone public pages share the homepage design system. */
 .subpage-hero { padding: 84px max(46px, calc((100% - var(--content)) / 2)) 70px; color: var(--white); background: var(--navy-deep); }
 .subpage-hero .eyebrow { color: var(--yellow); }
-.subpage-hero h1 { max-width: 900px; margin: 0; font: 800 clamp(48px, 7vw, 82px)/.98 var(--display); letter-spacing: -.055em; }
+.subpage-hero h1, .subpage-hero h2 { max-width: 900px; margin: 0; font: 800 clamp(48px, 7vw, 82px)/.98 var(--display); letter-spacing: -.055em; }
 .subpage-hero > p:last-child { max-width: 730px; margin: 24px 0 0; color: rgba(255,255,255,.7); font-size: 17px; }
 .business-grid, .gallery-sections { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .business-card, .gallery-section { padding: 30px; background: #f7f8fa; border: 1px solid var(--line); }

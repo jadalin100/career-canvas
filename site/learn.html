@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Bite-sized business lessons with XP and a daily streak.">
+  <title>Business Lessons — Career Canvas</title>
+  <link rel="icon" href="assets/career-canvas-logo.png?v=2">
+  <link rel="stylesheet" href="classroom.css?v=8">
+  <link rel="stylesheet" href="lesson.css?v=2">
+<link rel="stylesheet" href="shell.css?v=7"><script src="shell.js?v=7" defer></script></head>
+<body>
+  <div class="class-shell">
+    <header class="class-header">
+      <a class="class-brand" href="index.html"><img src="assets/career-canvas-logo.png?v=2" alt="">Career Canvas</a>
+      <nav class="class-nav"><a href="student.html">My class</a><a href="studio.html">Studio</a></nav>
+    </header>
+    <main class="class-main path-main">
+      <section class="path-top">
+        <div><p class="kicker">Business Lessons</p><h1>Learn business, one lesson at a time.</h1></div>
+        <div class="path-stats" aria-label="Your progress">
+          <p><span aria-hidden="true">🔥</span> <strong id="stat-streak">0</strong> day streak</p>
+          <p><span aria-hidden="true">⚡</span> <strong id="stat-xp">0</strong> XP</p>
+        </div>
+      </section>
+      <div id="path"><p class="help">Loading your lessons…</p></div>
+    </main>
+  </div>
+  <script src="classroom-config.js?v=4"></script>
+  <script src="classroom-data.js?v=8"></script>
+  <script src="lessons-data.js?v=2"></script>
+  <script src="lesson.js?v=3"></script>
+</body>
+</html>

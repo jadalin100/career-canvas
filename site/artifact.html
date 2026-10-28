@@ -445,7 +445,7 @@ button { font: inherit; color: inherit; }
     <span data-logo></span>
     <span>
       <span class="brand-name">Career Canvas</span><br>
-      <span class="brand-sub">Jada Lin &amp; Olivia Zheng &middot; Great Neck South</span>
+      <span class="brand-sub">Jada Lin &middot; Great Neck South</span>
     </span>
   </header>
 
@@ -469,10 +469,10 @@ button { font: inherit; color: inherit; }
     <div class="about-grid">
       <div class="about-block">
         <h2>Who we are</h2>
-        <p>We're Jada Lin and Olivia Zheng, two DECA students at Great Neck
-           South. This site started as our DECA Career Development Project &mdash;
+        <p>I'm Jada Lin, a DECA student at Great Neck
+           South. This site started as my DECA Career Development Project &mdash;
            most "career exploration" for business students is a 20-minute
-           assembly or a worksheet nobody reads twice, so we built something
+           assembly or a worksheet nobody reads twice, so I built something
            people would actually use.</p>
       </div>
       <div class="about-block">
@@ -561,7 +561,7 @@ window.__CAREER_CANVAS_LOGO__ = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA
 const TALLY_ENDPOINT = "";
 
 const ORDER = ["career", "deca", "branding"];
-const LOGO_URL = window.__CAREER_CANVAS_LOGO__ || "assets/career-canvas-logo.png";
+const LOGO_URL = window.__CAREER_CANVAS_LOGO__ || "assets/career-canvas-logo.png?v=2";
 const LOGO = () => `<span class="logo-crop" aria-hidden="true"><img src="${LOGO_URL}" alt=""></span>`;
 
 let DATA = null;
@@ -825,7 +825,7 @@ function renderResults(quiz, answers, main, bar, count) {
         <div class="rank-row"><span>${i + 1}. ${esc(r.name)}</span><span>${r.score}</span></div>`).join("")}
     </details>
     ${isDeca ? `<p class="foot"><a href="${DECA_GUIDE_URL}" target="_blank" rel="noopener">Full DECA Guide (all events, current year) &rarr;</a></p>` : ""}
-    <p class="foot">Career Canvas \u2014 Jada Lin &amp; Olivia Zheng</p>`;
+    <p class="foot">Career Canvas \u2014 Jada Lin</p>`;
 
   saveResult(quiz.key, top.map((r) => r.code));
   $("#save").addEventListener("click", () => window.print());

@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Plan and track a Career Canvas student project.">
   <title>Project Studio — Career Canvas</title>
-  <link rel="icon" href="assets/career-canvas-logo.png" type="image/png">
-  <link rel="stylesheet" href="canvas-app.css?v=6">
-</head>
+  <link rel="icon" href="assets/career-canvas-logo.png?v=2" type="image/png">
+  <link rel="stylesheet" href="canvas-app.css?v=8">
+<link rel="stylesheet" href="shell.css?v=7"><script src="shell.js?v=7" defer></script></head>
 <body>
   <div class="app-shell">
     <header class="app-header">
       <a class="brand" href="index.html" aria-label="Career Canvas home">
-        <span class="brand-mark" aria-hidden="true"><img src="assets/career-canvas-logo.png" alt=""></span>
+        <span class="brand-mark" aria-hidden="true"><img src="assets/career-canvas-logo.png?v=2" alt=""></span>
         <span class="brand-copy"><small>Career</small><strong>Canvas</strong></span>
       </a>
       <nav class="app-nav" aria-label="Workspace navigation">
         <a href="student.html">My class</a>
         <a href="studio.html" aria-current="page">Project studio</a>
         <a href="quiz-builder.html">Quiz builder</a>
-        <a href="index.html#quizzes">Explore careers</a>
+        <a href="discover.html">Explore careers</a>
       </nav>
       <a class="header-action" href="index.html">View homepage</a>
     </header>
@@ -73,7 +73,7 @@
             <a href="#ad-templates"><span>Create your business ad</span><span aria-hidden="true">→</span></a>
             <a href="quiz-builder.html"><span>Build your quiz app</span><span aria-hidden="true">→</span></a>
             <a href="#portfolio-templates"><span>Design your portfolio</span><span aria-hidden="true">→</span></a>
-            <a href="index.html#quizzes"><span>Save your career quiz results</span><span aria-hidden="true">→</span></a>
+            <a href="discover.html"><span>Save your career quiz results</span><span aria-hidden="true">→</span></a>
             <a href="gallery.html"><span>Explore the class gallery</span><span aria-hidden="true">→</span></a>
           </div>
         </aside>
@@ -106,14 +106,15 @@
         <div class="template-group" id="paper-templates">
           <div class="template-group-heading"><span>01</span><div><h3>Business paper</h3><p>Download an editable Word template for your research.</p></div></div>
           <div class="template-grid">
-            <a class="template-card" href="templates/business-review-article-and-ad-guide.docx" download><strong>Business review article and ad guide</strong><span>Write a one-to-four-page review of one thing your business offers, then plan one ad about it. Includes examples and a 36-point rubric.</span><b>Download Word template ↓</b></a>
-            <a class="template-card" href="templates/career-canvas-advertisement-formats.docx" download><strong>Business advertisement briefs</strong><span>Goal, audience, message, tone, format, and directions for each partner business.</span><b>Download Word document ↓</b></a>
+            <a class="template-card" href="templates/business-review-article-and-ad-guide.docx" download><strong>Business review article and ad guide</strong><span>Write a one-to-four-page review of one thing your business offers, then plan one ad about it. Every section has a worked example.</span><b>Download Word template ↓</b></a>
+            <a class="template-card" href="templates/career-canvas-advertisement-formats.docx" download><strong>Business advertisement briefs</strong><span>Goal, audience, message, tone, format, and directions for each business.</span><b>Download Word document ↓</b></a>
           </div>
         </div>
 
         <div class="template-group" id="ad-templates">
-          <div class="template-group-heading"><span>02</span><div><h3>Business advertisement</h3><p>Choose the format the partner can use, then replace the prompts with your original idea.</p></div></div>
+          <div class="template-group-heading"><span>02</span><div><h3>Business advertisement</h3><p>Build your ad from Sections 4 and 5 of your article guide. Use a format your business's brief allows, and keep its goal, audience, action, and tone.</p></div></div>
           <div class="template-grid">
+            <a class="template-card" href="templates/career-canvas-advertisement-formats.docx" download><strong>Start here: your business's ad brief</strong><span>Goal, audience, message, tone, format, and directions for each business.</span><b>Download Word document ↓</b></a>
             <a class="template-card" href="templates/ad-flyer-template.docx" download><strong>Flyer layout</strong><span>Headline, visual plan, offer, and call to action.</span><b>Download Word template ↓</b></a>
             <a class="template-card" href="templates/ad-social-post-template.docx" download><strong>Social media post</strong><span>Square post, caption, and accessibility text.</span><b>Download Word template ↓</b></a>
             <a class="template-card" href="templates/ad-video-storyboard-template.docx" download><strong>Short video storyboard</strong><span>Plan six scenes for a 15–30 second video.</span><b>Download Word template ↓</b></a>
@@ -130,7 +131,30 @@
         </div>
 
         <div class="template-group" id="portfolio-templates">
-          <div class="template-group-heading"><span>04</span><div><h3>Digital portfolio</h3><p>Every option includes the same project story and visual showcase. Choose the aesthetic that feels like you.</p></div></div>
+          <div class="template-group-heading"><span>04</span><div><h3>Creative portfolio</h3><p>Design a portfolio that shows off your work and who you are.</p></div></div>
+          <ol class="portfolio-steps">
+            <li>Go to <a href="https://www.canva.com" target="_blank" rel="noopener">Canva</a> and pick a portfolio template, or design your own.</li>
+            <li>Fill out the template you picked.</li>
+            <li>Submit your view-only Canva link in <a href="#submit-work">Submit finished work</a> below.</li>
+          </ol>
+          <h4 class="portfolio-subhead">Include at least these 7 things</h4>
+          <div class="portfolio-checklist">
+            <div><strong>Title slide</strong><ol start="1"><li>Your name</li><li>“Creative Portfolio”</li><li>A photo or avatar that represents you</li></ol></div>
+            <div><strong>About me slide</strong><ol start="4"><li>Your experience and skills</li></ol></div>
+            <div><strong>Project slides</strong><ol start="5"><li>Research paper screenshot and summary</li><li>Business ad screenshot and summary</li></ol></div>
+            <div><strong>Contact slide</strong><ol start="7"><li>A school email or a parent-approved contact</li></ol></div>
+          </div>
+          <p class="portfolio-note">You can always add more slides, like extra projects or ads.</p>
+          <h4 class="portfolio-subhead">See an example</h4>
+          <div class="portfolio-example">
+              <figure><a href="assets/portfolio-example/slide-1.jpg" target="_blank" rel="noopener"><img src="assets/portfolio-example/slide-1.jpg" alt="Example portfolio slide 1: Title: name, “Creative Portfolio,” photo" loading="lazy"></a><figcaption>Title: name, “Creative Portfolio,” photo</figcaption></figure>
+              <figure><a href="assets/portfolio-example/slide-2.jpg" target="_blank" rel="noopener"><img src="assets/portfolio-example/slide-2.jpg" alt="Example portfolio slide 2: About me: experience and skills" loading="lazy"></a><figcaption>About me: experience and skills</figcaption></figure>
+              <figure><a href="assets/portfolio-example/slide-3.jpg" target="_blank" rel="noopener"><img src="assets/portfolio-example/slide-3.jpg" alt="Example portfolio slide 3: Project 1: research paper and summary" loading="lazy"></a><figcaption>Project 1: research paper and summary</figcaption></figure>
+              <figure><a href="assets/portfolio-example/slide-4.jpg" target="_blank" rel="noopener"><img src="assets/portfolio-example/slide-4.jpg" alt="Example portfolio slide 4: Project 2: business ad and summary" loading="lazy"></a><figcaption>Project 2: business ad and summary</figcaption></figure>
+              <figure><a href="assets/portfolio-example/slide-5.jpg" target="_blank" rel="noopener"><img src="assets/portfolio-example/slide-5.jpg" alt="Example portfolio slide 5: Contact" loading="lazy"></a><figcaption>Contact</figcaption></figure>
+          </div>
+          <p class="portfolio-note">The example uses a stock photo and made-up contact details. For yours, use an avatar if you prefer, and only share a school email or a contact a parent has approved, because portfolios can appear in the public gallery.</p>
+          <h4 class="portfolio-subhead">Prefer Word? Download a template</h4>
           <div class="template-grid">
             <a class="template-card" href="templates/portfolio-editorial-blue.docx" download><strong>Editorial blue</strong><span>Structured, polished, and magazine-inspired.</span><b>Download Word template ↓</b></a>
             <a class="template-card" href="templates/portfolio-minimal-ivory.docx" download><strong>Minimal ivory</strong><span>Clean typography with generous space for visuals.</span><b>Download Word template ↓</b></a>
@@ -139,7 +163,7 @@
         </div>
       </section>
 
-      <section class="panel" style="margin-top:22px" aria-labelledby="share-heading">
+      <section class="panel" id="submit-work" style="margin-top:22px" aria-labelledby="share-heading">
         <div class="panel-head"><div><h2 id="share-heading">Submit finished work to the gallery</h2><p>Paste a view-only Canva, Google Drive, or website link. Your teacher reviews it before it becomes public.</p></div><span class="step-tag">Share</span></div>
         <form id="artifact-form" class="form-grid">
           <div class="field"><label for="artifact-type">Project type</label><select id="artifact-type" name="type" required><option value="article">Business article</option><option value="ad">Advertisement</option><option value="portfolio">Portfolio</option></select></div>
@@ -151,8 +175,8 @@
     </main>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="classroom-config.js?v=2"></script>
-  <script src="classroom-data.js?v=6"></script>
+  <script src="classroom-config.js?v=4"></script>
+  <script src="classroom-data.js?v=8"></script>
   <script src="canvas-app.js?v=5"></script>
 </body>
 </html>
