@@ -105,14 +105,18 @@ button { font: inherit; color: inherit; }
 .hero p em { font-style: italic; color: var(--white); }
 
 /* ---------- tabs ---------- */
-.tabbar { display: flex; gap: 6px; margin: 28px 0 0; border-bottom: 1px solid var(--line); }
+.tabbar { display: flex; gap: 6px; margin: 28px 0 0; border-bottom: 1px solid var(--line);
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.tabbar::-webkit-scrollbar { display: none; }
 .tabbar a {
   display: inline-block; padding: 12px 18px; text-decoration: none;
   color: var(--muted); font-size: 14px; font-weight: 700;
   letter-spacing: .04em; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  flex-shrink: 0; white-space: nowrap;
 }
 .tabbar a:hover { color: var(--white); }
 .tabbar a.active { color: var(--white); border-bottom-color: var(--baby-blue); }
+@media (max-width: 520px) { .tabbar a { padding: 12px 11px; letter-spacing: .02em; } }
 
 .cards { display: grid; gap: 18px; }
 .card {
