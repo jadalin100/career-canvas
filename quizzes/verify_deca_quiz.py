@@ -194,7 +194,7 @@ def main():
     counts = {}
     for part, tags in questions:
         counts[part] = counts.get(part, 0) + 1
-    assert sum(counts.values()) == 30, f"expected 30 questions, got {counts}"
+    assert sum(counts.values()) == 27, f"expected 27 questions, got {counts}"
 
     if "--json" in sys.argv:
         emit_json(questions)

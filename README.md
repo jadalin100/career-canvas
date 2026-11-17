@@ -47,6 +47,13 @@ Then open <http://localhost:8000>. The pages, quizzes, and lessons work right aw
 Class features (joining a class, the gallery, the teacher dashboard) talk to the
 project's Firebase backend, which allows `localhost`.
 
+If you edit the quiz files in `quizzes/`, rebuild the quiz data and check it:
+
+```bash
+python3 site/build_quiz_data.py
+python3 quizzes/verify_deca_quiz.py
+```
+
 ## Deploy your own copy
 
 1. Create a Firebase project and turn on Firestore, Anonymous sign-in, and Google sign-in.

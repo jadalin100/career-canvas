@@ -5,7 +5,7 @@
 
 **How it works:** DECA has 29 role-play events. This quiz scores **all 29
 directly** and gives you **your top 3 specific events** — not a category, an actual
-event you could sign up for. 30 questions.
+event you could sign up for. 27 questions.
 
 > **Builder's notes.** Points go straight to individual events, never to a
 > category: your business world (Part 1) lifts every event in it a little, and
@@ -86,130 +86,125 @@ event you could sign up for. 30 questions.
 
 ---
 
-## Part 2 — What would you want to specialize in? (18 questions)
+## Part 2 — What would you want to specialize in? (15 questions)
 
 *This is the part that picks your exact event. Just pick what genuinely appeals.*
 
 **Q9. Which world would you want to work in?**
+*Select up to 3 choices.*
 - A) sneakers and streetwear `[F_FASHION]`
 - B) cars and auto shops `[F_AUTO]`
 - C) helping other businesses run better `[F_SERVICE]`
 - D) snacks and drinks on grocery shelves `[F_FOODPROD]`
 - E) commercials and ad campaigns `[F_ADS]`
+- F) store displays and what goes on the shelf `[F_RETAIL]`
+- G) stadiums and concerts `[F_SPORTS]`
+- H) convincing a customer face-to-face `[F_SELL]`
+- I) keeping financial records perfect `[F_ACCT]`
+- J) investing and growing money `[F_INVEST]`
+- K) hotels and front desks `[F_HOTEL]`
+- L) drive-thrus and fast food `[F_FASTFOOD]`
+- M) restaurants and dining rooms `[F_RESTAURANT]`
+- N) vacations and destinations `[F_TRAVEL]`
+- O) hiring and training people `[F_PEOPLE]`
+- P) rules, contracts, and fairness `[F_LAW]`
+- Q) starting your own company `[F_STARTUP]`
+- R) your own budget and savings goals `[F_MONEY]`
 
-**Q10. …or one of these?**
-- A) store displays and what goes on the shelf `[F_RETAIL]`
-- B) stadiums and concerts `[F_SPORTS]`
-- C) convincing a customer face-to-face `[F_SELL]`
-- D) keeping financial records perfect `[F_ACCT]`
-- E) investing and growing money `[F_INVEST]`
-
-**Q11. …or these?**
-- A) hotels and front desks `[F_HOTEL]`
-- B) drive-thrus and fast food `[F_FASTFOOD]`
-- C) restaurants and dining rooms `[F_RESTAURANT]`
-- D) vacations and destinations `[F_TRAVEL]`
-- E) hiring and training people `[F_PEOPLE]`
-
-**Q12. …or these?**
-- A) rules, contracts, and fairness `[F_LAW]`
-- B) starting your own company `[F_STARTUP]`
-- C) your own budget and savings goals `[F_MONEY]`
-- D) a clothing brand's new line `[F_FASHION]`
-- E) a car dealership `[F_AUTO]`
-
-**Q13. Which job shadow would you pick?**
+**Q10. Which job shadow would you pick?**
 - A) someone who consults for small businesses `[F_SERVICE]`
 - B) a food brand's marketing team `[F_FOODPROD]`
 - C) an ad agency creative `[F_ADS]`
 - D) a store's buyer choosing next season's stock `[F_RETAIL]`
 - E) a team's game-day operations crew `[F_SPORTS]`
 
-**Q14. Which task sounds most fun?**
+**Q11. Which task sounds most fun?**
 - A) close a sale in person `[F_SELL]`
 - B) reconcile the books until they're perfect `[F_ACCT]`
 - C) build an investment portfolio `[F_INVEST]`
 - D) run a hotel lobby during a rush `[F_HOTEL]`
 - E) speed up a drive-thru line `[F_FASTFOOD]`
 
-**Q15. You'd be proudest of…**
+**Q12. You'd be proudest of…**
 - A) a restaurant everyone reviews well `[F_RESTAURANT]`
 - B) a trip you planned perfectly `[F_TRAVEL]`
 - C) a team that loves working together `[F_PEOPLE]`
 - D) a contract that's fair to both sides `[F_LAW]`
 - E) a business you started yourself `[F_STARTUP]`
 
-**Q16. Which would you read about?**
+**Q13. Which would you read about?**
 - A) how teens build savings `[F_MONEY]`
 - B) how a sneaker drop sells out `[F_FASHION]`
 - C) how car brands win customers `[F_AUTO]`
 - D) how companies outsource their work `[F_SERVICE]`
 - E) how a cereal gets its packaging `[F_FOODPROD]`
 
-**Q17. Pick the pop-up you'd run:**
+**Q14. Pick the pop-up you'd run:**
 - A) a viral video ad booth `[F_ADS]`
 - B) a curated little shop `[F_RETAIL]`
 - C) a merch stand at a concert `[F_SPORTS]`
 - D) a demo table where you pitch shoppers `[F_SELL]`
 - E) a free tax-help desk `[F_ACCT]`
+- F) a streetwear customization booth `[F_FASHION]`
 
-**Q18. Which detail would you obsess over?**
+**Q15. Which detail would you obsess over?**
 - A) whether the investment beats the market `[F_INVEST]`
 - B) how a hotel room feels when you walk in `[F_HOTEL]`
 - C) how fast an order gets out the window `[F_FASTFOOD]`
 - D) how a menu is designed `[F_RESTAURANT]`
 - E) how smooth a trip's itinerary is `[F_TRAVEL]`
+- F) how a car showroom feels to a customer `[F_AUTO]`
 
-**Q19. You'd want to be the expert on…**
+**Q16. You'd want to be the expert on…**
 - A) what makes employees stay `[F_PEOPLE]`
 - B) business ethics and rules `[F_LAW]`
 - C) turning an idea into a company `[F_STARTUP]`
 - D) getting out of debt `[F_MONEY]`
 - E) what makes a brand cool `[F_FASHION]`
 
-**Q20. Which class would you take?**
+**Q17. Which class would you take?**
 - A) The Business of Cars `[F_AUTO]`
 - B) Business-to-Business Services `[F_SERVICE]`
 - C) Food & Beverage Marketing `[F_FOODPROD]`
 - D) Advertising & Media `[F_ADS]`
 - E) Retail & Merchandising `[F_RETAIL]`
 
-**Q21. Which would you brag about?**
+**Q18. Which would you brag about?**
 - A) selling out the arena `[F_SPORTS]`
 - B) the biggest sale of the month `[F_SELL]`
 - C) an audit with zero errors `[F_ACCT]`
 - D) a stock pick that doubled `[F_INVEST]`
 - E) a hotel with perfect reviews `[F_HOTEL]`
 
-**Q22. Where would you rather work a summer?**
+**Q19. Where would you rather work a summer?**
 - A) a busy fast-food chain `[F_FASTFOOD]`
 - B) a sit-down restaurant `[F_RESTAURANT]`
 - C) a travel agency `[F_TRAVEL]`
 - D) a company's HR office `[F_PEOPLE]`
 - E) a law or ethics office `[F_LAW]`
 
-**Q23. Your dream headline about you:**
+**Q20. Your dream headline about you:**
 - A) "They founded it at 17." `[F_STARTUP]`
 - B) "How they paid for college themselves." `[F_MONEY]`
 - C) "The stylist behind the collection." `[F_FASHION]`
 - D) "They rebuilt the dealership." `[F_AUTO]`
 - E) "The firm small businesses trust." `[F_SERVICE]`
 
-**Q24. Which problem would you solve?**
+**Q21. Which problem would you solve?**
 - A) a snack nobody's buying `[F_FOODPROD]`
 - B) an ad nobody remembers `[F_ADS]`
 - C) a store with messy shelves `[F_RETAIL]`
 - D) empty seats at the game `[F_SPORTS]`
 - E) a customer who won't say yes `[F_SELL]`
 
-**Q25. Pick the tool you'd master:**
+**Q22. Pick the tool you'd master:**
 - A) a spreadsheet of financial records `[F_ACCT]`
 - B) a stock-trading app `[F_INVEST]`
 - C) a hotel booking system `[F_HOTEL]`
 - D) a kitchen order screen `[F_FASTFOOD]`
 - E) a reservation book `[F_RESTAURANT]`
 
-**Q26. What would you plan for fun?**
+**Q23. What would you plan for fun?**
 - A) a two-week trip abroad `[F_TRAVEL]`
 - B) a team retreat everyone loves `[F_PEOPLE]`
 - C) a fair debate on a tough rule `[F_LAW]`
@@ -220,25 +215,26 @@ event you could sign up for. 30 questions.
 
 ## Part 3 — How do you like to compete? (4 questions)
 
-**Q27. Alone or with a partner?**
-- A) Alone — I want the whole thing to be mine `[SOLO]`
-- B) With a partner — I'm sharper bouncing ideas `[TEAM]`
-
-**Q28. In a role-play you'd rather…**
+**Q24. In a role-play you'd rather…**
 - A) own the entire answer yourself `[SOLO]`
 - B) split the thinking with a teammate `[TEAM]`
 
-**Q29. Which appeals more?**
+**Q25. Which appeals more?**
 - A) Learn the fundamentals across all of business first `[FOUND]`
 - B) Go deep on the one industry I already love `[SPEC]`
 
-**Q30. Your competition style:**
+**Q26. Your competition style:**
 - A) "Give me a broad case I can reason through." `[FOUND]`
 - B) "Give me the industry I know best." `[SPEC]`
 
-> **Note:** Q29–Q30 ask about *preference*, deliberately — not "is this your first
-> year." Every middle schooler is a first-year, so that question told us nothing
-> and shoved everyone into the same five beginner events.
+**Q27. Is this your first year in DECA?**
+- A) Yes, this is my first year. `[FOUND]`
+- B) No, I've competed before. `[SPEC]`
+
+> **Note:** Q25–Q26 ask about *preference*. Q27 ("Is this your first year in
+> DECA?") was added back on the live site; it only adds `FOUND` or `SPEC` points
+> like Q25–Q26, so it nudges beginners toward Principles events without
+> overriding the rest of the quiz.
 
 ---
 

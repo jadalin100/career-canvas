@@ -67,7 +67,7 @@ extreme-student persona. Run it after editing either quiz.
 
 ---
 
-## Quiz — DECA Event · 30 questions, all 29 role-play events
+## Quiz — DECA Event · 27 questions, all 29 role-play events
 
 **This quiz scores the 29 events directly — there is no "pick a category, then
 look up an event" step.** Each answer adds points to specific events, and the
@@ -77,7 +77,7 @@ result is the **top 3 events** by score.
 | Signal | Points |
 |---|---|
 | Part 1 (Q1–Q8) — you pick an event's **cluster** | **+1** to every event in it |
-| Part 2 (Q9–Q26) — you pick an event's **geek-out tag** | **+3** to each event with that tag |
+| Part 2 (Q9–Q23) — you pick an event's **geek-out tag** | **+3** to each event with that tag |
 | Part 2 — any tag belonging to a **Principles event's cluster** | **+1** to that Principles event |
 | Part 3 — `SOLO` | **+3** to each Individual Series event |
 | Part 3 — `TEAM` | **+3** to each Team Decision Making event |
